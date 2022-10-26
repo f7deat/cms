@@ -8,5 +8,12 @@ export async function addCatalog(data: API.Catalog) {
 }
 
 export async function listCatalog() {
+  const data: API.Catalog[] = [
+    {
+      name: 'Home',
+      normalizedName: 'home',
+    },
+  ];
+  return data;
   return request('https://localhost:7131/api/catalog/list');
 }
