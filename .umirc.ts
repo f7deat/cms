@@ -29,6 +29,17 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
+    {
+      name: 'Component',
+      path: '/works',
+      routes: [
+        {
+          name: 'html',
+          path: '/works/html',
+          component: './works/html',
+        },
+      ],
+    },
   ],
   npmClient: 'yarn',
 });
