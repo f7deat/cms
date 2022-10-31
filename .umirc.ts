@@ -32,6 +32,7 @@ export default defineConfig({
     {
       name: 'Component',
       path: '/works',
+      hideInMenu: true,
       routes: [
         {
           name: 'html',
@@ -39,6 +40,11 @@ export default defineConfig({
           component: './works/html',
         },
       ],
+    },
+    {
+      name: 'CSS',
+      path: '/works/css',
+      component: './works/css',
     },
   ],
   npmClient: 'yarn',

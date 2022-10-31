@@ -9,5 +9,6 @@ declare namespace API {
     workId: string;
     name: string;
     normalizedName: string;
+    sortOrder: number;
   };
 }

@@ -9,7 +9,7 @@ import {
   updateWorkItem,
 } from '@/services/work-item';
 import { trim } from '@/utils/format';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   DrawerForm,
   ModalForm,
@@ -94,21 +94,26 @@ const HomePage: React.FC = () => {
           <Catalog catalogIds={catalogIds} setCatalogIds={setCatalogIds} />
         </Col>
         <Col span={20}>
-          <div className="flex justify-between">
-            <Button onClick={() => setVisibleComponent(true)}>
+          <div className="flex justify-between mb-2">
+            <Button
+              onClick={() => setVisibleComponent(true)}
+              type="primary"
+              icon={<PlusOutlined />}
+            >
               New component
             </Button>
           </div>
           <ProList
             dataSource={workItems}
+            headerTitle="Components"
             metas={{
               title: {
                 dataIndex: 'name',
               },
               actions: {
-                render: (text, row, index) => [
+                render: (text, row) => [
                   <Button
-                    key={index}
+                    key={1}
                     icon={<EditOutlined />}
                     onClick={() => {
                       if (row.normalizedName === 'Html') {
@@ -118,11 +123,7 @@ const HomePage: React.FC = () => {
                       setVisibleEdit(true);
                     }}
                   />,
-                  <Button
-                    key={index}
-                    icon={<DeleteOutlined />}
-                    danger
-                  ></Button>,
+                  <Button key={2} icon={<DeleteOutlined />} danger></Button>,
                 ],
               },
             }}
