@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import React from 'react';
 
 export function addWorkItem(data: any) {
   return request(`https://localhost:7131/api/workItem/add`, {
@@ -7,8 +8,8 @@ export function addWorkItem(data: any) {
   });
 }
 
-export function listWorkItem(id: string | undefined) {
-  return request(`https://localhost:7131/api/workItem/list/${id}`);
+export function listWorkItem(ids: React.Key[]) {
+  return request(`https://localhost:7131/api/workItem/list/${ids[0]}`);
 }
 
 export function updateTitle(data: any) {
@@ -23,4 +24,8 @@ export function updateWorkItem(data: any) {
     method: 'POST',
     data,
   });
+}
+
+export function getWorkItem(id: string | undefined) {
+  return request(`https://localhost:7131/api/workItem/${id}`);
 }

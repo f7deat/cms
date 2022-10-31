@@ -1,85 +1,46 @@
-import { deleteCatalog, listCatalog } from '@/services/catalog';
-import { BarsOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, Menu, MenuProps, message } from 'antd';
-import { useState, useEffect } from 'react';
+import { listTree } from '@/services/catalog';
+import { Input, Tree } from 'antd';
+import React, { useState, useEffect } from 'react';
 
 const { Search } = Input;
 
 type CatalogProps = {
-  catalog?: API.Catalog;
-  setCatalog: any;
+  catalogIds: React.Key[];
+  setCatalogIds: any;
 };
 
 const Catalog: React.FC<CatalogProps> = (props) => {
-  const [catalogs, setCatalogs] = useState<API.Catalog[]>([]);
+  const [treeData, setTreeData] = useState<any>();
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
+  const [autoExpandParent, setAutoExpandParent] = useState(true);
+
   useEffect(() => {
-    listCatalog().then((response) => {
-      setCatalogs(response);
+    listTree().then((response) => {
+      setTreeData(response);
     });
   }, []);
 
-  const onClick: MenuProps['onClick'] = ({ key }) => {
-    if (!props.catalog?.id) {
-      return message.warning('Cannot find any catalog selected!');
-    }
-    if (key === 'delete') {
-      deleteCatalog(props.catalog.id).then((response) => {
-        if (response.succeeded) {
-          message.success('Deleted!');
-        } else {
-          message.error(response.message);
-        }
-      });
-    }
+  const onExpand = (newExpandedKeys: React.Key[]) => {
+    setExpandedKeys(newExpandedKeys);
+    setAutoExpandParent(false);
   };
 
-  const menu = (
-    <Menu
-      items={[
-        {
-          key: 'new',
-          label: 'New page',
-        },
-        {
-          key: 'copy',
-          label: 'Copy',
-        },
-        {
-          key: 'paste',
-          label: 'Paste',
-        },
-        {
-          key: 'delete',
-          label: 'Delete',
-        },
-      ]}
-      onClick={onClick}
-    />
-  );
-
-  const setCatalog = (value: API.Catalog) => {
-    props.setCatalog(value);
+  const onSelect = (selectedKeys: React.Key[]) => {
+    props.setCatalogIds(selectedKeys);
   };
 
   return (
     <div>
       <Search />
       <div className="bg-white">
-        {catalogs.map((value) => (
-          <div
-            className="flex items-center justify-between"
-            key={value.normalizedName}
-          >
-            <Button type="link" onClick={() => setCatalog(value)}>
-              {value.name}
-            </Button>
-            <Dropdown overlay={menu}>
-              <Button type="link">
-                <BarsOutlined />
-              </Button>
-            </Dropdown>
-          </div>
-        ))}
+        <Tree
+          treeData={treeData}
+          expandedKeys={expandedKeys}
+          onExpand={onExpand}
+          autoExpandParent={autoExpandParent}
+          draggable
+          onSelect={onSelect}
+        />
       </div>
     </div>
   );

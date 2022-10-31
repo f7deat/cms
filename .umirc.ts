@@ -35,7 +35,7 @@ export default defineConfig({
       routes: [
         {
           name: 'html',
-          path: '/works/html',
+          path: '/works/html/:id',
           component: './works/html',
         },
       ],

@@ -6,7 +6,7 @@ declare namespace API {
   };
 
   type WorkItem = {
-    id: string;
+    workId: string;
     name: string;
     normalizedName: string;
   };

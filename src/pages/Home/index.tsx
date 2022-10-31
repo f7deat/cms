@@ -9,7 +9,7 @@ import {
   updateWorkItem,
 } from '@/services/work-item';
 import { trim } from '@/utils/format';
-import { EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   DrawerForm,
   ModalForm,
@@ -19,9 +19,9 @@ import {
   ProList,
 } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Button, Col, message, Row, Typography } from 'antd';
+import { Button, Col, message, Row } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 
 const HomePage: React.FC = () => {
@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
     useState<boolean>(false);
   const [visibleComponent, setVisibleComponent] = useState<boolean>(false);
   const [components, setComponents] = useState<DefaultOptionType[]>();
-  const [catalog, setCatalog] = useState<API.Catalog>();
+  const [catalogIds, setCatalogIds] = useState<React.Key[]>([]);
   const [workItems, setWorkItems] = useState<API.WorkItem[]>([]);
   const [visibleEdit, setVisibleEdit] = useState<boolean>(false);
   const [workId, setWorkId] = useState<string>();
@@ -59,13 +59,13 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    listWorkItem(catalog?.id).then((response) => {
+    listWorkItem(catalogIds).then((response) => {
       setWorkItems(response);
     });
-  }, [catalog]);
+  }, [catalogIds]);
 
   const onFinishComponent = async (value: any) => {
-    value.catalogId = catalog?.id;
+    value.catalogId = catalogIds[0];
     const response = await addWorkItem(value);
     if (response.succeeded) {
       message.success('Added!');
@@ -91,11 +91,10 @@ const HomePage: React.FC = () => {
     <PageContainer ghost title={false}>
       <Row gutter={16}>
         <Col span={4}>
-          <Catalog catalog={catalog} setCatalog={setCatalog} />
+          <Catalog catalogIds={catalogIds} setCatalogIds={setCatalogIds} />
         </Col>
         <Col span={20}>
           <div className="flex justify-between">
-            <Typography.Title level={4}>{catalog?.name}</Typography.Title>
             <Button onClick={() => setVisibleComponent(true)}>
               New component
             </Button>
@@ -113,14 +112,17 @@ const HomePage: React.FC = () => {
                     icon={<EditOutlined />}
                     onClick={() => {
                       if (row.normalizedName === 'Html') {
-                        history.push(
-                          `/works/${row.normalizedName.toLocaleLowerCase()}`,
-                        );
+                        history.push(`/works/html/${row.workId}`);
                       }
-                      setWorkId(row.id);
+                      setWorkId(row.workId);
                       setVisibleEdit(true);
                     }}
                   />,
+                  <Button
+                    key={index}
+                    icon={<DeleteOutlined />}
+                    danger
+                  ></Button>,
                 ],
               },
             }}
