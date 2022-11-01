@@ -1,4 +1,4 @@
-import { getWorkItem, saveWorkItem } from '@/services/work-item';
+import { getWorkContent, saveWorkContent } from '@/services/work-content';
 import {
   PageContainer,
   ProForm,
@@ -27,7 +27,7 @@ const HtmlComponent: React.FC = () => {
   }
 
   useEffect(() => {
-    getWorkItem(id).then((response) => {
+    getWorkContent(id).then((response) => {
       //   editor = new EditorJS({
       //     holder: 'editorjs',
       //     tools: {
@@ -83,7 +83,7 @@ const HtmlComponent: React.FC = () => {
   }, [id]);
 
   const onFinish = async (values: API.WorkItem) => {
-    const response = await saveWorkItem(values);
+    const response = await saveWorkContent(values);
     if (response.succeeded) {
       message.success('Saved!');
     }

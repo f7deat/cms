@@ -3,14 +3,16 @@ import Guide from '@/components/Guide';
 import { addCatalog } from '@/services/catalog';
 import { listComponent } from '@/services/component';
 import {
-  addWorkItem,
-  listWorkItem,
+  addWorkContent,
+  deleteWorkContent,
+  listWorkContent,
   updateTitle,
-  updateWorkItem,
-} from '@/services/work-item';
+  updateWorkContent,
+} from '@/services/work-content';
 import { trim } from '@/utils/format';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
+  ActionType,
   DrawerForm,
   ModalForm,
   PageContainer,
@@ -19,20 +21,21 @@ import {
   ProList,
 } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Button, Col, message, Row } from 'antd';
+import { Button, Col, message, Popconfirm, Row } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.less';
 
 const HomePage: React.FC = () => {
   const { name } = useModel('global');
+
+  const actionRef = useRef<ActionType>();
 
   const [visibleCatalogModal, setVisibleCatalogModal] =
     useState<boolean>(false);
   const [visibleComponent, setVisibleComponent] = useState<boolean>(false);
   const [components, setComponents] = useState<DefaultOptionType[]>();
   const [catalogIds, setCatalogIds] = useState<React.Key[]>([]);
-  const [workItems, setWorkItems] = useState<API.WorkItem[]>([]);
   const [visibleEdit, setVisibleEdit] = useState<boolean>(false);
   const [workId, setWorkId] = useState<string>();
 
@@ -41,6 +44,7 @@ const HomePage: React.FC = () => {
       if (response.succeeded) {
         message.success('Saved!');
         setVisibleCatalogModal(false);
+        actionRef.current?.reload();
       }
     });
   };
@@ -59,17 +63,16 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    listWorkItem(catalogIds).then((response) => {
-      setWorkItems(response);
-    });
+    actionRef.current?.reload();
   }, [catalogIds]);
 
   const onFinishComponent = async (value: any) => {
     value.catalogId = catalogIds[0];
-    const response = await addWorkItem(value);
+    const response = await addWorkContent(value);
     if (response.succeeded) {
       message.success('Added!');
       setVisibleComponent(false);
+      actionRef.current?.reload();
     }
   };
 
@@ -77,13 +80,21 @@ const HomePage: React.FC = () => {
     if (values.html) {
       values.id = values.workId;
       values.arguments = values.label;
-      await updateWorkItem(values);
+      await updateWorkContent(values);
       return;
     }
     const response = await updateTitle(values);
     if (response.succeeded) {
       message.success('Saved!');
       setVisibleEdit(false);
+    }
+  };
+
+  const onConfirm = async (id: string) => {
+    const response = await deleteWorkContent(id);
+    if (response.succeeded) {
+      message.success('Deleted!');
+      actionRef.current?.reload();
     }
   };
 
@@ -103,8 +114,9 @@ const HomePage: React.FC = () => {
               New component
             </Button>
           </div>
-          <ProList
-            dataSource={workItems}
+          <ProList<API.WorkItem>
+            actionRef={actionRef}
+            request={async () => listWorkContent(catalogIds)}
             headerTitle="Components"
             metas={{
               title: {
@@ -117,13 +129,19 @@ const HomePage: React.FC = () => {
                     icon={<EditOutlined />}
                     onClick={() => {
                       if (row.normalizedName === 'Html') {
-                        history.push(`/works/html/${row.workId}`);
+                        history.push(`/works/html/${row.id}`);
                       }
-                      setWorkId(row.workId);
+                      setWorkId(row.id);
                       setVisibleEdit(true);
                     }}
                   />,
-                  <Button key={2} icon={<DeleteOutlined />} danger></Button>,
+                  <Popconfirm
+                    title="Are you sure?"
+                    key={2}
+                    onConfirm={() => onConfirm(row.id)}
+                  >
+                    <Button icon={<DeleteOutlined />} danger></Button>,
+                  </Popconfirm>,
                 ],
               },
             }}
@@ -145,9 +163,11 @@ const HomePage: React.FC = () => {
             onFinish={onFinishComponent}
             onVisibleChange={setVisibleComponent}
           >
+            <ProFormText name="name" label="Name" />
             <ProFormSelect
               options={components}
               name="componentId"
+              label="Component"
             ></ProFormSelect>
             <ProFormText name="arguments" hidden={true} />
           </ModalForm>

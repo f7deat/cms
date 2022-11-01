@@ -6,7 +6,7 @@ declare namespace API {
   };
 
   type WorkItem = {
-    workId: string;
+    id: string;
     name: string;
     normalizedName: string;
     sortOrder: number;

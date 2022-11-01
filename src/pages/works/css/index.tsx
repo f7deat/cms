@@ -1,6 +1,7 @@
-import { addCss, listCss } from '@/services/work-item';
-import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { addCss, deleteCss, listCss } from '@/services/work-content';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
+  ActionType,
   ModalForm,
   PageContainer,
   ProFormCheckbox,
@@ -8,28 +9,32 @@ import {
   ProList,
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Button, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { Button, message, Popconfirm } from 'antd';
+import { useRef, useState } from 'react';
 
 const CssComponent: React.FC = () => {
-  const [css, setCss] = useState<API.WorkItem[]>();
   const [visible, setVisible] = useState<boolean>(false);
-
-  useEffect(() => {
-    listCss().then((response) => {
-      setCss(response);
-    });
-  }, []);
+  const actionRef = useRef<ActionType>();
 
   const onFinish = async (values: API.WorkItem) => {
-    if (values.workId) {
+    if (values.id) {
     } else {
       const response = await addCss(values);
       if (response.succeeded) {
         message.success('Added!');
         setVisible(false);
+        actionRef.current?.reload();
       }
     }
+  };
+
+  const onConfirm = (id: string) => {
+    deleteCss(id).then((response) => {
+      if (response.succeeded) {
+        message.success('Deleted!');
+        actionRef.current?.reload();
+      }
+    });
   };
 
   return (
@@ -45,8 +50,9 @@ const CssComponent: React.FC = () => {
         </Button>
       }
     >
-      <ProList
-        dataSource={css}
+      <ProList<API.WorkItem>
+        request={listCss}
+        actionRef={actionRef}
         metas={{
           title: {
             dataIndex: 'name',
@@ -57,9 +63,20 @@ const CssComponent: React.FC = () => {
                 key={1}
                 icon={<EditOutlined />}
                 onClick={() => {
-                  history.push(`/works/css/item/${entity.workId}`);
+                  history.push(`/works/css/center/${entity.id}`);
                 }}
               ></Button>,
+              <Popconfirm
+                key={2}
+                title="Are you sure?"
+                onConfirm={() => onConfirm(entity.id)}
+              >
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                ></Button>
+              </Popconfirm>,
             ],
           },
         }}

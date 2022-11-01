@@ -46,6 +46,12 @@ export default defineConfig({
       path: '/works/css',
       component: './works/css',
     },
+    {
+      name: 'CSS',
+      path: '/works/css/center/:id',
+      component: './works/css/center',
+      hideInMenu: true,
+    },
   ],
   npmClient: 'yarn',
 });
