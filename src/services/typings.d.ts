@@ -11,4 +11,14 @@ declare namespace API {
     normalizedName: string;
     sortOrder: number;
   };
+
+  type Image = {
+    id: string;
+    alt: string;
+    height?: number;
+    src: string;
+    width?: number;
+    url: string;
+    className: string;
+  };
 }

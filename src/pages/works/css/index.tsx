@@ -1,97 +1,49 @@
-import { addCss, deleteCss, listCss } from '@/services/work-content';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { getCss, saveCss } from '@/services/work-content';
 import {
-  ActionType,
-  ModalForm,
   PageContainer,
-  ProFormCheckbox,
+  ProForm,
+  ProFormInstance,
   ProFormText,
-  ProList,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import { useParams } from '@umijs/max';
+import { message } from 'antd';
+import { useEffect, useRef } from 'react';
 
-const CssComponent: React.FC = () => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const actionRef = useRef<ActionType>();
+const CssSetting: React.FC = () => {
+  const { id } = useParams();
+  const formRef = useRef<ProFormInstance>();
+
+  useEffect(() => {
+    getCss(id).then((response) => {
+      formRef.current?.setFields([
+        {
+          name: 'id',
+          value: id,
+        },
+        {
+          name: 'arguments',
+          value: response,
+        },
+      ]);
+    });
+  }, []);
 
   const onFinish = async (values: API.WorkItem) => {
-    if (values.id) {
-    } else {
-      const response = await addCss(values);
-      if (response.succeeded) {
-        message.success('Added!');
-        setVisible(false);
-        actionRef.current?.reload();
-      }
+    const response = await saveCss(values);
+    if (response.succeeded) {
+      message.success('Saved!');
     }
   };
 
-  const onConfirm = (id: string) => {
-    deleteCss(id).then((response) => {
-      if (response.succeeded) {
-        message.success('Deleted!');
-        actionRef.current?.reload();
-      }
-    });
-  };
-
   return (
-    <PageContainer
-      title="CSS"
-      extra={
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setVisible(true)}
-        >
-          Create
-        </Button>
-      }
-    >
-      <ProList<API.WorkItem>
-        request={listCss}
-        actionRef={actionRef}
-        metas={{
-          title: {
-            dataIndex: 'name',
-          },
-          actions: {
-            render: (dom, entity) => [
-              <Button
-                key={1}
-                icon={<EditOutlined />}
-                onClick={() => {
-                  history.push(`/works/css/center/${entity.id}`);
-                }}
-              ></Button>,
-              <Popconfirm
-                key={2}
-                title="Are you sure?"
-                onConfirm={() => onConfirm(entity.id)}
-              >
-                <Button
-                  type="primary"
-                  danger
-                  icon={<DeleteOutlined />}
-                ></Button>
-              </Popconfirm>,
-            ],
-          },
-        }}
-      />
-      <ModalForm
-        visible={visible}
-        onVisibleChange={setVisible}
-        onFinish={onFinish}
-      >
-        <ProFormText name="name" label="Name" />
-        <ProFormText name="sortOrder" label="Sort order" />
-        <ProFormCheckbox name="active" label="Active" />
-      </ModalForm>
+    <PageContainer>
+      <ProForm onFinish={onFinish} formRef={formRef}>
+        <ProFormText name="id" hidden />
+        <ProFormTextArea name="arguments" label="Content" />
+      </ProForm>
     </PageContainer>
   );
 };
 
-export default CssComponent;
+export default CssSetting;

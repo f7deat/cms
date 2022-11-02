@@ -15,19 +15,9 @@ export default defineConfig({
       redirect: '/home',
     },
     {
-      name: '首页',
+      name: 'Home',
       path: '/home',
       component: './Home',
-    },
-    {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
     },
     {
       name: 'Component',
@@ -43,13 +33,19 @@ export default defineConfig({
     },
     {
       name: 'CSS',
-      path: '/works/css',
+      path: '/works/css/:id',
       component: './works/css',
     },
     {
-      name: 'CSS',
-      path: '/works/css/center/:id',
-      component: './works/css/center',
+      name: 'Row',
+      path: '/works/row/:id',
+      component: './works/row',
+      hideInMenu: true,
+    },
+    {
+      name: 'Image',
+      path: '/works/image/:id',
+      component: './works/image',
       hideInMenu: true,
     },
   ],

@@ -6,14 +6,11 @@ import {
   addWorkContent,
   deleteWorkContent,
   listWorkContent,
-  updateTitle,
-  updateWorkContent,
 } from '@/services/work-content';
 import { trim } from '@/utils/format';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
-  DrawerForm,
   ModalForm,
   PageContainer,
   ProFormSelect,
@@ -36,8 +33,6 @@ const HomePage: React.FC = () => {
   const [visibleComponent, setVisibleComponent] = useState<boolean>(false);
   const [components, setComponents] = useState<DefaultOptionType[]>();
   const [catalogIds, setCatalogIds] = useState<React.Key[]>([]);
-  const [visibleEdit, setVisibleEdit] = useState<boolean>(false);
-  const [workId, setWorkId] = useState<string>();
 
   const onFinish = async (values: API.Catalog) => {
     addCatalog(values).then((response) => {
@@ -73,20 +68,6 @@ const HomePage: React.FC = () => {
       message.success('Added!');
       setVisibleComponent(false);
       actionRef.current?.reload();
-    }
-  };
-
-  const onFinishEdit = async (values: any) => {
-    if (values.html) {
-      values.id = values.workId;
-      values.arguments = values.label;
-      await updateWorkContent(values);
-      return;
-    }
-    const response = await updateTitle(values);
-    if (response.succeeded) {
-      message.success('Saved!');
-      setVisibleEdit(false);
     }
   };
 
@@ -128,11 +109,11 @@ const HomePage: React.FC = () => {
                     key={1}
                     icon={<EditOutlined />}
                     onClick={() => {
-                      if (row.normalizedName === 'Html') {
-                        history.push(`/works/html/${row.id}`);
-                      }
-                      setWorkId(row.id);
-                      setVisibleEdit(true);
+                      history.push(
+                        `/works/${row.normalizedName.toLocaleLowerCase()}/${
+                          row.id
+                        }`,
+                      );
                     }}
                   />,
                   <Popconfirm
@@ -171,21 +152,6 @@ const HomePage: React.FC = () => {
             ></ProFormSelect>
             <ProFormText name="arguments" hidden={true} />
           </ModalForm>
-
-          <DrawerForm
-            visible={visibleEdit}
-            onVisibleChange={setVisibleEdit}
-            onFinish={onFinishEdit}
-          >
-            <ProFormText
-              label="WorkId"
-              name="workId"
-              initialValue={workId}
-              disabled
-            />
-            <ProFormText label="Label" name="label" />
-            <ProFormText label="Html" name="html" initialValue={true} />
-          </DrawerForm>
         </Col>
       </Row>
     </PageContainer>
