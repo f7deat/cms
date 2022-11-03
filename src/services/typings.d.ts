@@ -21,4 +21,13 @@ declare namespace API {
     url: string;
     className: string;
   };
+
+  type Navbar = {
+    navItems: NavItem[];
+  };
+
+  type NavItem = {
+    name: string;
+    url: string;
+  };
 }

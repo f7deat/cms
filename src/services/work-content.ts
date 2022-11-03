@@ -37,9 +37,16 @@ export async function saveWorkContent(data: API.WorkItem) {
   });
 }
 
-export async function deleteWorkContent(id: string) {
-  return request(`workContent/delete/${id}`, {
+export async function deleteWorkContent(
+  workContentId: string,
+  catalogId: React.Key,
+) {
+  return request(`workContent/delete`, {
     method: 'POST',
+    data: {
+      workContentId,
+      catalogId,
+    },
   });
 }
 

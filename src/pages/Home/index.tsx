@@ -71,8 +71,8 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const onConfirm = async (id: string) => {
-    const response = await deleteWorkContent(id);
+  const onConfirm = async (workContentId: string) => {
+    const response = await deleteWorkContent(workContentId, catalogIds[0]);
     if (response.succeeded) {
       message.success('Deleted!');
       actionRef.current?.reload();

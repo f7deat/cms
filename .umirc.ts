@@ -48,6 +48,12 @@ export default defineConfig({
       component: './works/image',
       hideInMenu: true,
     },
+    {
+      name: 'Navbar',
+      path: '/works/navbar/:id',
+      component: './works/navbar',
+      hideInMenu: true,
+    },
   ],
   npmClient: 'yarn',
 });
