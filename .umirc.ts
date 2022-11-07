@@ -54,6 +54,12 @@ export default defineConfig({
       component: './works/navbar',
       hideInMenu: true,
     },
+    {
+      name: 'Catalog',
+      path: 'catalog/:id',
+      component: './Home',
+      hideInMenu: true,
+    },
   ],
   npmClient: 'yarn',
 });

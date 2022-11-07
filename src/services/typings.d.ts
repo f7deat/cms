@@ -23,6 +23,7 @@ declare namespace API {
   };
 
   type Navbar = {
+    id: string | undefined;
     navItems: NavItem[];
   };
 

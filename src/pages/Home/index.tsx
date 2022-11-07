@@ -1,5 +1,5 @@
 import Catalog from '@/components/catalog';
-import Guide from '@/components/Guide';
+import CatalogSetting from '@/components/catalog/settings';
 import { addCatalog } from '@/services/catalog';
 import { listComponent } from '@/services/component';
 import {
@@ -7,7 +7,6 @@ import {
   deleteWorkContent,
   listWorkContent,
 } from '@/services/work-content';
-import { trim } from '@/utils/format';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -17,15 +16,12 @@ import {
   ProFormText,
   ProList,
 } from '@ant-design/pro-components';
-import { history, useModel } from '@umijs/max';
+import { history } from '@umijs/max';
 import { Button, Col, message, Popconfirm, Row } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './index.less';
 
 const HomePage: React.FC = () => {
-  const { name } = useModel('global');
-
   const actionRef = useRef<ActionType>();
 
   const [visibleCatalogModal, setVisibleCatalogModal] =
@@ -86,50 +82,55 @@ const HomePage: React.FC = () => {
           <Catalog catalogIds={catalogIds} setCatalogIds={setCatalogIds} />
         </Col>
         <Col span={20}>
-          <div className="flex justify-between mb-2">
-            <Button
-              onClick={() => setVisibleComponent(true)}
-              type="primary"
-              icon={<PlusOutlined />}
-            >
-              New component
-            </Button>
-          </div>
-          <ProList<API.WorkItem>
-            actionRef={actionRef}
-            request={async () => listWorkContent(catalogIds)}
-            headerTitle="Components"
-            metas={{
-              title: {
-                dataIndex: 'name',
-              },
-              actions: {
-                render: (text, row) => [
-                  <Button
-                    key={1}
-                    icon={<EditOutlined />}
-                    onClick={() => {
-                      history.push(
-                        `/works/${row.normalizedName.toLocaleLowerCase()}/${
-                          row.id
-                        }`,
-                      );
-                    }}
-                  />,
-                  <Popconfirm
-                    title="Are you sure?"
-                    key={2}
-                    onConfirm={() => onConfirm(row.id)}
-                  >
-                    <Button icon={<DeleteOutlined />} danger></Button>,
-                  </Popconfirm>,
-                ],
-              },
-            }}
-          ></ProList>
-          <div className={styles.container}>
-            <Guide name={trim(name)} />
-          </div>
+          <Row gutter={16}>
+            <Col span={16}>
+              <div className="flex justify-between mb-2">
+                <Button
+                  onClick={() => setVisibleComponent(true)}
+                  type="primary"
+                  icon={<PlusOutlined />}
+                >
+                  New component
+                </Button>
+              </div>
+              <ProList<API.WorkItem>
+                actionRef={actionRef}
+                request={async () => listWorkContent(catalogIds)}
+                headerTitle="Components"
+                metas={{
+                  title: {
+                    dataIndex: 'name',
+                  },
+                  actions: {
+                    render: (text, row) => [
+                      <Button
+                        key={1}
+                        icon={<EditOutlined />}
+                        onClick={() => {
+                          history.push(
+                            `/works/${row.normalizedName.toLocaleLowerCase()}/${
+                              row.id
+                            }`,
+                          );
+                        }}
+                      />,
+                      <Popconfirm
+                        title="Are you sure?"
+                        key={2}
+                        onConfirm={() => onConfirm(row.id)}
+                      >
+                        <Button icon={<DeleteOutlined />} danger></Button>,
+                      </Popconfirm>,
+                    ],
+                  },
+                }}
+              ></ProList>
+            </Col>
+            <Col span={8}>
+              <CatalogSetting />
+            </Col>
+          </Row>
+
           <ModalForm
             onFinish={onFinish}
             visible={visibleCatalogModal}

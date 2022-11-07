@@ -95,3 +95,14 @@ export async function saveImage(data: API.Image) {
     data,
   });
 }
+
+export async function getNavbar(id: string | undefined) {
+  return request<API.Navbar>(`workContent/navbar/${id}`);
+}
+
+export async function saveNavbar(data: API.Navbar) {
+  return request(`workContent/navbar/save`, {
+    method: 'POST',
+    data,
+  });
+}

@@ -6,6 +6,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
+import { history } from '@umijs/max';
 import { Button, Input, message, Tree } from 'antd';
 import { DataNode } from 'antd/lib/tree';
 import React, { useState, useEffect, useRef } from 'react';
@@ -41,12 +42,14 @@ const Catalog: React.FC<CatalogProps> = (props) => {
   const onSelect = (selectedKeys: React.Key[]) => {
     props.setCatalogIds(selectedKeys);
     formRef.current?.setFieldValue('parentId', selectedKeys[0]);
+    history.push(`/catalog/${selectedKeys[0]}`);
   };
 
   const onFinish = async (values: API.Catalog) => {
     const response = await addCatalog(values);
     if (response.succeeded) {
       message.success('Saved!');
+      setVisible(false);
     }
   };
 
