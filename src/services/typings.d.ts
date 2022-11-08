@@ -3,6 +3,11 @@ declare namespace API {
     id: string;
     name: string;
     normalizedName: string;
+    setting: CatalogSetting;
+  };
+
+  type CatalogSetting = {
+    title: string;
   };
 
   type WorkItem = {
@@ -30,5 +35,13 @@ declare namespace API {
   type NavItem = {
     name: string;
     url: string;
+  };
+
+  type Statistic = {
+    workContent: number;
+    workItem: number;
+    component: number;
+    fileContent: number;
+    fileItem: number;
   };
 }

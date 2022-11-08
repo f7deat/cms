@@ -35,6 +35,7 @@ export default defineConfig({
       name: 'CSS',
       path: '/works/css/:id',
       component: './works/css',
+      hideInMenu: true,
     },
     {
       name: 'Row',
@@ -57,8 +58,18 @@ export default defineConfig({
     {
       name: 'Catalog',
       path: 'catalog/:id',
-      component: './Home',
+      component: './catalog',
       hideInMenu: true,
+    },
+    {
+      name: 'File manager',
+      path: 'files',
+      component: './files',
+    },
+    {
+      name: 'Backup',
+      path: 'backup',
+      component: './backup',
     },
   ],
   npmClient: 'yarn',

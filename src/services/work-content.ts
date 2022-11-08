@@ -1,5 +1,4 @@
 import { request } from '@umijs/max';
-import React from 'react';
 
 export async function addWorkContent(data: any) {
   return request(`workContent/add`, {
@@ -8,8 +7,8 @@ export async function addWorkContent(data: any) {
   });
 }
 
-export async function listWorkContent(params: React.Key[]) {
-  return request(`workContent/list/${params[0]}`);
+export async function listWorkContent(id: string | undefined) {
+  return request(`workContent/list/${id}`);
 }
 
 export async function updateTitle(data: any) {
@@ -39,7 +38,7 @@ export async function saveWorkContent(data: API.WorkItem) {
 
 export async function deleteWorkContent(
   workContentId: string,
-  catalogId: React.Key,
+  catalogId: string | undefined,
 ) {
   return request(`workContent/delete`, {
     method: 'POST',

@@ -13,13 +13,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const { Search } = Input;
 
-type CatalogProps = {
-  catalogIds: React.Key[];
-  setCatalogIds: any;
-};
-
-const Catalog: React.FC<CatalogProps> = (props) => {
-  const defaultSelectedKeys = ['06d5c4c9-18a6-49eb-a821-ed208631945e'];
+const Catalog: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   const [treeData, setTreeData] = useState<DataNode[]>([]);
@@ -30,7 +24,6 @@ const Catalog: React.FC<CatalogProps> = (props) => {
   useEffect(() => {
     listTree().then((response) => {
       setTreeData(response);
-      props.setCatalogIds(defaultSelectedKeys);
     });
   }, []);
 
@@ -40,7 +33,10 @@ const Catalog: React.FC<CatalogProps> = (props) => {
   };
 
   const onSelect = (selectedKeys: React.Key[]) => {
-    props.setCatalogIds(selectedKeys);
+    if (!selectedKeys || selectedKeys.length === 0) {
+      message.warning('Can de-select');
+      return;
+    }
     formRef.current?.setFieldValue('parentId', selectedKeys[0]);
     history.push(`/catalog/${selectedKeys[0]}`);
   };
@@ -61,15 +57,10 @@ const Catalog: React.FC<CatalogProps> = (props) => {
     <div>
       <div className="flex">
         <Search />
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={handleAdd}
-        ></Button>
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd} />
       </div>
       <div className="bg-white">
         <Tree
-          defaultSelectedKeys={defaultSelectedKeys}
           treeData={treeData}
           expandedKeys={expandedKeys}
           onExpand={onExpand}
