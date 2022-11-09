@@ -44,4 +44,17 @@ declare namespace API {
     fileContent: number;
     fileItem: number;
   };
+
+  type FileListItem = {
+    id: string;
+    name: string;
+    size: number;
+    type: string;
+    url: string;
+  };
+
+  type FileItem = {
+    fileId: string;
+    itemId: string;
+  };
 }

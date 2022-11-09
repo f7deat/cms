@@ -28,23 +28,6 @@ const HtmlComponent: React.FC = () => {
 
   useEffect(() => {
     getWorkContent(id).then((response) => {
-      //   editor = new EditorJS({
-      //     holder: 'editorjs',
-      //     tools: {
-      //       raw: RawTool
-      //     },
-      //     data: {
-      //       blocks: [
-      //         {
-      //           type: 'raw',
-      //           data: {
-      //             html: htmlDecode(response.arguments)
-      //           }
-      //         }
-      //       ]
-      //     }
-      //   });
-      // });
       formRef.current?.setFields([
         {
           name: 'id',
