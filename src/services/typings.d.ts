@@ -8,6 +8,7 @@ declare namespace API {
 
   type CatalogSetting = {
     title: string;
+    container: boolean;
   };
 
   type WorkItem = {
@@ -56,5 +57,23 @@ declare namespace API {
   type FileItem = {
     fileId: string;
     itemId: string;
+  };
+
+  type AppSetting = {
+    id: string;
+    name: string;
+    description: string;
+    normalizedName: string;
+  };
+
+  type ContactForm = {
+    id: string;
+    labels: ContactFormLabel;
+  };
+
+  type ContactFormLabel = {
+    name: string;
+    email: string;
+    phoneNumber: string;
   };
 }

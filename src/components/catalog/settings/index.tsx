@@ -2,6 +2,7 @@ import { getCatalog, saveCatalog } from '@/services/catalog';
 import {
   ProCard,
   ProForm,
+  ProFormCheckbox,
   ProFormInstance,
   ProFormText,
   ProFormTextArea,
@@ -34,6 +35,10 @@ const CatalogSetting: React.FC = () => {
           name: 'title',
           value: response.setting.title,
         },
+        {
+          name: 'container',
+          value: response.setting.container,
+        },
       ]);
     });
   }, [id]);
@@ -41,6 +46,7 @@ const CatalogSetting: React.FC = () => {
   const onFinish = async (values: any) => {
     const setting: API.CatalogSetting = {
       title: values.title,
+      container: values.container,
     };
     values.setting = setting;
     const response = await saveCatalog(values);
@@ -58,6 +64,7 @@ const CatalogSetting: React.FC = () => {
         <ProFormTextArea name="description" label="Description" />
         <Divider />
         <ProFormText name="title" label="Title" />
+        <ProFormCheckbox name="container" label="Container" />
       </ProForm>
     </ProCard>
   );

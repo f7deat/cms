@@ -29,6 +29,11 @@ export default defineConfig({
           path: '/works/html/:id',
           component: './works/html',
         },
+        {
+          name: 'contact-form',
+          path: '/works/contactform/:id',
+          component: './works/contact-form',
+        },
       ],
     },
     {
@@ -67,9 +72,19 @@ export default defineConfig({
       component: './files',
     },
     {
+      name: 'Settings',
+      path: 'settings',
+      component: './settings',
+    },
+    {
       name: 'Backup',
       path: 'backup',
       component: './backup',
+    },
+    {
+      name: 'Upgrade',
+      path: 'upgrade',
+      component: './settings/upgrade',
     },
   ],
   npmClient: 'yarn',

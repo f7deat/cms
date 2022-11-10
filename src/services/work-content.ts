@@ -18,6 +18,20 @@ export async function updateTitle(data: any) {
   });
 }
 
+export async function saveContactForm(data: API.ContactForm) {
+  return request(`workContent/save/contact-form`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function addColumn(data: any) {
+  return request(``, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function updateWorkContent(data: any) {
   return request(`workContent/save`, {
     method: 'POST',
