@@ -1,7 +1,7 @@
+import AddComponent from '@/components/add-component';
 import Catalog from '@/components/catalog';
 import CatalogSetting from '@/components/catalog/settings';
 import { addCatalog } from '@/services/catalog';
-import { listComponent } from '@/services/component';
 import {
   addWorkContent,
   deleteWorkContent,
@@ -12,14 +12,12 @@ import {
   ActionType,
   ModalForm,
   PageContainer,
-  ProFormSelect,
   ProFormText,
   ProList,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { history } from '@umijs/max';
 import { Button, Col, message, Popconfirm, Row } from 'antd';
-import { DefaultOptionType } from 'antd/lib/select';
 import React, { useEffect, useRef, useState } from 'react';
 
 const CatalogPage: React.FC = () => {
@@ -30,7 +28,6 @@ const CatalogPage: React.FC = () => {
   const [visibleCatalogModal, setVisibleCatalogModal] =
     useState<boolean>(false);
   const [visibleComponent, setVisibleComponent] = useState<boolean>(false);
-  const [components, setComponents] = useState<DefaultOptionType[]>();
 
   const onFinish = async (values: API.Catalog) => {
     addCatalog(values).then((response) => {
@@ -41,19 +38,6 @@ const CatalogPage: React.FC = () => {
       }
     });
   };
-
-  useEffect(() => {
-    listComponent().then((response) => {
-      setComponents(
-        response.map((c: any) => {
-          return {
-            label: c.name,
-            value: c.id,
-          };
-        }),
-      );
-    });
-  }, []);
 
   useEffect(() => {
     actionRef.current?.reload();
@@ -141,20 +125,11 @@ const CatalogPage: React.FC = () => {
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />
           </ModalForm>
-          <ModalForm
+          <AddComponent
             visible={visibleComponent}
-            title="Component"
-            onFinish={onFinishComponent}
             onVisibleChange={setVisibleComponent}
-          >
-            <ProFormText name="name" label="Name" />
-            <ProFormSelect
-              options={components}
-              name="componentId"
-              label="Component"
-            ></ProFormSelect>
-            <ProFormText name="arguments" hidden={true} />
-          </ModalForm>
+            onFinish={onFinishComponent}
+          />
         </Col>
       </Row>
     </PageContainer>

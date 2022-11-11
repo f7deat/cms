@@ -76,4 +76,13 @@ declare namespace API {
     email: string;
     phoneNumber: string;
   };
+
+  type WorkContent = {
+    id: string;
+    name: string;
+    parentId: string | undefined;
+    componentId: string;
+    arguments: string;
+    active: boolean;
+  };
 }

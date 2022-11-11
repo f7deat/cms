@@ -11,6 +11,17 @@ export async function listWorkContent(id: string | undefined) {
   return request(`workContent/list/${id}`);
 }
 
+export async function listChildWorkContent(id: string | undefined) {
+  return request(`workContent/list-child/${id}`);
+}
+
+export async function addChildWorkContent(data: API.WorkContent) {
+  return request(`workContent/add-child`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function updateTitle(data: any) {
   return request(`workContent/save/title`, {
     method: 'POST',
@@ -19,14 +30,14 @@ export async function updateTitle(data: any) {
 }
 
 export async function saveContactForm(data: API.ContactForm) {
-  return request(`workContent/save/contact-form`, {
+  return request(`workContent/contact-form/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function addColumn(data: any) {
-  return request(``, {
+  return request(`workContent/column/add`, {
     method: 'POST',
     data,
   });
