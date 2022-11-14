@@ -29,7 +29,13 @@ const SettingPage: React.FC = () => {
         <Button
           icon={<EditOutlined />}
           key={1}
-          onClick={() => history.push(`/setting/${entity.id}`)}
+          onClick={() =>
+            history.push(
+              `/settings/${entity.normalizedName.toLocaleLowerCase()}/${
+                entity.id
+              }`,
+            )
+          }
         ></Button>,
       ],
     },

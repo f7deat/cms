@@ -36,6 +36,10 @@ export async function saveContactForm(data: API.ContactForm) {
   });
 }
 
+export async function getContactForm(id: string | undefined) {
+  return request<API.ContactForm>(`workContent/contact-form/${id}`);
+}
+
 export async function addColumn(data: any) {
   return request(`workContent/column/add`, {
     method: 'POST',

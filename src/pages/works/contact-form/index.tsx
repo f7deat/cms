@@ -1,4 +1,4 @@
-import { saveContactForm } from '@/services/work-content';
+import { getContactForm, saveContactForm } from '@/services/work-content';
 import {
   PageContainer,
   ProForm,
@@ -15,13 +15,27 @@ const ContactForm: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
-    formRef.current?.setFields([
-      {
-        name: 'id',
-        value: id,
-      },
-    ]);
-  }, []);
+    getContactForm(id).then((response) => {
+      formRef.current?.setFields([
+        {
+          name: 'id',
+          value: id,
+        },
+        {
+          name: 'name',
+          value: response.labels.name,
+        },
+        {
+          name: 'email',
+          value: response.labels.email,
+        },
+        {
+          name: 'phoneNumber',
+          value: response.labels.phoneNumber,
+        },
+      ]);
+    });
+  }, [id]);
 
   const onFinish = async (values: any) => {
     const labels: API.ContactFormLabel = {
