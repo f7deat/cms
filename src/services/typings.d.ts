@@ -1,6 +1,9 @@
 declare namespace API {
-  type Catalog = {
+  type BaseEntity = {
     id: string;
+  };
+
+  type Catalog = BaseEntity & {
     name: string;
     normalizedName: string;
     setting: CatalogSetting;
@@ -11,15 +14,14 @@ declare namespace API {
     container: boolean;
   };
 
-  type WorkItem = {
-    id: string;
+  type WorkItem = BaseEntity & {
     name: string;
     normalizedName: string;
     sortOrder: number;
+    catalogId: string;
   };
 
-  type Image = {
-    id: string;
+  type Image = BaseEntity & {
     alt: string;
     height?: number;
     src: string;
@@ -39,6 +41,7 @@ declare namespace API {
   };
 
   type Statistic = {
+    catalog: number;
     workContent: number;
     workItem: number;
     component: number;
@@ -46,8 +49,7 @@ declare namespace API {
     fileItem: number;
   };
 
-  type FileListItem = {
-    id: string;
+  type FileListItem = BaseEntity & {
     name: string;
     size: number;
     type: string;
@@ -59,15 +61,15 @@ declare namespace API {
     itemId: string;
   };
 
-  type AppSetting = {
-    id: string;
+  type AppSetting = BaseEntity & {
     name: string;
     description: string;
     normalizedName: string;
   };
 
-  type ContactForm = {
-    id: string;
+  type ContactForm = BaseEntity & {
+    name: string;
+    resultUrl: string;
     labels: ContactFormLabel;
   };
 
@@ -77,12 +79,18 @@ declare namespace API {
     phoneNumber: string;
   };
 
-  type WorkContent = {
-    id: string;
+  type WorkContent = BaseEntity & {
     name: string;
     parentId: string | undefined;
     componentId: string;
     arguments: string;
     active: boolean;
+  };
+
+  type Contact = BaseEntity & {
+    name: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
   };
 }

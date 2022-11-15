@@ -39,6 +39,11 @@ const Backup: React.FC = () => {
       <Row gutter={16}>
         <Col span={4}>
           <ProCard>
+            <Statistic title="Catalog" value={statistic?.catalog} />
+          </ProCard>
+        </Col>
+        <Col span={4}>
+          <ProCard>
             <Statistic title="Component" value={statistic?.component} />
           </ProCard>
         </Col>

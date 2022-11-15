@@ -53,6 +53,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'Swiper',
+          path: '/works/swiper/:id',
+          component: './works/swiper',
+          hideInMenu: true,
+        },
+        {
           name: 'CSS',
           path: '/works/css/:id',
           component: './works/css',
@@ -72,26 +78,42 @@ export default defineConfig({
       component: './files',
     },
     {
-      name: 'Backup',
-      path: 'backup',
-      component: './backup',
-    },
-    {
       name: 'Settings',
       path: 'settings',
       component: './settings',
     },
     {
       name: 'SendGrid',
-      path: 'settings/sendgrid/:id',
+      path: '/settings/sendgrid/:id',
       component: './settings/sendgrid',
       hideInMenu: true,
     },
     {
-      name: 'Upgrade',
-      path: 'settings/upgrade',
-      component: './settings/upgrade',
-      hideInMenu: true,
+      name: 'Help',
+      path: '/help',
+      routes: [
+        {
+          name: 'Upgrade',
+          path: '/help/upgrade',
+          component: './settings/upgrade',
+        },
+        {
+          name: 'Backup',
+          path: 'backup',
+          component: './backup',
+        },
+      ],
+    },
+    {
+      name: 'Features',
+      path: 'features',
+      routes: [
+        {
+          name: 'Contact',
+          path: '/features/contacts',
+          component: './features/contacts',
+        },
+      ],
     },
   ],
   npmClient: 'yarn',

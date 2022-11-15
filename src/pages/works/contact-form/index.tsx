@@ -23,6 +23,14 @@ const ContactForm: React.FC = () => {
         },
         {
           name: 'name',
+          value: response.name,
+        },
+        {
+          name: 'resultUrl',
+          value: response.resultUrl,
+        },
+        {
+          name: 'labelName',
           value: response.labels.name,
         },
         {
@@ -39,12 +47,14 @@ const ContactForm: React.FC = () => {
 
   const onFinish = async (values: any) => {
     const labels: API.ContactFormLabel = {
-      name: values.name,
+      name: values.labelName,
       email: values.email,
       phoneNumber: values.phoneNumber,
     };
     const body: API.ContactForm = {
       id: values.id,
+      name: values.name,
+      resultUrl: values.resultUrl,
       labels: labels,
     };
 
@@ -58,9 +68,11 @@ const ContactForm: React.FC = () => {
     <PageContainer title="Contact form">
       <ProForm formRef={formRef} onFinish={onFinish}>
         <ProFormText name="id" hidden />
+        <ProFormText name="name" label="Name" />
+        <ProFormText name="resultUrl" label="Result url" />
         <Divider />
         <Typography.Title level={4}>Labels</Typography.Title>
-        <ProFormText name="name" label="Name" />
+        <ProFormText name="labelName" label="Name" />
         <ProFormText name="email" label="Email" />
         <ProFormText name="phoneNumber" label="Phone number" />
       </ProForm>

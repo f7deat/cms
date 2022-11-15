@@ -11,6 +11,21 @@ export async function listWorkContent(id: string | undefined) {
   return request(`workContent/list/${id}`);
 }
 
+export async function sortOrder(
+  workContentId: string,
+  catalogId: string,
+  sortOrder: number,
+) {
+  return request(`workContent/sort-order`, {
+    method: 'POST',
+    data: {
+      workContentId,
+      catalogId,
+      sortOrder,
+    },
+  });
+}
+
 export async function listChildWorkContent(id: string | undefined) {
   return request(`workContent/list-child/${id}`);
 }
@@ -130,6 +145,17 @@ export async function getNavbar(id: string | undefined) {
 
 export async function saveNavbar(data: API.Navbar) {
   return request(`workContent/navbar/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getSwiper(workContentId: string | undefined) {
+  return request(`workContent/swiper/${workContentId}`);
+}
+
+export async function addSwiperItem(data: any) {
+  return request(`workContent/swiper/add-image`, {
     method: 'POST',
     data,
   });
