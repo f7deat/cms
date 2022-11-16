@@ -6,6 +6,7 @@ import {
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
+import { history } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
 import { useRef } from 'react';
 
@@ -49,7 +50,14 @@ const FilePage: React.FC = () => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button type="primary" icon={<EyeOutlined />} key={1} />,
+        <Button
+          type="primary"
+          icon={<EyeOutlined />}
+          key={1}
+          onClick={() => {
+            history.push(`/files/center/${entity.id}`);
+          }}
+        />,
         <Popconfirm
           title="Are you sure?"
           onConfirm={() => handleDelete(entity.id)}

@@ -7,8 +7,8 @@ export async function addWorkContent(data: any) {
   });
 }
 
-export async function listWorkContent(id: string | undefined) {
-  return request(`workContent/list/${id}`);
+export async function listWorkContent(id: string | undefined, child: boolean) {
+  return request(`workContent/list/${id}?child=${child}`);
 }
 
 export async function sortOrder(

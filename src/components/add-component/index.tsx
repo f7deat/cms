@@ -32,7 +32,7 @@ const AddComponent: React.FC<AddComponentProps> = (props) => {
   return (
     <ModalForm
       visible={props.visible}
-      title="New component"
+      title="Add component"
       onFinish={props.onFinish}
       onVisibleChange={props.onVisibleChange}
     >

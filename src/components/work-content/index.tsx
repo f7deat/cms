@@ -1,4 +1,5 @@
 import {
+  addWorkContent,
   deleteWorkContent,
   listWorkContent,
   sortOrder,
@@ -8,17 +9,24 @@ import {
   ArrowUpOutlined,
   ArrowDownOutlined,
   DeleteOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
-import { ActionType, ProList } from '@ant-design/pro-components';
+import { ActionType, ProCard, ProList } from '@ant-design/pro-components';
 import { Button, message, Popconfirm } from 'antd';
 import { history } from '@umijs/max';
 import { useParams } from '@umijs/max';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import AddComponent from '../add-component';
 
-const WorkContentComponent: React.FC = () => {
+type WorkContentComponentProps = {
+  child: boolean;
+};
+
+const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
   const { id } = useParams();
 
   const actionRef = useRef<ActionType>();
+  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     actionRef.current?.reload();
@@ -45,48 +53,83 @@ const WorkContentComponent: React.FC = () => {
     }
   };
 
+  const onFinish = async (value: any) => {
+    value.catalogId = id;
+    const response = await addWorkContent(value);
+    if (response.succeeded) {
+      message.success('Added!');
+      setVisible(false);
+      actionRef.current?.reload();
+    }
+  };
+
   return (
-    <ProList<API.WorkItem>
-      actionRef={actionRef}
-      request={async () => listWorkContent(id)}
-      headerTitle="Components"
-      metas={{
-        title: {
-          dataIndex: 'name',
-        },
-        actions: {
-          render: (text, row) => [
-            <Button
-              key={1}
-              type="primary"
-              icon={<EditOutlined />}
-              onClick={() => {
-                history.push(
-                  `/works/${row.normalizedName.toLocaleLowerCase()}/${row.id}`,
-                );
-              }}
-            />,
-            <Button
-              key={2}
-              icon={<ArrowUpOutlined />}
-              onClick={() => handleSortOrder(row, true)}
-            ></Button>,
-            <Button
-              key={3}
-              icon={<ArrowDownOutlined />}
-              onClick={() => handleSortOrder(row, false)}
-            ></Button>,
-            <Popconfirm
-              title="Are you sure?"
-              key={4}
-              onConfirm={() => onConfirm(row.id)}
-            >
-              <Button icon={<DeleteOutlined />} danger type="primary"></Button>,
-            </Popconfirm>,
-          ],
-        },
-      }}
-    ></ProList>
+    <ProCard
+      title="Components"
+      extra={
+        <Button
+          onClick={() => setVisible(true)}
+          type="primary"
+          icon={<PlusOutlined />}
+        >
+          Add component
+        </Button>
+      }
+    >
+      <ProList<API.WorkItem>
+        actionRef={actionRef}
+        request={async () => listWorkContent(id, props.child)}
+        header={false}
+        metas={{
+          title: {
+            dataIndex: 'name',
+          },
+          actions: {
+            render: (text, row) => [
+              <Button
+                key={1}
+                type="primary"
+                icon={<EditOutlined />}
+                onClick={() => {
+                  history.push(
+                    `/works/${row.normalizedName.toLocaleLowerCase()}/${
+                      row.id
+                    }`,
+                  );
+                }}
+              />,
+              <Button
+                key={2}
+                icon={<ArrowUpOutlined />}
+                onClick={() => handleSortOrder(row, true)}
+              ></Button>,
+              <Button
+                key={3}
+                icon={<ArrowDownOutlined />}
+                onClick={() => handleSortOrder(row, false)}
+              ></Button>,
+              <Popconfirm
+                title="Are you sure?"
+                key={4}
+                onConfirm={() => onConfirm(row.id)}
+              >
+                <Button
+                  icon={<DeleteOutlined />}
+                  danger
+                  type="primary"
+                ></Button>
+                ,
+              </Popconfirm>,
+            ],
+          },
+        }}
+      />
+      <AddComponent
+        visible={visible}
+        onVisibleChange={setVisible}
+        onFinish={onFinish}
+      />
+    </ProCard>
   );
 };
 

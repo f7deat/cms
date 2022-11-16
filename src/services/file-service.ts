@@ -9,3 +9,20 @@ export async function deleteFileContent(id: string) {
     method: 'POST',
   });
 }
+
+export async function getFileDetail(id: string | undefined) {
+  return request<API.FileContent>(`fileExplorer/${id}`);
+}
+
+export async function listWorkItemFiles(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options: { id: string | undefined },
+) {
+  return request(`fileExplorer/file-items/${options.id}`);
+}

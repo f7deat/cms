@@ -56,6 +56,13 @@ declare namespace API {
     url: string;
   };
 
+  type FileContent = BaseEntity & {
+    name: string;
+    size: number;
+    type: string;
+    url: string;
+  };
+
   type FileItem = {
     fileId: string;
     itemId: string;

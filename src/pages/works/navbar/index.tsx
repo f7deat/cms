@@ -1,6 +1,7 @@
 import { getNavbar, saveNavbar } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
+  ModalForm,
   PageContainer,
   ProCard,
   ProForm,
@@ -10,7 +11,7 @@ import {
   ProList,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Button, Col, Divider, message, Row } from 'antd';
+import { Button, Col, message, Row } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 const Navbar: React.FC = () => {
@@ -20,6 +21,7 @@ const Navbar: React.FC = () => {
   const formNavRef = useRef<ProFormInstance>();
 
   const [navItems, setNavItems] = useState<API.NavItem[]>([]);
+  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     getNavbar(id).then((response) => {
@@ -41,17 +43,14 @@ const Navbar: React.FC = () => {
   };
 
   const handleAddNavItem = async (values: API.NavItem) => {
-    if (!values.name || !values.url) {
-      message.warning('Please input name and url!');
-      return;
+    if (navItems && navItems.length > 0) {
+      setNavItems((pre) => [...pre, values]);
+    } else {
+      setNavItems([values]);
     }
-    if (navItems.length > 0 && navItems.find((x) => x.url === values.url)) {
-      message.warning('Url exist!');
-      return;
-    }
-    setNavItems((pre) => [...pre, values]);
     message.success('Added!');
     formItemRef.current?.resetFields();
+    setVisible(false);
   };
 
   const handleUpdateNavItem = (values: API.NavItem) => {
@@ -76,46 +75,56 @@ const Navbar: React.FC = () => {
       <Row gutter={16}>
         <Col span={18}>
           <ProCard>
-            <ProForm onFinish={handleAddNavItem} formRef={formItemRef}>
-              <ProFormText name="name" label="Name" />
-              <ProFormText name="url" label="Url" />
-            </ProForm>
-          </ProCard>
-          <Divider />
-          <ProCard>
             <ProForm onFinish={onFinish} formRef={formNavRef}>
               <ProFormCheckbox name="container" label="Container" />
             </ProForm>
           </ProCard>
         </Col>
         <Col span={6}>
-          <ProList<API.NavItem>
-            dataSource={navItems}
-            headerTitle="Navbar"
-            metas={{
-              title: {
-                dataIndex: 'name',
-              },
-              actions: {
-                render: (dom, entity) => [
-                  <Button
-                    icon={<EditOutlined />}
-                    key={1}
-                    onClick={() => handleUpdateNavItem(entity)}
-                  />,
-                  <Button
-                    icon={<DeleteOutlined />}
-                    key={2}
-                    danger
-                    type="primary"
-                    onClick={() => handleRemoveNavItem(entity)}
-                  />,
-                ],
-              },
-            }}
-          />
+          <ProCard
+            extra={
+              <Button type="primary" onClick={() => setVisible(true)}>
+                Add
+              </Button>
+            }
+          >
+            <ProList<API.NavItem>
+              dataSource={navItems}
+              header={false}
+              metas={{
+                title: {
+                  dataIndex: 'name',
+                },
+                actions: {
+                  render: (dom, entity) => [
+                    <Button
+                      icon={<EditOutlined />}
+                      key={1}
+                      onClick={() => handleUpdateNavItem(entity)}
+                    />,
+                    <Button
+                      icon={<DeleteOutlined />}
+                      key={2}
+                      danger
+                      type="primary"
+                      onClick={() => handleRemoveNavItem(entity)}
+                    />,
+                  ],
+                },
+              }}
+            />
+          </ProCard>
         </Col>
       </Row>
+      <ModalForm
+        onFinish={handleAddNavItem}
+        formRef={formItemRef}
+        visible={visible}
+        onVisibleChange={setVisible}
+      >
+        <ProFormText name="name" label="Name" />
+        <ProFormText name="url" label="Url" />
+      </ModalForm>
     </PageContainer>
   );
 };

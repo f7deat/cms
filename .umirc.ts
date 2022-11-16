@@ -7,7 +7,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '@umijs/max',
+    title: 'Waffle',
   },
   routes: [
     {
@@ -74,8 +74,23 @@ export default defineConfig({
     },
     {
       name: 'File manager',
-      path: 'files',
-      component: './files',
+      path: '/files',
+      routes: [
+        {
+          path: '/files',
+          redirect: '/files/list',
+        },
+        {
+          path: '/files/list',
+          component: './files',
+        },
+        {
+          name: 'File Center',
+          path: '/files/center/:id',
+          component: './files/center',
+          hideInMenu: true,
+        },
+      ],
     },
     {
       name: 'Settings',
