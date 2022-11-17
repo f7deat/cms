@@ -105,8 +105,8 @@ export async function addCss(data: API.WorkItem) {
   });
 }
 
-export async function getCss(id: string | undefined) {
-  return request(`style/${id}`);
+export async function getCss() {
+  return request(`style`);
 }
 
 export async function saveCss(data: API.WorkItem) {

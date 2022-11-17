@@ -7,6 +7,7 @@ import {
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { Col, message, Row, Upload, UploadProps } from 'antd';
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload';
@@ -14,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const Image: React.FC = () => {
   const { id } = useParams();
+  const { initialState: domain } = useModel('@@initialState');
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -114,12 +116,16 @@ const Image: React.FC = () => {
             listType="picture-card"
             className="avatar-uploader"
             showUploadList={false}
-            action={`https://localhost:7131/api/image/upload/${id}`}
+            action={`${domain?.domain}/api/image/upload/${id}`}
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
             {imageUrl ? (
-              <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+              <img
+                src={domain?.domain + imageUrl}
+                alt="avatar"
+                style={{ width: '100%' }}
+              />
             ) : (
               uploadButton
             )}

@@ -58,12 +58,6 @@ export default defineConfig({
           component: './works/swiper',
           hideInMenu: true,
         },
-        {
-          name: 'CSS',
-          path: '/works/css/:id',
-          component: './works/css',
-          hideInMenu: true,
-        },
       ],
     },
     {
@@ -94,8 +88,23 @@ export default defineConfig({
     },
     {
       name: 'Settings',
-      path: 'settings',
-      component: './settings',
+      path: '/settings',
+      routes: [
+        {
+          path: '/settings',
+          redirect: '/settings/list',
+        },
+        {
+          name: 'General',
+          path: '/settings/general',
+          component: './settings',
+        },
+        {
+          name: 'Style',
+          path: '/settings/css',
+          component: './settings/css',
+        },
+      ],
     },
     {
       name: 'SendGrid',

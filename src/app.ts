@@ -9,7 +9,7 @@ export async function getInitialState(): Promise<{
   name: string;
   domain: string;
 }> {
-  return { name: '@umijs/max', domain: 'https://localhost:7131' };
+  return { name: '@umijs/max', domain: 'https://dliti.com.au' };
 }
 export const layout = () => {
   return {
@@ -25,7 +25,7 @@ export const request: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       const token = localStorage.getItem('def_token');
-      config.baseURL = 'https://localhost:7131/api/';
+      config.baseURL = 'https://dliti.com.au/api/';
       config.headers = {
         authorization: `Bearer ${token}`,
       };

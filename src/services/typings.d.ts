@@ -77,7 +77,7 @@ declare namespace API {
   type ContactForm = BaseEntity & {
     name: string;
     resultUrl: string;
-    labels: ContactFormLabel;
+    labels?: ContactFormLabel;
   };
 
   type ContactFormLabel = {
