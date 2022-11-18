@@ -57,10 +57,6 @@ const HtmlComponent: React.FC = () => {
           name: 'active',
           value: response.active,
         },
-        {
-          name: 'sortOrder',
-          value: response.sortOrder,
-        },
       ]);
     });
   }, [id]);
@@ -80,7 +76,6 @@ const HtmlComponent: React.FC = () => {
         <ProFormText name="catalogId" hidden={true} />
         <ProFormText name="componentId" hidden={true} />
         <ProFormText name="name" label="Name" />
-        <ProFormText name="sortOrder" label="Sort order" />
         <ProFormTextArea name="arguments" label="Raw" />
         <ProFormCheckbox name="active" label="Active" />
       </ProForm>
