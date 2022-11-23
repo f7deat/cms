@@ -8,6 +8,7 @@ import logo from './assets/logo.svg';
 export async function getInitialState(): Promise<{
   name: string;
   domain: string;
+  fetchUserInfo?: () => Promise<any | undefined>;
 }> {
   return { name: '@umijs/max', domain: 'https://dliti.com.au' };
 }
