@@ -9,6 +9,11 @@ export default defineConfig({
   layout: {
     title: 'Waffle',
   },
+  locale: {
+    default: 'vi-VN',
+    baseSeparator: '-',
+    antd: true,
+  },
   routes: [
     {
       path: '/',
@@ -26,12 +31,12 @@ export default defineConfig({
       ],
     },
     {
-      name: 'Home',
+      name: 'home',
       path: '/home',
       component: './Home',
     },
     {
-      name: 'Component',
+      name: 'component',
       path: '/works',
       hideInMenu: true,
       routes: [
@@ -41,30 +46,30 @@ export default defineConfig({
           component: './works/html',
         },
         {
-          name: 'contact-form',
+          name: 'contactForm',
           path: '/works/contactform/:id',
           component: './works/contact-form',
         },
         {
-          name: 'Row',
+          name: 'row',
           path: '/works/row/:id',
           component: './works/row',
           hideInMenu: true,
         },
         {
-          name: 'Image',
+          name: 'image',
           path: '/works/image/:id',
           component: './works/image',
           hideInMenu: true,
         },
         {
-          name: 'Navbar',
+          name: 'navbar',
           path: '/works/navbar/:id',
           component: './works/navbar',
           hideInMenu: true,
         },
         {
-          name: 'Swiper',
+          name: 'swiper',
           path: '/works/swiper/:id',
           component: './works/swiper',
           hideInMenu: true,
@@ -72,13 +77,13 @@ export default defineConfig({
       ],
     },
     {
-      name: 'Catalog',
+      name: 'catalog',
       path: 'catalog/:id',
       component: './catalog',
       hideInMenu: true,
     },
     {
-      name: 'File manager',
+      name: 'fileManager',
       path: '/files',
       routes: [
         {
@@ -90,7 +95,7 @@ export default defineConfig({
           component: './files',
         },
         {
-          name: 'File Center',
+          name: 'fileCenter',
           path: '/files/center/:id',
           component: './files/center',
           hideInMenu: true,
@@ -98,7 +103,7 @@ export default defineConfig({
       ],
     },
     {
-      name: 'Settings',
+      name: 'settings',
       path: '/settings',
       routes: [
         {
@@ -106,45 +111,45 @@ export default defineConfig({
           redirect: '/settings/list',
         },
         {
-          name: 'General',
+          name: 'general',
           path: '/settings/general',
           component: './settings',
         },
         {
-          name: 'Style',
+          name: 'style',
           path: '/settings/css',
           component: './settings/css',
         },
       ],
     },
     {
-      name: 'SendGrid',
+      name: 'sendGrid',
       path: '/settings/sendgrid/:id',
       component: './settings/sendgrid',
       hideInMenu: true,
     },
     {
-      name: 'Help',
+      name: 'help',
       path: '/help',
       routes: [
         {
-          name: 'Upgrade',
+          name: 'upgrade',
           path: '/help/upgrade',
           component: './settings/upgrade',
         },
         {
-          name: 'Backup',
+          name: 'backup',
           path: 'backup',
           component: './backup',
         },
       ],
     },
     {
-      name: 'Features',
+      name: 'features',
       path: 'features',
       routes: [
         {
-          name: 'Contact',
+          name: 'contact',
           path: '/features/contacts',
           component: './features/contacts',
         },

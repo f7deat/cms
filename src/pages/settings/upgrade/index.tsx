@@ -1,4 +1,4 @@
-import { upgrade } from '@/services/setting';
+import { upgrade } from '@/services/backup';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, message } from 'antd';

@@ -9,3 +9,9 @@ export async function getExportData() {
     method: 'POST',
   });
 }
+
+export async function upgrade() {
+  return request(`backup/upgrade`, {
+    method: 'POST',
+  });
+}

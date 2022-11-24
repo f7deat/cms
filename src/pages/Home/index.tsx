@@ -1,4 +1,4 @@
-import { addCatalog, listCatalog } from '@/services/catalog';
+import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
 import {
   DeleteOutlined,
   FolderOutlined,
@@ -14,7 +14,7 @@ import {
 } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { history } from '@umijs/max';
-import { Button, message } from 'antd';
+import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 const HomePage: React.FC = () => {
@@ -35,6 +35,14 @@ const HomePage: React.FC = () => {
   const goDetail = (id: string) => {
     setCatalogId(id);
     history.push(`/catalog/${id}`);
+  };
+
+  const onConfirm = async (id: string) => {
+    const response = await deleteCatalog(id);
+    if (response.succeeded) {
+      message.success('Deleted');
+      actionRef.current?.reload();
+    }
   };
 
   const columns: ProColumns<API.Catalog>[] = [
@@ -80,7 +88,13 @@ const HomePage: React.FC = () => {
           type="primary"
           onClick={() => goDetail(entity.id)}
         ></Button>,
-        <Button icon={<DeleteOutlined />} key={2} type="primary" danger />,
+        <Popconfirm
+          title="Are you sure?"
+          key={2}
+          onConfirm={() => onConfirm(entity.id)}
+        >
+          <Button icon={<DeleteOutlined />} type="primary" danger />
+        </Popconfirm>,
       ],
     },
   ];

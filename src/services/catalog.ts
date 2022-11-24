@@ -12,8 +12,14 @@ export async function addCatalog(data: API.Catalog) {
   });
 }
 
-export async function listCatalog() {
-  return request('catalog/list');
+export async function listCatalog(params: {
+  current?: number;
+  pageSize?: number;
+}) {
+  return request('catalog/list', {
+    method: 'GET',
+    params,
+  });
 }
 
 export async function listTree() {
