@@ -31,6 +31,7 @@ export default defineConfig({
       ],
     },
     {
+      icon: 'HomeOutlined',
       name: 'home',
       path: '/home',
       component: './Home',

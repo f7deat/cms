@@ -19,6 +19,7 @@ export const layout = () => {
       locale: true,
     },
     layout: 'top',
+    navTheme: 'dark',
   };
 };
 
