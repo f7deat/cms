@@ -160,3 +160,14 @@ export async function addSwiperItem(data: any) {
     data,
   });
 }
+
+export async function getBlockEditor(id: string | undefined) {
+  return request(`workContent/block-editor/${id}`);
+}
+
+export async function saveBlockEditor(data: any) {
+  return request(`workContent/block-editor/save`, {
+    method: 'POST',
+    data,
+  });
+}

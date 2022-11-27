@@ -12,3 +12,4 @@
 /.mfsu
 package-lock.json
 yarn.lock
+.vs

@@ -75,6 +75,12 @@ export default defineConfig({
           component: './works/swiper',
           hideInMenu: true,
         },
+        {
+          name: 'blockEditor',
+          path: '/works/blockeditor/:id',
+          component: './works/block-editor',
+          hideInMenu: true,
+        },
       ],
     },
     {

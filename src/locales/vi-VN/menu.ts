@@ -19,5 +19,6 @@ export default {
   'menu.component.row': 'Row',
   'menu.component.html': 'Html',
   'menu.component.contactForm': 'Contact form',
+  'menu.component.blockEditor': 'Block editor',
   'menu.component': 'Component',
 };

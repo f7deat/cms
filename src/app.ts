@@ -10,7 +10,7 @@ export async function getInitialState(): Promise<{
   domain: string;
   fetchUserInfo?: () => Promise<any | undefined>;
 }> {
-  return { name: '@umijs/max', domain: 'https://localhost:7131' };
+  return { name: '@umijs/max', domain: 'https://localhost:59568' };
 }
 export const layout = () => {
   return {
@@ -27,7 +27,7 @@ export const request: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       const token = localStorage.getItem('def_token');
-      config.baseURL = 'https://localhost:7131/api/';
+      config.baseURL = 'https://localhost:59568/api/';
       config.headers = {
         authorization: `Bearer ${token}`,
       };
