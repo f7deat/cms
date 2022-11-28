@@ -20,14 +20,15 @@ const BlockEditor: React.FC = () => {
 
   const handleInitialize = useCallback(async (instance: any) => {
     editorCore.current = instance;
-    getBlockEditor(id).then((response) => {
-      setTimeout(() => {
-        editorCore.current.render({
-          time: new Date().getTime(),
-          blocks: response,
-        });
-      }, 5000);
-      return;
+    getBlockEditor(id).then((response: any) => {
+      if (response && response.lenght > 0) {
+        setTimeout(() => {
+          editorCore.current.render({
+            time: new Date().getTime(),
+            blocks: response,
+          });
+        }, 5000);
+      }
     });
   }, []);
 
