@@ -1,6 +1,5 @@
 import { getCatalog, saveCatalog } from '@/services/catalog';
 import {
-  ProCard,
   ProForm,
   ProFormCheckbox,
   ProFormInstance,
@@ -56,17 +55,15 @@ const CatalogSetting: React.FC = () => {
   };
 
   return (
-    <ProCard title="Settings">
-      <ProForm formRef={formRef} onFinish={onFinish}>
-        <ProFormText name="id" hidden />
-        <ProFormText name="name" label="Name" />
-        <ProFormText name="normalizedName" label="Normalized name" />
-        <ProFormTextArea name="description" label="Description" />
-        <Divider />
-        <ProFormText name="title" label="Title" />
-        <ProFormCheckbox name="container" label="Container" />
-      </ProForm>
-    </ProCard>
+    <ProForm formRef={formRef} onFinish={onFinish}>
+      <ProFormText name="id" hidden />
+      <ProFormText name="name" label="Name" />
+      <ProFormText name="normalizedName" label="Normalized name" />
+      <ProFormTextArea name="description" label="Description" />
+      <Divider />
+      <ProFormText name="title" label="Title" />
+      <ProFormCheckbox name="container" label="Container" />
+    </ProForm>
   );
 };
 

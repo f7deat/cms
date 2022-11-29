@@ -1,4 +1,5 @@
 import { request } from '@umijs/max';
+import { getEntryPoint } from './catalog';
 
 export async function addWorkContent(data: any) {
   return request(`workContent/add`, {
@@ -8,6 +9,10 @@ export async function addWorkContent(data: any) {
 }
 
 export async function listWorkContent(id: string | undefined, child: boolean) {
+  if (!id) {
+    const entryPoint = await getEntryPoint();
+    return request(`workContent/list/${entryPoint.id}?child=${false}`);
+  }
   return request(`workContent/list/${id}?child=${child}`);
 }
 

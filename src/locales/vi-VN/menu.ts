@@ -5,6 +5,8 @@ export default {
   'menu.help.backup': 'Backup',
   'menu.settings.style': 'Giao diện',
   'menu.settings.general': 'Cơ bản',
+  'menu.settings.header': 'Header',
+  'menu.settings.footer': 'Footer',
   'menu.fileManager': 'File manager',
   'menu.help.upgrade': 'Nâng cấp',
   'menu.fileManager.fileCenter': 'File center',

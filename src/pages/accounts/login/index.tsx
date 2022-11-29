@@ -16,30 +16,14 @@ import {
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import { history, useModel } from '@umijs/max';
-import { Alert, message, Space, Tabs } from 'antd';
+import { message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import bg from '../../../assets/bg-login.svg';
 import logo from '../../../assets/logo.svg';
 import '../../../../style.less';
 
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => {
-  return (
-    <Alert
-      style={{
-        marginBottom: 24,
-      }}
-      message={content}
-      type="error"
-      showIcon
-    />
-  );
-};
-
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<any>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
 
@@ -49,31 +33,29 @@ const Login: React.FC = () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
       flushSync(() => {
-        let data: any;
-        setInitialState(data);
+        setInitialState((s) => ({
+          ...s,
+          currentUser: userInfo,
+        }));
       });
     }
   };
 
   const handleSubmit = async (values: any) => {
     try {
+      localStorage.setItem('wf_URL', values.baseURL);
       const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = '登录成功！';
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
-        return;
+      if (!msg.succeeded) {
+        return message.error('Login failed!');
       }
-      setUserLoginState(msg);
+      localStorage.setItem('wf_token', msg.token);
+      await fetchUserInfo();
+      const urlParams = new URL(window.location.href).searchParams;
+      history.push(urlParams.get('redirect') || '/');
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
+      message.error('Login failed!');
     }
   };
-  const { status, type: loginType } = userLoginState;
 
   return (
     <div
@@ -131,10 +113,6 @@ const Login: React.FC = () => {
             },
           ]}
         />
-
-        {status === 'error' && loginType === 'account' && (
-          <LoginMessage content="账户或密码错误(admin/ant.design)" />
-        )}
         {type === 'account' && (
           <>
             <ProFormText
@@ -176,9 +154,6 @@ const Login: React.FC = () => {
           </>
         )}
 
-        {status === 'error' && loginType === 'mobile' && (
-          <LoginMessage content="验证码错误" />
-        )}
         {type === 'mobile' && (
           <>
             <ProFormText

@@ -11,7 +11,7 @@ import {
   DeleteOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { ActionType, ProCard, ProList } from '@ant-design/pro-components';
+import { ActionType, ProList } from '@ant-design/pro-components';
 import { Button, message, Popconfirm } from 'antd';
 import { history } from '@umijs/max';
 import { useParams } from '@umijs/max';
@@ -64,18 +64,14 @@ const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
   };
 
   return (
-    <ProCard
-      title="Components"
-      extra={
-        <Button
-          onClick={() => setVisible(true)}
-          type="primary"
-          icon={<PlusOutlined />}
-        >
-          Add component
-        </Button>
-      }
-    >
+    <div>
+      <Button
+        onClick={() => setVisible(true)}
+        type="primary"
+        icon={<PlusOutlined />}
+      >
+        Add component
+      </Button>
       <ProList<API.WorkItem>
         actionRef={actionRef}
         request={async () => listWorkContent(id, props.child)}
@@ -129,7 +125,7 @@ const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
         onVisibleChange={setVisible}
         onFinish={onFinish}
       />
-    </ProCard>
+    </div>
   );
 };
 

@@ -1,4 +1,6 @@
+import CatalogList from '@/components/catalog/list';
 import { listSetting } from '@/services/setting';
+import { CatalogType } from '@/utils/constants';
 import { EditOutlined } from '@ant-design/icons';
 import {
   PageContainer,
@@ -6,7 +8,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 
 const SettingPage: React.FC = () => {
   const columns: ProColumns<API.AppSetting>[] = [
@@ -43,7 +45,14 @@ const SettingPage: React.FC = () => {
 
   return (
     <PageContainer title="Setting">
-      <ProTable request={listSetting} rowKey="id" columns={columns} />
+      <Row gutter={16}>
+        <Col span={12}>
+          <ProTable request={listSetting} rowKey="id" columns={columns} />
+        </Col>
+        <Col span={12}>
+          <CatalogList type={CatalogType.Setting} />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

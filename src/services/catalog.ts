@@ -1,5 +1,10 @@
+import { CatalogType } from '@/utils/constants';
 import { request } from '@umijs/max';
 import { DataNode } from 'antd/lib/tree';
+
+export async function getEntryPoint() {
+  return request<API.Catalog>(`catalog/entry`);
+}
 
 export async function getCatalog(id: string | undefined) {
   return request<API.Catalog>(`catalog/${id}`);
@@ -15,6 +20,7 @@ export async function addCatalog(data: API.Catalog) {
 export async function listCatalog(params: {
   current?: number;
   pageSize?: number;
+  type: CatalogType;
 }) {
   return request('catalog/list', {
     method: 'GET',

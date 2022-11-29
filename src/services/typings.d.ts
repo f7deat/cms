@@ -100,4 +100,12 @@ declare namespace API {
     phoneNumber: string;
     address: string;
   };
+
+  type User = BaseEntity & {
+    userName: string;
+    email: string;
+    phoneNumber: string;
+    avatar: string;
+    roles: string[];
+  };
 }
