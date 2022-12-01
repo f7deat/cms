@@ -3,4 +3,5 @@ export enum CatalogType {
   Article,
   Shop,
   Setting,
+  Entry,
 }

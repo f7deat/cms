@@ -7,6 +7,7 @@ declare namespace API {
     name: string;
     normalizedName: string;
     setting: CatalogSetting;
+    type: number;
   };
 
   type CatalogSetting = {

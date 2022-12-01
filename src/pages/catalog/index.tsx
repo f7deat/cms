@@ -9,7 +9,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
-import { Col, message, Row } from 'antd';
+import { Col, Empty, message, Row } from 'antd';
 import React, { useState } from 'react';
 
 const CatalogPage: React.FC = () => {
@@ -31,10 +31,10 @@ const CatalogPage: React.FC = () => {
   return (
     <PageContainer>
       <Row gutter={16}>
-        <Col span={4}>
+        <Col span={6}>
           <Catalog />
         </Col>
-        <Col span={20}>
+        <Col span={12}>
           <ProCard
             tabs={{
               tabPosition: 'top',
@@ -66,6 +66,11 @@ const CatalogPage: React.FC = () => {
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />
           </ModalForm>
+        </Col>
+        <Col span={6}>
+          <ProCard>
+            <Empty />
+          </ProCard>
         </Col>
       </Row>
     </PageContainer>

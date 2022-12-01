@@ -1,8 +1,10 @@
 import { getCatalog, saveCatalog } from '@/services/catalog';
+import { CatalogType } from '@/utils/constants';
 import {
   ProForm,
   ProFormCheckbox,
   ProFormInstance,
+  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
@@ -38,6 +40,10 @@ const CatalogSetting: React.FC = () => {
           name: 'container',
           value: response.setting.container,
         },
+        {
+          name: 'type',
+          value: response.type,
+        },
       ]);
     });
   }, [id]);
@@ -60,6 +66,24 @@ const CatalogSetting: React.FC = () => {
       <ProFormText name="name" label="Name" />
       <ProFormText name="normalizedName" label="Normalized name" />
       <ProFormTextArea name="description" label="Description" />
+      <ProFormSelect
+        name="type"
+        label="Type"
+        options={[
+          {
+            label: 'Page',
+            value: CatalogType.Default,
+          },
+          {
+            label: 'Setting',
+            value: CatalogType.Setting,
+          },
+          {
+            label: 'Home',
+            value: CatalogType.Entry,
+          },
+        ]}
+      ></ProFormSelect>
       <Divider />
       <ProFormText name="title" label="Title" />
       <ProFormCheckbox name="container" label="Container" />

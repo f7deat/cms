@@ -1,12 +1,18 @@
-import CatalogList from '@/components/catalog/list';
-import { CatalogType } from '@/utils/constants';
+import { getEntryPoint } from '@/services/catalog';
 import { PageContainer } from '@ant-design/pro-components';
+import { history } from '@umijs/max';
 import { useIntl } from '@umijs/max';
-import { Col, Row } from 'antd';
-import CatalogPage from '../catalog';
+import { Button } from 'antd';
+import { useEffect, useState } from 'react';
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
+
+  const [startPoint, setStartPoint] = useState<API.Catalog>();
+
+  useEffect(() => {
+    getEntryPoint().then((response) => setStartPoint(response));
+  }, []);
 
   return (
     <PageContainer
@@ -14,14 +20,9 @@ const HomePage: React.FC = () => {
         id: 'menu.home',
       })}
     >
-      <Row gutter={16}>
-        <Col span={12}>
-          <CatalogPage />
-        </Col>
-        <Col span={12}>
-          <CatalogList type={CatalogType.Default} />
-        </Col>
-      </Row>
+      <Button onClick={() => history.push(`/catalog/${startPoint?.id}`)}>
+        Get Started
+      </Button>
     </PageContainer>
   );
 };

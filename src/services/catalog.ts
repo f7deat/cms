@@ -44,3 +44,10 @@ export async function saveCatalog(data: API.Catalog) {
     data,
   });
 }
+
+export async function treeDrop(data: any) {
+  return request(`catalog/tree-drop`, {
+    method: 'POST',
+    data,
+  });
+}
