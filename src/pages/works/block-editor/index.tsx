@@ -1,55 +1,26 @@
-import { EDITOR_JS_TOOLS } from '@/utils/editorjs-tool';
+import ProEditorBlock from '@/components/editorjs';
+import { saveBlockEditor } from '@/services/work-content';
 import { SaveOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
 import { FormattedMessage } from '@umijs/max';
-import { useModel } from '@umijs/max';
 import { Button, message, Space } from 'antd';
-import { createReactEditorJS } from 'react-editor-js';
-// @ts-ignore
-import Image from '@editorjs/image';
-import { useCallback, useRef } from 'react';
-import { getBlockEditor, saveBlockEditor } from '@/services/work-content';
-
-const ReactEditorJS = createReactEditorJS();
+import { useState } from 'react';
 
 const BlockEditor: React.FC = () => {
-  const state = useModel('@@initialState');
-  const { id } = useParams();
-  const editorCore = useRef<any>(null);
+  const [editorData, setEditorData] = useState<any>();
 
-  const handleInitialize = useCallback(async (instance: any) => {
-    editorCore.current = instance;
-    getBlockEditor(id).then((response: any) => {
-      if (response && response.lenght > 0) {
-        setTimeout(() => {
-          editorCore.current.render({
-            time: new Date().getTime(),
-            blocks: response,
-          });
-        }, 5000);
-      }
-    });
-  }, []);
-
-  const handleSave = useCallback(async () => {
-    const items = await editorCore.current.save();
-    let data = {
-      id,
-      blocks: items.blocks,
-    };
-    const response = await saveBlockEditor(data);
+  const onFinish = async () => {
+    const response = await saveBlockEditor(editorData);
     if (response.succeeded) {
-      message.success('Saved!');
+      message.success('Saved');
     }
-  }, []);
-
+  };
   return (
     <PageContainer title="Block editor">
       <ProCard
         title="Start writing"
         extra={
-          <Button type="primary" onClick={handleSave}>
+          <Button type="primary" onClick={onFinish}>
             <Space>
               <SaveOutlined />
               <FormattedMessage id="general.save" />
@@ -57,20 +28,7 @@ const BlockEditor: React.FC = () => {
           </Button>
         }
       >
-        <ReactEditorJS
-          onInitialize={handleInitialize}
-          tools={{
-            image: {
-              class: Image,
-              config: {
-                endpoints: {
-                  byFile: `${state.initialState?.domain}/api/image/editor-block/${id}`,
-                },
-              },
-            },
-            ...EDITOR_JS_TOOLS,
-          }}
-        />
+        <ProEditorBlock onChange={setEditorData} />
       </ProCard>
     </PageContainer>
   );

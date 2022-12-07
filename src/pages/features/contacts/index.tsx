@@ -44,6 +44,8 @@ const ContactPage: React.FC = () => {
     {
       title: 'Created',
       dataIndex: 'createdDate',
+      valueType: 'dateTime',
+      search: false,
     },
     {
       title: '',

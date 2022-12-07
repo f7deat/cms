@@ -32,8 +32,7 @@
     "@editorjs/table": "^2.1.0",
     "@editorjs/warning": "^1.2.0",
     "@umijs/max": "^4.0.26",
-    "antd": "^4.20.7",
-    "react-editor-js": "^2.1.0"
+    "antd": "^4.20.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
