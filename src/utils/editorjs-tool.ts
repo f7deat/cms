@@ -33,7 +33,12 @@ export const EDITOR_JS_TOOLS = {
   list: List,
   warning: Warning,
   code: Code,
-  linkTool: LinkTool,
+  linkTool: {
+    class: LinkTool,
+    config: {
+      endpoint: `${localStorage.getItem('wf_URL')}/api/workContent/fetch-url`,
+    },
+  },
   raw: Raw,
   header: Header,
   quote: Quote,

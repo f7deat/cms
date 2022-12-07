@@ -1,9 +1,8 @@
 import EditorJS from '@editorjs/editorjs';
 import React, { useRef, useEffect } from 'react';
-// @ts-ignore
-import Header from '@editorjs/header';
 import { useParams } from '@umijs/max';
 import { getBlockEditor } from '@/services/work-content';
+import { EDITOR_JS_TOOLS } from '@/utils/editorjs-tool';
 
 type ProEditorBlockProps = {
   onChange: any;
@@ -34,13 +33,11 @@ const ProEditorBlock: React.FC<ProEditorBlockProps> = (props) => {
           });
         },
         autofocus: true,
-        tools: {
-          header: Header,
-        },
+        tools: EDITOR_JS_TOOLS,
       });
     });
   };
-  // This will run only once
+
   useEffect(() => {
     if (!ejInstance.current) {
       initEditor();

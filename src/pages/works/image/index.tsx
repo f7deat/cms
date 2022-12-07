@@ -7,15 +7,15 @@ import {
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { Col, message, Row, Upload, UploadProps } from 'antd';
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload';
 import { useEffect, useRef, useState } from 'react';
 
+const baseUrl = localStorage.getItem('wf_URL');
+
 const Image: React.FC = () => {
   const { id } = useParams();
-  const { initialState: domain } = useModel('@@initialState');
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -45,7 +45,7 @@ const Image: React.FC = () => {
     if (info.file.status === 'done') {
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);
-        setImageUrl(domain?.domain + url);
+        setImageUrl(url);
       });
     }
   };
@@ -115,13 +115,13 @@ const Image: React.FC = () => {
             listType="picture-card"
             className="avatar-uploader"
             showUploadList={false}
-            action={`${domain?.domain}/api/image/upload/${id}`}
+            action={`${baseUrl}api/image/upload/${id}`}
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
             {imageUrl ? (
               <img
-                src={domain?.domain + imageUrl}
+                src={baseUrl + imageUrl}
                 alt="avatar"
                 style={{ width: '100%' }}
               />
