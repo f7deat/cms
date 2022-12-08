@@ -81,6 +81,12 @@ export default defineConfig({
           component: './works/block-editor',
           hideInMenu: true,
         },
+        {
+          name: 'card',
+          path: '/works/card/:id',
+          component: './works/card',
+          hideInMenu: true,
+        },
       ],
     },
     {

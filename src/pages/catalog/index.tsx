@@ -17,7 +17,7 @@ const CatalogPage: React.FC = () => {
 
   const [visibleCatalogModal, setVisibleCatalogModal] =
     useState<boolean>(false);
-  const [tab, setTab] = useState('tab2');
+  const [tab, setTab] = useState('tab1');
 
   const onFinish = async (values: API.Catalog) => {
     addCatalog(values).then((response) => {

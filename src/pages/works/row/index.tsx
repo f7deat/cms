@@ -14,7 +14,7 @@ import {
   ProList,
 } from '@ant-design/pro-components';
 import { useParams, history } from '@umijs/max';
-import { Button, Col, message, Popconfirm, Row } from 'antd';
+import { Button, message, Popconfirm, Row } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 const RowComponent: React.FC = () => {
@@ -82,49 +82,45 @@ const RowComponent: React.FC = () => {
     >
       <Row gutter={16}>
         {columns?.map((column) => (
-          <Col
+          <ProCard
             key={column.id}
-            span={column.arguments === 'col-md-8' ? '16' : '8'}
+            extra={
+              <Button
+                type="primary"
+                onClick={() => handleAddComponent(column.id)}
+              >
+                Add component
+              </Button>
+            }
           >
-            <ProCard
-              extra={
-                <Button
-                  type="primary"
-                  onClick={() => handleAddComponent(column.id)}
-                >
-                  Add component
-                </Button>
-              }
-            >
-              <ProList<API.WorkItem>
-                actionRef={actionRef}
-                request={() => listChildWorkContent(column.id)}
-                metas={{
-                  title: {
-                    dataIndex: 'name',
-                  },
-                  actions: {
-                    render: (text, row) => [
-                      <Button
-                        key={1}
-                        icon={<EditOutlined />}
-                        onClick={() => {
-                          history.push(
-                            `/works/${row.normalizedName.toLocaleLowerCase()}/${
-                              row.id
-                            }`,
-                          );
-                        }}
-                      />,
-                      <Popconfirm title="Are you sure?" key={2}>
-                        <Button icon={<DeleteOutlined />} danger></Button>,
-                      </Popconfirm>,
-                    ],
-                  },
-                }}
-              />
-            </ProCard>
-          </Col>
+            <ProList<API.WorkItem>
+              actionRef={actionRef}
+              request={() => listChildWorkContent(column.id)}
+              metas={{
+                title: {
+                  dataIndex: 'name',
+                },
+                actions: {
+                  render: (text, row) => [
+                    <Button
+                      key={1}
+                      icon={<EditOutlined />}
+                      onClick={() => {
+                        history.push(
+                          `/works/${row.normalizedName.toLocaleLowerCase()}/${
+                            row.id
+                          }`,
+                        );
+                      }}
+                    />,
+                    <Popconfirm title="Are you sure?" key={2}>
+                      <Button icon={<DeleteOutlined />} danger></Button>,
+                    </Popconfirm>,
+                  ],
+                },
+              }}
+            />
+          </ProCard>
         ))}
       </Row>
       <ModalForm
