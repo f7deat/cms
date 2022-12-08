@@ -5,11 +5,16 @@ const { Search } = Input;
 
 type ExplorerProps = {
   visible: boolean;
+  onVisibleChange: any;
 };
 
-const Explorer: React.FC<ExplorerProps> = () => {
+const Explorer: React.FC<ExplorerProps> = (props) => {
   return (
-    <ModalForm title="Select content">
+    <ModalForm
+      title="Select content"
+      visible={props.visible}
+      onVisibleChange={props.onVisibleChange}
+    >
       <Search />
       <Row>
         <Col span={8}></Col>
