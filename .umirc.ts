@@ -87,6 +87,18 @@ export default defineConfig({
           component: './works/card',
           hideInMenu: true,
         },
+        {
+          name: 'column',
+          path: '/works/column/:id',
+          component: './works/column',
+          hideInMenu: true,
+        },
+        {
+          name: 'css',
+          path: '/works/css/:id',
+          component: './works/css',
+          hideInMenu: true,
+        },
       ],
     },
     {

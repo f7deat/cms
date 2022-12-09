@@ -1,7 +1,24 @@
 import { request } from '@umijs/max';
 
-export async function listFile() {
-  return request(`fileExplorer/list`);
+export async function listFile(
+  params: {
+    // query
+    /** keyword */
+    keyword?: string;
+    /** current */
+    current?: number;
+    /** pageSize */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request(`fileExplorer/list`, {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
 }
 
 export async function deleteFileContent(id: string) {

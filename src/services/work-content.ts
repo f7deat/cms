@@ -36,7 +36,7 @@ export async function listChildWorkContent(id: string | undefined) {
 }
 
 export async function addChildWorkContent(data: API.WorkContent) {
-  return request(`workContent/add-child`, {
+  return request(`workContent/child/add`, {
     method: 'POST',
     data,
   });
@@ -110,8 +110,8 @@ export async function addCss(data: API.WorkItem) {
   });
 }
 
-export async function getCss() {
-  return request(`style`);
+export async function getCss(id: string | undefined) {
+  return request(`style/${id}`);
 }
 
 export async function saveCss(data: API.WorkItem) {
@@ -175,4 +175,35 @@ export async function saveBlockEditor(data: any) {
     method: 'POST',
     data,
   });
+}
+
+export async function getCard(id: string | undefined) {
+  return request(`workContent/card/${id}`);
+}
+
+export async function saveCard(data: any) {
+  return request(`workContent/card/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getListColumn(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  id: string | undefined,
+) {
+  return request(`workContent/column/list/${id}`);
+}
+
+export async function getChildList(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  id: string | undefined,
+) {
+  return request(`workContent/child/list/${id}`);
 }

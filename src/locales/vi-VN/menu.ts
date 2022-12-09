@@ -22,5 +22,7 @@ export default {
   'menu.component.html': 'Html',
   'menu.component.contactForm': 'Contact form',
   'menu.component.blockEditor': 'Block editor',
+  'menu.component.card': 'Card',
+  'menu.component.column': 'Column',
   'menu.component': 'Component',
 };
