@@ -8,10 +8,12 @@ import {
   ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
+import { history, useIntl } from '@umijs/max';
 import { Button, Col, message, Row } from 'antd';
 
 const SettingPage: React.FC = () => {
+  const intl = useIntl();
+
   const columns: ProColumns<API.AppSetting>[] = [
     {
       title: '#',
@@ -52,7 +54,11 @@ const SettingPage: React.FC = () => {
   };
 
   return (
-    <PageContainer title="Setting">
+    <PageContainer
+      title={intl.formatMessage({
+        id: 'menu.settings',
+      })}
+    >
       <Row gutter={16}>
         <Col span={12}>
           <ProTable request={listSetting} rowKey="id" columns={columns} />

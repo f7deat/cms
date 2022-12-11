@@ -18,10 +18,10 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
       onVisibleChange={props.onVisibleChange}
       onFinish={props.onFinish}
     >
-      <Search />
       <Row>
-        <Col span={8}></Col>
-        <Col span={16}>
+        <Search />
+        <Col span={6}></Col>
+        <Col span={18}>
           <ProList<API.FileContent>
             request={listFile}
             metas={{
