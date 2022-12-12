@@ -1,7 +1,9 @@
+import ImagePreview from '@/components/image-preview';
 import Explorer from '@/pages/files/explorer';
 import { getCard, saveCard } from '@/services/work-content';
 import {
   PageContainer,
+  ProCard,
   ProForm,
   ProFormField,
   ProFormInstance,
@@ -9,7 +11,7 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useIntl, useParams } from '@umijs/max';
-import { Button, message } from 'antd';
+import { message, Empty, Row, Col } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 const WfCard: React.FC = () => {
@@ -17,6 +19,7 @@ const WfCard: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
   const [visible, setVisible] = useState<boolean>(false);
+  const [image, setImage] = useState<API.FileContent>();
 
   useEffect(() => {
     getCard(id).then((response) => {
@@ -37,10 +40,31 @@ const WfCard: React.FC = () => {
 
   const onFinish = async (values: any) => {
     values.id = id;
+    values.image = image;
     const response = await saveCard(values);
     if (response.succeeded) {
-      message.success('Saved!');
+      message.success(
+        intl.formatMessage({
+          id: 'general.saved',
+        }),
+      );
     }
+  };
+
+  const onImageSelect = (values: API.FileContent) => {
+    setImage(values);
+    setVisible(false);
+  };
+
+  const renderImage = () => {
+    if (image) {
+      return <ImagePreview src={image} onClick={() => setVisible(true)} />;
+    }
+    return (
+      <div className="image-placeholder" onClick={() => setVisible(true)}>
+        <Empty />
+      </div>
+    );
   };
 
   return (
@@ -49,16 +73,27 @@ const WfCard: React.FC = () => {
         id: 'menu.component.card',
       })}
     >
-      <ProForm onFinish={onFinish} formRef={formRef}>
-        <ProFormField label="Image">
-          <Button type="dashed" onClick={() => setVisible(true)}>
-            Choose Image
-          </Button>
-        </ProFormField>
-        <ProFormText name="title" label="Title" />
-        <ProFormTextArea name="text" label="Text" />
-      </ProForm>
-      <Explorer visible={visible} onVisibleChange={setVisible} />
+      <Row gutter={16}>
+        <Col span={16}>
+          <ProCard title="Content">
+            <ProForm onFinish={onFinish} formRef={formRef}>
+              <ProFormField label="Image">{renderImage()}</ProFormField>
+              <ProFormText name="title" label="Title" />
+              <ProFormTextArea name="text" label="Text" />
+            </ProForm>
+          </ProCard>
+        </Col>
+        <Col span={8}>
+          <ProCard title="Preview">
+            <Empty />
+          </ProCard>
+        </Col>
+      </Row>
+      <Explorer
+        visible={visible}
+        onVisibleChange={setVisible}
+        onSelect={onImageSelect}
+      />
     </PageContainer>
   );
 };

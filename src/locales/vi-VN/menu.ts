@@ -24,5 +24,6 @@ export default {
   'menu.component.blockEditor': 'Block editor',
   'menu.component.card': 'Card',
   'menu.component.column': 'Column',
+  'menu.component.css': 'CSS',
   'menu.component': 'Component',
 };

@@ -109,4 +109,9 @@ declare namespace API {
     avatar: string;
     roles: string[];
   };
+
+  type UpgradeListItem = {
+    name: string;
+    url: string;
+  };
 }

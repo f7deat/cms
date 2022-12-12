@@ -1,6 +1,10 @@
-import { upgrade } from '@/services/backup';
+import { listUpgrade, singleUpgrade, upgrade } from '@/services/backup';
 import { ArrowUpOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-components';
+import {
+  PageContainer,
+  ProColumns,
+  ProTable,
+} from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import { Button, message } from 'antd';
 
@@ -14,6 +18,40 @@ const Upgrade: React.FC = () => {
     }
   };
 
+  const handleSingleUpgrade = async (url: string) => {
+    const response = await singleUpgrade(url);
+    if (response.succeeded) {
+      message.success(
+        intl.formatMessage({
+          id: 'general.saved',
+        }),
+      );
+    }
+  };
+
+  const columns: ProColumns<API.UpgradeListItem>[] = [
+    {
+      title: '#',
+      valueType: 'indexBorder',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Option',
+      valueType: 'option',
+      render: (dom, entity) => [
+        <Button
+          key={0}
+          icon={<ArrowUpOutlined />}
+          type="primary"
+          onClick={() => handleSingleUpgrade(entity.url)}
+        />,
+      ],
+    },
+  ];
+
   return (
     <PageContainer
       title={intl.formatMessage({
@@ -25,10 +63,12 @@ const Upgrade: React.FC = () => {
           type="primary"
           onClick={handleUpgrade}
         >
-          Run
+          Upgrade all
         </Button>
       }
-    ></PageContainer>
+    >
+      <ProTable rowKey="name" columns={columns} request={listUpgrade} />
+    </PageContainer>
   );
 };
 

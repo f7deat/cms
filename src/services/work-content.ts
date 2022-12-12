@@ -188,6 +188,13 @@ export async function saveCard(data: any) {
   });
 }
 
+export async function saveRow(data: any) {
+  return request(`workContent/row/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function getListColumn(
   params: {
     current?: number;

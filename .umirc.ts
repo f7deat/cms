@@ -108,6 +108,7 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
+      icon: 'FolderOutlined',
       name: 'fileManager',
       path: '/files',
       routes: [
@@ -128,6 +129,7 @@ export default defineConfig({
       ],
     },
     {
+      icon: 'SettingOutlined',
       name: 'settings',
       path: '/settings',
       routes: [
@@ -154,6 +156,7 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
+      icon: 'InfoCircleOutlined',
       name: 'help',
       path: '/help',
       routes: [
@@ -170,6 +173,7 @@ export default defineConfig({
       ],
     },
     {
+      icon: 'AppstoreAddOutlined',
       name: 'features',
       path: 'features',
       routes: [

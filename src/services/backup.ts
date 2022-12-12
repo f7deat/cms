@@ -15,3 +15,13 @@ export async function upgrade() {
     method: 'POST',
   });
 }
+
+export async function listUpgrade() {
+  return request(`backup/upgrade/list`);
+}
+
+export async function singleUpgrade(url: string) {
+  return request(url, {
+    method: 'POST',
+  });
+}

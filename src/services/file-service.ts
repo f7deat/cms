@@ -1,13 +1,10 @@
 import { request } from '@umijs/max';
+import { RcFile } from 'antd/lib/upload';
 
 export async function listFile(
   params: {
-    // query
-    /** keyword */
     keyword?: string;
-    /** current */
     current?: number;
-    /** pageSize */
     pageSize?: number;
   },
   options?: { [key: string]: any },
@@ -33,13 +30,19 @@ export async function getFileDetail(id: string | undefined) {
 
 export async function listWorkItemFiles(
   params: {
-    // query
-    /** 当前的页码 */
     current?: number;
-    /** 页面的容量 */
     pageSize?: number;
   },
   options: { id: string | undefined },
 ) {
   return request(`fileExplorer/file-items/${options.id}`);
+}
+
+export async function uploadRcFile(file: RcFile) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request(`fileExplorer/upload`, {
+    method: 'POST',
+    data: formData,
+  });
 }
