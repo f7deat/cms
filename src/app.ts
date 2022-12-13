@@ -1,13 +1,11 @@
-// 运行时配置
 import { RequestConfig } from '@umijs/max';
-import '../style.less';
+import '../style.css';
 import { RequestOptions } from './.umi/plugin-request/request';
 import logo from './assets/logo.svg';
 import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';
-// 全局初始化数据配置，用于 Layout 用户信息和权限初始化
-// 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
+
 const loginPath = '/accounts/login';
 
 export async function getInitialState(): Promise<{
@@ -25,7 +23,6 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
@@ -48,7 +45,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     layout: 'top',
     onPageChange: () => {
       const { location } = history;
-      // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
@@ -61,7 +57,7 @@ export const request: RequestConfig = {
     (config: RequestOptions) => {
       const token = localStorage.getItem('wf_token');
       const baseURL = localStorage.getItem('wf_URL');
-      config.baseURL = `${baseURL}api/`;
+      config.baseURL = new URL(`api/`, baseURL || '').href;
       config.headers = {
         authorization: `Bearer ${token}`,
       };

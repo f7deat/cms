@@ -31,13 +31,14 @@ const AddComponent: React.FC<AddComponentProps> = (props) => {
 
   return (
     <ModalForm
-      visible={props.visible}
+      open={props.visible}
       title="Add component"
       onFinish={props.onFinish}
-      onVisibleChange={props.onVisibleChange}
+      onOpenChange={props.onVisibleChange}
     >
       <ProFormText name="name" label="Name" />
       <ProFormSelect
+        showSearch
         options={components}
         name="componentId"
         label="Component"

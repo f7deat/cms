@@ -70,8 +70,8 @@ const Swiper: React.FC = () => {
         </Col>
       </Row>
       <ModalForm
-        visible={visible}
-        onVisibleChange={setVisible}
+        open={visible}
+        onOpenChange={setVisible}
         title="Add items"
         onFinish={onFinish}
       >

@@ -21,7 +21,7 @@ import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import bg from '../../../assets/bg-login.svg';
 import logo from '../../../assets/logo.svg';
-import '../../../../style.less';
+import '../../../../style.css';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');

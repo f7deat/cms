@@ -84,7 +84,11 @@ const FileCenter: React.FC = () => {
     <PageContainer title="Center">
       <Row gutter={16}>
         <Col span={4}>
-          <ProCard title="Preview">
+          <ProCard
+            title={intl.formatMessage({
+              id: 'general.preview',
+            })}
+          >
             {renderPreview()}
             <Divider />
             <Descriptions title="File info" column={1}>

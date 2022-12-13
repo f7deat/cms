@@ -149,8 +149,8 @@ const Catalog: React.FC = () => {
         />
       </div>
       <ModalForm
-        onVisibleChange={setVisible}
-        visible={visible}
+        onOpenChange={setVisible}
+        open={visible}
         onFinish={onFinish}
         formRef={formRef}
       >

@@ -1,4 +1,8 @@
-import { addColumn, getListColumn } from '@/services/work-content';
+import {
+  addColumn,
+  deleteWorkContentById,
+  getListColumn,
+} from '@/services/work-content';
 import {
   FolderOutlined,
   DeleteOutlined,
@@ -10,13 +14,14 @@ import {
   ProFormSelect,
   ProList,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useParams } from '@umijs/max';
-import { Button, message } from 'antd';
+import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
+import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 const RowContent: React.FC = () => {
   const { id } = useParams();
   const actionRef = useRef<ActionType>();
+  const intl = useIntl();
 
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -27,6 +32,17 @@ const RowContent: React.FC = () => {
       message.success('Added!');
       actionRef.current?.reload();
       setVisible(false);
+    }
+  };
+
+  const onConfirm = async (id: string) => {
+    const response = await deleteWorkContentById(id);
+    if (response.succeeded) {
+      message.success(
+        intl.formatMessage({
+          id: 'general.deleted',
+        }),
+      );
     }
   };
 
@@ -54,21 +70,18 @@ const RowContent: React.FC = () => {
                 key={0}
                 onClick={() => history.push(`/works/column/${row.id}`)}
               ></Button>,
-              <Button
-                type="primary"
-                danger
+              <Popconfirm
                 key={1}
-                icon={<DeleteOutlined />}
-              />,
+                title="Are you sure?"
+                onConfirm={() => onConfirm(row.id)}
+              >
+                <Button type="primary" danger icon={<DeleteOutlined />} />
+              </Popconfirm>,
             ],
           },
         }}
       />
-      <ModalForm
-        visible={visible}
-        onVisibleChange={setVisible}
-        onFinish={onFinish}
-      >
+      <ModalForm open={visible} onOpenChange={setVisible} onFinish={onFinish}>
         <ProFormSelect
           label="Collumn"
           options={[

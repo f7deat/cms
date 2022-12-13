@@ -1,6 +1,7 @@
 import { getCss, saveCss } from '@/services/work-content';
 import {
   PageContainer,
+  ProCard,
   ProForm,
   ProFormInstance,
   ProFormText,
@@ -38,10 +39,12 @@ const CssSetting: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProForm onFinish={onFinish} formRef={formRef}>
-        <ProFormText name="id" hidden />
-        <ProFormTextArea name="arguments" label="Content" />
-      </ProForm>
+      <ProCard>
+        <ProForm onFinish={onFinish} formRef={formRef}>
+          <ProFormText name="id" hidden />
+          <ProFormTextArea name="arguments" label="Content" />
+        </ProForm>
+      </ProCard>
     </PageContainer>
   );
 };

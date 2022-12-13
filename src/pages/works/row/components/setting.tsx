@@ -1,14 +1,32 @@
-import { saveRow } from '@/services/work-content';
+import { getRow, saveRow } from '@/services/work-content';
 import {
   ProForm,
+  ProFormInstance,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { message } from 'antd';
+import { useEffect, useRef } from 'react';
 
 const RowSetting: React.FC = () => {
   const { id } = useParams();
+  const formRef = useRef<ProFormInstance>();
+
+  useEffect(() => {
+    getRow(id).then((response) => {
+      formRef.current?.setFields([
+        {
+          name: 'layout',
+          value: response.layout,
+        },
+        {
+          name: 'className',
+          value: response.className,
+        },
+      ]);
+    });
+  }, []);
 
   const onFinish = async (values: any) => {
     values.id = id;
@@ -19,7 +37,7 @@ const RowSetting: React.FC = () => {
   };
 
   return (
-    <ProForm onFinish={onFinish}>
+    <ProForm onFinish={onFinish} formRef={formRef}>
       <ProFormText name="className" label="Class name" />
       <ProFormSelect
         name="layout"

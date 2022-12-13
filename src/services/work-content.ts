@@ -98,6 +98,12 @@ export async function deleteWorkContent(
   });
 }
 
+export async function deleteWorkContentById(id: string) {
+  return request(`workContent/delete/${id}`, {
+    method: 'POST',
+  });
+}
+
 export async function listCss() {
   return request(`style/list`);
 }
@@ -186,6 +192,10 @@ export async function saveCard(data: any) {
     method: 'POST',
     data,
   });
+}
+
+export async function getRow(id: string | undefined) {
+  return request(`workContent/row/${id}`);
 }
 
 export async function saveRow(data: any) {

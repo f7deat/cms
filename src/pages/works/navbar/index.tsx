@@ -119,8 +119,8 @@ const Navbar: React.FC = () => {
       <ModalForm
         onFinish={handleAddNavItem}
         formRef={formItemRef}
-        visible={visible}
-        onVisibleChange={setVisible}
+        open={visible}
+        onOpenChange={setVisible}
       >
         <ProFormText name="name" label="Name" />
         <ProFormText name="url" label="Url" />

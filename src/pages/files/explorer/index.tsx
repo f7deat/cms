@@ -39,8 +39,8 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
   return (
     <ModalForm
       title="Select content"
-      visible={props.visible}
-      onVisibleChange={props.onVisibleChange}
+      open={props.visible}
+      onOpenChange={props.onVisibleChange}
       onFinish={props.onFinish}
     >
       <div className="mb-4">

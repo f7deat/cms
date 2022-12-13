@@ -128,11 +128,7 @@ const CatalogList: React.FC<CalalogListProps> = (props) => {
           </Button>,
         ]}
       ></ProTable>
-      <ModalForm
-        visible={visible}
-        onVisibleChange={setVisible}
-        onFinish={onFinish}
-      >
+      <ModalForm open={visible} onOpenChange={setVisible} onFinish={onFinish}>
         <ProFormText name="name" label="Name" />
         <ProFormText name="normalizedName" label="Normalized Name" />
       </ModalForm>
