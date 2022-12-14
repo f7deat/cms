@@ -1,4 +1,5 @@
 import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { Col, Empty, Row } from 'antd';
 import { useState } from 'react';
 import RowContent from './components/content';
 import RowSetting from './components/setting';
@@ -8,26 +9,35 @@ const RowComponent: React.FC = () => {
 
   return (
     <PageContainer title="Row">
-      <ProCard
-        tabs={{
-          activeKey: tab,
-          items: [
-            {
-              label: 'Content',
-              key: 'content',
-              children: <RowContent />,
-            },
-            {
-              label: 'Setting',
-              key: 'setting',
-              children: <RowSetting />,
-            },
-          ],
-          onChange: (key) => {
-            setTab(key);
-          },
-        }}
-      />
+      <Row gutter={16}>
+        <Col span={16}>
+          <ProCard
+            tabs={{
+              activeKey: tab,
+              items: [
+                {
+                  label: 'Content',
+                  key: 'content',
+                  children: <RowContent />,
+                },
+                {
+                  label: 'Setting',
+                  key: 'setting',
+                  children: <RowSetting />,
+                },
+              ],
+              onChange: (key) => {
+                setTab(key);
+              },
+            }}
+          />
+        </Col>
+        <Col span={8}>
+          <ProCard title="Work contents">
+            <Empty />
+          </ProCard>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

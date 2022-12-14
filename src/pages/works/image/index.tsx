@@ -1,14 +1,31 @@
-import { getImage, saveImage } from '@/services/work-content';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  deleteWorkContentById,
+  getImage,
+  saveImage,
+} from '@/services/work-content';
+import {
+  DeleteOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import {
   PageContainer,
+  ProCard,
   ProForm,
   ProFormDigit,
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
-import { Col, message, Row, Upload, UploadProps } from 'antd';
+import { history, useIntl, useParams } from '@umijs/max';
+import {
+  Button,
+  Col,
+  message,
+  Popconfirm,
+  Row,
+  Upload,
+  UploadProps,
+} from 'antd';
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload';
 import { useEffect, useRef, useState } from 'react';
 
@@ -16,6 +33,7 @@ const baseUrl = localStorage.getItem('wf_URL');
 
 const Image: React.FC = () => {
   const { id } = useParams();
+  const intl = useIntl();
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -69,6 +87,8 @@ const Image: React.FC = () => {
     const response = await saveImage(values);
     if (response.succeeded) {
       message.success('Saved!');
+    } else {
+      message.error(response.errors[0].description);
     }
   };
 
@@ -106,41 +126,66 @@ const Image: React.FC = () => {
     });
   }, []);
 
+  const onConfirm = async () => {
+    const response = await deleteWorkContentById(id);
+    if (response.succeeded) {
+      message.success(
+        intl.formatMessage({
+          id: 'general.deleted',
+        }),
+      );
+      history.back();
+    } else {
+      message.error(response.errors[0].description);
+    }
+  };
+
+  const extra = (
+    <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
+      <Button type="primary" danger icon={<DeleteOutlined />}>
+        {' '}
+        Delete
+      </Button>
+    </Popconfirm>
+  );
+
   return (
-    <PageContainer title="Image">
-      <Row gutter={16}>
-        <Col>
-          <Upload
-            name="file"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action={`${baseUrl}api/image/upload/${id}`}
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
-          >
-            {imageUrl ? (
-              <img
-                src={baseUrl + imageUrl}
-                alt="avatar"
-                style={{ width: '100%' }}
-              />
-            ) : (
-              uploadButton
-            )}
-          </Upload>
-        </Col>
-        <Col>
-          <ProForm onFinish={onFinish} formRef={formRef}>
-            <ProFormText name="id" hidden={true} />
-            <ProFormText name="alt" label="Alt" />
-            <ProFormText name="url" label="Url" />
-            <ProFormText name="className" label="Class Name" />
-            <ProFormDigit label="Width" name="width" />
-            <ProFormDigit label="Height" name="height" />
-          </ProForm>
-        </Col>
-      </Row>
+    <PageContainer title="Image" extra={extra}>
+      <ProCard>
+        <Row gutter={16}>
+          <Col>
+            <Upload
+              name="file"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action={`${baseUrl}api/image/upload/${id}`}
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              {imageUrl ? (
+                <img
+                  src={baseUrl + imageUrl}
+                  alt="avatar"
+                  style={{ width: '100%' }}
+                />
+              ) : (
+                uploadButton
+              )}
+            </Upload>
+          </Col>
+          <Col>
+            <ProForm onFinish={onFinish} formRef={formRef}>
+              <ProFormText name="id" hidden={true} />
+              <ProFormText name="alt" label="Alt" />
+              <ProFormText name="url" label="Url" />
+              <ProFormText name="className" label="Class Name" />
+              <ProFormDigit label="Width" name="width" />
+              <ProFormDigit label="Height" name="height" />
+            </ProForm>
+          </Col>
+        </Row>
+      </ProCard>
     </PageContainer>
   );
 };

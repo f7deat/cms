@@ -34,6 +34,7 @@ const WfCard: React.FC = () => {
             value: response.text,
           },
         ]);
+        setImage(response.image);
       }
     });
   }, [id]);
@@ -74,7 +75,12 @@ const WfCard: React.FC = () => {
       })}
     >
       <Row gutter={16}>
-        <Col span={16}>
+        <Col span={4}>
+          <ProCard title="Work contents">
+            <Empty />
+          </ProCard>
+        </Col>
+        <Col span={12}>
           <ProCard title="Content">
             <ProForm onFinish={onFinish} formRef={formRef}>
               <ProFormField label="Image">{renderImage()}</ProFormField>

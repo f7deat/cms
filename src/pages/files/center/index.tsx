@@ -1,4 +1,8 @@
-import { getFileDetail, listWorkItemFiles } from '@/services/file-service';
+import {
+  deleteFileContent,
+  getFileDetail,
+  listWorkItemFiles,
+} from '@/services/file-service';
 import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   PageContainer,
@@ -6,7 +10,7 @@ import {
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
+import { history, useIntl } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import {
   Col,
@@ -17,6 +21,7 @@ import {
   Divider,
   Button,
   Popconfirm,
+  message,
 } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -42,7 +47,7 @@ const FileCenter: React.FC = () => {
     return <Empty />;
   };
 
-  const columns: ProColumns<API.FileListItem>[] = [
+  const columns: ProColumns<API.WorkItem>[] = [
     {
       title: '#',
       valueType: 'indexBorder',
@@ -71,8 +76,19 @@ const FileCenter: React.FC = () => {
       title: '',
       valueType: 'option',
       width: 120,
-      render: () => [
-        <Button icon={<FolderOutlined />} key={1} type="primary"></Button>,
+      render: (dom, entity) => [
+        <Button
+          icon={<FolderOutlined />}
+          key={1}
+          type="primary"
+          onClick={() => {
+            history.push(
+              `/works/${entity.normalizedName.toLocaleLowerCase()}/${
+                entity.id
+              }`,
+            );
+          }}
+        ></Button>,
         <Popconfirm title="Are you sure?" key={2}>
           <Button icon={<DeleteOutlined />} type="primary" danger />
         </Popconfirm>,
@@ -80,8 +96,31 @@ const FileCenter: React.FC = () => {
     },
   ];
 
+  const onConfirm = async () => {
+    const response = await deleteFileContent(id);
+    if (response.succeeded) {
+      message.success(
+        intl.formatMessage({
+          id: 'general.deleted',
+        }),
+      );
+      history.back();
+    } else {
+      message.error(response.errors[0].description);
+    }
+  };
+
+  const extra = (
+    <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
+      <Button type="primary" danger icon={<DeleteOutlined />}>
+        {' '}
+        Delete
+      </Button>
+    </Popconfirm>
+  );
+
   return (
-    <PageContainer title="Center">
+    <PageContainer title="Center" extra={extra}>
       <Row gutter={16}>
         <Col span={4}>
           <ProCard

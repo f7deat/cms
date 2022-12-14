@@ -18,9 +18,16 @@ export async function listFile(
   });
 }
 
-export async function deleteFileContent(id: string) {
+export async function deleteFileContent(id: string | undefined) {
   return request(`fileExplorer/delete-file-content/${id}`, {
     method: 'POST',
+  });
+}
+
+export async function deleteFileItem(data: API.FileItem) {
+  return request(`fileExplorer/delete-file-item`, {
+    method: 'POST',
+    data,
   });
 }
 

@@ -21,7 +21,7 @@ import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import bg from '../../../assets/bg-login.svg';
 import logo from '../../../assets/logo.svg';
-import '../../../../style.css';
+import './index.css';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -109,7 +109,10 @@ const Login: React.FC = () => {
             },
             {
               key: 'mobile',
-              label: 'Số điện thoại',
+              label: intl.formatMessage({
+                id: 'general.phoneNumber',
+                defaultMessage: 'Phone number',
+              }),
             },
           ]}
         />
@@ -162,15 +165,18 @@ const Login: React.FC = () => {
                 prefix: <MobileOutlined />,
               }}
               name="mobile"
-              placeholder="手机号"
+              placeholder={intl.formatMessage({
+                id: 'general.phoneNumber',
+                defaultMessage: 'Phone number',
+              })}
               rules={[
                 {
                   required: true,
-                  message: '请输入手机号！',
+                  message: 'Vui lòng nhập số điện thoại',
                 },
                 {
                   pattern: /^1\d{10}$/,
-                  message: '手机号格式错误！',
+                  message: 'Số điện thoại không hợp lệ',
                 },
               ]}
             />
@@ -182,12 +188,12 @@ const Login: React.FC = () => {
               captchaProps={{
                 size: 'large',
               }}
-              placeholder="请输入验证码"
+              placeholder="Mã xác nhận"
               captchaTextRender={(timing, count) => {
                 if (timing) {
-                  return '获取验证码 + ' + count;
+                  return 'Lấy mã + ' + count;
                 }
-                return '获取验证码';
+                return 'Lấy mã';
               }}
               name="captcha"
               rules={[
@@ -197,7 +203,7 @@ const Login: React.FC = () => {
                 },
               ]}
               onGetCaptcha={async (phone) => {
-                message.success('获取验证码成功！验证码为：1234' + phone);
+                message.success('Đã gửi mã xác minh tới: ' + phone);
               }}
             />
           </>

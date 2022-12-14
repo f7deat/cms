@@ -1,4 +1,9 @@
-import { getCss, saveCss } from '@/services/work-content';
+import {
+  deleteWorkContentById,
+  getCss,
+  saveCss,
+} from '@/services/work-content';
+import { DeleteOutlined } from '@ant-design/icons';
 import {
   PageContainer,
   ProCard,
@@ -7,12 +12,13 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
-import { message } from 'antd';
+import { useIntl, useParams } from '@umijs/max';
+import { Button, message, Popconfirm } from 'antd';
 import { useEffect, useRef } from 'react';
 
 const CssSetting: React.FC = () => {
   const { id } = useParams();
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
@@ -37,8 +43,31 @@ const CssSetting: React.FC = () => {
     }
   };
 
+  const onConfirm = async () => {
+    const response = await deleteWorkContentById(id);
+    if (response.succeeded) {
+      message.success(
+        intl.formatMessage({
+          id: 'general.deleted',
+        }),
+      );
+      history.back();
+    } else {
+      message.error(response.errors[0].description);
+    }
+  };
+
+  const extra = (
+    <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
+      <Button type="primary" danger icon={<DeleteOutlined />}>
+        {' '}
+        Delete
+      </Button>
+    </Popconfirm>
+  );
+
   return (
-    <PageContainer>
+    <PageContainer extra={extra}>
       <ProCard>
         <ProForm onFinish={onFinish} formRef={formRef}>
           <ProFormText name="id" hidden />

@@ -9,15 +9,15 @@ import { RunTimeLayoutConfig } from '@umijs/max';
 const loginPath = '/accounts/login';
 
 export async function getInitialState(): Promise<{
+  avatar?: string;
   name?: string;
-  domain?: string;
   currentUser?: API.User;
   fetchUserInfo?: () => Promise<API.User | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
-      return msg.data;
+      return msg.data as API.User;
     } catch (error) {
       history.push(loginPath);
     }
@@ -28,7 +28,9 @@ export async function getInitialState(): Promise<{
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
-      currentUser,
+      name: currentUser?.userName,
+      avatar: currentUser?.avatar,
+      currentUser: currentUser,
     };
   }
   return {
