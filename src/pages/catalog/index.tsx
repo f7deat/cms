@@ -60,8 +60,8 @@ const CatalogPage: React.FC = () => {
           ></ProCard>
           <ModalForm
             onFinish={onFinish}
-            visible={visibleCatalogModal}
-            onVisibleChange={setVisibleCatalogModal}
+            open={visibleCatalogModal}
+            onOpenChange={setVisibleCatalogModal}
           >
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />

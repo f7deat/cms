@@ -6,5 +6,5 @@ Language : 🇺🇸 | 🇨🇳 | 🇷🇺 | 🇹🇷 | 🇯🇵 | 🇫🇷 | �
 
 ### Githooks
 
-- 🌐 locale: Locale message
-- 🚀 feat: Features message
+- locale: 🌐 Locale message
+- feat: 🚀 Features message

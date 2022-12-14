@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import { ActionType, ProList } from '@ant-design/pro-components';
 import { Button, message, Popconfirm } from 'antd';
-import { history } from '@umijs/max';
+import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { useEffect, useRef, useState } from 'react';
 import AddComponent from '../add-component';
@@ -65,17 +65,23 @@ const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
 
   return (
     <div>
-      <Button
-        onClick={() => setVisible(true)}
-        type="primary"
-        icon={<PlusOutlined />}
-      >
-        Add component
-      </Button>
       <ProList<API.WorkItem>
+        toolBarRender={() => {
+          return [
+            <Button
+              key={0}
+              onClick={() => setVisible(true)}
+              type="primary"
+              icon={<PlusOutlined />}
+            >
+              <FormattedMessage id="general.new" />
+            </Button>,
+          ];
+        }}
+        rowSelection={{}}
         actionRef={actionRef}
         request={async () => listWorkContent(id, props.child)}
-        header={false}
+        headerTitle="Work items"
         metas={{
           title: {
             dataIndex: 'name',

@@ -48,16 +48,23 @@ const RowContent: React.FC = () => {
 
   return (
     <div>
-      <Button
-        icon={<PlusOutlined />}
-        type="primary"
-        onClick={() => setVisible(true)}
-      >
-        <FormattedMessage id="general.new" />
-      </Button>
       <ProList<API.WorkContent>
+        toolBarRender={() => {
+          return [
+            <Button
+              key={0}
+              icon={<PlusOutlined />}
+              type="primary"
+              onClick={() => setVisible(true)}
+            >
+              <FormattedMessage id="general.new" />
+            </Button>,
+          ];
+        }}
         request={(params) => getListColumn(params, id)}
         actionRef={actionRef}
+        rowSelection={{}}
+        headerTitle="Column"
         metas={{
           title: {
             dataIndex: 'arguments',

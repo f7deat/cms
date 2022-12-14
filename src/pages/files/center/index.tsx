@@ -26,7 +26,7 @@ import {
 import { useEffect, useState } from 'react';
 
 const FileCenter: React.FC = () => {
-  const supportImage = ['image/jpeg', 'image/png'];
+  const supportImage = ['image/jpeg', 'image/png', 'image/webp'];
 
   const { id } = useParams();
   const intl = useIntl();
@@ -40,9 +40,11 @@ const FileCenter: React.FC = () => {
 
   const renderPreview = () => {
     if (supportImage.includes(fileContent?.type ?? '')) {
-      return (
-        <Image src={`${localStorage.getItem('wf_URL')}${fileContent?.url}`} />
-      );
+      const url = new URL(
+        fileContent?.url || '',
+        localStorage.getItem('wf_URL') || '',
+      ).href;
+      return <Image src={url} />;
     }
     return <Empty />;
   };

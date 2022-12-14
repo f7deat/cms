@@ -1,5 +1,9 @@
 import { deleteFileContent, listFile } from '@/services/file-service';
-import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import {
+  ArrowUpOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+} from '@ant-design/icons';
 import {
   ActionType,
   PageContainer,
@@ -39,6 +43,7 @@ const FilePage: React.FC = () => {
     {
       title: 'Url',
       dataIndex: 'url',
+      search: false,
     },
     {
       title: 'Size',
@@ -69,7 +74,14 @@ const FilePage: React.FC = () => {
     },
   ];
   return (
-    <PageContainer title="Quản lý tệp tin">
+    <PageContainer
+      title="Quản lý tệp tin"
+      extra={
+        <Button icon={<ArrowUpOutlined />} type="primary">
+          Upload
+        </Button>
+      }
+    >
       <ProTable
         request={listFile}
         columns={columns}
