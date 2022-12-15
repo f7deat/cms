@@ -12,8 +12,8 @@ import { useRef } from 'react';
 const { Search } = Input;
 
 type ExplorerProps = {
-  visible: boolean;
-  onVisibleChange?: any;
+  open: boolean;
+  onOpenChange?: any;
   onFinish?: any;
   onSelect?: any;
 };
@@ -39,8 +39,8 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
   return (
     <ModalForm
       title="Select content"
-      open={props.visible}
-      onOpenChange={props.onVisibleChange}
+      open={props.open}
+      onOpenChange={props.onOpenChange}
       onFinish={props.onFinish}
     >
       <div className="mb-4">

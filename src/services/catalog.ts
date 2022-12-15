@@ -1,4 +1,4 @@
-import { CatalogType } from '@/utils/constants';
+import { CatalogType } from '@/constants';
 import { request } from '@umijs/max';
 import { DataNode } from 'antd/lib/tree';
 

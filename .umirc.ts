@@ -37,6 +37,12 @@ export default defineConfig({
       component: './Home',
     },
     {
+      name: 'shop',
+      path: '/shop/:id',
+      component: './shop',
+      hideInMenu: true,
+    },
+    {
       name: 'component',
       path: '/works',
       hideInMenu: true,
@@ -97,6 +103,12 @@ export default defineConfig({
           name: 'css',
           path: '/works/css/:id',
           component: './works/css',
+          hideInMenu: true,
+        },
+        {
+          name: 'masonry',
+          path: '/works/masonry/:id',
+          component: './works/masonry',
           hideInMenu: true,
         },
       ],

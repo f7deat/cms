@@ -1,5 +1,5 @@
+import { CatalogType } from '@/constants';
 import { getCatalog, saveCatalog } from '@/services/catalog';
-import { CatalogType } from '@/utils/constants';
 import {
   ProForm,
   ProFormCheckbox,

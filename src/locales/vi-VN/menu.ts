@@ -1,8 +1,10 @@
 export default {
+  'menu.article': 'Bài viết',
   'menu.home': 'Trang chủ',
   'menu.help': 'Trợ giúp',
   'menu.contact': 'Danh bạ',
   'menu.help.backup': 'Backup',
+  'menu.shop': 'Cửa hàng',
   'menu.settings.style': 'Giao diện',
   'menu.settings.general': 'Cơ bản',
   'menu.settings.header': 'Header',
@@ -25,5 +27,6 @@ export default {
   'menu.component.card': 'Card',
   'menu.component.column': 'Column',
   'menu.component.css': 'CSS',
+  'menu.component.masonry': 'Masonry',
   'menu.component': 'Component',
 };

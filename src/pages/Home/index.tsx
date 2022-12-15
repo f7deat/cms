@@ -1,36 +1,45 @@
 import { getEntryPoint } from '@/services/catalog';
 import { PageContainer } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
-import { useIntl } from '@umijs/max';
+import { FormattedMessage, history } from '@umijs/max';
 import { Card, message } from 'antd';
 
 const HomePage: React.FC = () => {
-  const entryPoints = ['home', 'article', 'shop'];
+  const entryPoints = [
+    {
+      id: 'home',
+      name: 'menu.home',
+      url: 'catalog',
+    },
+    {
+      id: 'article',
+      name: 'menu.article',
+      url: 'article',
+    },
+    {
+      id: 'shop',
+      name: 'menu.shop',
+      url: 'shop',
+    },
+  ];
 
-  const intl = useIntl();
-
-  const onClick = async (normalizedName: string) => {
-    const response = await getEntryPoint(normalizedName);
+  const onClick = async (id: string, url: string) => {
+    const response = await getEntryPoint(id);
     if (response.succeeded) {
-      history.push(`/catalog/${response.data.id}`);
+      history.push(`/${url}/${response.data.id}`);
     } else {
       message.error(response.errors[0].description);
     }
   };
 
   return (
-    <PageContainer
-      title={intl.formatMessage({
-        id: 'menu.home',
-      })}
-    >
+    <PageContainer>
       <Card title="Get Started">
-        {entryPoints.map((normalizedName) => (
+        {entryPoints.map((point) => (
           <Card.Grid
-            key={normalizedName}
-            onClick={() => onClick(normalizedName)}
+            key={point.name}
+            onClick={() => onClick(point.id, point.url)}
           >
-            {normalizedName}
+            <FormattedMessage id={point.name} />
           </Card.Grid>
         ))}
       </Card>

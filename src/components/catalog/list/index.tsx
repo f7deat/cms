@@ -1,5 +1,5 @@
+import { CatalogType } from '@/constants';
 import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
-import { CatalogType } from '@/utils/constants';
 import {
   FolderOutlined,
   DeleteOutlined,
