@@ -18,11 +18,7 @@ import { useParams } from '@umijs/max';
 import { useEffect, useRef, useState } from 'react';
 import AddComponent from '../add-component';
 
-type WorkContentComponentProps = {
-  child: boolean;
-};
-
-const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
+const WorkContentComponent: React.FC = () => {
   const { id } = useParams();
 
   const actionRef = useRef<ActionType>();
@@ -80,7 +76,7 @@ const WorkContentComponent: React.FC<WorkContentComponentProps> = (props) => {
         }}
         rowSelection={{}}
         actionRef={actionRef}
-        request={async () => listWorkContent(id, props.child)}
+        request={async () => listWorkContent(id)}
         headerTitle="Work items"
         metas={{
           title: {

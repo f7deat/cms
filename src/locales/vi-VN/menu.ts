@@ -28,5 +28,6 @@ export default {
   'menu.component.column': 'Column',
   'menu.component.css': 'CSS',
   'menu.component.masonry': 'Masonry',
+  'menu.component.lookbook': 'Look book',
   'menu.component': 'Component',
 };

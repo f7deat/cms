@@ -1,13 +1,11 @@
+import FilePreview from '@/pages/files/center/preview';
+import Explorer from '@/pages/files/explorer';
 import {
   deleteWorkContentById,
   getImage,
   saveImage,
 } from '@/services/work-content';
-import {
-  DeleteOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
   PageContainer,
   ProCard,
@@ -15,75 +13,23 @@ import {
   ProFormDigit,
   ProFormInstance,
   ProFormText,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
 import { history, useIntl, useParams } from '@umijs/max';
-import {
-  Button,
-  Col,
-  message,
-  Popconfirm,
-  Row,
-  Upload,
-  UploadProps,
-} from 'antd';
-import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload';
+import { Button, Col, message, Popconfirm, Row, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-
-const baseUrl = localStorage.getItem('wf_URL');
 
 const Image: React.FC = () => {
   const { id } = useParams();
   const intl = useIntl();
 
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
+  const [image, setImage] = useState<API.FileContent>();
+  const [open, setOpen] = useState<boolean>(false);
 
   const formRef = useRef<ProFormInstance>();
 
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-  const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
-  };
-
-  const handleChange: UploadProps['onChange'] = (
-    info: UploadChangeParam<UploadFile>,
-  ) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng =
-      file.type === 'image/jpeg' ||
-      file.type === 'image/png' ||
-      file.type === 'image/svg+xml';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-  };
-
   const onFinish = async (values: API.Image) => {
+    values.fileContent = image;
     const response = await saveImage(values);
     if (response.succeeded) {
       message.success('Saved!');
@@ -94,6 +40,7 @@ const Image: React.FC = () => {
 
   useEffect(() => {
     getImage(id).then((response) => {
+      setImage(response.fileContent);
       formRef.current?.setFields([
         {
           name: 'id',
@@ -112,17 +59,10 @@ const Image: React.FC = () => {
           value: response.alt,
         },
         {
-          name: 'url',
-          value: response.url,
-        },
-        {
           name: 'className',
           value: response.className,
         },
       ]);
-      if (response.src) {
-        setImageUrl(response.src);
-      }
     });
   }, []);
 
@@ -141,51 +81,43 @@ const Image: React.FC = () => {
   };
 
   const extra = (
-    <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
-      <Button type="primary" danger icon={<DeleteOutlined />}>
-        {' '}
-        Delete
+    <Space>
+      <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
+        <Button type="primary" danger icon={<DeleteOutlined />}>
+          Delete
+        </Button>
+      </Popconfirm>
+      <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+        Back
       </Button>
-    </Popconfirm>
+    </Space>
   );
+
+  const onSelect = (values: API.FileContent) => {
+    setImage(values);
+    setOpen(false);
+  };
 
   return (
     <PageContainer title="Image" extra={extra}>
-      <ProCard>
-        <Row gutter={16}>
-          <Col>
-            <Upload
-              name="file"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action={`${baseUrl}api/image/upload/${id}`}
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imageUrl ? (
-                <img
-                  src={baseUrl + imageUrl}
-                  alt="avatar"
-                  style={{ width: '100%' }}
-                />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-          </Col>
-          <Col>
+      <Row gutter={16}>
+        <Col span={6}>
+          <FilePreview file={image} onChange={() => setOpen(true)} />
+        </Col>
+        <Col span={18}>
+          <ProCard>
             <ProForm onFinish={onFinish} formRef={formRef}>
               <ProFormText name="id" hidden={true} />
-              <ProFormText name="alt" label="Alt" />
-              <ProFormText name="url" label="Url" />
+              <ProFormText name="alt" label="Title" />
+              <ProFormTextArea name="description" label="Description" />
               <ProFormText name="className" label="Class Name" />
               <ProFormDigit label="Width" name="width" />
               <ProFormDigit label="Height" name="height" />
             </ProForm>
-          </Col>
-        </Row>
-      </ProCard>
+          </ProCard>
+        </Col>
+      </Row>
+      <Explorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </PageContainer>
   );
 };

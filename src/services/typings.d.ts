@@ -29,6 +29,7 @@ declare namespace API {
     width?: number;
     url: string;
     className: string;
+    fileContent?: FileContent;
   };
 
   type Navbar = {

@@ -111,6 +111,12 @@ export default defineConfig({
           component: './works/masonry',
           hideInMenu: true,
         },
+        {
+          name: 'lookbook',
+          path: '/works/lookbook/:id',
+          component: './works/lookbook',
+          hideInMenu: true,
+        },
       ],
     },
     {
