@@ -43,7 +43,7 @@ const CatalogPage: React.FC = () => {
                 {
                   label: 'Content',
                   key: 'tab1',
-                  children: <WorkContentComponent child={false} />,
+                  children: <WorkContentComponent />,
                 },
                 {
                   label: intl.formatMessage({

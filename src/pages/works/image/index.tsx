@@ -5,7 +5,11 @@ import {
   getImage,
   saveImage,
 } from '@/services/work-content';
-import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  BarsOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import {
   PageContainer,
   ProCard,
@@ -55,8 +59,12 @@ const Image: React.FC = () => {
           value: response.width,
         },
         {
-          name: 'alt',
-          value: response.alt,
+          name: 'title',
+          value: response.title,
+        },
+        {
+          name: 'description',
+          value: response.description,
         },
         {
           name: 'className',
@@ -90,6 +98,7 @@ const Image: React.FC = () => {
       <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
         Back
       </Button>
+      <Button icon={<BarsOutlined />} />
     </Space>
   );
 
@@ -108,7 +117,7 @@ const Image: React.FC = () => {
           <ProCard>
             <ProForm onFinish={onFinish} formRef={formRef}>
               <ProFormText name="id" hidden={true} />
-              <ProFormText name="alt" label="Title" />
+              <ProFormText name="title" label="Title" />
               <ProFormTextArea name="description" label="Description" />
               <ProFormText name="className" label="Class Name" />
               <ProFormDigit label="Width" name="width" />

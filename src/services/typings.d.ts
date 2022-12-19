@@ -23,9 +23,9 @@ declare namespace API {
   };
 
   type Image = BaseEntity & {
-    alt: string;
+    title: string;
+    description: string;
     height?: number;
-    src: string;
     width?: number;
     url: string;
     className: string;

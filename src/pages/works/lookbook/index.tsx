@@ -5,10 +5,11 @@ import {
   ActionType,
   ModalForm,
   PageContainer,
+  ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl, useParams } from '@umijs/max';
-import { Button, message } from 'antd';
+import { Button, Empty, message } from 'antd';
 import { useRef, useState } from 'react';
 
 const LookBook: React.FC = () => {
@@ -16,6 +17,7 @@ const LookBook: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const intl = useIntl();
 
+  const [tab, setTab] = useState('content');
   const [open, setOpen] = useState<boolean>(false);
 
   const extra = (
@@ -45,7 +47,32 @@ const LookBook: React.FC = () => {
 
   return (
     <PageContainer extra={extra}>
-      <ChildWorkContent actionRef={actionRef} />
+      <ProCard
+        tabs={{
+          tabPosition: 'top',
+          activeKey: tab,
+          items: [
+            {
+              label: intl.formatMessage({
+                id: 'general.content',
+              }),
+              key: 'content',
+              children: <ChildWorkContent actionRef={actionRef} />,
+            },
+            {
+              label: intl.formatMessage({
+                id: 'menu.settings',
+              }),
+              key: 'setting',
+              children: <Empty />,
+            },
+          ],
+          onChange: (key) => {
+            setTab(key);
+          },
+        }}
+      ></ProCard>
+
       <ModalForm
         title={intl.formatMessage({
           id: 'general.new',
