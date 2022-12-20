@@ -2,10 +2,13 @@ import { ProForm, ProFormText } from '@ant-design/pro-components';
 import { Divider, Typography } from 'antd';
 
 const ContactFormSetting: React.FC = () => {
+  const onFinish = async (values: any) => {
+    console.log(values);
+  };
+
   return (
-    <ProForm>
+    <ProForm onFinish={onFinish}>
       <Typography.Title level={4}>SendGrid</Typography.Title>
-      <ProFormText name="apiKey" label="API key" />
       <ProFormText name="template" label="Template" />
       <Divider />
       <Typography.Title level={4}>Telegam</Typography.Title>

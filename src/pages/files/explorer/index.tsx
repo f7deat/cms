@@ -64,6 +64,7 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
         <Search />
         <ProList<API.FileContent>
           request={listFile}
+          rowSelection={{}}
           metas={{
             title: {
               dataIndex: 'name',

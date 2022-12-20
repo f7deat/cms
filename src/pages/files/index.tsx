@@ -12,10 +12,13 @@ import {
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import Explorer from './explorer';
 
 const FilePage: React.FC = () => {
   const actionRef = useRef<ActionType>();
+
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleDelete = async (id: string) => {
     const response = await deleteFileContent(id);
@@ -77,7 +80,11 @@ const FilePage: React.FC = () => {
     <PageContainer
       title="Quản lý tệp tin"
       extra={
-        <Button icon={<ArrowUpOutlined />} type="primary">
+        <Button
+          icon={<ArrowUpOutlined />}
+          type="primary"
+          onClick={() => setOpen(true)}
+        >
           Upload
         </Button>
       }
@@ -88,6 +95,7 @@ const FilePage: React.FC = () => {
         rowKey="id"
         actionRef={actionRef}
       />
+      <Explorer open={open} onOpenChange={setOpen} />
     </PageContainer>
   );
 };

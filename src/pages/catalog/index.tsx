@@ -2,14 +2,15 @@ import Catalog from '@/components/catalog';
 import CatalogSetting from '@/components/catalog/settings';
 import WorkContentComponent from '@/components/work-content';
 import { addCatalog } from '@/services/catalog';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   PageContainer,
   ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
-import { Col, Empty, message, Row } from 'antd';
+import { FormattedMessage, history, useIntl } from '@umijs/max';
+import { Button, Col, Empty, message, Row } from 'antd';
 import React, { useState } from 'react';
 
 const CatalogPage: React.FC = () => {
@@ -29,7 +30,13 @@ const CatalogPage: React.FC = () => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer
+      extra={
+        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+          <FormattedMessage id="general.back" />
+        </Button>
+      }
+    >
       <Row gutter={16}>
         <Col span={6}>
           <Catalog />
