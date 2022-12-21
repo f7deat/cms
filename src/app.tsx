@@ -5,6 +5,7 @@ import logo from './assets/logo.svg';
 import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';
+import RightContent from './components/right-content';
 
 const loginPath = '/accounts/login';
 
@@ -45,6 +46,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       locale: true,
     },
     layout: 'top',
+    rightContentRender: () => <RightContent />,
     onPageChange: () => {
       const { location } = history;
       if (!initialState?.currentUser && location.pathname !== loginPath) {

@@ -3,5 +3,6 @@ export default {
   'general.save': 'Save',
   'general.saved': 'Saved!',
   'general.new': 'New',
+  'general.logout': 'Logout',
   'general.status': 'Status',
 };

@@ -126,6 +126,27 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
+      icon: 'TeamOutlined',
+      name: 'users',
+      path: '/users',
+      routes: [
+        {
+          path: '/users',
+          redirect: '/users/list',
+        },
+        {
+          path: '/users/list',
+          component: './users/list',
+        },
+        {
+          name: 'profile',
+          path: '/users/profile/:id',
+          component: './users/profile',
+          hideInMenu: true,
+        },
+      ],
+    },
+    {
       icon: 'FolderOutlined',
       name: 'fileManager',
       path: '/files',

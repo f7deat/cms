@@ -30,4 +30,6 @@ export default {
   'menu.component.masonry': 'Masonry',
   'menu.component.lookbook': 'Look book',
   'menu.component': 'Component',
+  'menu.users': 'Người dùng',
+  'menu.users.profile': 'Hồ sơ',
 };
