@@ -5,4 +5,5 @@ export default {
   'general.new': 'New',
   'general.logout': 'Logout',
   'general.status': 'Status',
+  'general.phoneNumber': 'Phone number',
 };

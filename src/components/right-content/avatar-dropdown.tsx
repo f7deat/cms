@@ -61,6 +61,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       } else if (key === 'profile') {
         history.push(`/users/profile/${initialState?.currentUser?.id}`);
         return;
+      } else if (key === 'settings') {
+        history.push(`/users/center/${initialState?.currentUser?.id}`);
+        return;
       }
       history.push(`/accounts/${key}`);
     },
@@ -102,7 +105,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           {
             key: 'settings',
             icon: <SettingOutlined />,
-            label: '个人设置',
+            label: intl.formatMessage({
+              id: 'menu.settings',
+            }),
           },
           {
             type: 'divider' as const,

@@ -32,4 +32,5 @@ export default {
   'menu.component': 'Component',
   'menu.users': 'Người dùng',
   'menu.users.profile': 'Hồ sơ',
+  'menu.users.center': 'Thông tin cá nhân',
 };

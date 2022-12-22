@@ -144,6 +144,12 @@ export default defineConfig({
           component: './users/profile',
           hideInMenu: true,
         },
+        {
+          name: 'center',
+          path: '/users/center/:id',
+          component: './users/center',
+          hideInMenu: true,
+        },
       ],
     },
     {
