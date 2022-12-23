@@ -1,5 +1,8 @@
 export default {
   'menu.article': 'Bài viết',
+  'menu.article.center': 'Viết bài',
+  'menu.article.home': 'Trang chủ',
+  'menu.article.list': 'Danh sách',
   'menu.home': 'Trang chủ',
   'menu.help': 'Trợ giúp',
   'menu.contact': 'Danh bạ',

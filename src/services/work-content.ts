@@ -112,6 +112,9 @@ export async function addCss(data: API.WorkItem) {
 }
 
 export async function getCss(id: string | undefined) {
+  if (!id) {
+    return request(`style`);
+  }
   return request(`style/${id}`);
 }
 

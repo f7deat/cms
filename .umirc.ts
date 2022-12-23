@@ -229,6 +229,35 @@ export default defineConfig({
         },
       ],
     },
+    {
+      icon: 'SlackOutlined',
+      name: 'article',
+      path: '/article',
+      routes: [
+        {
+          path: '/article',
+          redirect: '/article/list',
+        },
+        {
+          name: 'list',
+          path: '/article/list',
+          component: './article/list',
+          hideInMenu: true,
+        },
+        {
+          name: 'home',
+          path: '/article/home/:id',
+          component: './article',
+          hideInMenu: true,
+        },
+        {
+          name: 'center',
+          path: '/article/center/:id',
+          component: './article/center',
+          hideInMenu: true,
+        },
+      ],
+    },
   ],
   npmClient: 'yarn',
 });

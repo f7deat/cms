@@ -1,6 +1,7 @@
 import { getCss, saveCss } from '@/services/work-content';
 import {
   PageContainer,
+  ProCard,
   ProForm,
   ProFormInstance,
   ProFormTextArea,
@@ -12,7 +13,7 @@ const CssSetting: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
-    getCss().then((response) => {
+    getCss(undefined).then((response) => {
       formRef.current?.setFields([
         {
           name: 'arguments',
@@ -31,9 +32,11 @@ const CssSetting: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProForm onFinish={onFinish} formRef={formRef}>
-        <ProFormTextArea name="arguments" label="Content" />
-      </ProForm>
+      <ProCard>
+        <ProForm onFinish={onFinish} formRef={formRef}>
+          <ProFormTextArea name="arguments" label="Content" />
+        </ProForm>
+      </ProCard>
     </PageContainer>
   );
 };

@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
     {
       id: 'article',
       name: 'menu.article',
-      url: 'article',
+      url: 'article/home',
     },
     {
       id: 'shop',
