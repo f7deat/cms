@@ -87,8 +87,8 @@ const WfColumn: React.FC = () => {
         />
       </ProCard>
       <AddComponent
-        visible={visible}
-        onVisibleChange={setVisible}
+        open={visible}
+        onOpenChange={setVisible}
         onFinish={onFinish}
       />
     </PageContainer>

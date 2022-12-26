@@ -123,8 +123,8 @@ const WorkContentComponent: React.FC = () => {
         }}
       />
       <AddComponent
-        visible={visible}
-        onVisibleChange={setVisible}
+        open={visible}
+        onOpenChange={setVisible}
         onFinish={onFinish}
       />
     </div>

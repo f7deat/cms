@@ -1,14 +1,14 @@
 import { request } from '@umijs/max';
 
 export async function addWorkContent(data: any) {
-  return request(`workContent/add`, {
+  return request(`work/add`, {
     method: 'POST',
     data,
   });
 }
 
 export async function listWorkContent(id: string | undefined) {
-  return request(`workContent/list/${id}`);
+  return request(`work/list/${id}`);
 }
 
 export async function sortOrder(
@@ -16,7 +16,7 @@ export async function sortOrder(
   catalogId: string,
   sortOrder: number,
 ) {
-  return request(`workContent/sort-order`, {
+  return request(`work/sort-order`, {
     method: 'POST',
     data: {
       workContentId,
@@ -27,54 +27,54 @@ export async function sortOrder(
 }
 
 export async function listChildWorkContent(id: string | undefined) {
-  return request(`workContent/list-child/${id}`);
+  return request(`work/list-child/${id}`);
 }
 
 export async function addChildWorkContent(data: API.WorkContent) {
-  return request(`workContent/child/add`, {
+  return request(`work/child/add`, {
     method: 'POST',
     data,
   });
 }
 
 export async function updateTitle(data: any) {
-  return request(`workContent/save/title`, {
+  return request(`work/save/title`, {
     method: 'POST',
     data,
   });
 }
 
 export async function saveContactForm(data: API.ContactForm) {
-  return request(`workContent/contact-form/save`, {
+  return request(`work/contact-form/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getContactForm(id: string | undefined) {
-  return request<API.ContactForm>(`workContent/contact-form/${id}`);
+  return request<API.ContactForm>(`work/contact-form/${id}`);
 }
 
 export async function addColumn(data: any) {
-  return request(`workContent/column/add`, {
+  return request(`work/column/add`, {
     method: 'POST',
     data,
   });
 }
 
 export async function updateWorkContent(data: any) {
-  return request(`workContent/save`, {
+  return request(`work/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getWorkContent(id: string | undefined) {
-  return request(`workContent/${id}`);
+  return request(`work/${id}`);
 }
 
 export async function saveWorkContent(data: API.WorkItem) {
-  return request(`workContent/save`, {
+  return request(`work/save`, {
     method: 'POST',
     data,
   });
@@ -84,7 +84,7 @@ export async function deleteWorkContent(
   workContentId: string,
   catalogId: string | undefined,
 ) {
-  return request(`workContent/delete`, {
+  return request(`work/delete`, {
     method: 'POST',
     data: {
       workContentId,
@@ -94,7 +94,7 @@ export async function deleteWorkContent(
 }
 
 export async function deleteWorkContentById(id: string | undefined) {
-  return request(`workContent/delete/${id}`, {
+  return request(`work/delete/${id}`, {
     method: 'POST',
   });
 }
@@ -149,55 +149,55 @@ export async function saveImage(data: API.Image) {
 }
 
 export async function getNavbar(id: string | undefined) {
-  return request<API.Navbar>(`workContent/navbar/${id}`);
+  return request<API.Navbar>(`work/navbar/${id}`);
 }
 
 export async function saveNavbar(data: API.Navbar) {
-  return request(`workContent/navbar/save`, {
+  return request(`work/navbar/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getSwiper(workContentId: string | undefined) {
-  return request(`workContent/swiper/${workContentId}`);
+  return request(`work/swiper/${workContentId}`);
 }
 
 export async function addSwiperItem(data: any) {
-  return request(`workContent/swiper/add-image`, {
+  return request(`work/swiper/add-image`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getBlockEditor(id: string | undefined) {
-  return request(`workContent/block-editor/${id}`);
+  return request(`work/block-editor/${id}`);
 }
 
 export async function saveBlockEditor(data: any) {
-  return request(`workContent/block-editor/save`, {
+  return request(`work/block-editor/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getCard(id: string | undefined) {
-  return request(`workContent/card/${id}`);
+  return request(`work/card/${id}`);
 }
 
 export async function saveCard(data: any) {
-  return request(`workContent/card/save`, {
+  return request(`work/card/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getRow(id: string | undefined) {
-  return request(`workContent/row/${id}`);
+  return request(`work/row/${id}`);
 }
 
 export async function saveRow(data: any) {
-  return request(`workContent/row/save`, {
+  return request(`work/row/save`, {
     method: 'POST',
     data,
   });
@@ -210,7 +210,7 @@ export async function getListColumn(
   },
   id: string | undefined,
 ) {
-  return request(`workContent/column/list/${id}`);
+  return request(`work/column/list/${id}`);
 }
 
 export async function getChildList(
@@ -220,12 +220,12 @@ export async function getChildList(
   },
   id: string | undefined,
 ) {
-  return request(`workContent/child/list/${id}`);
+  return request(`work/child/list/${id}`);
 }
 
 //#region Look book
 export async function addLookBook(data: API.WorkContent) {
-  return request(`workContent/lookbook/add`, {
+  return request(`work/lookbook/add`, {
     method: 'POST',
     data,
   });

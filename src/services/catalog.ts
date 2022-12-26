@@ -51,3 +51,7 @@ export async function treeDrop(data: any) {
     data,
   });
 }
+
+export async function queryViewCount() {
+  return request(`catalog/view-count`);
+}

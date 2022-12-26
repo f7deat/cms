@@ -8,8 +8,8 @@ import { DefaultOptionType } from 'antd/lib/select';
 import { useEffect, useState } from 'react';
 
 type AddComponentProps = {
-  visible: boolean;
-  onVisibleChange: any;
+  open: boolean;
+  onOpenChange: any;
   onFinish: any;
 };
 
@@ -31,10 +31,10 @@ const AddComponent: React.FC<AddComponentProps> = (props) => {
 
   return (
     <ModalForm
-      open={props.visible}
+      open={props.open}
       title="Add component"
       onFinish={props.onFinish}
-      onOpenChange={props.onVisibleChange}
+      onOpenChange={props.onOpenChange}
     >
       <ProFormText name="name" label="Name" />
       <ProFormSelect
