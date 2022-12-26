@@ -1,4 +1,5 @@
 import AddComponent from '@/components/add-component';
+import { activeCatalog, getCatalog } from '@/services/catalog';
 import {
   addWorkContent,
   deleteWorkContent,
@@ -8,17 +9,24 @@ import {
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
-  EyeOutlined,
+  BarsOutlined,
 } from '@ant-design/icons';
 import { ActionType, PageContainer, ProList } from '@ant-design/pro-components';
 import { FormattedMessage, history, useParams } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
+import { useEffect, useRef, useState } from 'react';
 
 const ArticleCenter: React.FC = () => {
   const { id } = useParams();
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
+  const [catalog, setCatalog] = useState<API.Catalog>();
+
+  useEffect(() => {
+    getCatalog(id).then((response) => {
+      setCatalog(response);
+    });
+  }, []);
 
   const onFinish = async (values: any) => {
     values.catalogId = id;
@@ -38,18 +46,52 @@ const ArticleCenter: React.FC = () => {
     }
   };
 
-  return (
-    <PageContainer
-      extra={
-        <Button
-          icon={<EyeOutlined />}
-          type="primary"
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a
           onClick={() =>
-            history.push(`${localStorage.getItem('wf_URL')}article/zvzxv`)
+            history.push(
+              `${localStorage.getItem('wf_URL')}article/${
+                catalog?.normalizedName
+              }`,
+            )
           }
         >
           <FormattedMessage id="general.preview" />
-        </Button>
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a
+          onClick={async () => {
+            const response = await activeCatalog(id);
+            if (response.succeeded) {
+              message.success('Saved!');
+            }
+          }}
+        >
+          Xuất bản
+        </a>
+      ),
+    },
+    {
+      key: '3',
+      label: <a>Xóa</a>,
+      danger: true,
+    },
+  ];
+
+  return (
+    <PageContainer
+      title={catalog?.name}
+      extra={
+        <Dropdown menu={{ items }}>
+          <Button icon={<BarsOutlined />}></Button>
+        </Dropdown>
       }
     >
       <ProList<API.WorkItem>

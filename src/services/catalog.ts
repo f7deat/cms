@@ -55,3 +55,9 @@ export async function treeDrop(data: any) {
 export async function queryViewCount() {
   return request(`catalog/view-count`);
 }
+
+export async function activeCatalog(id: string | undefined) {
+  return request(`catalog/active/${id}`, {
+    method: 'POST',
+  });
+}
