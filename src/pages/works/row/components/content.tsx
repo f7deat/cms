@@ -43,6 +43,7 @@ const RowContent: React.FC = () => {
           id: 'general.deleted',
         }),
       );
+      actionRef.current?.reload();
     }
   };
 

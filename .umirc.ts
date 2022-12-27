@@ -188,6 +188,11 @@ export default defineConfig({
           component: './settings',
         },
         {
+          name: 'component',
+          path: '/settings/component',
+          component: './blocks',
+        },
+        {
           name: 'style',
           path: '/settings/css',
           component: './settings/css',

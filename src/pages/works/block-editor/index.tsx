@@ -1,8 +1,8 @@
 import ProEditorBlock from '@/components/editorjs';
 import { saveBlockEditor } from '@/services/work-content';
-import { SaveOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, SaveOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { FormattedMessage } from '@umijs/max';
+import { FormattedMessage, history } from '@umijs/max';
 import { Button, message, Space } from 'antd';
 import { useState } from 'react';
 
@@ -16,7 +16,13 @@ const BlockEditor: React.FC = () => {
     }
   };
   return (
-    <PageContainer title="Block editor">
+    <PageContainer
+      extra={
+        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+          Back
+        </Button>
+      }
+    >
       <ProCard
         title="Start writing"
         extra={

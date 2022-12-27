@@ -11,6 +11,10 @@ export async function queryCurrentUser() {
   return request(`user`);
 }
 
+export async function getUser(id: string | undefined) {
+  return request(`user/${id}`);
+}
+
 export async function createUser(data: any) {
   return request(`user/create`, {
     method: 'POST',

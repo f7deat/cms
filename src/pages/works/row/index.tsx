@@ -1,5 +1,7 @@
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { Col, Empty, Row } from 'antd';
+import { history } from '@umijs/max';
+import { Button, Col, Empty, Row } from 'antd';
 import { useState } from 'react';
 import RowContent from './components/content';
 import RowSetting from './components/setting';
@@ -8,7 +10,13 @@ const RowComponent: React.FC = () => {
   const [tab, setTab] = useState('content');
 
   return (
-    <PageContainer title="Row">
+    <PageContainer
+      extra={
+        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+          Back
+        </Button>
+      }
+    >
       <Row gutter={16}>
         <Col span={16}>
           <ProCard
