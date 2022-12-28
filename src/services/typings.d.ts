@@ -15,6 +15,12 @@ declare namespace API {
     container: boolean;
   };
 
+  type Component = BaseEntity & {
+    name: string;
+    normalizedName: string;
+    active: boolean;
+  };
+
   type WorkItem = BaseEntity & {
     name: string;
     normalizedName: string;

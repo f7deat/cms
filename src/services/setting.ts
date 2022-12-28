@@ -10,3 +10,14 @@ export async function saveLayoutHead(data: any) {
     data,
   });
 }
+
+export async function saveTelegram(data: any) {
+  return request(`appsetting/telegram/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function listTelegramConfiguration() {
+  return request(`appsetting/telegram/configuration`);
+}

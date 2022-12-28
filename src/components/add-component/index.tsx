@@ -1,4 +1,4 @@
-import { listComponent } from '@/services/component';
+import { listAllComponent } from '@/services/component';
 import {
   ModalForm,
   ProFormSelect,
@@ -17,7 +17,7 @@ const AddComponent: React.FC<AddComponentProps> = (props) => {
   const [components, setComponents] = useState<DefaultOptionType[]>();
 
   useEffect(() => {
-    listComponent().then((response) => {
+    listAllComponent().then((response) => {
       setComponents(
         response.map((c: any) => {
           return {

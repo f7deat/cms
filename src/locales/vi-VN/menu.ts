@@ -18,6 +18,7 @@ export default {
   'menu.settings.general': 'Cơ bản',
   'menu.settings.header': 'Header',
   'menu.settings.footer': 'Footer',
+  'menu.settings.telegram': 'Telegram',
   'menu.features': 'Features',
   'menu.sendGrid': 'SendGrid',
   'menu.catalog': 'Catalog',

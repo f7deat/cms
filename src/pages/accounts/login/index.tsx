@@ -14,7 +14,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
+import { FormattedHTMLMessage, useIntl } from '@umijs/max';
 import { history, useModel } from '@umijs/max';
 import { message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
@@ -75,7 +75,7 @@ const Login: React.FC = () => {
         }}
         actions={[
           <div key={2} className="mb-4 text-center">
-            Hoặc đăng nhập với
+            <FormattedHTMLMessage id="pages.login.orLoginWith" />
           </div>,
           <div className="text-center" key={3}>
             <Space align="center">
@@ -124,7 +124,7 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <SelectOutlined />,
               }}
-              placeholder="đường dẫn website"
+              placeholder="Website url"
             ></ProFormText>
             <ProFormText
               name="username"
@@ -132,11 +132,11 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <UserOutlined />,
               }}
-              placeholder="用户名: admin or user"
+              placeholder="Email"
               rules={[
                 {
                   required: true,
-                  message: '请输入用户名!',
+                  message: 'Please input email!',
                 },
               ]}
             />
@@ -146,11 +146,13 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <LockOutlined />,
               }}
-              placeholder="密码: ant.design"
+              placeholder={intl.formatMessage({
+                id: 'pages.login.password',
+              })}
               rules={[
                 {
                   required: true,
-                  message: '请输入密码！',
+                  message: 'Please input password!',
                 },
               ]}
             />
@@ -199,7 +201,7 @@ const Login: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: '请输入验证码',
+                  message: 'Vui lòng nhập mã xác nhận!',
                 },
               ]}
               onGetCaptcha={async (phone) => {
@@ -214,14 +216,14 @@ const Login: React.FC = () => {
           }}
         >
           <ProFormCheckbox noStyle name="autoLogin">
-            Nhớ mật khẩu?
+            <FormattedHTMLMessage id="pages.login.rememberMe" />
           </ProFormCheckbox>
           <a
             style={{
               float: 'right',
             }}
           >
-            Quên mật khẩu
+            <FormattedHTMLMessage id="pages.login.forgotPassword" />
           </a>
         </div>
       </LoginForm>

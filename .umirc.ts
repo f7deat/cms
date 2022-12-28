@@ -197,6 +197,11 @@ export default defineConfig({
           path: '/settings/css',
           component: './settings/css',
         },
+        {
+          name: 'telegram',
+          path: '/settings/telegram/:id',
+          component: './settings/telegram',
+        },
       ],
     },
     {

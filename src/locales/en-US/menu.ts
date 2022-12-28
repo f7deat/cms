@@ -9,4 +9,5 @@ export default {
   'menu.settings.general': 'Basic',
   'menu.settings.header': 'Header',
   'menu.settings.footer': 'Footer',
+  'menu.settings.telegram': 'Telegram',
 };
