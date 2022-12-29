@@ -1,7 +1,7 @@
 import Catalog from '@/components/catalog';
 import CatalogSetting from '@/components/catalog/settings';
 import WorkContentComponent from '@/components/work-content';
-import { addCatalog } from '@/services/catalog';
+import { addCatalog, getCatalog } from '@/services/catalog';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
   ModalForm,
@@ -9,28 +9,34 @@ import {
   ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl } from '@umijs/max';
+import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
 import { Button, Col, Empty, message, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CatalogPage: React.FC = () => {
   const intl = useIntl();
+  const { id } = useParams();
 
-  const [visibleCatalogModal, setVisibleCatalogModal] =
-    useState<boolean>(false);
-  const [tab, setTab] = useState('tab1');
+  const [open, setOpen] = useState<boolean>(false);
+  const [catalog, setCatalog] = useState<API.Catalog>();
+  const [tab, setTab] = useState('content');
+
+  useEffect(() => {
+    getCatalog(id).then((response) => setCatalog(response));
+  }, [id]);
 
   const onFinish = async (values: API.Catalog) => {
     addCatalog(values).then((response) => {
       if (response.succeeded) {
         message.success('Saved!');
-        setVisibleCatalogModal(false);
+        setOpen(false);
       }
     });
   };
 
   return (
     <PageContainer
+      title={catalog?.name}
       extra={
         <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
           <FormattedMessage id="general.back" />
@@ -49,14 +55,14 @@ const CatalogPage: React.FC = () => {
               items: [
                 {
                   label: 'Content',
-                  key: 'tab1',
+                  key: 'content',
                   children: <WorkContentComponent />,
                 },
                 {
                   label: intl.formatMessage({
                     id: 'menu.settings',
                   }),
-                  key: 'tab2',
+                  key: 'setting',
                   children: <CatalogSetting />,
                 },
               ],
@@ -65,11 +71,7 @@ const CatalogPage: React.FC = () => {
               },
             }}
           ></ProCard>
-          <ModalForm
-            onFinish={onFinish}
-            open={visibleCatalogModal}
-            onOpenChange={setVisibleCatalogModal}
-          >
+          <ModalForm onFinish={onFinish} open={open} onOpenChange={setOpen}>
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />
           </ModalForm>

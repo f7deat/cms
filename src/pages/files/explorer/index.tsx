@@ -1,15 +1,24 @@
 import { listFile, uploadRcFile } from '@/services/file-service';
-import { BarsOutlined, HomeOutlined, UploadOutlined } from '@ant-design/icons';
 import {
-  ActionType,
-  ModalForm,
-  ProCard,
-  ProList,
-} from '@ant-design/pro-components';
-import { Breadcrumb, Button, Input, message, Upload, UploadProps } from 'antd';
+  BarsOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  HomeOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import { ActionType, ModalForm, ProList } from '@ant-design/pro-components';
+import { FormattedMessage, history, useIntl } from '@umijs/max';
+import {
+  Breadcrumb,
+  Button,
+  Dropdown,
+  message,
+  Popconfirm,
+  Space,
+  Upload,
+  UploadProps,
+} from 'antd';
 import { useRef } from 'react';
-
-const { Search } = Input;
 
 type ExplorerProps = {
   open: boolean;
@@ -19,6 +28,7 @@ type ExplorerProps = {
 };
 
 const Explorer: React.FC<ExplorerProps> = (props) => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
 
   const uploadProps: UploadProps = {
@@ -36,6 +46,7 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
       }
     },
   };
+
   return (
     <ModalForm
       title="Select content"
@@ -51,50 +62,97 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
           <Breadcrumb.Item href="">Home</Breadcrumb.Item>
         </Breadcrumb>
       </div>
-      <ProCard
-        title="List"
-        extra={
-          <Upload {...uploadProps}>
-            <Button icon={<UploadOutlined />} type="primary">
-              Upload
-            </Button>
-          </Upload>
-        }
-      >
-        <Search />
-        <ProList<API.FileContent>
-          request={listFile}
-          rowSelection={{}}
-          metas={{
-            title: {
-              dataIndex: 'name',
-              render: (dom, entity) => (
-                <Button
-                  type="link"
-                  size="small"
-                  onClick={() => {
-                    if (props.onSelect) {
-                      entity.url = new URL(
-                        entity.url,
-                        localStorage.getItem('wf_URL') || '',
-                      ).href;
-                      props.onSelect(entity);
-                    }
-                  }}
-                >
-                  {dom}
-                </Button>
-              ),
-            },
-            actions: {
-              render: () => (
+      <ProList<API.FileContent>
+        toolBarRender={() => {
+          return [
+            <Upload {...uploadProps} key={0}>
+              <Button icon={<UploadOutlined />} type="primary">
+                Upload
+              </Button>
+            </Upload>,
+          ];
+        }}
+        headerTitle={intl.formatMessage({
+          id: 'menu.fileManager',
+        })}
+        request={listFile}
+        rowSelection={{}}
+        search={{
+          layout: 'vertical',
+        }}
+        pagination={{
+          pageSize: 5,
+        }}
+        metas={{
+          title: {
+            dataIndex: 'name',
+            title: 'Name',
+            render: (dom, entity) => (
+              <a
+                onClick={() => {
+                  if (props.onSelect) {
+                    entity.url = new URL(
+                      entity.url,
+                      localStorage.getItem('wf_URL') || '',
+                    ).href;
+                    props.onSelect(entity);
+                  }
+                }}
+              >
+                {dom}
+              </a>
+            ),
+          },
+          description: {
+            search: false,
+            render: (_, row) => (
+              <Space>
+                <span>{row.type}</span>
+                <span>|</span>
+                <span>{(row.size / 1024).toFixed(2)} KB</span>
+              </Space>
+            ),
+          },
+          actions: {
+            render: (_, row) => (
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: 1,
+                      label: (
+                        <Space
+                          onClick={() =>
+                            history.push(`/files/center/${row.id}`)
+                          }
+                        >
+                          <EyeOutlined />
+                          <FormattedMessage id="general.preview" />
+                        </Space>
+                      ),
+                    },
+                    {
+                      key: 2,
+                      label: (
+                        <Popconfirm title="Are you sure?">
+                          <Space>
+                            <DeleteOutlined />
+                            Delete
+                          </Space>
+                        </Popconfirm>
+                      ),
+                      danger: true,
+                    },
+                  ],
+                }}
+              >
                 <Button icon={<BarsOutlined />} type="link" size="small" />
-              ),
-            },
-          }}
-          actionRef={actionRef}
-        />
-      </ProCard>
+              </Dropdown>
+            ),
+          },
+        }}
+        actionRef={actionRef}
+      />
     </ModalForm>
   );
 };

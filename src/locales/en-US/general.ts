@@ -1,4 +1,5 @@
 export default {
+  'general.back': 'Back',
   'general.deleted': 'Deleted!',
   'general.save': 'Save',
   'general.saved': 'Saved!',
@@ -6,4 +7,5 @@ export default {
   'general.logout': 'Logout',
   'general.status': 'Status',
   'general.phoneNumber': 'Phone number',
+  'general.preview': 'Preview',
 };

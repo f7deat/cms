@@ -48,11 +48,6 @@ export default defineConfig({
       hideInMenu: true,
       routes: [
         {
-          name: 'html',
-          path: '/works/html/:id',
-          component: './works/html',
-        },
-        {
           name: 'contactForm',
           path: '/works/contactform/:id',
           component: './works/contact-form',
@@ -193,6 +188,12 @@ export default defineConfig({
           component: './blocks',
         },
         {
+          name: 'componentCenter',
+          path: '/settings/component/center/:id',
+          component: './blocks/center',
+          hideInMenu: true,
+        },
+        {
           name: 'style',
           path: '/settings/css',
           component: './settings/css',
@@ -202,13 +203,13 @@ export default defineConfig({
           path: '/settings/telegram/:id',
           component: './settings/telegram',
         },
+        {
+          name: 'sendGrid',
+          path: '/settings/sendgrid/:id',
+          component: './settings/sendgrid',
+          hideInMenu: true,
+        },
       ],
-    },
-    {
-      name: 'sendGrid',
-      path: '/settings/sendgrid/:id',
-      component: './settings/sendgrid',
-      hideInMenu: true,
     },
     {
       icon: 'InfoCircleOutlined',
