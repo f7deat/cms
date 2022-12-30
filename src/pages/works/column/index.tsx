@@ -1,96 +1,43 @@
-import AddComponent from '@/components/add-component';
-import { addChildWorkContent, getChildList } from '@/services/work-content';
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
-import {
-  ActionType,
-  PageContainer,
-  ProCard,
-  ProList,
-} from '@ant-design/pro-components';
-import { FormattedMessage, useParams, history } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { FormattedMessage, history } from '@umijs/max';
+import { Button } from 'antd';
+import { useState } from 'react';
+import ColumnContent from './content';
+import ColumnSetting from './setting';
 
 const WfColumn: React.FC = () => {
-  const { id } = useParams();
-  const actionRef = useRef<ActionType>();
-
-  const [visible, setVisible] = useState<boolean>(false);
-
-  const onFinish = async (values: any) => {
-    const body: API.WorkContent = {
-      parentId: id,
-      ...values,
-    };
-    const response = await addChildWorkContent(body);
-    if (response.succeeded) {
-      message.success('Added!');
-      actionRef.current?.reload();
-      setVisible(false);
-    }
-  };
+  const [tab, setTab] = useState('content');
 
   return (
     <PageContainer
       title="Column"
       extra={
-        <Button
-          icon={<PlusOutlined />}
-          type="primary"
-          onClick={() => setVisible(true)}
-        >
-          <FormattedMessage id="general.new" />
+        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+          <FormattedMessage id="general.back" />
         </Button>
       }
     >
-      <ProCard>
-        <ProList<API.WorkItem>
-          request={(params) => getChildList(params, id)}
-          actionRef={actionRef}
-          metas={{
-            title: {
-              dataIndex: 'name',
+      <ProCard
+        tabs={{
+          activeKey: tab,
+          items: [
+            {
+              label: 'Content',
+              key: 'content',
+              children: <ColumnContent />,
             },
-            actions: {
-              render: (text, row) => [
-                <Button
-                  key={1}
-                  type="primary"
-                  icon={<EditOutlined />}
-                  onClick={() => {
-                    history.push(
-                      `/works/${row.normalizedName.toLocaleLowerCase()}/${
-                        row.id
-                      }`,
-                    );
-                  }}
-                />,
-                <Button key={2} icon={<ArrowUpOutlined />}></Button>,
-                <Button key={3} icon={<ArrowDownOutlined />}></Button>,
-                <Popconfirm title="Are you sure?" key={4}>
-                  <Button
-                    icon={<DeleteOutlined />}
-                    danger
-                    type="primary"
-                  ></Button>
-                  ,
-                </Popconfirm>,
-              ],
+            {
+              label: 'Setting',
+              key: 'setting',
+              children: <ColumnSetting />,
             },
-          }}
-        />
-      </ProCard>
-      <AddComponent
-        open={visible}
-        onOpenChange={setVisible}
-        onFinish={onFinish}
-      />
+          ],
+          onChange: (key) => {
+            setTab(key);
+          },
+        }}
+      ></ProCard>
     </PageContainer>
   );
 };

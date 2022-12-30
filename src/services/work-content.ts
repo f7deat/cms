@@ -203,6 +203,7 @@ export async function saveRow(data: any) {
   });
 }
 
+//#region Column
 export async function getListColumn(
   params: {
     current?: number;
@@ -212,6 +213,18 @@ export async function getListColumn(
 ) {
   return request(`work/column/list/${id}`);
 }
+
+export async function getColumn(id: string | undefined) {
+  return request(`work/column/${id}`);
+}
+
+export async function saveColumn(data: API.Column) {
+  return request(`work/column/save`, {
+    method: 'POST',
+    data,
+  });
+}
+//#region
 
 export async function getChildList(
   params: {

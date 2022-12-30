@@ -1,10 +1,6 @@
 import { getComponent, listComponentWork } from '@/services/component';
 import { deleteWorkContentById } from '@/services/work-content';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  FolderOutlined,
-} from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   ActionType,
   PageContainer,
@@ -67,11 +63,6 @@ const ComponentCenter: React.FC = () => {
             history.push(`/works/${entity.normalizedName}/${entity.id}`)
           }
         ></Button>,
-        <Button
-          key={2}
-          icon={<FolderOutlined />}
-          onClick={() => history.push(`/catalog/${entity.catalogId}`)}
-        />,
         <Popconfirm
           title="Are you sure?"
           key={3}

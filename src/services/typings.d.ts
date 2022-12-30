@@ -3,6 +3,10 @@ declare namespace API {
     id: string;
   };
 
+  type AbtractComponent = BaseEntity & {
+    className: string;
+  };
+
   type Catalog = BaseEntity & {
     name: string;
     normalizedName: string;
@@ -13,6 +17,10 @@ declare namespace API {
   type CatalogSetting = {
     title: string;
     container: boolean;
+  };
+
+  type Column = AbtractComponent & {
+    rowId: string;
   };
 
   type Component = BaseEntity & {

@@ -1,6 +1,7 @@
+import { DownloadOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
-import { Divider, Descriptions, Image, Empty } from 'antd';
+import { Divider, Descriptions, Image, Empty, Button } from 'antd';
 
 type FilePreviewProps = {
   file?: API.FileContent;
@@ -20,10 +21,12 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
     }
   };
 
+  const getUrl = () => {
+    return new URL(file?.url || '', localStorage.getItem('wf_URL') || '').href;
+  };
+
   const renderPreview = () => {
     if (supportImage.includes(file?.type ?? '')) {
-      const url = new URL(file?.url || '', localStorage.getItem('wf_URL') || '')
-        .href;
       return (
         <div
           className="flex justify-center items-center"
@@ -31,7 +34,7 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
             minHeight: 130,
           }}
         >
-          <Image src={url} />
+          <Image src={getUrl()} />
         </div>
       );
     }
@@ -46,6 +49,15 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
       title={intl.formatMessage({
         id: 'general.preview',
       })}
+      extra={
+        <Button
+          type="dashed"
+          icon={<DownloadOutlined />}
+          onClick={() => (window.location.href = getUrl())}
+        >
+          Download
+        </Button>
+      }
     >
       {renderPreview()}
       <Divider />

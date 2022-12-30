@@ -68,7 +68,7 @@ const RowContent: React.FC = () => {
         headerTitle="Column"
         metas={{
           title: {
-            dataIndex: 'arguments',
+            dataIndex: 'name',
           },
           actions: {
             render: (text, row) => [

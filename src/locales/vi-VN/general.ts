@@ -1,9 +1,9 @@
 export default {
   'general.back': 'Quay lại',
+  'general.content': 'Nội dung',
   'general.new': 'Thêm mới',
   'general.logout': 'Đăng xuất',
   'general.deleted': 'Đã xóa!',
-  'general.content': 'Nội dung',
   'general.save': 'Lưu lại',
   'general.saved': 'Đã lưu!',
   'general.status': 'Trạng thái',

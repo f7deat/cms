@@ -68,7 +68,7 @@ const UserList: React.FC = () => {
           icon={<EyeOutlined />}
           key={1}
           onClick={() => {
-            history.push(`/users/center/${entity.id}`);
+            history.push(`/users/profile/${entity.id}`);
           }}
         />,
         <Popconfirm title="Are you sure?" key={2}>

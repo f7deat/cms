@@ -15,11 +15,14 @@ const ChildWorkContent: React.FC<ChildWorkContentProps> = (props) => {
 
   return (
     <ProList<API.WorkItem>
+      search={{}}
+      rowSelection={{}}
       request={(params) => getChildList(params, id)}
       actionRef={props.actionRef}
       metas={{
         title: {
           dataIndex: 'name',
+          title: 'Name',
         },
         actions: {
           render: (text, row) => [

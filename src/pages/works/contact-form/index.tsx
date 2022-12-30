@@ -1,4 +1,7 @@
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { FormattedMessage, history } from '@umijs/max';
+import { Button } from 'antd';
 import { useState } from 'react';
 import ContactFormContent from './components/content';
 import ContactFormSetting from './components/setting';
@@ -7,7 +10,13 @@ const ContactForm: React.FC = () => {
   const [tab, setTab] = useState('content');
 
   return (
-    <PageContainer title="Contact form">
+    <PageContainer
+      extra={
+        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
+          <FormattedMessage id="general.back" />
+        </Button>
+      }
+    >
       <ProCard
         tabs={{
           activeKey: tab,
@@ -27,7 +36,7 @@ const ContactForm: React.FC = () => {
             setTab(key);
           },
         }}
-      ></ProCard>
+      />
     </PageContainer>
   );
 };

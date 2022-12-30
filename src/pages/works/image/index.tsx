@@ -114,7 +114,11 @@ const Image: React.FC = () => {
           <FilePreview file={image} onChange={() => setOpen(true)} />
         </Col>
         <Col span={18}>
-          <ProCard>
+          <ProCard
+            title={intl.formatMessage({
+              id: 'menu.settings',
+            })}
+          >
             <ProForm onFinish={onFinish} formRef={formRef}>
               <ProFormText name="id" hidden={true} />
               <ProFormText name="title" label="Title" />
