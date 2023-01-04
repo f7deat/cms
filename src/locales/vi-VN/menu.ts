@@ -35,6 +35,7 @@ export default {
   'menu.component.css': 'CSS',
   'menu.component.masonry': 'Masonry',
   'menu.component.lookbook': 'Look book',
+  'menu.component.tag': 'Tag',
   'menu.users': 'Người dùng',
   'menu.users.profile': 'Hồ sơ',
   'menu.users.center': 'Thông tin cá nhân',

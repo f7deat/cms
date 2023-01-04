@@ -14,6 +14,7 @@ export default {
   'menu.component.masonry': 'Masonry',
   'menu.component.swiper': 'Swiper',
   'menu.component.row': 'Row',
+  'menu.component.tag': 'Tag',
   'menu.features': 'Features',
   'menu.features.contact': 'Contact',
   'menu.fileManager': 'File manager',

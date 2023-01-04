@@ -36,7 +36,9 @@ export const EDITOR_JS_TOOLS = {
   linkTool: {
     class: LinkTool,
     config: {
-      endpoint: `${localStorage.getItem('wf_URL')}/api/workContent/fetch-url`,
+      endpoint: `${localStorage.getItem(
+        'wf_URL',
+      )}api/work/block-editor/fetch-url`,
     },
   },
   raw: Raw,

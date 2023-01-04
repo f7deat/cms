@@ -112,6 +112,12 @@ export default defineConfig({
           component: './works/lookbook',
           hideInMenu: true,
         },
+        {
+          name: 'tag',
+          path: '/works/tag/:id',
+          component: './works/tag',
+          hideInMenu: true,
+        },
       ],
     },
     {
