@@ -1,50 +1,37 @@
-import AddComponent from '@/components/add-component';
-import { activeCatalog, getCatalog } from '@/services/catalog';
+import Explorer from '@/pages/files/explorer';
+import { activeCatalog, getCatalog, updateThumbnail } from '@/services/catalog';
+import { absolutePath, formatDate } from '@/utils/format';
+import { BarsOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
 import {
-  addWorkContent,
-  deleteWorkContent,
-  listWorkContent,
-} from '@/services/work-content';
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  BarsOutlined,
-} from '@ant-design/icons';
-import { ActionType, PageContainer, ProList } from '@ant-design/pro-components';
-import { FormattedMessage, history, useParams } from '@umijs/max';
-import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+  Button,
+  Col,
+  Descriptions,
+  Dropdown,
+  MenuProps,
+  message,
+  Row,
+  Image,
+  Divider,
+  Space,
+} from 'antd';
+import { useEffect, useState } from 'react';
+import ArticleContent from './content';
+import ArticleSetting from './setting';
 
 const ArticleCenter: React.FC = () => {
   const { id } = useParams();
-  const actionRef = useRef<ActionType>();
-  const [open, setOpen] = useState<boolean>(false);
+  const intl = useIntl();
   const [catalog, setCatalog] = useState<API.Catalog>();
+  const [tab, setTab] = useState<string>('content');
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getCatalog(id).then((response) => {
       setCatalog(response);
     });
   }, []);
-
-  const onFinish = async (values: any) => {
-    values.catalogId = id;
-    const response = await addWorkContent(values);
-    if (response.succeeded) {
-      message.success('Added!');
-      setOpen(false);
-      actionRef.current?.reload();
-    }
-  };
-
-  const onConfirm = async (workContentId: string) => {
-    const response = await deleteWorkContent(workContentId, id);
-    if (response.succeeded) {
-      message.success('Deleted!');
-      actionRef.current?.reload();
-    }
-  };
 
   const items: MenuProps['items'] = [
     {
@@ -85,6 +72,18 @@ const ArticleCenter: React.FC = () => {
     },
   ];
 
+  const onSelect = async (values: API.FileContent) => {
+    if (catalog) {
+      const nObj = { ...catalog, thumbnail: values.url };
+      const response = await updateThumbnail(nObj);
+      if (response.succeeded) {
+        message.success('Saved!');
+        setCatalog(nObj);
+      }
+      setOpen(false);
+    }
+  };
+
   return (
     <PageContainer
       title={catalog?.name}
@@ -94,58 +93,61 @@ const ArticleCenter: React.FC = () => {
         </Dropdown>
       }
     >
-      <ProList<API.WorkItem>
-        toolBarRender={() => {
-          return [
-            <Button
-              key={0}
-              onClick={() => setOpen(true)}
-              type="primary"
-              icon={<PlusOutlined />}
-            >
-              <FormattedMessage id="general.new" />
-            </Button>,
-          ];
-        }}
-        rowSelection={{}}
-        actionRef={actionRef}
-        request={async () => listWorkContent(id)}
-        headerTitle="Work items"
-        metas={{
-          title: {
-            dataIndex: 'name',
-          },
-          actions: {
-            render: (text, row) => [
-              <Button
-                key={1}
-                type="primary"
-                icon={<EditOutlined />}
-                onClick={() => {
-                  history.push(
-                    `/works/${row.normalizedName.toLocaleLowerCase()}/${
-                      row.id
-                    }`,
-                  );
-                }}
-              />,
-              <Popconfirm
-                title="Are you sure?"
-                key={4}
-                onConfirm={() => onConfirm(row.id)}
-              >
-                <Button
-                  icon={<DeleteOutlined />}
-                  danger
-                  type="primary"
-                ></Button>
-                ,
-              </Popconfirm>,
-            ],
-          },
-        }}
-      />
-      <AddComponent open={open} onOpenChange={setOpen} onFinish={onFinish} />
+      <Row gutter={16}>
+        <Col span={18}>
+          <ProCard
+            tabs={{
+              tabPosition: 'top',
+              activeKey: tab,
+              items: [
+                {
+                  label: 'Content',
+                  key: 'content',
+                  children: <ArticleContent />,
+                },
+                {
+                  label: intl.formatMessage({
+                    id: 'menu.settings',
+                  }),
+                  key: 'setting',
+                  children: <ArticleSetting data={catalog} />,
+                },
+              ],
+              onChange: (key) => {
+                setTab(key);
+              },
+            }}
+          />
+        </Col>
+        <Col span={6}>
+          <ProCard title="Thống kê">
+            <Space>
+              <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
+              <Button icon={<DeleteOutlined />} danger type="primary" />
+            </Space>
+            <div className="flex items-center justify-center">
+              <Image
+                src={absolutePath(catalog?.thumbnail)}
+                width={200}
+                height={200}
+              />
+            </div>
+            <Divider />
+            <Descriptions title="Information" column={1}>
+              <Descriptions.Item label="Lượt xem">
+                {catalog?.viewCount}
+              </Descriptions.Item>
+              <Descriptions.Item label="Created date">
+                {formatDate(catalog?.createdDate)}
+              </Descriptions.Item>
+              <Descriptions.Item label="Modified date">
+                {formatDate(catalog?.modifiedDate)}
+              </Descriptions.Item>
+            </Descriptions>
+          </ProCard>
+        </Col>
+      </Row>
+      <Explorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </PageContainer>
   );
 };

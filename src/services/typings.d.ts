@@ -9,9 +9,14 @@ declare namespace API {
 
   type Catalog = BaseEntity & {
     name: string;
+    description?: string;
     normalizedName: string;
-    setting: CatalogSetting;
     type: number;
+    viewCount: number;
+    thumbnail?: string;
+    createdDate: Date;
+    modifiedDate?: Date;
+    active: boolean;
   };
 
   type CatalogSetting = {
