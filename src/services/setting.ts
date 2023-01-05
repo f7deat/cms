@@ -21,3 +21,14 @@ export async function saveTelegram(data: any) {
 export async function listTelegramConfiguration() {
   return request(`appsetting/telegram/configuration`);
 }
+
+export async function getFooter(id: string | undefined) {
+  return request(`appsetting/footer/${id}`);
+}
+
+export async function saveFooter(data: any) {
+  return request(`appsetting/footer/save`, {
+    method: 'POST',
+    data,
+  });
+}

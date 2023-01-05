@@ -200,6 +200,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'footer',
+          path: '/settings/footer/:id',
+          component: './settings/footer',
+          hideInMenu: true,
+        },
+        {
           name: 'style',
           path: '/settings/css',
           component: './settings/css',
