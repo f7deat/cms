@@ -53,3 +53,12 @@ export async function uploadRcFile(file: RcFile) {
     data: formData,
   });
 }
+
+export async function uploadFromUrl(url: string) {
+  return request(`fileexplorer/upload-from-url`, {
+    method: 'POST',
+    data: {
+      url,
+    },
+  });
+}

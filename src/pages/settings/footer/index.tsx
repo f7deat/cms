@@ -1,6 +1,7 @@
 import { getFooter, saveFooter } from '@/services/setting';
 import {
   PageContainer,
+  ProCard,
   ProForm,
   ProFormInstance,
   ProFormText,
@@ -32,10 +33,14 @@ const Footer: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProForm formRef={formRef} onFinish={onFinish}>
-        <ProFormText name="id" initialValue={id} hidden />
-        <ProFormText name="companyName" label="Your company" />
-      </ProForm>
+      <ProCard>
+        <ProForm formRef={formRef} onFinish={onFinish}>
+          <ProFormText name="id" initialValue={id} hidden />
+          <ProFormText name="companyName" label="Your company" />
+          <ProFormText name="email" label="Email" />
+          <ProFormText name="phoneNumber" label="Phone number" />
+        </ProForm>
+      </ProCard>
     </PageContainer>
   );
 };

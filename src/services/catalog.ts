@@ -2,10 +2,6 @@ import { CatalogType } from '@/constants';
 import { request } from '@umijs/max';
 import { DataNode } from 'antd/lib/tree';
 
-export async function getEntryPoint(nomalizedName: string) {
-  return request(`catalog/entry/${nomalizedName}`);
-}
-
 export async function getCatalog(id: string | undefined) {
   return request<API.Catalog>(`catalog/${id}`);
 }

@@ -126,9 +126,16 @@ const ArticleList: React.FC = () => {
           id: 'general.new',
         })}
       >
-        <ProFormText label="Name" name="name" />
+        <ProFormText
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
         <ProFormTextArea label="Description" name="description" />
-        <ProFormText label="Thumbnail" name="thumbnail" />
         <ProFormText name="type" initialValue={CatalogType.Article} hidden />
         <ProFormCheckbox name="active" initialValue={false} hidden />
       </ModalForm>

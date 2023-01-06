@@ -1,4 +1,4 @@
-import { listFile, uploadRcFile } from '@/services/file-service';
+import { listFile, uploadFromUrl, uploadRcFile } from '@/services/file-service';
 import {
   BarsOutlined,
   DeleteOutlined,
@@ -12,13 +12,14 @@ import {
   Breadcrumb,
   Button,
   Dropdown,
+  Input,
   message,
   Popconfirm,
   Space,
   Upload,
   UploadProps,
 } from 'antd';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 type ExplorerProps = {
   open: boolean;
@@ -30,6 +31,7 @@ type ExplorerProps = {
 const Explorer: React.FC<ExplorerProps> = (props) => {
   const intl = useIntl();
   const actionRef = useRef<ActionType>();
+  const [url, setUrl] = useState<string>();
 
   const uploadProps: UploadProps = {
     name: 'file',
@@ -47,12 +49,23 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
     },
   };
 
+  const quickUpload = async () => {
+    if (!url) {
+      return;
+    }
+    const response = await uploadFromUrl(url);
+    if (response.succeeded) {
+      message.success('Uploaded!');
+      actionRef.current?.reload();
+    }
+  };
+
   return (
     <ModalForm
-      title="Select content"
       open={props.open}
       onOpenChange={props.onOpenChange}
       onFinish={props.onFinish}
+      submitter={false}
     >
       <div className="mb-4">
         <Breadcrumb>
@@ -62,6 +75,15 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
           <Breadcrumb.Item href="">Home</Breadcrumb.Item>
         </Breadcrumb>
       </div>
+      <Input.Group compact className="mb-4">
+        <Input
+          style={{ width: 'calc(100% - 200px)' }}
+          onChange={(e) => setUrl(e.currentTarget.value)}
+        />
+        <Button type="primary" onClick={quickUpload}>
+          Quick add
+        </Button>
+      </Input.Group>
       <ProList<API.FileContent>
         toolBarRender={() => {
           return [

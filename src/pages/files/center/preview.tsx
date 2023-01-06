@@ -1,3 +1,4 @@
+import { absolutePath } from '@/utils/format';
 import { DownloadOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
@@ -9,7 +10,7 @@ type FilePreviewProps = {
 };
 
 const FilePreview: React.FC<FilePreviewProps> = (props) => {
-  const supportImage = ['image/jpeg', 'image/png', 'image/webp'];
+  const supportImage = ['image/jpeg', 'image/png', 'image/webp', '.svg'];
 
   const intl = useIntl();
 
@@ -21,10 +22,6 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
     }
   };
 
-  const getUrl = () => {
-    return new URL(file?.url || '', localStorage.getItem('wf_URL') || '').href;
-  };
-
   const renderPreview = () => {
     if (supportImage.includes(file?.type ?? '')) {
       return (
@@ -34,7 +31,7 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
             minHeight: 130,
           }}
         >
-          <Image src={getUrl()} />
+          <Image src={absolutePath(file?.url)} />
         </div>
       );
     }
@@ -53,7 +50,7 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
         <Button
           type="dashed"
           icon={<DownloadOutlined />}
-          onClick={() => (window.location.href = getUrl())}
+          onClick={() => (window.location.href = absolutePath(file?.url))}
         >
           Download
         </Button>

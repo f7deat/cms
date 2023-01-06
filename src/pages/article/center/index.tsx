@@ -15,6 +15,7 @@ import {
   Image,
   Divider,
   Space,
+  Empty,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import ArticleContent from './content';
@@ -126,11 +127,15 @@ const ArticleCenter: React.FC = () => {
               <Button icon={<DeleteOutlined />} danger type="primary" />
             </Space>
             <div className="flex items-center justify-center">
-              <Image
-                src={absolutePath(catalog?.thumbnail)}
-                width={200}
-                height={200}
-              />
+              {!catalog?.thumbnail ? (
+                <Empty />
+              ) : (
+                <Image
+                  src={absolutePath(catalog?.thumbnail)}
+                  width={200}
+                  height={200}
+                />
+              )}
             </div>
             <Divider />
             <Descriptions title="Information" column={1}>
