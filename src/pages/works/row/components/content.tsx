@@ -12,6 +12,7 @@ import {
   ActionType,
   ModalForm,
   ProFormSelect,
+  ProFormText,
   ProList,
 } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
@@ -26,12 +27,14 @@ const RowContent: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const onFinish = async (values: any) => {
-    values.parentId = id;
+    values.rowId = id;
     const response = await addColumn(values);
     if (response.succeeded) {
       message.success('Added!');
       actionRef.current?.reload();
       setVisible(false);
+    } else {
+      message.error(response.errors[0].description);
     }
   };
 
@@ -90,6 +93,15 @@ const RowContent: React.FC = () => {
         }}
       />
       <ModalForm open={visible} onOpenChange={setVisible} onFinish={onFinish}>
+        <ProFormText
+          name="name"
+          label="Name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
         <ProFormSelect
           label="Collumn"
           options={[

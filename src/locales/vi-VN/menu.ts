@@ -10,8 +10,6 @@ export default {
   'menu.contact': 'Danh bạ',
   'menu.shop': 'Cửa hàng',
   'menu.fileManager': 'File manager',
-  'menu.features': 'Features',
-  'menu.features.contact': 'Contact',
   'menu.fileManager.fileCenter': 'File center',
   'menu.settings': 'Cài đặt',
   'menu.settings.component': 'Component',

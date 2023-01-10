@@ -206,6 +206,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'header',
+          path: '/settings/header/:id',
+          component: './settings/header',
+          hideInMenu: true,
+        },
+        {
           name: 'style',
           path: '/settings/css',
           component: './settings/css',
@@ -237,18 +243,6 @@ export default defineConfig({
           name: 'backup',
           path: 'backup',
           component: './backup',
-        },
-      ],
-    },
-    {
-      icon: 'AppstoreAddOutlined',
-      name: 'features',
-      path: 'features',
-      routes: [
-        {
-          name: 'contact',
-          path: '/features/contacts',
-          component: './features/contacts',
         },
       ],
     },

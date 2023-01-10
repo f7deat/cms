@@ -1,4 +1,3 @@
-import Catalog from '@/components/catalog';
 import CatalogSetting from '@/components/catalog/settings';
 import WorkContentComponent from '@/components/work-content';
 import { addCatalog, getCatalog } from '@/services/catalog';
@@ -44,9 +43,7 @@ const CatalogPage: React.FC = () => {
       }
     >
       <Row gutter={16}>
-        <Col span={6}>
-          <Catalog />
-        </Col>
+        <Col span={6}></Col>
         <Col span={12}>
           <ProCard
             tabs={{

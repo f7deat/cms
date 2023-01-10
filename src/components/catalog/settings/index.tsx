@@ -2,14 +2,13 @@ import { CatalogType } from '@/constants';
 import { getCatalog, saveCatalog } from '@/services/catalog';
 import {
   ProForm,
-  ProFormCheckbox,
   ProFormInstance,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Divider, message } from 'antd';
+import { message } from 'antd';
 import { useEffect, useRef } from 'react';
 
 const CatalogSetting: React.FC = () => {
@@ -31,14 +30,6 @@ const CatalogSetting: React.FC = () => {
         {
           name: 'normalizedName',
           value: response.normalizedName,
-        },
-        {
-          name: 'title',
-          value: response.setting.title,
-        },
-        {
-          name: 'container',
-          value: response.setting.container,
         },
         {
           name: 'type',
@@ -84,9 +75,6 @@ const CatalogSetting: React.FC = () => {
           },
         ]}
       ></ProFormSelect>
-      <Divider />
-      <ProFormText name="title" label="Title" />
-      <ProFormCheckbox name="container" label="Container" />
     </ProForm>
   );
 };

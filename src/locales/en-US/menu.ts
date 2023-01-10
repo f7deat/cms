@@ -17,8 +17,6 @@ export default {
   'menu.component.row': 'Row',
   'menu.component.tag': 'Tag',
   'menu.component.css': 'CSS',
-  'menu.features': 'Features',
-  'menu.features.contact': 'Contact',
   'menu.fileManager': 'File manager',
   'menu.fileManager.fileCenter': 'File center',
   'menu.home': 'Home',
