@@ -32,3 +32,25 @@ export async function saveFooter(data: any) {
     data,
   });
 }
+
+export async function getHeaderTemplates() {
+  return request(`appsetting/header/templates`);
+}
+
+export async function saveHeader(data: any) {
+  return request(`appsetting/header/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getHeader(id: string | undefined) {
+  return request(`appsetting/header/${id}`);
+}
+
+export async function saveHeaderLogo(data: any) {
+  return request(`appsetting/header/logo`, {
+    method: 'POST',
+    data,
+  });
+}

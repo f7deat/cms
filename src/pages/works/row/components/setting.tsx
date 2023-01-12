@@ -53,6 +53,20 @@ const RowSetting: React.FC = () => {
           },
         ]}
       />
+      <ProFormSelect
+        name="gap"
+        label="Gap"
+        options={[
+          {
+            label: '0',
+            value: 'gap-0',
+          },
+          {
+            label: '4',
+            value: 'gap-4',
+          },
+        ]}
+      />
     </ProForm>
   );
 };
