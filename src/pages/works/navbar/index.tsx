@@ -1,11 +1,9 @@
-import { getNavbar, saveNavbar } from '@/services/work-content';
+import { getNavbar } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   PageContainer,
   ProCard,
-  ProForm,
-  ProFormCheckbox,
   ProFormInstance,
   ProFormText,
   ProList,
@@ -13,34 +11,23 @@ import {
 import { useParams } from '@umijs/max';
 import { Button, Col, message, Row } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import NavbarContent from './content';
+import NavbarSetting from './setting';
 
 const Navbar: React.FC = () => {
   const { id } = useParams();
 
   const formItemRef = useRef<ProFormInstance>();
-  const formNavRef = useRef<ProFormInstance>();
 
   const [navItems, setNavItems] = useState<API.NavItem[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
+  const [tab, setTab] = useState('content');
 
   useEffect(() => {
     getNavbar(id).then((response) => {
       setNavItems(response.navItems);
     });
   }, []);
-
-  const onFinish = async (values: API.Navbar) => {
-    if (navItems.length === 0) {
-      message.warning('No items were configurated!');
-      return;
-    }
-    values.navItems = navItems;
-    values.id = id;
-    const response = await saveNavbar(values);
-    if (response.succeeded) {
-      message.success('Saved!');
-    }
-  };
 
   const handleAddNavItem = async (values: API.NavItem) => {
     if (navItems && navItems.length > 0) {
@@ -74,11 +61,26 @@ const Navbar: React.FC = () => {
     <PageContainer title="Navbar">
       <Row gutter={16}>
         <Col span={18}>
-          <ProCard>
-            <ProForm onFinish={onFinish} formRef={formNavRef}>
-              <ProFormCheckbox name="container" label="Container" />
-            </ProForm>
-          </ProCard>
+          <ProCard
+            tabs={{
+              activeKey: tab,
+              items: [
+                {
+                  label: 'Content',
+                  key: 'content',
+                  children: <NavbarContent />,
+                },
+                {
+                  label: 'Setting',
+                  key: 'setting',
+                  children: <NavbarSetting />,
+                },
+              ],
+              onChange: (key) => {
+                setTab(key);
+              },
+            }}
+          ></ProCard>
         </Col>
         <Col span={6}>
           <ProCard

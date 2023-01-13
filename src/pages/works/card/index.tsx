@@ -96,8 +96,8 @@ const WfCard: React.FC = () => {
         </Col>
       </Row>
       <Explorer
-        visible={visible}
-        onVisibleChange={setVisible}
+        open={visible}
+        onOpenChange={setVisible}
         onSelect={onImageSelect}
       />
     </PageContainer>
