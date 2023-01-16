@@ -1,5 +1,5 @@
 import { getUser } from '@/services/user';
-import { SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { FormattedMessage, history, useParams } from '@umijs/max';
 import { Image, Button, Col, Empty, Row, Divider, Descriptions } from 'antd';
@@ -13,7 +13,7 @@ const Profile: React.FC = () => {
     getUser(id).then((response) => {
       setUser(response);
     });
-  }, []);
+  }, [id]);
 
   return (
     <PageContainer
@@ -29,7 +29,17 @@ const Profile: React.FC = () => {
     >
       <Row gutter={16}>
         <Col span={6}>
-          <ProCard>
+          <ProCard
+            extra={
+              <Button
+                type="dashed"
+                icon={<EditOutlined />}
+                onClick={() => (window.location.href = 'https://gravatar.com/')}
+              >
+                Change avatar
+              </Button>
+            }
+          >
             <div className="flex items-center justify-center">
               <Image src={user?.avatar} width={200} height={200} />
             </div>

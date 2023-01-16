@@ -63,9 +63,33 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
         }}
       />
       <ModalForm open={pOpen} onOpenChange={setPOpen} title="Change password">
-        <ProFormText name="oldPassword" label="Old password" required />
-        <ProFormText name="newPassword" label="New password" required />
-        <ProFormText name="confirmPassword" label="Confirm password" required />
+        <ProFormText
+          name="oldPassword"
+          label="Old password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
+        <ProFormText
+          name="newPassword"
+          label="New password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
+        <ProFormText
+          name="confirmPassword"
+          label="Confirm password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
       </ModalForm>
     </div>
   );
