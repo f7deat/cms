@@ -227,6 +227,11 @@ export default defineConfig({
           component: './settings/sendgrid',
           hideInMenu: true,
         },
+        {
+          name: 'localization',
+          path: '/settings/localization',
+          component: './localization',
+        },
       ],
     },
     {

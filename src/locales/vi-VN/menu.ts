@@ -19,6 +19,7 @@ export default {
   'menu.settings.footer': 'Footer',
   'menu.settings.telegram': 'Telegram',
   'menu.settings.componentCenter': 'Component center',
+  'menu.settings.localization': 'Ngôn ngữ',
   'menu.settings.sendGrid': 'SendGrid',
   'menu.catalog': 'Catalog',
   'menu.component': 'Component',
