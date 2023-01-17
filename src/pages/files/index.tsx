@@ -7,11 +7,12 @@ import {
 import {
   ActionType,
   PageContainer,
+  ProCard,
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
+import { Avatar, Button, Col, message, Popconfirm, Row, Space } from 'antd';
 import { useRef, useState } from 'react';
 import Explorer from './explorer';
 
@@ -78,7 +79,6 @@ const FilePage: React.FC = () => {
   ];
   return (
     <PageContainer
-      title="Quản lý tệp tin"
       extra={
         <Button
           icon={<ArrowUpOutlined />}
@@ -89,12 +89,32 @@ const FilePage: React.FC = () => {
         </Button>
       }
     >
-      <ProTable
-        request={listFile}
-        columns={columns}
-        rowKey="id"
-        actionRef={actionRef}
-      />
+      <Row gutter={16}>
+        <Col span={18}>
+          <ProTable
+            headerTitle="Recent"
+            request={listFile}
+            columns={columns}
+            rowKey="id"
+            actionRef={actionRef}
+          />
+        </Col>
+        <Col span={6}>
+          <ProCard>
+            <Row>
+              <Col span={4}>
+                <Avatar icon="T" />
+              </Col>
+              <Col>
+                <Space>
+                  Clean up your space
+                  <Button>Clean</Button>
+                </Space>
+              </Col>
+            </Row>
+          </ProCard>
+        </Col>
+      </Row>
       <Explorer open={open} onOpenChange={setOpen} />
     </PageContainer>
   );
