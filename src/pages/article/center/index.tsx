@@ -16,6 +16,7 @@ import {
   Divider,
   Space,
   Empty,
+  Typography,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import ArticleContent from './content';
@@ -134,6 +135,7 @@ const ArticleCenter: React.FC = () => {
                   src={absolutePath(catalog?.thumbnail)}
                   width={200}
                   height={200}
+                  className="object-fit-cover"
                 />
               )}
             </div>
@@ -149,6 +151,8 @@ const ArticleCenter: React.FC = () => {
                 {formatDate(catalog?.modifiedDate)}
               </Descriptions.Item>
             </Descriptions>
+            <Divider />
+            <Typography.Title level={5}>Tags</Typography.Title>
           </ProCard>
         </Col>
       </Row>

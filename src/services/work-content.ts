@@ -244,3 +244,14 @@ export async function addLookBook(data: API.WorkContent) {
   });
 }
 //#endregion
+
+export async function listTag() {
+  return request(`work/tag/list`);
+}
+
+export async function addItem(data: any) {
+  return request(`work/item/add`, {
+    method: 'POST',
+    data,
+  });
+}

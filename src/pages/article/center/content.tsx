@@ -1,11 +1,24 @@
 import AddComponent from '@/components/add-component';
 import {
+  addItem,
   addWorkContent,
   deleteWorkContent,
+  listTag,
   listWorkContent,
 } from '@/services/work-content';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ActionType, ProList } from '@ant-design/pro-components';
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  TagOutlined,
+} from '@ant-design/icons';
+import {
+  ActionType,
+  ModalForm,
+  ProFormSelect,
+  ProFormText,
+  ProList,
+} from '@ant-design/pro-components';
 import { FormattedMessage, useParams, history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
@@ -15,6 +28,8 @@ const ArticleContent: React.FC = () => {
   const actionRef = useRef<ActionType>();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [openT, setOpenT] = useState<boolean>(false);
+
   const onFinish = async (values: any) => {
     values.catalogId = id;
     const response = await addWorkContent(values);
@@ -33,6 +48,15 @@ const ArticleContent: React.FC = () => {
     }
   };
 
+  const onAddTag = async (values: any) => {
+    const response = await addItem(values);
+    if (response.succeeded) {
+      message.success('Saved!');
+      setOpenT(false);
+      actionRef.current?.reload();
+    }
+  };
+
   return (
     <div>
       <ProList<API.WorkItem>
@@ -45,6 +69,13 @@ const ArticleContent: React.FC = () => {
               icon={<PlusOutlined />}
             >
               <FormattedMessage id="general.new" />
+            </Button>,
+            <Button
+              key={1}
+              icon={<TagOutlined />}
+              onClick={() => setOpenT(true)}
+            >
+              Tag
             </Button>,
           ];
         }}
@@ -87,6 +118,10 @@ const ArticleContent: React.FC = () => {
         }}
       />
       <AddComponent open={open} onOpenChange={setOpen} onFinish={onFinish} />
+      <ModalForm open={openT} onOpenChange={setOpenT} onFinish={onAddTag}>
+        <ProFormText name="catalogId" initialValue={id} hidden />
+        <ProFormSelect request={listTag} label="Tag" name="workContentId" />
+      </ModalForm>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import {
 } from '@/services/localization';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
+  ActionType,
   ModalForm,
   PageContainer,
   ProColumns,
@@ -19,6 +20,7 @@ import { useRef, useState } from 'react';
 const Localization: React.FC = () => {
   const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
+  const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState(false);
 
   const handleAdd = () => {
@@ -87,6 +89,7 @@ const Localization: React.FC = () => {
       }
     }
     setOpen(false);
+    actionRef.current?.reload();
   };
 
   return (
@@ -97,7 +100,12 @@ const Localization: React.FC = () => {
         </Button>
       }
     >
-      <ProTable columns={columns} request={listLocalization} rowKey="id" />
+      <ProTable
+        actionRef={actionRef}
+        columns={columns}
+        request={listLocalization}
+        rowKey="id"
+      />
       <ModalForm
         title={intl.formatMessage({
           id: 'menu.settings.localization',
