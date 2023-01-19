@@ -50,14 +50,15 @@ const ArticleList: React.FC = () => {
       dataIndex: 'name',
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
+      title: 'View count',
+      dataIndex: 'viewCount',
       search: false,
+      valueType: 'digit',
     },
     {
       title: 'Modified date',
       dataIndex: 'modifiedDate',
-      valueType: 'dateTime',
+      valueType: 'fromNow',
       search: false,
     },
     {
