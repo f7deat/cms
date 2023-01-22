@@ -25,3 +25,10 @@ export async function createUser(data: any) {
 export async function listUser() {
   return request(`user/list`);
 }
+
+export async function changePassword(data: any) {
+  return request(`user/change-password`, {
+    method: 'POST',
+    data,
+  });
+}

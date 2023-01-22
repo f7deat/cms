@@ -6,13 +6,12 @@ import {
 import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   PageContainer,
-  ProCard,
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
 import { history, useIntl } from '@umijs/max';
 import { useParams } from '@umijs/max';
-import { Col, Empty, Row, Button, Popconfirm, message } from 'antd';
+import { Col, Row, Button, Popconfirm, message } from 'antd';
 import { useEffect, useState } from 'react';
 import FilePreview from './preview';
 
@@ -102,7 +101,7 @@ const FileCenter: React.FC = () => {
   return (
     <PageContainer title="Center" extra={extra}>
       <Row gutter={16}>
-        <Col span={4}>
+        <Col span={8}>
           <FilePreview file={fileContent} />
         </Col>
         <Col span={16}>
@@ -111,11 +110,6 @@ const FileCenter: React.FC = () => {
             request={(params) => listWorkItemFiles(params, { id })}
             rowKey="id"
           />
-        </Col>
-        <Col span={4}>
-          <ProCard title="Work content">
-            <Empty />
-          </ProCard>
         </Col>
       </Row>
     </PageContainer>

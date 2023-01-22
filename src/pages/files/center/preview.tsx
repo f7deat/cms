@@ -10,7 +10,13 @@ type FilePreviewProps = {
 };
 
 const FilePreview: React.FC<FilePreviewProps> = (props) => {
-  const supportImage = ['image/jpeg', 'image/png', 'image/webp', '.svg'];
+  const supportImage = [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    '.svg',
+    '.jpg',
+  ];
 
   const intl = useIntl();
 

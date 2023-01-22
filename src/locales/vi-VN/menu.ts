@@ -23,6 +23,7 @@ export default {
   'menu.settings.sendGrid': 'SendGrid',
   'menu.catalog': 'Catalog',
   'menu.component': 'Component',
+  'menu.component.blogger': 'Blogger',
   'menu.component.swiper': 'Swiper',
   'menu.component.navbar': 'Navbar',
   'menu.component.image': 'Image',

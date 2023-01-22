@@ -2,6 +2,7 @@ import { CatalogType } from '@/constants';
 import { getCatalog, saveCatalog } from '@/services/catalog';
 import {
   ProForm,
+  ProFormCheckbox,
   ProFormInstance,
   ProFormSelect,
   ProFormText,
@@ -35,16 +36,15 @@ const CatalogSetting: React.FC = () => {
           name: 'type',
           value: response.type,
         },
+        {
+          name: 'active',
+          value: response.active,
+        },
       ]);
     });
   }, [id]);
 
   const onFinish = async (values: any) => {
-    const setting: API.CatalogSetting = {
-      title: values.title,
-      container: values.container,
-    };
-    values.setting = setting;
     const response = await saveCatalog(values);
     if (response.succeeded) {
       message.success('Saved!');
@@ -75,6 +75,7 @@ const CatalogSetting: React.FC = () => {
           },
         ]}
       ></ProFormSelect>
+      <ProFormCheckbox name="active" label="Active" />
     </ProForm>
   );
 };

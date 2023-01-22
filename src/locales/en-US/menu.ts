@@ -6,6 +6,7 @@ export default {
   'menu.catalog': 'Catalog',
   'menu.component': 'Component',
   'menu.component.blockEditor': 'Block editor',
+  'menu.component.blogger': 'Blogger',
   'menu.component.card': 'Card',
   'menu.component.column': 'Column',
   'menu.component.contactForm': 'Contact form',

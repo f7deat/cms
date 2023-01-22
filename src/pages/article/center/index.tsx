@@ -127,13 +127,12 @@ const ArticleCenter: React.FC = () => {
               <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
               <Button icon={<DeleteOutlined />} danger type="primary" />
             </Space>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mt-4">
               {!catalog?.thumbnail ? (
                 <Empty />
               ) : (
                 <Image
                   src={absolutePath(catalog?.thumbnail)}
-                  width={200}
                   height={200}
                   className="object-fit-cover"
                 />

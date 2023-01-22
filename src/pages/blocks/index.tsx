@@ -109,6 +109,9 @@ const Block: React.FC = () => {
         rowKey="id"
         request={listComponent}
         columns={columns}
+        search={{
+          layout: 'vertical',
+        }}
       />
       <ModalForm formRef={formRef} open={open} onOpenChange={setOpen}>
         <ProFormText name="id" hidden />

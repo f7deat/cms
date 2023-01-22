@@ -17,12 +17,20 @@ const RowSetting: React.FC = () => {
     getRow(id).then((response) => {
       formRef.current?.setFields([
         {
+          name: 'name',
+          value: response.name,
+        },
+        {
           name: 'layout',
           value: response.layout,
         },
         {
           name: 'className',
           value: response.className,
+        },
+        {
+          name: 'gap',
+          value: response.gap,
         },
       ]);
     });
@@ -38,6 +46,7 @@ const RowSetting: React.FC = () => {
 
   return (
     <ProForm onFinish={onFinish} formRef={formRef}>
+      <ProFormText name="name" label="Name" />
       <ProFormText name="className" label="Class name" />
       <ProFormSelect
         name="layout"

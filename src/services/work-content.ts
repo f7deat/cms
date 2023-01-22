@@ -255,3 +255,14 @@ export async function addItem(data: any) {
     data,
   });
 }
+
+export async function bloggerGet(id: string | undefined) {
+  return request(`work/blogger/${id}`);
+}
+
+export async function bloggerSave(data: any) {
+  return request(`work/blogger/save`, {
+    method: 'POST',
+    data,
+  });
+}

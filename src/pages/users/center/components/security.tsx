@@ -1,5 +1,7 @@
+import { changePassword } from '@/services/user';
 import { ModalForm, ProFormText, ProList } from '@ant-design/pro-components';
-import { Button } from 'antd';
+import { useParams } from '@umijs/max';
+import { Button, message } from 'antd';
 import { useState } from 'react';
 
 type SecuriryCenterProps = {
@@ -7,6 +9,7 @@ type SecuriryCenterProps = {
 };
 
 const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
+  const { id } = useParams();
   const [pOpen, setPOpen] = useState<boolean>(false);
 
   const dataSource = [
@@ -28,14 +31,24 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
     },
   ];
 
-  const handleEdit = (id: string) => {
-    switch (id) {
+  const handleEdit = (key: string) => {
+    switch (key) {
       case 'password':
         setPOpen(true);
         break;
 
       default:
         break;
+    }
+  };
+
+  const onFinish = async (values: any) => {
+    const response = await changePassword(values);
+    if (response.succeeded) {
+      message.success('Saved');
+      setPOpen(false);
+    } else {
+      message.error(response.errors[0].description);
     }
   };
 
@@ -62,8 +75,9 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
           },
         }}
       />
-      <ModalForm open={pOpen} onOpenChange={setPOpen} title="Change password">
-        <ProFormText
+      <ModalForm open={pOpen} onOpenChange={setPOpen} onFinish={onFinish}>
+        <ProFormText name="id" initialValue={id} hidden />
+        <ProFormText.Password
           name="oldPassword"
           label="Old password"
           rules={[
@@ -72,7 +86,7 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
             },
           ]}
         />
-        <ProFormText
+        <ProFormText.Password
           name="newPassword"
           label="New password"
           rules={[
@@ -81,7 +95,7 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
             },
           ]}
         />
-        <ProFormText
+        <ProFormText.Password
           name="confirmPassword"
           label="Confirm password"
           rules={[

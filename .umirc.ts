@@ -118,6 +118,12 @@ export default defineConfig({
           component: './works/tag',
           hideInMenu: true,
         },
+        {
+          name: 'blogger',
+          path: '/works/blogger/:id',
+          component: './works/blogger',
+          hideInMenu: true,
+        },
       ],
     },
     {
