@@ -2,6 +2,7 @@ import { deleteFileContent, listFile } from '@/services/file-service';
 import {
   ArrowUpOutlined,
   DeleteOutlined,
+  DownloadOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
 import {
@@ -45,11 +46,6 @@ const FilePage: React.FC = () => {
       dataIndex: 'type',
     },
     {
-      title: 'Url',
-      dataIndex: 'url',
-      search: false,
-    },
-    {
       title: 'Size',
       dataIndex: 'size',
       search: false,
@@ -67,10 +63,15 @@ const FilePage: React.FC = () => {
             history.push(`/files/center/${entity.id}`);
           }}
         />,
+        <Button
+          key={2}
+          icon={<DownloadOutlined />}
+          onClick={() => (window.location.href = entity.url)}
+        />,
         <Popconfirm
           title="Are you sure?"
           onConfirm={() => handleDelete(entity.id)}
-          key={2}
+          key={3}
         >
           <Button type="primary" icon={<DeleteOutlined />} danger />
         </Popconfirm>,

@@ -3,15 +3,19 @@ import {
   getFileDetail,
   listWorkItemFiles,
 } from '@/services/file-service';
-import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  DeleteOutlined,
+  FolderOutlined,
+} from '@ant-design/icons';
 import {
   PageContainer,
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
-import { history, useIntl } from '@umijs/max';
+import { FormattedMessage, history, useIntl } from '@umijs/max';
 import { useParams } from '@umijs/max';
-import { Col, Row, Button, Popconfirm, message } from 'antd';
+import { Col, Row, Button, Popconfirm, message, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import FilePreview from './preview';
 
@@ -90,12 +94,16 @@ const FileCenter: React.FC = () => {
   };
 
   const extra = (
-    <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
-      <Button type="primary" danger icon={<DeleteOutlined />}>
-        {' '}
-        Delete
+    <Space>
+      <Popconfirm title="Are you sure?" onConfirm={onConfirm}>
+        <Button type="primary" danger icon={<DeleteOutlined />}>
+          Delete
+        </Button>
+      </Popconfirm>
+      <Button onClick={() => history.back()} icon={<ArrowLeftOutlined />}>
+        <FormattedMessage id="general.back" />
       </Button>
-    </Popconfirm>
+    </Space>
   );
 
   return (

@@ -16,6 +16,7 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
     'image/webp',
     '.svg',
     '.jpg',
+    '.png',
   ];
 
   const intl = useIntl();
