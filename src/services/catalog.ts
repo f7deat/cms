@@ -16,7 +16,7 @@ export async function addCatalog(data: API.Catalog) {
 export async function listCatalog(params: {
   current?: number;
   pageSize?: number;
-  type: CatalogType;
+  type?: CatalogType;
 }) {
   return request('catalog/list', {
     method: 'GET',
@@ -70,4 +70,8 @@ export async function updateThumbnail(data: API.Catalog) {
     method: 'POST',
     data,
   });
+}
+
+export async function listTypes() {
+  return request(`catalog/types`);
 }

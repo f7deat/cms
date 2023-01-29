@@ -1,5 +1,4 @@
 import CatalogList from '@/components/catalog/list';
-import { CatalogType } from '@/constants';
 import { queryViewCount } from '@/services/catalog';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Col, Row, Statistic } from 'antd';
@@ -18,7 +17,7 @@ const HomePage: React.FC = () => {
     <PageContainer>
       <Row gutter={16}>
         <Col span={16}>
-          <CatalogList type={CatalogType.Default} />
+          <CatalogList />
         </Col>
         <Col span={8}>
           <ProCard title="Thống kê">

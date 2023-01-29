@@ -15,7 +15,7 @@ import { message, Button, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 type CalalogListProps = {
-  type: CatalogType;
+  type?: CatalogType;
 };
 
 const CatalogList: React.FC<CalalogListProps> = (props) => {

@@ -23,6 +23,10 @@ const Blogger: React.FC = () => {
           value: response.blogId,
         },
         {
+          name: 'normalizedName',
+          value: response.normalizedName,
+        },
+        {
           name: 'apiKey',
           value: response.apiKey,
         },
@@ -43,6 +47,7 @@ const Blogger: React.FC = () => {
         <ProForm formRef={formRef} onFinish={onFinish}>
           <ProFormText name="id" initialValue={id} hidden />
           <ProFormText name="blogId" label="Blog Id" />
+          <ProFormText name="normalizedName" label="Normalized name" />
           <ProFormText.Password name="apiKey" label="API Key" />
         </ProForm>
       </ProCard>

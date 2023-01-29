@@ -1,4 +1,3 @@
-import CatalogSetting from '@/components/catalog/settings';
 import WorkContentComponent from '@/components/work-content';
 import { addCatalog, getCatalog } from '@/services/catalog';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -11,6 +10,7 @@ import {
 import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
 import { Button, Col, Empty, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
+import CatalogSetting from './setting';
 
 const CatalogPage: React.FC = () => {
   const intl = useIntl();

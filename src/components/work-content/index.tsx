@@ -1,6 +1,8 @@
 import {
+  addItem,
   addWorkContent,
   deleteWorkContent,
+  listWork,
   listWorkContent,
   sortOrder,
 } from '@/services/work-content';
@@ -11,7 +13,13 @@ import {
   DeleteOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { ActionType, ProList } from '@ant-design/pro-components';
+import {
+  ActionType,
+  ModalForm,
+  ProFormSelect,
+  ProFormText,
+  ProList,
+} from '@ant-design/pro-components';
 import { Button, message, Popconfirm } from 'antd';
 import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
@@ -23,6 +31,8 @@ const WorkContentComponent: React.FC = () => {
 
   const actionRef = useRef<ActionType>();
   const [visible, setVisible] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [options, setOptions] = useState<any>();
 
   useEffect(() => {
     actionRef.current?.reload();
@@ -59,6 +69,21 @@ const WorkContentComponent: React.FC = () => {
     }
   };
 
+  const onSelect = async () => {
+    const response = await listWork();
+    setOptions(response);
+    setOpen(true);
+  };
+
+  const addWorkItem = async (values: API.WorkItem) => {
+    const response = await addItem(values);
+    if (response.succeeded) {
+      message.success('Saved');
+      setOpen(false);
+      actionRef.current?.reload();
+    }
+  };
+
   return (
     <div>
       <ProList<API.WorkItem>
@@ -71,6 +96,9 @@ const WorkContentComponent: React.FC = () => {
               icon={<PlusOutlined />}
             >
               <FormattedMessage id="general.new" />
+            </Button>,
+            <Button key={1} onClick={onSelect}>
+              Select
             </Button>,
           ];
         }}
@@ -127,6 +155,15 @@ const WorkContentComponent: React.FC = () => {
         onOpenChange={setVisible}
         onFinish={onFinish}
       />
+      <ModalForm open={open} onOpenChange={setOpen} onFinish={addWorkItem}>
+        <ProFormText name="catalogId" initialValue={id} hidden />
+        <ProFormSelect
+          showSearch
+          name="workContentId"
+          options={options}
+          label="Work"
+        />
+      </ModalForm>
     </div>
   );
 };

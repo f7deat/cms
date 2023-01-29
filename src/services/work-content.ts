@@ -1,5 +1,9 @@
 import { request } from '@umijs/max';
 
+export async function listWork() {
+  return request(`work/list`);
+}
+
 export async function addWorkContent(data: any) {
   return request(`work/add`, {
     method: 'POST',
