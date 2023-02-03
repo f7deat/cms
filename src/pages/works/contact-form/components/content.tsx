@@ -5,7 +5,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { useIntl, useParams } from '@umijs/max';
-import { message, Divider, Typography } from 'antd';
+import { message } from 'antd';
 import { useRef, useEffect } from 'react';
 
 const ContactFormContent: React.FC = () => {
@@ -73,11 +73,6 @@ const ContactFormContent: React.FC = () => {
       <ProFormText name="id" hidden />
       <ProFormText name="name" label="Name" />
       <ProFormText name="resultUrl" label="Result url" />
-      <Divider />
-      <Typography.Title level={4}>Labels</Typography.Title>
-      <ProFormText name="labelName" label="Name" />
-      <ProFormText name="email" label="Email" />
-      <ProFormText name="phoneNumber" label="Phone number" />
     </ProForm>
   );
 };

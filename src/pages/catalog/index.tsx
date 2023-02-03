@@ -1,4 +1,5 @@
 import WorkContentComponent from '@/components/work-content';
+import { exportCatalog } from '@/services/backup';
 import { addCatalog, getCatalog } from '@/services/catalog';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
@@ -8,7 +9,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
-import { Button, Col, Empty, message, Row } from 'antd';
+import { Button, Col, Empty, message, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
 
@@ -31,6 +32,10 @@ const CatalogPage: React.FC = () => {
         setOpen(false);
       }
     });
+  };
+
+  const onExport = async () => {
+    await exportCatalog(id);
   };
 
   return (
@@ -67,6 +72,16 @@ const CatalogPage: React.FC = () => {
                 setTab(key);
               },
             }}
+            extra={
+              <Space>
+                <Button type="primary" onClick={onExport}>
+                  Export
+                </Button>
+                <Button type="primary" danger>
+                  Import
+                </Button>
+              </Space>
+            }
           ></ProCard>
           <ModalForm onFinish={onFinish} open={open} onOpenChange={setOpen}>
             <ProFormText name="name" label="Name" />
