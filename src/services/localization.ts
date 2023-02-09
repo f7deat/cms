@@ -17,3 +17,9 @@ export async function saveLocalization(data: any) {
     data,
   });
 }
+
+export async function deleteLocalization(id: string) {
+  return request(`localization/delete/${id}`, {
+    method: 'POST',
+  });
+}

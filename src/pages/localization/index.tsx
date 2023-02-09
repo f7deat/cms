@@ -1,5 +1,6 @@
 import {
   addLocalization,
+  deleteLocalization,
   listLocalization,
   saveLocalization,
 } from '@/services/localization';
@@ -46,6 +47,14 @@ const Localization: React.FC = () => {
     setOpen(true);
   };
 
+  const handleRemove = async (id: string) => {
+    const response = await deleteLocalization(id);
+    if (response.succeeded) {
+      message.success('Deleted!');
+      actionRef.current?.reload();
+    }
+  };
+
   const columns: ProColumns<any>[] = [
     {
       title: '#',
@@ -69,7 +78,11 @@ const Localization: React.FC = () => {
           type="primary"
           onClick={() => handleUpdate(entity)}
         ></Button>,
-        <Popconfirm title="Are you sure?" key={2}>
+        <Popconfirm
+          title="Are you sure?"
+          key={2}
+          onConfirm={() => handleRemove(entity.id)}
+        >
           <Button icon={<DeleteOutlined />} type="primary" danger />
         </Popconfirm>,
       ],
