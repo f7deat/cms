@@ -249,8 +249,10 @@ export async function addLookBook(data: API.WorkContent) {
 }
 //#endregion
 
-export async function listTag() {
-  return request(`work/tag/list`);
+export async function listTag(params: any) {
+  return request(`work/tag/list`, {
+    params,
+  });
 }
 
 export async function addItem(data: any) {

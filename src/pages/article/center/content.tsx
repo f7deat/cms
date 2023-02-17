@@ -120,7 +120,12 @@ const ArticleContent: React.FC = () => {
       <AddComponent open={open} onOpenChange={setOpen} onFinish={onFinish} />
       <ModalForm open={openT} onOpenChange={setOpenT} onFinish={onAddTag}>
         <ProFormText name="catalogId" initialValue={id} hidden />
-        <ProFormSelect request={listTag} label="Tag" name="workContentId" />
+        <ProFormSelect
+          showSearch
+          request={listTag}
+          label="Tag"
+          name="workContentId"
+        />
       </ModalForm>
     </div>
   );

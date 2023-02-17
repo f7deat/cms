@@ -1,4 +1,3 @@
-import { CatalogType } from '@/constants';
 import {
   addCatalog,
   deleteCatalog,
@@ -20,11 +19,7 @@ import { history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
-type CalalogListProps = {
-  type?: CatalogType;
-};
-
-const CatalogList: React.FC<CalalogListProps> = (props) => {
+const CatalogList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState();
@@ -56,9 +51,7 @@ const CatalogList: React.FC<CalalogListProps> = (props) => {
       title: 'Type',
       dataIndex: 'type',
       valueType: 'select',
-      formItemProps: {
-        initialValue: 0,
-      },
+      initialValue: '0',
       valueEnum: {
         0: {
           text: 'Entry',
@@ -129,12 +122,7 @@ const CatalogList: React.FC<CalalogListProps> = (props) => {
     <div>
       <ProTable
         rowKey="id"
-        request={(params) =>
-          listCatalog({
-            type: props.type,
-            ...params,
-          })
-        }
+        request={listCatalog}
         columns={columns}
         actionRef={actionRef}
         toolBarRender={() => [
