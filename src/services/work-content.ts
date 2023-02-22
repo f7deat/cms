@@ -15,6 +15,12 @@ export async function listWorkContent(id: string | undefined) {
   return request(`work/list/${id}`);
 }
 
+export async function activeWork(id: string | undefined) {
+  return request(`work/active/${id}`, {
+    method: 'POST',
+  });
+}
+
 export async function sortOrder(
   workContentId: string,
   catalogId: string,

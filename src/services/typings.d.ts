@@ -39,6 +39,7 @@ declare namespace API {
     normalizedName: string;
     sortOrder: number;
     catalogId: string;
+    active: boolean;
   };
 
   type Image = BaseEntity & {

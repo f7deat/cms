@@ -1,13 +1,29 @@
+import { activeWork, getWorkContent } from '@/services/work-content';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { FormattedMessage, history } from '@umijs/max';
-import { Button } from 'antd';
-import { useState } from 'react';
+import { FormattedMessage, history, useParams } from '@umijs/max';
+import { Button, message, Switch } from 'antd';
+import { useEffect, useState } from 'react';
 import ColumnContent from './content';
 import ColumnSetting from './setting';
 
 const WfColumn: React.FC = () => {
+  const { id } = useParams();
   const [tab, setTab] = useState('content');
+  const [work, setWork] = useState<API.WorkContent>();
+
+  useEffect(() => {
+    getWorkContent(id).then((response) => {
+      setWork(response);
+    });
+  }, []);
+
+  const active = async () => {
+    const response = await activeWork(id);
+    if (response.succeeded) {
+      message.success('Saved!');
+    }
+  };
 
   return (
     <PageContainer
@@ -19,6 +35,7 @@ const WfColumn: React.FC = () => {
       }
     >
       <ProCard
+        title={work?.name}
         tabs={{
           activeKey: tab,
           items: [
@@ -37,7 +54,8 @@ const WfColumn: React.FC = () => {
             setTab(key);
           },
         }}
-      ></ProCard>
+        extra={<Switch onChange={active} checked={work?.active} />}
+      />
     </PageContainer>
   );
 };

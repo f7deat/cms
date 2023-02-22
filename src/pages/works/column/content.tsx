@@ -1,4 +1,8 @@
-import { addChildWorkContent, getChildList } from '@/services/work-content';
+import {
+  activeWork,
+  addChildWorkContent,
+  getChildList,
+} from '@/services/work-content';
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
@@ -6,7 +10,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons';
 import { ActionType, ProList } from '@ant-design/pro-components';
-import { Button, message, Popconfirm } from 'antd';
+import { Button, message, Popconfirm, Switch } from 'antd';
 import { useParams, history, FormattedMessage } from '@umijs/max';
 import { useRef, useState } from 'react';
 import AddComponent from '@/components/add-component';
@@ -28,6 +32,15 @@ const ColumnContent: React.FC = () => {
       setOpen(false);
     }
   };
+
+  const onActive = async (id: string) => {
+    const response = await activeWork(id);
+    if (response.succeeded) {
+      message.success('Saved!');
+      actionRef.current?.reload();
+    }
+  };
+
   return (
     <div>
       <ProList<API.WorkItem>
@@ -64,7 +77,12 @@ const ColumnContent: React.FC = () => {
             ),
           },
           actions: {
-            render: () => [
+            render: (dom, entity) => [
+              <Switch
+                key={1}
+                checked={entity.active}
+                onChange={() => onActive(entity.id)}
+              />,
               <Button key={2} icon={<ArrowUpOutlined />}></Button>,
               <Button key={3} icon={<ArrowDownOutlined />}></Button>,
               <Popconfirm title="Are you sure?" key={4}>
@@ -73,7 +91,6 @@ const ColumnContent: React.FC = () => {
                   danger
                   type="primary"
                 ></Button>
-                ,
               </Popconfirm>,
             ],
           },
