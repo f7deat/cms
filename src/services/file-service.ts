@@ -7,11 +7,13 @@ export async function listFile(
     current?: number;
     pageSize?: number;
   },
+  type?: string[],
   options?: { [key: string]: any },
 ) {
   return request(`fileExplorer/list`, {
     method: 'GET',
     params: {
+      type: Object.keys(type ?? []).length > 0 ? type?.join(',') : '',
       ...params,
     },
     ...(options || {}),

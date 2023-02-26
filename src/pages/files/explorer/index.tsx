@@ -26,6 +26,7 @@ type ExplorerProps = {
   onOpenChange?: any;
   onFinish?: any;
   onSelect?: any;
+  type?: string[];
 };
 
 const Explorer: React.FC<ExplorerProps> = (props) => {
@@ -97,7 +98,14 @@ const Explorer: React.FC<ExplorerProps> = (props) => {
         headerTitle={intl.formatMessage({
           id: 'menu.fileManager',
         })}
-        request={listFile}
+        request={(params) =>
+          listFile(
+            {
+              ...params,
+            },
+            props.type,
+          )
+        }
         rowSelection={{}}
         search={{
           layout: 'vertical',

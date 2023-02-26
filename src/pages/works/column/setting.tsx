@@ -1,6 +1,7 @@
 import { getColumn, saveColumn } from '@/services/work-content';
 import {
   ProForm,
+  ProFormCheckbox,
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
@@ -36,6 +37,7 @@ const ColumnSetting: React.FC = () => {
     <ProForm formRef={formRef} onFinish={onFinish}>
       <ProFormText name="id" hidden initialValue={id} />
       <ProFormText name="className" label="Class name" />
+      <ProFormCheckbox name="active" label="Active" />
     </ProForm>
   );
 };

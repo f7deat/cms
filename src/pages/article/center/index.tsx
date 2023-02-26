@@ -1,4 +1,4 @@
-import Explorer from '@/pages/files/explorer';
+import Gallery from '@/pages/files/gallery';
 import { activeCatalog, getCatalog, updateThumbnail } from '@/services/catalog';
 import { absolutePath, formatDate } from '@/utils/format';
 import { BarsOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -155,7 +155,7 @@ const ArticleCenter: React.FC = () => {
           </ProCard>
         </Col>
       </Row>
-      <Explorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
+      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </PageContainer>
   );
 };
