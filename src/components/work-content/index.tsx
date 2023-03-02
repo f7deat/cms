@@ -43,6 +43,8 @@ const WorkContentComponent: React.FC = () => {
     if (response.succeeded) {
       message.success('Deleted!');
       actionRef.current?.reload();
+    } else {
+      message.error(response.errors[0].description);
     }
   };
 
