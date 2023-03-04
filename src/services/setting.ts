@@ -54,3 +54,18 @@ export async function saveHeaderLogo(data: any) {
     data,
   });
 }
+
+//#region SendGrid
+
+export async function getSendGrid() {
+  return request(`appsetting/sendgrid`);
+}
+
+export async function saveSendGrid(data: any) {
+  return request(`appsetting/sendgrid/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+//#endregion
