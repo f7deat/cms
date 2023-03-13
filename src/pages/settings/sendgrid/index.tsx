@@ -21,11 +21,11 @@ const SendGrid: React.FC = () => {
         },
         {
           name: 'name',
-          value: response.from.name,
+          value: response.from?.name,
         },
         {
           name: 'email',
-          value: response.from.email,
+          value: response.from?.email,
         },
       ]);
     });

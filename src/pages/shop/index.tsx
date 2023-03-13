@@ -1,17 +1,16 @@
 import { CatalogType } from '@/constants';
 import { addCatalog, listCatalog } from '@/services/catalog';
-import { PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
-  ModalForm,
   PageContainer,
   ProColumns,
-  ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
-import { FormattedMessage, useIntl } from '@umijs/max';
-import { Button, message } from 'antd';
+import { FormattedMessage, useIntl, history } from '@umijs/max';
+import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
+import NewCatalog from '../catalog/new';
 
 const ShopPage: React.FC = () => {
   const intl = useIntl();
@@ -42,6 +41,47 @@ const ShopPage: React.FC = () => {
       title: 'Name',
       dataIndex: 'name',
     },
+    {
+      title: 'View count',
+      dataIndex: 'viewCount',
+      search: false,
+      valueType: 'digit',
+    },
+    {
+      title: 'Modified date',
+      dataIndex: 'modifiedDate',
+      valueType: 'fromNow',
+      search: false,
+    },
+    {
+      title: 'Active',
+      dataIndex: 'active',
+      valueEnum: {
+        false: {
+          text: 'Draft',
+          status: 'Default',
+        },
+        true: {
+          text: 'Active',
+          status: 'Processing',
+        },
+      },
+    },
+    {
+      title: '',
+      valueType: 'option',
+      render: (dom, entity) => [
+        <Button
+          icon={<EditOutlined />}
+          key={1}
+          type="primary"
+          onClick={() => history.push(`/shop/center/${entity.id}`)}
+        ></Button>,
+        <Popconfirm title="Are you sure?" key={2}>
+          <Button icon={<DeleteOutlined />} type="primary" danger />
+        </Popconfirm>,
+      ],
+    },
   ];
 
   return (
@@ -62,18 +102,12 @@ const ShopPage: React.FC = () => {
         actionRef={actionRef}
         request={(params) => listCatalog({ type: CatalogType.Shop, ...params })}
       />
-      <ModalForm
-        onFinish={onFinish}
+      <NewCatalog
         open={open}
-        onOpenChange={setOpen}
-        title={intl.formatMessage({
-          id: 'general.new',
-        })}
-      >
-        <ProFormText label="Name" name="name" required />
-        <ProFormText label="Normalized name" name="normalizedName" />
-        <ProFormText name="type" initialValue={CatalogType.Shop} hidden />
-      </ModalForm>
+        setOpen={setOpen}
+        onFinish={onFinish}
+        type={CatalogType.Shop}
+      />
     </PageContainer>
   );
 };

@@ -83,6 +83,17 @@ export async function getWorkContent(id: string | undefined) {
   return request(`work/${id}`);
 }
 
+export async function getWorkSummary(id: string | undefined) {
+  return request(`work/summary/${id}`);
+}
+
+export async function updateWorkSummary(data: API.WorkContent) {
+  return request(`work/summary/update`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function saveWorkContent(data: API.WorkItem) {
   return request(`work/save`, {
     method: 'POST',

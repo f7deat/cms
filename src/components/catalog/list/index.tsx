@@ -51,14 +51,18 @@ const CatalogList: React.FC = () => {
       title: 'Type',
       dataIndex: 'type',
       valueType: 'select',
-      initialValue: '0',
+      initialValue: '4',
       valueEnum: {
         0: {
-          text: 'Entry',
+          text: 'Default',
           status: 'Default',
         },
         1: {
           text: 'Article',
+          status: 'Default',
+        },
+        4: {
+          text: 'Entry',
           status: 'Default',
         },
         7: {

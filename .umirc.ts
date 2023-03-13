@@ -286,6 +286,28 @@ export default defineConfig({
         },
       ],
     },
+    {
+      icon: 'SlackOutlined',
+      name: 'eCommerce',
+      path: '/shop',
+      routes: [
+        {
+          path: '/shop',
+          redirect: '/shop/list',
+        },
+        {
+          name: 'list',
+          path: '/shop/list',
+          component: './shop',
+        },
+        {
+          name: 'center',
+          path: '/shop/center/:id',
+          component: './shop/center',
+          hideInMenu: true,
+        },
+      ],
+    },
   ],
   npmClient: 'yarn',
 });

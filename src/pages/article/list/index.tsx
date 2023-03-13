@@ -1,22 +1,18 @@
 import { CatalogType } from '@/constants';
+import NewCatalog from '@/pages/catalog/new';
 import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
-  ModalForm,
   PageContainer,
   ProColumns,
-  ProFormCheckbox,
-  ProFormText,
-  ProFormTextArea,
   ProTable,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl } from '@umijs/max';
+import { FormattedMessage, history } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 const ArticleList: React.FC = () => {
-  const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
 
@@ -119,27 +115,12 @@ const ArticleList: React.FC = () => {
         columns={columns}
         actionRef={actionRef}
       />
-      <ModalForm
+      <NewCatalog
         open={open}
-        onOpenChange={setOpen}
+        setOpen={setOpen}
         onFinish={onFinish}
-        title={intl.formatMessage({
-          id: 'general.new',
-        })}
-      >
-        <ProFormText
-          label="Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        />
-        <ProFormTextArea label="Description" name="description" />
-        <ProFormText name="type" initialValue={CatalogType.Article} hidden />
-        <ProFormCheckbox name="active" initialValue={false} hidden />
-      </ModalForm>
+        type={CatalogType.Shop}
+      />
     </PageContainer>
   );
 };

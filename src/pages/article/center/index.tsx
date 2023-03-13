@@ -1,23 +1,9 @@
-import Gallery from '@/pages/files/gallery';
-import { activeCatalog, getCatalog, updateThumbnail } from '@/services/catalog';
-import { absolutePath, formatDate } from '@/utils/format';
-import { BarsOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import CatalogSummary from '@/pages/catalog/summary';
+import { activeCatalog, getCatalog } from '@/services/catalog';
+import { BarsOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
-import {
-  Button,
-  Col,
-  Descriptions,
-  Dropdown,
-  MenuProps,
-  message,
-  Row,
-  Image,
-  Divider,
-  Space,
-  Empty,
-  Typography,
-} from 'antd';
+import { Button, Col, Dropdown, MenuProps, message, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import ArticleContent from './content';
 import ArticleSetting from './setting';
@@ -27,13 +13,12 @@ const ArticleCenter: React.FC = () => {
   const intl = useIntl();
   const [catalog, setCatalog] = useState<API.Catalog>();
   const [tab, setTab] = useState<string>('content');
-  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getCatalog(id).then((response) => {
       setCatalog(response);
     });
-  }, []);
+  }, [id]);
 
   const items: MenuProps['items'] = [
     {
@@ -74,18 +59,6 @@ const ArticleCenter: React.FC = () => {
     },
   ];
 
-  const onSelect = async (values: API.FileContent) => {
-    if (catalog) {
-      const nObj = { ...catalog, thumbnail: values.url };
-      const response = await updateThumbnail(nObj);
-      if (response.succeeded) {
-        message.success('Saved!');
-        setCatalog(nObj);
-      }
-      setOpen(false);
-    }
-  };
-
   return (
     <PageContainer
       title={catalog?.name}
@@ -122,40 +95,9 @@ const ArticleCenter: React.FC = () => {
           />
         </Col>
         <Col span={6}>
-          <ProCard title="Thống kê">
-            <Space>
-              <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
-              <Button icon={<DeleteOutlined />} danger type="primary" />
-            </Space>
-            <div className="flex items-center justify-center mt-4">
-              {!catalog?.thumbnail ? (
-                <Empty />
-              ) : (
-                <Image
-                  src={absolutePath(catalog?.thumbnail)}
-                  height={200}
-                  className="object-fit-cover"
-                />
-              )}
-            </div>
-            <Divider />
-            <Descriptions title="Information" column={1}>
-              <Descriptions.Item label="Lượt xem">
-                {catalog?.viewCount}
-              </Descriptions.Item>
-              <Descriptions.Item label="Created date">
-                {formatDate(catalog?.createdDate)}
-              </Descriptions.Item>
-              <Descriptions.Item label="Modified date">
-                {formatDate(catalog?.modifiedDate)}
-              </Descriptions.Item>
-            </Descriptions>
-            <Divider />
-            <Typography.Title level={5}>Tags</Typography.Title>
-          </ProCard>
+          <CatalogSummary catalog={catalog} setCatalog={setCatalog} />
         </Col>
       </Row>
-      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </PageContainer>
   );
 };

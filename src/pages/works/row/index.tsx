@@ -1,7 +1,8 @@
+import WorkSummary from '@/components/work-content/summary';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Button, Col, Empty, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useState } from 'react';
 import RowContent from './components/content';
 import RowSetting from './components/setting';
@@ -41,9 +42,7 @@ const RowComponent: React.FC = () => {
           />
         </Col>
         <Col span={8}>
-          <ProCard title="Work contents">
-            <Empty />
-          </ProCard>
+          <WorkSummary />
         </Col>
       </Row>
     </PageContainer>

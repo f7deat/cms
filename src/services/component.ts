@@ -15,8 +15,13 @@ export function addComponent(data: any) {
   });
 }
 
-export async function listComponent() {
-  return request(`component/list`);
+export async function listComponent(params: {
+  current?: number;
+  pageSize?: number;
+}) {
+  return request(`component/list`, {
+    params,
+  });
 }
 
 export async function listComponentWork(params: any, id: string | undefined) {

@@ -78,8 +78,8 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
       <ModalForm open={pOpen} onOpenChange={setPOpen} onFinish={onFinish}>
         <ProFormText name="id" initialValue={id} hidden />
         <ProFormText.Password
-          name="oldPassword"
-          label="Old password"
+          name="currentPassword"
+          label="Current password"
           rules={[
             {
               required: true,

@@ -1,9 +1,10 @@
 import ProEditorBlock from '@/components/editorjs';
+import WorkSummary from '@/components/work-content/summary';
 import { saveBlockEditor } from '@/services/work-content';
 import { ArrowLeftOutlined, SaveOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { FormattedMessage, history } from '@umijs/max';
-import { Button, message, Space } from 'antd';
+import { Button, Col, message, Row, Space } from 'antd';
 import { useState } from 'react';
 
 const BlockEditor: React.FC = () => {
@@ -23,19 +24,26 @@ const BlockEditor: React.FC = () => {
         </Button>
       }
     >
-      <ProCard
-        title="Start writing"
-        extra={
-          <Button type="primary" onClick={onFinish}>
-            <Space>
-              <SaveOutlined />
-              <FormattedMessage id="general.save" />
-            </Space>
-          </Button>
-        }
-      >
-        <ProEditorBlock onChange={setEditorData} />
-      </ProCard>
+      <Row gutter={16}>
+        <Col span={18}>
+          <ProCard
+            title="Start writing"
+            extra={
+              <Button type="primary" onClick={onFinish}>
+                <Space>
+                  <SaveOutlined />
+                  <FormattedMessage id="general.save" />
+                </Space>
+              </Button>
+            }
+          >
+            <ProEditorBlock onChange={setEditorData} />
+          </ProCard>
+        </Col>
+        <Col span={6}>
+          <WorkSummary />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

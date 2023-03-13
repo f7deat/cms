@@ -23,7 +23,10 @@ const Backup: React.FC = () => {
     const href = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = href;
-    link.download = `file-${Date.now()}.json`;
+    link.download = `${localStorage
+      .getItem('wf_URL')
+      ?.replace('https://', '')
+      .replace('/', '')}-${Date.now()}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

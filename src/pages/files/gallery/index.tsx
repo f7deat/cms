@@ -24,6 +24,7 @@ const Gallery: React.FC<GalleryProps> = (props) => {
   const uploadProps: UploadProps = {
     name: 'file',
     action: uploadRcFile,
+    accept: 'image/png, image/jpeg',
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList);
