@@ -1,5 +1,5 @@
 import FilePreview from '@/pages/files/center/preview';
-import Explorer from '@/pages/files/explorer';
+import Gallery from '@/pages/files/gallery';
 import {
   deleteWorkContentById,
   getImage,
@@ -130,7 +130,7 @@ const Image: React.FC = () => {
           </ProCard>
         </Col>
       </Row>
-      <Explorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
+      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </PageContainer>
   );
 };

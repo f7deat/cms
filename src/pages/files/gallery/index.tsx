@@ -91,7 +91,7 @@ const Gallery: React.FC<GalleryProps> = (props) => {
             {
               ...params,
             },
-            ['.png', '.jpg'],
+            ['.png', '.jpg', 'image/jpeg'],
           )
         }
         search={{

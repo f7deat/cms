@@ -1,3 +1,4 @@
+import Gallery from '@/pages/files/gallery';
 import { activeCatalog, updateThumbnail } from '@/services/catalog';
 import { absolutePath, formatDate } from '@/utils/format';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -15,7 +16,7 @@ import {
   Switch,
 } from 'antd';
 import { useState } from 'react';
-import Gallery from '../files/gallery';
+import TagList from './tag';
 
 type CatalogSummaryProps = {
   catalog?: API.Catalog;
@@ -82,6 +83,7 @@ const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
       </Descriptions>
       <Divider />
       <Typography.Title level={5}>Tags</Typography.Title>
+      <TagList />
       <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </ProCard>
   );

@@ -1,23 +1,49 @@
-import { getComponent, listComponentWork } from '@/services/component';
+import {
+  getComponent,
+  listComponentWork,
+  updateComponent,
+} from '@/services/component';
 import { deleteWorkContentById } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   ActionType,
   PageContainer,
+  ProCard,
   ProColumns,
+  ProForm,
+  ProFormCheckbox,
+  ProFormInstance,
+  ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
 import { useParams, history } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
+import { Button, Col, message, Popconfirm, Row } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 const ComponentCenter: React.FC = () => {
   const { id } = useParams();
   const actionRef = useRef<ActionType>();
+  const formRef = useRef<ProFormInstance>();
 
   const [component, setComponent] = useState<API.Component>();
   useEffect(() => {
-    getComponent(id).then((response) => setComponent(response));
+    getComponent(id).then((response) => {
+      setComponent(response);
+      formRef.current?.setFields([
+        {
+          name: 'id',
+          value: response.id,
+        },
+        {
+          name: 'name',
+          value: response.name,
+        },
+        {
+          name: 'avtive',
+          value: response.active,
+        },
+      ]);
+    });
   }, []);
 
   const onConfirm = async (id: string) => {
@@ -74,14 +100,34 @@ const ComponentCenter: React.FC = () => {
     },
   ];
 
+  const onFinish = async (values: API.Component) => {
+    const response = await updateComponent(values);
+    if (response.succeeded) {
+      message.success('Saved');
+    }
+  };
+
   return (
     <PageContainer title={component?.name}>
-      <ProTable
-        actionRef={actionRef}
-        columns={columns}
-        rowKey="id"
-        request={(params) => listComponentWork(params, id)}
-      />
+      <Row gutter={16}>
+        <Col span={16}>
+          <ProTable
+            actionRef={actionRef}
+            columns={columns}
+            rowKey="id"
+            request={(params) => listComponentWork(params, id)}
+          />
+        </Col>
+        <Col span={8}>
+          <ProCard title="Info">
+            <ProForm formRef={formRef} onFinish={onFinish}>
+              <ProFormText name="id" hidden />
+              <ProFormText label="Name" name="name" />
+              <ProFormCheckbox label="Active" name="active" />
+            </ProForm>
+          </ProCard>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

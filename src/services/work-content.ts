@@ -279,6 +279,13 @@ export async function addItem(data: any) {
   });
 }
 
+export async function deleteItem(data: any) {
+  return request(`work/item/delete`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function bloggerGet(id: string | undefined) {
   return request(`work/blogger/${id}`);
 }

@@ -5,4 +5,9 @@ export enum CatalogType {
   Shop,
   Setting,
   Entry,
+  ArticleCategoy,
+  ProductCategory,
+  Blogspot,
+  Albums,
+  Tag,
 }

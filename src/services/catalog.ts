@@ -75,3 +75,13 @@ export async function updateThumbnail(data: API.Catalog) {
 export async function listTypes() {
   return request(`catalog/types`);
 }
+
+export async function listTagById(id: string | undefined) {
+  return request(`catalog/list-tag/${id}`);
+}
+
+export async function listTagSelect(params: any) {
+  return request(`catalog/list-tag-select`, {
+    params,
+  });
+}

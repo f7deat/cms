@@ -4,12 +4,19 @@ export async function getComponent(id: string | undefined) {
   return request(`component/${id}`);
 }
 
-export function listAllComponent() {
+export async function listAllComponent() {
   return request(`component/list-all`);
 }
 
-export function addComponent(data: any) {
+export async function addComponent(data: API.Component) {
   return request(`component/add`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function updateComponent(data: API.Component) {
+  return request(`component/update`, {
     method: 'POST',
     data,
   });
