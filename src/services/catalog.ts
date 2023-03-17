@@ -85,3 +85,15 @@ export async function listTagSelect(params: any) {
     params,
   });
 }
+
+export async function listByTag(
+  id: string | undefined,
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+) {
+  return request(`catalog/list-by-tag/${id}`, {
+    params,
+  });
+}

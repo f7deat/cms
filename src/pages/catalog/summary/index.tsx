@@ -1,3 +1,4 @@
+import { CatalogType } from '@/constants';
 import Gallery from '@/pages/files/gallery';
 import { updateThumbnail } from '@/services/catalog';
 import { absolutePath, formatDate } from '@/utils/format';
@@ -66,9 +67,15 @@ const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
           {formatDate(catalog?.modifiedDate)}
         </Descriptions.Item>
       </Descriptions>
-      <Divider />
-      <Typography.Title level={5}>Tags</Typography.Title>
-      <TagList />
+      {props.catalog?.type === CatalogType.Tag ? (
+        <div></div>
+      ) : (
+        <div>
+          <Divider />
+          <Typography.Title level={5}>Tags</Typography.Title>
+          <TagList />
+        </div>
+      )}
       <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </ProCard>
   );

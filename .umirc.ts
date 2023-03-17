@@ -127,6 +127,7 @@ export default defineConfig({
       routes: [
         {
           path: '/catalog/:id',
+          component: './catalog',
           hideInMenu: true,
         },
         {
@@ -138,6 +139,17 @@ export default defineConfig({
           name: 'center',
           path: '/catalog/shop/center/:id',
           component: './shop/center',
+          hideInMenu: true,
+        },
+        {
+          name: 'tag',
+          path: '/catalog/tag',
+          component: './tag',
+        },
+        {
+          name: 'tagCenter',
+          path: '/catalog/tag/:id',
+          component: './tag/center',
           hideInMenu: true,
         },
       ],

@@ -20,7 +20,11 @@ import { history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
-const CatalogList: React.FC = () => {
+type CatalogListProps = {
+  type: CatalogType;
+};
+
+const CatalogList: React.FC<CatalogListProps> = (props) => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState();
@@ -39,6 +43,16 @@ const CatalogList: React.FC = () => {
     listTypes().then((response) => setOptions(response));
   }, []);
 
+  const url = () => {
+    switch (props.type) {
+      case CatalogType.Tag:
+        return 'catalog/tag';
+
+      default:
+        return 'catalog';
+    }
+  };
+
   const columns: ProColumns<API.Catalog>[] = [
     {
       title: '#',
@@ -52,6 +66,12 @@ const CatalogList: React.FC = () => {
       title: 'Modified date',
       dataIndex: 'modifiedDate',
       valueType: 'dateTime',
+      search: false,
+    },
+    {
+      title: 'View',
+      dataIndex: 'viewCount',
+      valueType: 'digit',
       search: false,
     },
     {
@@ -76,7 +96,7 @@ const CatalogList: React.FC = () => {
           icon={<EditOutlined />}
           key={1}
           type="primary"
-          onClick={() => history.push(`/catalog/${entity.id}`)}
+          onClick={() => history.push(`/${url()}/${entity.id}`)}
         ></Button>,
         <Popconfirm
           title="Are you sure?"
@@ -106,7 +126,7 @@ const CatalogList: React.FC = () => {
         request={(params) =>
           listCatalog({
             ...params,
-            type: CatalogType.Entry,
+            type: props.type,
           })
         }
         columns={columns}

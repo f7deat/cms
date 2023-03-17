@@ -1,10 +1,5 @@
 import { createUser, listUser } from '@/services/user';
-import {
-  DeleteOutlined,
-  EyeOutlined,
-  InfoCircleOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
   ModalForm,
@@ -14,18 +9,17 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl, history } from '@umijs/max';
-import { Alert, Button, message, Popconfirm } from 'antd';
+import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 const UserList: React.FC = () => {
   const intl = useIntl();
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState('Please input values!');
 
   const onFinish = async (values: any) => {
     if (values.password !== values.confirmPassword) {
-      setAlertMessage('Mật khẩu không khớp');
+      message.error('Mật khẩu không khớp');
       return;
     }
     const response = await createUser(values);
@@ -104,19 +98,32 @@ const UserList: React.FC = () => {
         })}
         onFinish={onFinish}
       >
-        <Alert
-          message={alertMessage}
-          showIcon
-          type="error"
-          className="mb-4"
-          icon={<InfoCircleOutlined />}
+        <ProFormText
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         />
-        <ProFormText name="email" label="Email" required />
-        <ProFormText.Password name="password" label="Password" required />
+        <ProFormText.Password
+          name="password"
+          label="Password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        />
         <ProFormText.Password
           name="confirmPassword"
           label="Confirm password"
-          required
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         />
       </ModalForm>
     </PageContainer>

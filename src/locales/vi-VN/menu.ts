@@ -5,6 +5,7 @@ export default {
   'menu.article.list': 'Danh sách',
   'menu.catalog.center': 'Chi tiết',
   'menu.catalog.product': 'Sản phẩm',
+  'menu.catalog.tag': 'Tag',
   'menu.home': 'Trang chủ',
   'menu.help': 'Trợ giúp',
   'menu.help.backup': 'Backup',
