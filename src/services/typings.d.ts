@@ -25,7 +25,7 @@ declare namespace API {
   };
 
   type Column = AbtractComponent & {
-    rowId: string;
+    rowId: string | undefined;
   };
 
   type Component = BaseEntity & {
@@ -43,13 +43,14 @@ declare namespace API {
   };
 
   type Image = BaseEntity & {
-    title: string;
+    alt: string;
     description: string;
     height?: number;
     width?: number;
     url: string;
     className: string;
-    fileContent?: FileContent;
+    wrapper: string;
+    file?: FileContent;
   };
 
   type Navbar = {
@@ -134,5 +135,12 @@ declare namespace API {
   type UpgradeListItem = {
     name: string;
     url: string;
+  };
+
+  type Facebook = {
+    appId: string;
+    appSecret: string;
+    pageId: string;
+    pageAccessToken: string;
   };
 }

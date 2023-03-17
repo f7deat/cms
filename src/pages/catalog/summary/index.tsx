@@ -1,9 +1,8 @@
 import Gallery from '@/pages/files/gallery';
-import { activeCatalog, updateThumbnail } from '@/services/catalog';
+import { updateThumbnail } from '@/services/catalog';
 import { absolutePath, formatDate } from '@/utils/format';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
 import {
   Space,
   Button,
@@ -13,7 +12,6 @@ import {
   Typography,
   Image,
   message,
-  Switch,
 } from 'antd';
 import { useState } from 'react';
 import TagList from './tag';
@@ -25,9 +23,7 @@ type CatalogSummaryProps = {
 
 const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
   const { catalog, setCatalog } = props;
-  const { id } = useParams();
   const [open, setOpen] = useState<boolean>(false);
-  const [active, setActive] = useState<boolean>(catalog?.active ?? false);
 
   const onSelect = async (values: API.FileContent) => {
     if (catalog) {
@@ -41,19 +37,8 @@ const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
     }
   };
 
-  const onChange = async () => {
-    const response = await activeCatalog(id);
-    if (response.succeeded) {
-      setActive(!active);
-      message.success('Saved!');
-    }
-  };
-
   return (
-    <ProCard
-      title="Summary"
-      extra={<Switch onChange={onChange} checked={active} />}
-    >
+    <ProCard title="Summary">
       <Space>
         <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
         <Button icon={<DeleteOutlined />} danger type="primary" />

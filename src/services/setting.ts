@@ -55,6 +55,18 @@ export async function saveHeaderLogo(data: any) {
   });
 }
 
+//#region Facebook
+export async function facebookGet(id: string | undefined) {
+  return request(`appsetting/facebook/${id}`);
+}
+export async function facebookSave(data: API.Facebook) {
+  return request(`appsetting/facebook/save`, {
+    method: 'POST',
+    data,
+  });
+}
+//#endregion
+
 //#region SendGrid
 
 export async function getSendGrid() {

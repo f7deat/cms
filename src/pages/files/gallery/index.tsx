@@ -1,4 +1,5 @@
 import { listFile, uploadFromUrl, uploadRcFile } from '@/services/file-service';
+import { absolutePath } from '@/utils/format';
 import { UploadOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -113,7 +114,11 @@ const Gallery: React.FC<GalleryProps> = (props) => {
             dataIndex: 'name',
             title: 'Name',
             render: (dom, record) => (
-              <Image src={record.url} height={100} preview={false} />
+              <Image
+                src={absolutePath(record.url)}
+                height={100}
+                preview={false}
+              />
             ),
           },
         }}

@@ -37,12 +37,6 @@ export default defineConfig({
       component: './Home',
     },
     {
-      name: 'shop',
-      path: '/shop/:id',
-      component: './shop',
-      hideInMenu: true,
-    },
-    {
       name: 'component',
       path: '/works',
       hideInMenu: true,
@@ -128,9 +122,25 @@ export default defineConfig({
     },
     {
       name: 'catalog',
-      path: 'catalog/:id',
-      component: './catalog',
-      hideInMenu: true,
+      path: '/catalog',
+      icon: 'SlackOutlined',
+      routes: [
+        {
+          path: '/catalog/:id',
+          hideInMenu: true,
+        },
+        {
+          path: '/catalog/product',
+          name: 'product',
+          component: './shop',
+        },
+        {
+          name: 'center',
+          path: '/catalog/shop/center/:id',
+          component: './shop/center',
+          hideInMenu: true,
+        },
+      ],
     },
     {
       icon: 'TeamOutlined',
@@ -234,6 +244,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'facebook',
+          path: '/settings/facebook/:id',
+          component: './settings/facebook',
+          hideInMenu: true,
+        },
+        {
           name: 'localization',
           path: '/settings/localization',
           component: './localization',
@@ -282,28 +298,6 @@ export default defineConfig({
           name: 'center',
           path: '/article/center/:id',
           component: './article/center',
-          hideInMenu: true,
-        },
-      ],
-    },
-    {
-      icon: 'SlackOutlined',
-      name: 'eCommerce',
-      path: '/shop',
-      routes: [
-        {
-          path: '/shop',
-          redirect: '/shop/list',
-        },
-        {
-          name: 'list',
-          path: '/shop/list',
-          component: './shop',
-        },
-        {
-          name: 'center',
-          path: '/shop/center/:id',
-          component: './shop/center',
           hideInMenu: true,
         },
       ],

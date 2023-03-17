@@ -26,7 +26,7 @@ const RowContent: React.FC = () => {
 
   const [visible, setVisible] = useState<boolean>(false);
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: API.Column) => {
     values.rowId = id;
     const response = await addColumn(values);
     if (response.succeeded) {
@@ -106,20 +106,28 @@ const RowContent: React.FC = () => {
           label="Collumn"
           options={[
             {
-              label: 'col',
-              value: 'col',
+              label: '1/4',
+              value: 'w-1/4',
             },
             {
               label: '1/3',
-              value: 'col-md-4',
+              value: 'w-1/3',
+            },
+            {
+              label: '1/2',
+              value: 'w-1/2',
             },
             {
               label: '2/3',
-              value: 'col-md-8',
+              value: 'w-2/3',
+            },
+            {
+              label: '3/4',
+              value: 'w-3/4',
             },
           ]}
-          name="arguments"
-        ></ProFormSelect>
+          name="className"
+        />
       </ModalForm>
     </div>
   );

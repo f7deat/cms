@@ -31,8 +31,8 @@ const TagList: React.FC = () => {
     let response = undefined;
     if (values.id) {
       response = await addItem({
-        workId: values.id,
-        catalogId: id,
+        workId: id,
+        catalogId: values.id,
       });
       fetchTag();
     } else {

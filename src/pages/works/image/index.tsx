@@ -33,7 +33,7 @@ const Image: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   const onFinish = async (values: API.Image) => {
-    values.fileContent = image;
+    values.file = image;
     const response = await saveImage(values);
     if (response.succeeded) {
       message.success('Saved!');
@@ -44,12 +44,8 @@ const Image: React.FC = () => {
 
   useEffect(() => {
     getImage(id).then((response) => {
-      setImage(response.fileContent);
+      setImage(response.file);
       formRef.current?.setFields([
-        {
-          name: 'id',
-          value: id,
-        },
         {
           name: 'height',
           value: response.height,
@@ -59,8 +55,8 @@ const Image: React.FC = () => {
           value: response.width,
         },
         {
-          name: 'title',
-          value: response.title,
+          name: 'alt',
+          value: response.alt,
         },
         {
           name: 'description',
@@ -69,6 +65,10 @@ const Image: React.FC = () => {
         {
           name: 'className',
           value: response.className,
+        },
+        {
+          name: 'wrapper',
+          value: response.wrapper,
         },
       ]);
     });
@@ -120,12 +120,13 @@ const Image: React.FC = () => {
             })}
           >
             <ProForm onFinish={onFinish} formRef={formRef}>
-              <ProFormText name="id" hidden={true} />
-              <ProFormText name="title" label="Title" />
+              <ProFormText name="id" hidden={true} initialValue={id} />
+              <ProFormText name="alt" label="Alt" />
               <ProFormTextArea name="description" label="Description" />
               <ProFormText name="className" label="Class Name" />
               <ProFormDigit label="Width" name="width" />
               <ProFormDigit label="Height" name="height" />
+              <ProFormText label="Wrapper" name="wrapper" />
             </ProForm>
           </ProCard>
         </Col>

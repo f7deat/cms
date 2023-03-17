@@ -1,3 +1,4 @@
+import { CatalogType } from '@/constants';
 import {
   addCatalog,
   deleteCatalog,
@@ -46,30 +47,6 @@ const CatalogList: React.FC = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      valueType: 'select',
-      initialValue: '4',
-      valueEnum: {
-        0: {
-          text: 'Default',
-          status: 'Default',
-        },
-        1: {
-          text: 'Article',
-          status: 'Default',
-        },
-        4: {
-          text: 'Entry',
-          status: 'Default',
-        },
-        7: {
-          text: 'Blogspot',
-          status: 'Default',
-        },
-      },
     },
     {
       title: 'Modified date',
@@ -126,7 +103,12 @@ const CatalogList: React.FC = () => {
     <div>
       <ProTable
         rowKey="id"
-        request={listCatalog}
+        request={(params) =>
+          listCatalog({
+            ...params,
+            type: CatalogType.Entry,
+          })
+        }
         columns={columns}
         actionRef={actionRef}
         toolBarRender={() => [
