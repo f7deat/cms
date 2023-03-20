@@ -33,6 +33,17 @@ export async function saveFooter(data: any) {
   });
 }
 
+export async function saveSocial(data: any) {
+  return request(`appsetting/social/save`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getSocial(id: string | undefined) {
+  return request(`appsetting/social/${id}`);
+}
+
 export async function getHeaderTemplates() {
   return request(`appsetting/header/templates`);
 }

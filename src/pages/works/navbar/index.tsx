@@ -1,3 +1,4 @@
+import WorkSummary from '@/components/work-content/summary';
 import { getNavbar } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
@@ -46,10 +47,6 @@ const Navbar: React.FC = () => {
         name: 'name',
         value: values.name,
       },
-      {
-        name: 'url',
-        value: values.url,
-      },
     ]);
   };
 
@@ -83,6 +80,7 @@ const Navbar: React.FC = () => {
           ></ProCard>
         </Col>
         <Col span={6}>
+          <WorkSummary />
           <ProCard
             extra={
               <Button type="primary" onClick={() => setVisible(true)}>

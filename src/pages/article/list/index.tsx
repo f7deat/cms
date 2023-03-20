@@ -119,7 +119,7 @@ const ArticleList: React.FC = () => {
         open={open}
         setOpen={setOpen}
         onFinish={onFinish}
-        type={CatalogType.Shop}
+        type={CatalogType.Article}
       />
     </PageContainer>
   );

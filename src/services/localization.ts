@@ -1,7 +1,9 @@
 import { request } from '@umijs/max';
 
-export async function listLocalization() {
-  return request(`localization/list`);
+export async function listLocalization(params: any) {
+  return request(`localization/list`, {
+    params,
+  });
 }
 
 export async function addLocalization(data: any) {

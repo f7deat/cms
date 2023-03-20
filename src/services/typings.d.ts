@@ -60,7 +60,7 @@ declare namespace API {
 
   type NavItem = {
     name: string;
-    url: string;
+    links?: Link[];
   };
 
   type Statistic = {
@@ -142,5 +142,11 @@ declare namespace API {
     appSecret: string;
     pageId: string;
     pageAccessToken: string;
+  };
+
+  type Link = {
+    name: string;
+    url: string;
+    target: string;
   };
 }

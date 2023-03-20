@@ -262,6 +262,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'social',
+          path: '/settings/social/:id',
+          component: './settings/social',
+          hideInMenu: true,
+        },
+        {
           name: 'localization',
           path: '/settings/localization',
           component: './localization',
