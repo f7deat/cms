@@ -56,9 +56,10 @@ declare namespace API {
   type Navbar = {
     id: string | undefined;
     navItems: NavItem[];
+    layout: 0 | 1;
   };
 
-  type NavItem = {
+  type NavItem = BaseEntity & {
     name: string;
     links?: Link[];
   };
@@ -144,7 +145,7 @@ declare namespace API {
     pageAccessToken: string;
   };
 
-  type Link = {
+  type Link = BaseEntity & {
     name: string;
     url: string;
     target: string;

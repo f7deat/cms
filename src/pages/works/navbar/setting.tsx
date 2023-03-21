@@ -1,4 +1,4 @@
-import { saveNavbar } from '@/services/work-content';
+import { getNavbar, saveNavbar } from '@/services/work-content';
 import {
   ProForm,
   ProFormInstance,
@@ -7,11 +7,24 @@ import {
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { message } from 'antd';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const NavbarSetting: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
+
+  useEffect(() => {
+    getNavbar(id).then((response) => {
+      if (response) {
+        formRef.current?.setFields([
+          {
+            name: 'layout',
+            value: response.layout,
+          },
+        ]);
+      }
+    });
+  }, [id]);
 
   const onFinish = async (values: API.Navbar) => {
     const response = await saveNavbar(values);

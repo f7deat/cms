@@ -113,9 +113,9 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
-          name: 'blogger',
-          path: '/works/blogger/:id',
-          component: './works/blogger',
+          name: 'navItem',
+          path: '/works/nav-item/:id',
+          component: './works/navbar/nav-item',
           hideInMenu: true,
         },
       ],

@@ -13,7 +13,6 @@ type LinkProps = {
 const WfLink: React.FC<LinkProps> = (props) => {
   const onFinish = async (values: API.Link) => {
     props.onFinish(values);
-    props.onOpenChange(false);
   };
 
   return (
@@ -24,7 +23,7 @@ const WfLink: React.FC<LinkProps> = (props) => {
     >
       <ProFormText name="name" label="Name" />
       <ProFormText
-        name="url"
+        name="href"
         label="URL"
         rules={[
           {

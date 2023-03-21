@@ -180,6 +180,37 @@ export async function saveNavbar(data: API.Navbar) {
   });
 }
 
+export async function addNavbarItem(data: API.NavItem) {
+  return request(`work/navbar/item/add`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function listNavItem(id: string | undefined) {
+  return request(`work/navbar/item/list/${id}`);
+}
+
+export async function saveNavItem(id: string | undefined, data: API.Link) {
+  return request(`work/navbar/item/save/${id}`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function deleteNavItem(
+  linkId: string,
+  workId: string | undefined,
+) {
+  return request(`work/navbar/item/delete`, {
+    method: 'POST',
+    data: {
+      linkId,
+      workId,
+    },
+  });
+}
+
 export async function getSwiper(workContentId: string | undefined) {
   return request(`work/swiper/${workContentId}`);
 }
