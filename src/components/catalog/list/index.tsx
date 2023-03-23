@@ -65,7 +65,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
     {
       title: 'Modified date',
       dataIndex: 'modifiedDate',
-      valueType: 'dateTime',
+      valueType: 'fromNow',
       search: false,
     },
     {

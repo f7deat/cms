@@ -107,6 +107,7 @@ const UserList: React.FC = () => {
             },
           ]}
         />
+        <ProFormText name="phoneNumber" label="Phone Number" />
         <ProFormText.Password
           name="password"
           label="Password"

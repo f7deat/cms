@@ -118,6 +118,12 @@ export default defineConfig({
           component: './works/navbar/nav-item',
           hideInMenu: true,
         },
+        {
+          name: 'listGroup',
+          path: '/works/listgroup/:id',
+          component: './works/list-group',
+          hideInMenu: true,
+        },
       ],
     },
     {

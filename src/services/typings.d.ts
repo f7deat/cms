@@ -147,7 +147,14 @@ declare namespace API {
 
   type Link = BaseEntity & {
     name: string;
-    url: string;
+    href?: string;
     target: string;
+  };
+
+  type ListGroupItem = BaseEntity & {
+    link: Link;
+    icon: string;
+    badge: number;
+    suffix: string;
   };
 }

@@ -1,32 +1,27 @@
+import ProFormLink from '@/components/link';
 import {
-  addNavbarItem,
+  addListGroupItem,
   deleteWorkContentById,
   getChildList,
 } from '@/services/work-content';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
   ActionType,
   ModalForm,
+  ProFormInstance,
   ProFormText,
   ProList,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useParams } from '@umijs/max';
+import { FormattedMessage } from '@umijs/max';
+import { useParams } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
-const NavbarContent: React.FC = () => {
+const ListGroupContent: React.FC = () => {
   const { id } = useParams();
   const actionRef = useRef<ActionType>();
+  const formRef = useRef<ProFormInstance>();
   const [open, setOpen] = useState<boolean>(false);
-
-  const onFinish = async (values: API.NavItem) => {
-    const response = await addNavbarItem(values);
-    if (response.succeeded) {
-      message.success('Added');
-      actionRef.current?.reload();
-      setOpen(false);
-    }
-  };
 
   const onConfirm = async (id: string) => {
     const response = await deleteWorkContentById(id);
@@ -36,9 +31,18 @@ const NavbarContent: React.FC = () => {
     }
   };
 
+  const onFinish = async (values: any) => {
+    const response = await addListGroupItem(id, values);
+    if (response.succeeded) {
+      message.success('Saved!');
+      actionRef.current?.reload();
+      setOpen(false);
+    }
+  };
+
   return (
     <div>
-      <ProList<API.NavItem>
+      <ProList<API.ListGroupItem>
         request={(params) => getChildList(params, id)}
         toolBarRender={() => {
           return [
@@ -58,11 +62,6 @@ const NavbarContent: React.FC = () => {
           },
           actions: {
             render: (dom, entity) => [
-              <Button
-                icon={<EditOutlined />}
-                key={1}
-                onClick={() => history.push(`/works/nav-item/${entity.id}`)}
-              />,
               <Popconfirm
                 title="Are you sure?"
                 onConfirm={() => onConfirm(entity.id)}
@@ -75,12 +74,17 @@ const NavbarContent: React.FC = () => {
         }}
         actionRef={actionRef}
       />
-      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish}>
-        <ProFormText name="parentId" hidden initialValue={id} />
-        <ProFormText name="name" label="Name" />
+      <ModalForm
+        open={open}
+        onOpenChange={setOpen}
+        onFinish={onFinish}
+        formRef={formRef}
+      >
+        <ProFormText name="icon" label="Icon" />
+        <ProFormLink name="link" label="Link" />
       </ModalForm>
     </div>
   );
 };
 
-export default NavbarContent;
+export default ListGroupContent;

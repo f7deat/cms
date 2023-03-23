@@ -327,3 +327,17 @@ export async function bloggerSave(data: any) {
     data,
   });
 }
+
+export async function getListGroup(id: string | undefined) {
+  return request(`work/list-group/${id}`);
+}
+
+export async function addListGroupItem(
+  id: string | undefined,
+  data: API.ListGroupItem,
+) {
+  return request(`work/list-group/item/add/${id}`, {
+    method: 'POST',
+    data,
+  });
+}

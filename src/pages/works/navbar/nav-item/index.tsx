@@ -1,4 +1,4 @@
-import WfLink from '@/components/link';
+import LinkForm from '@/components/link/form';
 import WorkSummary from '@/components/work-content/summary';
 import {
   deleteNavItem,
@@ -90,7 +90,7 @@ const NavItemComponent: React.FC = () => {
           <WorkSummary />
         </Col>
       </Row>
-      <WfLink open={open} onOpenChange={setOpen} onFinish={onFinish} />
+      <LinkForm open={open} onOpenChange={setOpen} onFinish={onFinish} />
     </PageContainer>
   );
 };
