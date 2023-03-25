@@ -151,6 +151,10 @@ declare namespace API {
     target: string;
   };
 
+  type ListGroup = {
+    name: string;
+  };
+
   type ListGroupItem = BaseEntity & {
     link: Link;
     icon: string;

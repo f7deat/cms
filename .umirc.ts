@@ -161,6 +161,18 @@ export default defineConfig({
       ],
     },
     {
+      icon: 'ShoppingCartOutlined',
+      name: 'ecommerce',
+      path: '/ecommerce',
+      routes: [
+        {
+          name: 'order',
+          path: '/ecommerce/order',
+          component: './order',
+        },
+      ],
+    },
+    {
       icon: 'TeamOutlined',
       name: 'users',
       path: '/users',

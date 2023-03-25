@@ -54,6 +54,13 @@ export async function updateTitle(data: any) {
   });
 }
 
+export async function saveArguments(id: string | undefined, data: any) {
+  return request(`work/save/${id}`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function saveContactForm(data: API.ContactForm) {
   return request(`work/contact-form/save`, {
     method: 'POST',
