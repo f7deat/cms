@@ -41,6 +41,7 @@ const TagList: React.FC = () => {
     }
     if (response.succeeded) {
       message.success('Saved!');
+      fetchTag();
       setOpen(false);
     } else {
       message.error(response.errors[0].description);

@@ -161,7 +161,7 @@ declare namespace API {
 
   type WorkItem = BaseEntity & {
     normalizedName: string;
-    sortOrder?: number;
+    sortOrder: number;
     catalogId?: string;
     active: boolean;
   };

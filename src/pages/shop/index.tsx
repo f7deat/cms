@@ -75,7 +75,7 @@ const ShopPage: React.FC = () => {
           icon={<EditOutlined />}
           key={1}
           type="primary"
-          onClick={() => history.push(`/shop/center/${entity.id}`)}
+          onClick={() => history.push(`/ecommerce/product/center/${entity.id}`)}
         ></Button>,
         <Popconfirm title="Are you sure?" key={2}>
           <Button icon={<DeleteOutlined />} type="primary" danger />

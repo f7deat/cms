@@ -21,18 +21,10 @@ export async function activeWork(id: string | undefined) {
   });
 }
 
-export async function sortOrder(
-  workContentId: string,
-  catalogId: string,
-  sortOrder: number,
-) {
+export async function sortOrder(data: Entity.WorkItem) {
   return request(`work/sort-order`, {
     method: 'POST',
-    data: {
-      workContentId,
-      catalogId,
-      sortOrder,
-    },
+    data,
   });
 }
 
@@ -347,4 +339,15 @@ export async function addListGroupItem(
     method: 'POST',
     data,
   });
+}
+
+export async function saveLink(id: string | undefined, data: API.Link) {
+  return request(`work/link/save/${id}`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getLink(id: string | undefined) {
+  return request(`work/link/${id}`);
 }

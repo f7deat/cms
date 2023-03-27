@@ -119,6 +119,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'link',
+          path: '/works/link/:id',
+          component: './works/link',
+          hideInMenu: true,
+        },
+        {
           name: 'listGroup',
           path: '/works/listgroup/:id',
           component: './works/list-group',
@@ -134,17 +140,6 @@ export default defineConfig({
         {
           path: '/catalog/:id',
           component: './catalog',
-          hideInMenu: true,
-        },
-        {
-          path: '/catalog/product',
-          name: 'product',
-          component: './shop',
-        },
-        {
-          name: 'center',
-          path: '/catalog/shop/center/:id',
-          component: './shop/center',
           hideInMenu: true,
         },
         {
@@ -169,6 +164,17 @@ export default defineConfig({
           name: 'order',
           path: '/ecommerce/order',
           component: './order',
+        },
+        {
+          path: '/ecommerce/product',
+          name: 'product',
+          component: './shop',
+        },
+        {
+          name: 'center',
+          path: '/ecommerce/product/center/:id',
+          component: './shop/center',
+          hideInMenu: true,
         },
       ],
     },

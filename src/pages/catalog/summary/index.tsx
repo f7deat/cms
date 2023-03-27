@@ -1,47 +1,17 @@
-import { CatalogType } from '@/constants';
-import Gallery from '@/pages/files/gallery';
-import { updateThumbnail } from '@/services/catalog';
-import { absolutePath, formatDate } from '@/utils/format';
 import {
   EditOutlined,
-  DeleteOutlined,
   EllipsisOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
-import {
-  Space,
-  Button,
-  Empty,
-  Divider,
-  Descriptions,
-  Typography,
-  Image,
-  message,
-} from 'antd';
+import { useIntl } from '@umijs/max';
 import { useState } from 'react';
-import TagList from './tag';
+import Setting from '../setting';
+import Content from './content';
 
-type CatalogSummaryProps = {
-  catalog?: API.Catalog;
-  setCatalog?: any;
-};
-
-const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
-  const { catalog, setCatalog } = props;
-  const [open, setOpen] = useState<boolean>(false);
-
-  const onSelect = async (values: API.FileContent) => {
-    if (catalog) {
-      const nObj = { ...catalog, thumbnail: values.url };
-      const response = await updateThumbnail(nObj);
-      if (response.succeeded) {
-        message.success('Saved!');
-        setCatalog(nObj);
-      }
-      setOpen(false);
-    }
-  };
+const CatalogSummary: React.FC = () => {
+  const intl = useIntl();
+  const [tab, setTab] = useState('content');
 
   return (
     <ProCard
@@ -51,45 +21,28 @@ const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
         <EditOutlined key="edit" />,
         <EllipsisOutlined key="ellipsis" />,
       ]}
-    >
-      <Space>
-        <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
-        <Button icon={<DeleteOutlined />} danger type="primary" />
-      </Space>
-      <div className="flex items-center justify-center mt-4">
-        {!catalog?.thumbnail ? (
-          <Empty />
-        ) : (
-          <Image
-            src={absolutePath(catalog?.thumbnail)}
-            height={200}
-            className="object-fit-cover"
-          />
-        )}
-      </div>
-      <Divider />
-      <Descriptions title="Information" column={1}>
-        <Descriptions.Item label="Lượt xem">
-          {catalog?.viewCount}
-        </Descriptions.Item>
-        <Descriptions.Item label="Created date">
-          {formatDate(catalog?.createdDate)}
-        </Descriptions.Item>
-        <Descriptions.Item label="Modified date">
-          {formatDate(catalog?.modifiedDate)}
-        </Descriptions.Item>
-      </Descriptions>
-      {props.catalog?.type === CatalogType.Tag ? (
-        <div></div>
-      ) : (
-        <div>
-          <Divider />
-          <Typography.Title level={5}>Tags</Typography.Title>
-          <TagList />
-        </div>
-      )}
-      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
-    </ProCard>
+      tabs={{
+        tabPosition: 'top',
+        activeKey: tab,
+        items: [
+          {
+            label: 'Content',
+            key: 'content',
+            children: <Content />,
+          },
+          {
+            label: intl.formatMessage({
+              id: 'menu.settings',
+            }),
+            key: 'setting',
+            children: <Setting />,
+          },
+        ],
+        onChange: (key) => {
+          setTab(key);
+        },
+      }}
+    ></ProCard>
   );
 };
 

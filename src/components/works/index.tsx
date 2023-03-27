@@ -50,11 +50,7 @@ const WorkContentComponent: React.FC = () => {
 
   const handleSortOrder = async (values: API.WorkItem, up: boolean) => {
     values.sortOrder = up ? values.sortOrder - 1 : values.sortOrder + 1;
-    const response = await sortOrder(
-      values.id,
-      values.catalogId,
-      values.sortOrder,
-    );
+    const response = await sortOrder(values);
     if (response.succeeded) {
       message.success('Sorted!');
       actionRef.current?.reload();

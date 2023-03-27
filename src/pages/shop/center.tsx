@@ -1,5 +1,6 @@
+import WorkContentComponent from '@/components/works';
 import { getCatalog } from '@/services/catalog';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { Col, Row } from 'antd';
 import { useState, useEffect } from 'react';
@@ -18,9 +19,13 @@ const ProductCenter: React.FC = () => {
   return (
     <PageContainer title={catalog?.name}>
       <Row gutter={16}>
-        <Col span={16}></Col>
+        <Col span={16}>
+          <ProCard>
+            <WorkContentComponent />
+          </ProCard>
+        </Col>
         <Col span={8}>
-          <CatalogSummary catalog={catalog} setCatalog={setCatalog} />
+          <CatalogSummary />
         </Col>
       </Row>
     </PageContainer>
