@@ -1,4 +1,4 @@
-import WorkSummary from '@/components/work-content/summary';
+import WorkSummary from '@/components/works/summary';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Col, Row } from 'antd';
 import { useState } from 'react';

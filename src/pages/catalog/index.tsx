@@ -1,4 +1,4 @@
-import WorkContentComponent from '@/components/work-content';
+import WorkContentComponent from '@/components/works';
 import { exportCatalog } from '@/services/backup';
 import { addCatalog, getCatalog } from '@/services/catalog';
 import { ArrowLeftOutlined } from '@ant-design/icons';

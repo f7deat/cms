@@ -1,5 +1,5 @@
 import LinkForm from '@/components/link/form';
-import WorkSummary from '@/components/work-content/summary';
+import WorkSummary from '@/components/works/summary';
 import {
   deleteNavItem,
   listNavItem,
@@ -71,7 +71,7 @@ const NavItemComponent: React.FC = () => {
                     <Button
                       icon={<EyeOutlined />}
                       key={1}
-                      onClick={() => (window.location.href = entity.url)}
+                      onClick={() => (window.location.href = entity.href)}
                     />,
                     <Button
                       icon={<DeleteOutlined />}

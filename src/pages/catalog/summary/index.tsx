@@ -2,7 +2,12 @@ import { CatalogType } from '@/constants';
 import Gallery from '@/pages/files/gallery';
 import { updateThumbnail } from '@/services/catalog';
 import { absolutePath, formatDate } from '@/utils/format';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
 import {
   Space,
@@ -39,7 +44,14 @@ const CatalogSummary: React.FC<CatalogSummaryProps> = (props) => {
   };
 
   return (
-    <ProCard title="Summary">
+    <ProCard
+      title="Summary"
+      actions={[
+        <SettingOutlined key="setting" />,
+        <EditOutlined key="edit" />,
+        <EllipsisOutlined key="ellipsis" />,
+      ]}
+    >
       <Space>
         <Button icon={<EditOutlined />} onClick={() => setOpen(true)} />
         <Button icon={<DeleteOutlined />} danger type="primary" />

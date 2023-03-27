@@ -1,11 +1,11 @@
-import WorkSummary from '@/components/work-content/summary';
-import { activeWork, getWorkContent } from '@/services/work-content';
+import WorkList from '@/components/works/list';
+import WorkSummary from '@/components/works/summary';
+import { getWorkContent } from '@/services/work-content';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { FormattedMessage, history, useParams } from '@umijs/max';
-import { Button, Col, message, Row, Switch } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useEffect, useState } from 'react';
-import ColumnContent from './content';
 import ColumnSetting from './setting';
 
 const WfColumn: React.FC = () => {
@@ -18,13 +18,6 @@ const WfColumn: React.FC = () => {
       setWork(response);
     });
   }, []);
-
-  const active = async () => {
-    const response = await activeWork(id);
-    if (response.succeeded) {
-      message.success('Saved!');
-    }
-  };
 
   return (
     <PageContainer
@@ -45,7 +38,7 @@ const WfColumn: React.FC = () => {
                 {
                   label: 'Content',
                   key: 'content',
-                  children: <ColumnContent />,
+                  children: <WorkList />,
                 },
                 {
                   label: 'Setting',
@@ -57,7 +50,6 @@ const WfColumn: React.FC = () => {
                 setTab(key);
               },
             }}
-            extra={<Switch onChange={active} checked={work?.active} />}
           />
         </Col>
         <Col span={8}>

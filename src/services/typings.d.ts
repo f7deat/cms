@@ -34,14 +34,6 @@ declare namespace API {
     active: boolean;
   };
 
-  type WorkItem = BaseEntity & {
-    name: string;
-    normalizedName: string;
-    sortOrder: number;
-    catalogId: string;
-    active: boolean;
-  };
-
   type Image = BaseEntity & {
     alt: string;
     description: string;
@@ -147,7 +139,7 @@ declare namespace API {
 
   type Link = BaseEntity & {
     name: string;
-    href?: string;
+    href: string;
     target: string;
   };
 
@@ -160,5 +152,25 @@ declare namespace API {
     icon: string;
     badge: number;
     suffix: string;
+  };
+
+  type Telegam = {
+    token: string;
+    chatId: string;
+  };
+
+  type WorkItem = BaseEntity & {
+    normalizedName: string;
+    sortOrder?: number;
+    catalogId?: string;
+    active: boolean;
+  };
+}
+
+declare namespace Entity {
+  type WorkItem = {
+    workId?: string;
+    sortOrder?: number;
+    catalogId?: string;
   };
 }

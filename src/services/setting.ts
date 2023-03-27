@@ -11,15 +11,22 @@ export async function saveLayoutHead(data: any) {
   });
 }
 
-export async function saveTelegram(data: any) {
-  return request(`appsetting/telegram/save`, {
+export async function saveTelegram(id: string | undefined, data: API.Telegam) {
+  return request(`appsetting/telegram/save/${id}`, {
     method: 'POST',
     data,
   });
 }
 
-export async function listTelegramConfiguration() {
-  return request(`appsetting/telegram/configuration`);
+export async function getTelegram(id: string | undefined) {
+  return request(`appsetting/telegram/${id}`);
+}
+
+export async function testTelegram(data: any) {
+  return request(`appsetting/telegram/test`, {
+    method: 'POST',
+    data,
+  });
 }
 
 export async function getFooter(id: string | undefined) {

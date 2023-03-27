@@ -1,6 +1,7 @@
 import { listAllComponent } from '@/services/component';
 import {
   ModalForm,
+  ProCard,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
@@ -32,17 +33,19 @@ const AddComponent: React.FC<AddComponentProps> = (props) => {
   return (
     <ModalForm
       open={props.open}
-      title="Add component"
+      title="Component"
       onFinish={props.onFinish}
       onOpenChange={props.onOpenChange}
     >
-      <ProFormText name="name" label="Name" />
-      <ProFormSelect
-        showSearch
-        options={components}
-        name="componentId"
-        label="Component"
-      ></ProFormSelect>
+      <ProCard>
+        <ProFormText name="name" label="Name" />
+        <ProFormSelect
+          showSearch
+          options={components}
+          name="componentId"
+          label="Component"
+        ></ProFormSelect>
+      </ProCard>
     </ModalForm>
   );
 };

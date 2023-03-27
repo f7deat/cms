@@ -1,4 +1,4 @@
-import WorkContentComponent from '@/components/work-content';
+import WorkContentComponent from '@/components/works';
 import { addSwiperItem, getSwiper } from '@/services/work-content';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -59,7 +59,7 @@ const Swiper: React.FC = () => {
     >
       <Row gutter={16}>
         <Col span={16}>
-          <WorkContentComponent child={true} />
+          <WorkContentComponent />
         </Col>
         <Col span={8}>
           <ProCard title="Setting">

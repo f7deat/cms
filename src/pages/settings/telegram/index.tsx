@@ -1,76 +1,82 @@
-import { listTelegramConfiguration, saveTelegram } from '@/services/setting';
+import { getTelegram, saveTelegram, testTelegram } from '@/services/setting';
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
-import {
-  ActionType,
-  ModalForm,
   PageContainer,
+  ProCard,
+  ProForm,
+  ProFormInstance,
   ProFormText,
-  ProList,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
-import { useRef, useState } from 'react';
+import { useParams } from '@umijs/max';
+import { Col, message, Row } from 'antd';
+import { useEffect, useRef } from 'react';
 
 const Telegram: React.FC = () => {
-  const actionRef = useRef<ActionType>();
-  const [open, setOpen] = useState<boolean>(false);
+  const { id } = useParams();
+  const formRef = useRef<ProFormInstance>();
 
-  const handleEdit = (id: string) => {
-    switch (id) {
-      case 'bot':
-        setOpen(true);
-        break;
+  useEffect(() => {
+    getTelegram(id).then((response) => {
+      if (response) {
+        formRef.current?.setFields([
+          {
+            name: 'token',
+            value: response.token,
+          },
+          {
+            name: 'chatId',
+            value: response.chatId,
+          },
+        ]);
+      }
+    });
+  }, [id]);
 
-      default:
-        break;
+  const onFinish = async (values: API.Telegam) => {
+    const response = await saveTelegram(id, values);
+    if (response.succeeded) {
+      message.success('Saved!');
     }
   };
 
-  const onFinish = async (values: any) => {
-    const response = await saveTelegram(values);
+  const onTest = async (values: any) => {
+    const response = await testTelegram(values);
     if (response.succeeded) {
-      message.success('Saved!');
-      setOpen(false);
-      actionRef.current?.reload();
+      message.success('Sended');
     }
   };
 
   return (
     <PageContainer>
-      <ProList<any>
-        actionRef={actionRef}
-        request={listTelegramConfiguration}
-        rowKey="id"
-        metas={{
-          title: {
-            dataIndex: 'name',
-          },
-          subTitle: {
-            render: (text, row) =>
-              row.active ? (
-                <CheckCircleOutlined />
-              ) : (
-                <ExclamationCircleOutlined />
-              ),
-          },
-          actions: {
-            render: (text, row) => [
-              <Button
-                type="link"
-                key={row.id}
-                onClick={() => handleEdit(row.id)}
-              >
-                Chỉnh sửa
-              </Button>,
-            ],
-          },
-        }}
-      />
-      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish}>
-        <ProFormText label="BOT" name="bot" />
-      </ModalForm>
+      <Row gutter={16}>
+        <Col span={16}>
+          <ProCard>
+            <ProForm onFinish={onFinish} formRef={formRef}>
+              <ProFormText.Password
+                name="token"
+                label="Token"
+                tooltip="The token is a string, like 110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw, which is required to authorize the bot and send requests to the Bot API. Keep your token secure and store it safely, it can be used by anyone to control your bot"
+              />
+              <ProFormText name="chatId" label="Chat ID" />
+            </ProForm>
+          </ProCard>
+        </Col>
+        <Col span={8}>
+          <ProCard title="Test">
+            <ProForm onFinish={onTest}>
+              <ProFormTextArea
+                name="message"
+                label="Message"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              />
+            </ProForm>
+          </ProCard>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

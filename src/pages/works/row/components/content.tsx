@@ -106,6 +106,10 @@ const RowContent: React.FC = () => {
           label="Collumn"
           options={[
             {
+              label: '1/6',
+              value: 'w-1/6',
+            },
+            {
               label: '1/4',
               value: 'w-1/4',
             },

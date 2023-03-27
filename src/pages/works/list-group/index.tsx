@@ -1,4 +1,4 @@
-import WorkSummary from '@/components/work-content/summary';
+import WorkSummary from '@/components/works/summary';
 import { getListGroup } from '@/services/work-content';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';

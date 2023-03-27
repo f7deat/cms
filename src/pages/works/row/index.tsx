@@ -1,4 +1,4 @@
-import WorkSummary from '@/components/work-content/summary';
+import WorkSummary from '@/components/works/summary';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { history } from '@umijs/max';

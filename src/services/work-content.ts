@@ -317,7 +317,7 @@ export async function addItem(data: any) {
   });
 }
 
-export async function deleteItem(data: any) {
+export async function deleteItem(data: Entity.WorkItem) {
   return request(`work/item/delete`, {
     method: 'POST',
     data,
