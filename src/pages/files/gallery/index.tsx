@@ -105,6 +105,9 @@ const Gallery: React.FC<GalleryProps> = (props) => {
         onItem={(record: any) => {
           return {
             onClick: () => {
+              if (!props.onSelect) {
+                return;
+              }
               props.onSelect(record);
             },
           };

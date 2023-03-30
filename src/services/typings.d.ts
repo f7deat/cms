@@ -174,3 +174,9 @@ declare namespace Entity {
     catalogId?: string;
   };
 }
+
+declare namespace CPN {
+  type Jumbotron = {
+    backgroundImage: string;
+  };
+}

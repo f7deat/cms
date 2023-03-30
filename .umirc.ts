@@ -95,6 +95,18 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'googleMap',
+          path: '/works/googlemap/:id',
+          component: './works/google-map',
+          hideInMenu: true,
+        },
+        {
+          name: 'jumbotron',
+          path: '/works/jumbotron/:id',
+          component: './works/jumbotron',
+          hideInMenu: true,
+        },
+        {
           name: 'masonry',
           path: '/works/masonry/:id',
           component: './works/masonry',

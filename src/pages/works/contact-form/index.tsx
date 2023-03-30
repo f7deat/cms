@@ -1,7 +1,8 @@
+import WorkSummary from '@/components/works/summary';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { FormattedMessage, history } from '@umijs/max';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useState } from 'react';
 import ContactFormContent from './components/content';
 import ContactFormSetting from './components/setting';
@@ -17,26 +18,33 @@ const ContactForm: React.FC = () => {
         </Button>
       }
     >
-      <ProCard
-        tabs={{
-          activeKey: tab,
-          items: [
-            {
-              label: 'Content',
-              key: 'content',
-              children: <ContactFormContent />,
-            },
-            {
-              label: 'Setting',
-              key: 'setting',
-              children: <ContactFormSetting />,
-            },
-          ],
-          onChange: (key) => {
-            setTab(key);
-          },
-        }}
-      />
+      <Row gutter={16}>
+        <Col span={16}>
+          <ProCard
+            tabs={{
+              activeKey: tab,
+              items: [
+                {
+                  label: 'Content',
+                  key: 'content',
+                  children: <ContactFormContent />,
+                },
+                {
+                  label: 'Setting',
+                  key: 'setting',
+                  children: <ContactFormSetting />,
+                },
+              ],
+              onChange: (key) => {
+                setTab(key);
+              },
+            }}
+          />
+        </Col>
+        <Col span={8}>
+          <WorkSummary />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

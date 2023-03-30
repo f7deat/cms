@@ -351,3 +351,21 @@ export async function saveLink(id: string | undefined, data: API.Link) {
 export async function getLink(id: string | undefined) {
   return request(`work/link/${id}`);
 }
+
+export async function saveJumbotron(
+  id: string | undefined,
+  data: CPN.Jumbotron,
+) {
+  return request(`work/jumbotron/save/${id}`, {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function getJumbotron(id: string | undefined) {
+  return request(`work/jumbotron/${id}`);
+}
+
+export async function getGoogleMap(id: string | undefined) {
+  return request(`work/google-map/${id}`);
+}
