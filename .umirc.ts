@@ -165,6 +165,11 @@ export default defineConfig({
           component: './tag/center',
           hideInMenu: true,
         },
+        {
+          name: 'page',
+          path: '/catalog/page',
+          component: './catalog/page',
+        },
       ],
     },
     {

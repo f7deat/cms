@@ -14,3 +14,11 @@ export function formatDate(str?: Date) {
   }
   return dayjs(str).format('DD/MM/YYYY hh:mm:ss');
 }
+
+export const waitTime = (time: number = 100) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, time);
+  });
+};

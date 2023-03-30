@@ -35,6 +35,11 @@ const ArticleSetting: React.FC<ArticleSettingProps> = (props) => {
         label="Description"
         initialValue={props.data?.description}
       />
+      <ProFormText
+        name="thumbnail"
+        label="Thumbnail"
+        initialValue={props.data?.thumbnail}
+      />
       <ProFormCheckbox
         name="active"
         label="Active"

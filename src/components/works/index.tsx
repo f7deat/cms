@@ -48,8 +48,7 @@ const WorkContentComponent: React.FC = () => {
     }
   };
 
-  const handleSortOrder = async (values: API.WorkItem, up: boolean) => {
-    values.sortOrder = up ? values.sortOrder - 1 : values.sortOrder + 1;
+  const handleSortOrder = async (values: Entity.WorkItem) => {
     const response = await sortOrder(values);
     if (response.succeeded) {
       message.success('Sorted!');
@@ -125,12 +124,24 @@ const WorkContentComponent: React.FC = () => {
               <Button
                 key={2}
                 icon={<ArrowUpOutlined />}
-                onClick={() => handleSortOrder(row, true)}
+                onClick={() =>
+                  handleSortOrder({
+                    workId: row.id,
+                    catalogId: id,
+                    sortOrder: row.sortOrder - 1,
+                  })
+                }
               ></Button>,
               <Button
                 key={3}
                 icon={<ArrowDownOutlined />}
-                onClick={() => handleSortOrder(row, false)}
+                onClick={() =>
+                  handleSortOrder({
+                    workId: row.id,
+                    catalogId: id,
+                    sortOrder: row.sortOrder + 1,
+                  })
+                }
               ></Button>,
               <Popconfirm
                 title="Are you sure?"

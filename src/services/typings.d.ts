@@ -169,9 +169,9 @@ declare namespace API {
 
 declare namespace Entity {
   type WorkItem = {
-    workId?: string;
-    sortOrder?: number;
-    catalogId?: string;
+    workId: string;
+    sortOrder: number;
+    catalogId: string | undefined;
   };
 }
 

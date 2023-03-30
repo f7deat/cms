@@ -1,6 +1,6 @@
 import ProFormImage from '@/components/image/form';
 import WorkSummary from '@/components/works/summary';
-import { getJumbotron, saveJumbotron } from '@/services/work-content';
+import { getJumbotron, saveArguments } from '@/services/work-content';
 import {
   PageContainer,
   ProCard,
@@ -28,7 +28,7 @@ const Jumbotron: React.FC = () => {
   }, [id]);
 
   const onFinish = async (values: CPN.Jumbotron) => {
-    const response = await saveJumbotron(id, values);
+    const response = await saveArguments(id, values);
     if (response.succeeded) {
       message.success('Saved!');
     }
