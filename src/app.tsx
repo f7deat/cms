@@ -6,6 +6,7 @@ import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';
 import RightContent from './components/right-content';
+import { DefaultFooter } from '@ant-design/pro-components';
 
 const loginPath = '/accounts/login';
 
@@ -46,6 +47,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       locale: true,
     },
     layout: 'top',
+    footerRender: () => (
+      <DefaultFooter copyright={localStorage.getItem('wf_URL') || ''} />
+    ),
     rightContentRender: () => <RightContent />,
     onPageChange: () => {
       const { location } = history;

@@ -75,7 +75,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
       search: false,
     },
     {
-      title: 'Active',
+      title: 'Status',
       dataIndex: 'active',
       valueEnum: {
         false: {

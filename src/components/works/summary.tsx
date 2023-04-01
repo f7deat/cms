@@ -1,5 +1,4 @@
 import { getWorkSummary, updateWorkSummary } from '@/services/work-content';
-import { CaretLeftOutlined } from '@ant-design/icons';
 import {
   ProCard,
   ProForm,
@@ -7,8 +6,8 @@ import {
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useParams } from '@umijs/max';
-import { Button, message } from 'antd';
+import { useParams } from '@umijs/max';
+import { message } from 'antd';
 import { useEffect, useRef } from 'react';
 
 const WorkSummary: React.FC = () => {
@@ -39,15 +38,7 @@ const WorkSummary: React.FC = () => {
   };
 
   return (
-    <ProCard
-      title="Info"
-      extra={
-        <Button onClick={() => history.back()}>
-          <CaretLeftOutlined />
-          <FormattedMessage id="general.back" />
-        </Button>
-      }
-    >
+    <ProCard title="Info">
       <ProForm formRef={formRef} onFinish={onFinish}>
         <ProFormText hidden name="id" initialValue={id} />
         <ProFormText name="name" label="Name" />

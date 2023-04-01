@@ -21,9 +21,18 @@ const HomePage: React.FC = () => {
           <CatalogList type={CatalogType.Entry} />
         </Col>
         <Col span={8}>
-          <ProCard title="Thống kê">
-            <Statistic title="Lượt xem" value={viewCount} />
-          </ProCard>
+          <Row gutter={16}>
+            <Col span={12}>
+              <ProCard>
+                <Statistic title="Lượt xem" value={viewCount} />
+              </ProCard>
+            </Col>
+            <Col span={12}>
+              <ProCard>
+                <Statistic title="Bài viết" value={0} />
+              </ProCard>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </PageContainer>

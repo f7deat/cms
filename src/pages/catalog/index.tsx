@@ -9,9 +9,10 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
-import { Button, Col, Empty, message, Row, Space } from 'antd';
+import { Button, Col, message, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
+import CatalogSummary from './summary';
 
 const CatalogPage: React.FC = () => {
   const intl = useIntl();
@@ -89,9 +90,7 @@ const CatalogPage: React.FC = () => {
           </ModalForm>
         </Col>
         <Col span={6}>
-          <ProCard>
-            <Empty />
-          </ProCard>
+          <CatalogSummary />
         </Col>
       </Row>
     </PageContainer>

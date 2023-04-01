@@ -52,7 +52,7 @@ const SendGrid: React.FC = () => {
     >
       <ProCard>
         <ProForm formRef={formRef} onFinish={onFinish}>
-          <ProFormText name="apiKey" label="API Key" />
+          <ProFormText.Password name="apiKey" label="API Key" />
           <Divider />
           <Typography.Title level={4}>From</Typography.Title>
           <ProFormText name="email" label="Email" />

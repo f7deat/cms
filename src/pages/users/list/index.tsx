@@ -48,6 +48,20 @@ const UserList: React.FC = () => {
       dataIndex: 'email',
     },
     {
+      title: 'Email confirmed',
+      dataIndex: 'emailConfirmed',
+      valueEnum: {
+        false: {
+          text: 'Draft',
+          status: 'Default',
+        },
+        true: {
+          text: 'Active',
+          status: 'Processing',
+        },
+      },
+    },
+    {
       title: intl.formatMessage({
         id: 'general.phoneNumber',
       }),
@@ -89,6 +103,9 @@ const UserList: React.FC = () => {
         request={listUser}
         columns={columns}
         actionRef={actionRef}
+        search={{
+          layout: 'vertical',
+        }}
       />
       <ModalForm
         open={open}

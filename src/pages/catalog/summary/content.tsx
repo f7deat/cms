@@ -22,6 +22,8 @@ const Content: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [catalog, setCatalog] = useState<API.Catalog>();
 
+  const alloweds: number[] = [CatalogType.Article, CatalogType.Shop];
+
   useEffect(() => {
     getCatalog(id).then((response) => setCatalog(response));
   }, [id]);
@@ -66,7 +68,7 @@ const Content: React.FC = () => {
           {formatDate(catalog?.modifiedDate)}
         </Descriptions.Item>
       </Descriptions>
-      {catalog?.type === CatalogType.Tag ? (
+      {!alloweds.includes(catalog?.type || CatalogType.Article) ? (
         <div></div>
       ) : (
         <div>

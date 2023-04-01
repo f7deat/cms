@@ -47,6 +47,11 @@ export default defineConfig({
           component: './works/contact-form',
         },
         {
+          name: 'feed',
+          path: '/works/feed/:id',
+          component: './works/feed',
+        },
+        {
           name: 'row',
           path: '/works/row/:id',
           component: './works/row',
