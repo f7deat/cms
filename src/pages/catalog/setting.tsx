@@ -32,12 +32,16 @@ const CatalogSetting: React.FC = () => {
             value: response.name,
           },
           {
+            name: 'normalizedName',
+            value: response.normalizedName,
+          },
+          {
             name: 'description',
             value: response.description,
           },
           {
-            name: 'normalizedName',
-            value: response.normalizedName,
+            name: 'thumbnail',
+            value: response.thumbnail,
           },
           {
             name: 'type',
@@ -66,6 +70,7 @@ const CatalogSetting: React.FC = () => {
       <ProFormText name="name" label="Name" />
       <ProFormText name="normalizedName" label="Normalized name" />
       <ProFormTextArea name="description" label="Description" />
+      <ProFormText name="thumbnail" label="Thumbnail" />
       <ProFormSelect name="type" label="Type" options={types}></ProFormSelect>
       <ProFormCheckbox name="active" label="Active" />
     </ProForm>

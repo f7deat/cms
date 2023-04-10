@@ -4,10 +4,6 @@ export async function getComponent(id: string | undefined) {
   return request(`component/${id}`);
 }
 
-export async function listAllComponent() {
-  return request(`component/list-all`);
-}
-
 export async function addComponent(data: API.Component) {
   return request(`component/add`, {
     method: 'POST',
@@ -40,5 +36,14 @@ export async function listComponentWork(params: any, id: string | undefined) {
 export async function deleteComponent(id: string) {
   return request(`component/delete/${id}`, {
     method: 'POST',
+  });
+}
+
+export async function queryFormSelect(query: any) {
+  const params = {
+    searchTerm: query.keyWords,
+  };
+  return request(`component/form-select`, {
+    params,
   });
 }

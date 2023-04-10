@@ -99,3 +99,16 @@ export async function saveSendGrid(data: any) {
 }
 
 //#endregion
+
+export async function listSidebarWork(params: any) {
+  return request(`appsetting/sidebar`, {
+    params,
+  });
+}
+
+export async function workAddSetting(data: any) {
+  return request(`appsetting/work/add`, {
+    method: 'POST',
+    data,
+  });
+}

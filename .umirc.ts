@@ -308,6 +308,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'sidebar',
+          path: '/settings/sidebar/:id',
+          component: './settings/sidebar',
+          hideInMenu: true,
+        },
+        {
           name: 'social',
           path: '/settings/social/:id',
           component: './settings/social',

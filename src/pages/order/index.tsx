@@ -21,6 +21,7 @@ const Order: React.FC = () => {
       title: 'Date',
       dataIndex: 'createdDate',
       valueType: 'fromNow',
+      search: false,
     },
     {
       title: 'status',
