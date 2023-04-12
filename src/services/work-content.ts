@@ -53,6 +53,10 @@ export async function saveArguments(id: string | undefined, data: any) {
   });
 }
 
+export async function getArguments(id: string | undefined) {
+  return request(`work/arguments/${id}`);
+}
+
 export async function saveContactForm(data: API.ContactForm) {
   return request(`work/contact-form/save`, {
     method: 'POST',

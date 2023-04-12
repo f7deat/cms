@@ -147,6 +147,12 @@ export default defineConfig({
           component: './works/list-group',
           hideInMenu: true,
         },
+        {
+          name: 'wordPressPost',
+          path: '/works/wordpresspost/:id',
+          component: './works/wordpress-post',
+          hideInMenu: true,
+        },
       ],
     },
     {
