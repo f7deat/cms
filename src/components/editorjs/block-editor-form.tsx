@@ -1,35 +1,26 @@
+import { getArguments } from '@/services/work-content';
+import { ProForm } from '@ant-design/pro-components';
 import EditorJS from '@editorjs/editorjs';
-import React, { useRef, useEffect } from 'react';
 import { useParams } from '@umijs/max';
-import { getBlockEditor } from '@/services/work-content';
+import React, { useEffect, useRef } from 'react';
 import { EDITOR_JS_TOOLS } from './tool';
 
-type ProEditorBlockProps = {
-  onChange: any;
-};
-
-const ProEditorBlock: React.FC<ProEditorBlockProps> = (props) => {
+const BlockEditorForm: React.FC = () => {
   const { id } = useParams();
+  const formRef = ProForm.useFormInstance();
   const ejInstance = useRef<any>();
 
   const initEditor = () => {
-    getBlockEditor(id).then((response) => {
+    getArguments(id).then((response: any) => {
       const editor = new EditorJS({
         holder: 'editorjs',
-        data: {
-          time: new Date().getTime(),
-          blocks: response,
-        },
+        data: response.blockEditor,
         onReady: () => {
           ejInstance.current = editor;
         },
         onChange: (api) => {
           api.saver.save().then((outputData) => {
-            const data = {
-              id,
-              ...outputData,
-            };
-            props.onChange(data);
+            formRef?.setFieldValue('blockEditor', outputData);
           });
         },
         autofocus: true,
@@ -49,10 +40,10 @@ const ProEditorBlock: React.FC<ProEditorBlockProps> = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <ProForm.Item name="blockEditor">
       <div id="editorjs"> </div>
-    </React.Fragment>
+    </ProForm.Item>
   );
 };
 
-export default ProEditorBlock;
+export default BlockEditorForm;

@@ -95,7 +95,7 @@ const ArticleCenter: React.FC = () => {
           />
         </Col>
         <Col span={6}>
-          <CatalogSummary catalog={catalog} setCatalog={setCatalog} />
+          <CatalogSummary />
         </Col>
       </Row>
     </PageContainer>

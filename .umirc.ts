@@ -148,9 +148,9 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
-          name: 'wordPressPost',
-          path: '/works/wordpresspost/:id',
-          component: './works/wordpress-post',
+          name: 'postContent',
+          path: '/works/postcontent/:id',
+          component: './works/post-content',
           hideInMenu: true,
         },
       ],

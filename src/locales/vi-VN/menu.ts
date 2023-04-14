@@ -47,6 +47,7 @@ export default {
   'menu.component.link': 'Liên kết',
   'menu.component.listGroup': 'List group',
   'menu.component.lookbook': 'Look book',
+  'menu.component.postContent': 'Nội dung',
   'menu.settings.sidebar': 'Sidebar',
   'menu.settings.social': 'Social',
   'menu.component.tag': 'Tag',
