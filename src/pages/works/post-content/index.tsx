@@ -1,9 +1,10 @@
 import WorkSummary from '@/components/works/summary';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { Col, Empty, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { useState } from 'react';
 import WordPress from './word-press';
 import BlockEditorContent from './block-editor';
+import BloggerContent from './blogger';
 
 const PostContent: React.FC = () => {
   const [tab, setTab] = useState<string>('0');
@@ -28,9 +29,9 @@ const PostContent: React.FC = () => {
                   children: <WordPress />,
                 },
                 {
-                  label: 'Blogspot',
+                  label: 'Blogger',
                   key: '2',
-                  children: <Empty />,
+                  children: <BloggerContent />,
                 },
               ],
               onChange: (key) => {

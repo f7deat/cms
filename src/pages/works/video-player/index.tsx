@@ -11,24 +11,26 @@ import { useParams } from '@umijs/max';
 import { Col, Row, message } from 'antd';
 import { useEffect, useRef } from 'react';
 
-const Feed: React.FC = () => {
+const VideoPlayer: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
+
   useEffect(() => {
     getArguments(id).then((response) => {
       formRef.current?.setFields([
         {
-          name: 'name',
-          value: response.name,
+          name: 'embedId',
+          value: response.embedId,
         },
       ]);
     });
-  }, [id]);
+  }, []);
 
   const onFinish = async (values: any) => {
+    values.format = 1;
     const response = await saveArguments(id, values);
     if (response.succeeded) {
-      message.success('Saved!');
+      message.success('Saved');
     }
   };
 
@@ -38,7 +40,7 @@ const Feed: React.FC = () => {
         <Col span={16}>
           <ProCard>
             <ProForm formRef={formRef} onFinish={onFinish}>
-              <ProFormText name="name" label="Name" />
+              <ProFormText name="embedId" label="Embed Id" />
             </ProForm>
           </ProCard>
         </Col>
@@ -50,4 +52,4 @@ const Feed: React.FC = () => {
   );
 };
 
-export default Feed;
+export default VideoPlayer;

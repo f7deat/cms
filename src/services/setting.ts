@@ -112,3 +112,14 @@ export async function workAddSetting(data: any) {
     data,
   });
 }
+
+export async function getAppSetting(id: string | undefined) {
+  return request(`appsetting/${id}`);
+}
+
+export async function saveAppSetting(id: string | undefined, data: any) {
+  return request(`appsetting/save/${id}`, {
+    method: 'POST',
+    data,
+  });
+}

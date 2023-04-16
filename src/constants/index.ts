@@ -10,4 +10,5 @@ export enum CatalogType {
   Blogspot,
   Albums,
   Tag,
+  Video,
 }

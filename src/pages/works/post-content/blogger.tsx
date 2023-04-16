@@ -8,21 +8,21 @@ import { useParams } from '@umijs/max';
 import { message } from 'antd';
 import { useEffect, useRef } from 'react';
 
-const WordPress: React.FC = () => {
+const BloggerContent: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
     getArguments(id).then((response) => {
-      if (response.wordPress) {
+      if (response.blogger) {
         formRef.current?.setFields([
           {
-            name: 'id',
-            value: response.wordPress.id,
+            name: 'blogId',
+            value: response.blogger.blogId,
           },
           {
-            name: 'domain',
-            value: response.wordPress.domain,
+            name: 'postId',
+            value: response.blogger.postId,
           },
         ]);
       }
@@ -31,10 +31,10 @@ const WordPress: React.FC = () => {
 
   const onFinish = async (values: any) => {
     const data = {
-      type: 1,
-      wordPress: {
-        id: Number(values.id),
-        domain: values.domain,
+      type: 2,
+      blogger: {
+        blogId: values.blogId,
+        postId: values.postId,
       },
     };
     const response = await saveArguments(id, data);
@@ -42,12 +42,11 @@ const WordPress: React.FC = () => {
       message.success('Saved');
     }
   };
-
   return (
     <ProForm onFinish={onFinish} formRef={formRef}>
       <ProFormText
-        name="id"
-        label="Post ID"
+        label="Blog ID"
+        name="blogId"
         rules={[
           {
             required: true,
@@ -55,8 +54,8 @@ const WordPress: React.FC = () => {
         ]}
       />
       <ProFormText
-        name="domain"
-        label="Domain"
+        label="Post ID"
+        name="postId"
         rules={[
           {
             required: true,
@@ -67,4 +66,4 @@ const WordPress: React.FC = () => {
   );
 };
 
-export default WordPress;
+export default BloggerContent;

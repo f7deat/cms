@@ -153,6 +153,18 @@ export default defineConfig({
           component: './works/post-content',
           hideInMenu: true,
         },
+        {
+          name: 'blogger',
+          path: '/works/blogger/:id',
+          component: './works/blogger',
+          hideInMenu: true,
+        },
+        {
+          name: 'videoPlayer',
+          path: '/works/videoplayer/:id',
+          component: './works/video-player',
+          hideInMenu: true,
+        },
       ],
     },
     {
@@ -180,6 +192,11 @@ export default defineConfig({
           name: 'page',
           path: '/catalog/page',
           component: './catalog/page',
+        },
+        {
+          name: 'video',
+          path: '/catalog/video',
+          component: './catalog/video',
         },
       ],
     },
@@ -277,6 +294,12 @@ export default defineConfig({
           name: 'componentCenter',
           path: '/settings/component/center/:id',
           component: './blocks/center',
+          hideInMenu: true,
+        },
+        {
+          name: 'google',
+          path: '/settings/google/:id',
+          component: './settings/google',
           hideInMenu: true,
         },
         {

@@ -1,16 +1,10 @@
 import { CatalogType } from '@/constants';
-import {
-  addCatalog,
-  deleteCatalog,
-  listCatalog,
-  listTypes,
-} from '@/services/catalog';
+import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
   ModalForm,
   ProColumns,
-  ProFormSelect,
   ProFormText,
   ProFormTextArea,
   ProTable,
@@ -18,7 +12,7 @@ import {
 import { FormattedMessage } from '@umijs/max';
 import { history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 type CatalogListProps = {
   type: CatalogType;
@@ -27,7 +21,6 @@ type CatalogListProps = {
 const CatalogList: React.FC<CatalogListProps> = (props) => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
-  const [options, setOptions] = useState();
 
   const onConfirm = async (id: string) => {
     const response = await deleteCatalog(id);
@@ -38,10 +31,6 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
       message.error(response.errors[0].description);
     }
   };
-
-  useEffect(() => {
-    listTypes().then((response) => setOptions(response));
-  }, []);
 
   const url = () => {
     switch (props.type) {
@@ -110,7 +99,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
   ];
 
   const onFinish = async (values: API.Catalog) => {
-    values.type = Number(values.type);
+    values.type = Number(props.type);
     const response = await addCatalog(values);
     if (response.succeeded) {
       message.success('Added!');
@@ -138,7 +127,12 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           </Button>,
         ]}
       />
-      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish}>
+      <ModalForm
+        open={open}
+        onOpenChange={setOpen}
+        onFinish={onFinish}
+        title={`Thêm mới ${props.type}`}
+      >
         <ProFormText
           name="name"
           label="Name"
@@ -149,16 +143,6 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           ]}
         />
         <ProFormTextArea label="Description" name="description" />
-        <ProFormSelect
-          name="type"
-          options={options}
-          label="Type"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        />
       </ModalForm>
     </div>
   );
