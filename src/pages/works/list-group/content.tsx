@@ -1,7 +1,7 @@
 import ProFormLink from '@/components/link';
 import {
   addListGroupItem,
-  deleteWorkContentById,
+  deleteWork,
   getChildList,
 } from '@/services/work-content';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -24,7 +24,7 @@ const ListGroupContent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const onConfirm = async (id: string) => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success('Deleted');
       actionRef.current?.reload();

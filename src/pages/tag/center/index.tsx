@@ -83,7 +83,7 @@ const TagCenter: React.FC = () => {
           />
         </Col>
         <Col span={8}>
-          <CatalogSummary catalog={catalog} />
+          <CatalogSummary />
         </Col>
       </Row>
     </PageContainer>

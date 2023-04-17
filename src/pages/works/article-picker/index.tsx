@@ -1,3 +1,4 @@
+import { FormTag } from '@/components/form';
 import WorkSummary from '@/components/works/summary';
 import { getArguments, saveArguments } from '@/services/work-content';
 import {
@@ -12,15 +13,24 @@ import { useParams } from '@umijs/max';
 import { Col, Row, message } from 'antd';
 import { useEffect, useRef } from 'react';
 
-const Feed: React.FC = () => {
-  const { id } = useParams();
+const ArticlePicker: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
+  const { id } = useParams();
+
   useEffect(() => {
     getArguments(id).then((response) => {
       formRef.current?.setFields([
         {
-          name: 'name',
-          value: response.name,
+          name: 'title',
+          value: response.title,
+        },
+        {
+          name: 'pageSize',
+          value: response.pageSize,
+        },
+        {
+          name: 'tagId',
+          value: response.tagId,
         },
       ]);
     });
@@ -29,22 +39,23 @@ const Feed: React.FC = () => {
   const onFinish = async (values: any) => {
     const response = await saveArguments(id, values);
     if (response.succeeded) {
-      message.success('Saved!');
+      message.success('Saved');
     }
   };
 
   return (
     <PageContainer>
       <Row gutter={16}>
-        <Col span={16}>
+        <Col md={16}>
           <ProCard>
-            <ProForm formRef={formRef} onFinish={onFinish}>
-              <ProFormText name="name" label="Name" />
-              <ProFormDigit name="pageSize" label="Page size" />
+            <ProForm onFinish={onFinish} formRef={formRef}>
+              <ProFormText label="Title" name="title" />
+              <ProFormDigit label="Page size" name="pageSize" />
+              <FormTag name="tagId" label="Tag" />
             </ProForm>
           </ProCard>
         </Col>
-        <Col span={8}>
+        <Col md={8}>
           <WorkSummary />
         </Col>
       </Row>
@@ -52,4 +63,4 @@ const Feed: React.FC = () => {
   );
 };
 
-export default Feed;
+export default ArticlePicker;

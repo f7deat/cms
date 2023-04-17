@@ -1,8 +1,4 @@
-import {
-  deleteWorkContentById,
-  getCss,
-  saveCss,
-} from '@/services/work-content';
+import { deleteWork, getCss, saveCss } from '@/services/work-content';
 import { DeleteOutlined } from '@ant-design/icons';
 import {
   PageContainer,
@@ -44,7 +40,7 @@ const CssSetting: React.FC = () => {
   };
 
   const onConfirm = async () => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success(
         intl.formatMessage({

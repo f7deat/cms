@@ -1,6 +1,6 @@
 import ComponentFormSelect from '@/components/works/component';
 import { listSidebarWork, workAddSetting } from '@/services/setting';
-import { deleteWorkContentById } from '@/services/work-content';
+import { deleteWork } from '@/services/work-content';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -20,7 +20,7 @@ const SidebarSetting: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const onConfirm = async (id: string) => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success('Deleted');
       actionRef.current?.reload();

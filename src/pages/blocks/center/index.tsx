@@ -3,7 +3,7 @@ import {
   listComponentWork,
   updateComponent,
 } from '@/services/component';
-import { deleteWorkContentById } from '@/services/work-content';
+import { deleteWork } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -47,7 +47,7 @@ const ComponentCenter: React.FC = () => {
   }, []);
 
   const onConfirm = async (id: string) => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success('Deleted!');
       actionRef.current?.reload();

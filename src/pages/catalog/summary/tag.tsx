@@ -52,6 +52,7 @@ const TagList: React.FC = () => {
     const response = await deleteItem({
       catalogId: id,
       workId: tagId,
+      sortOrder: 0,
     });
     if (response.succeeded) {
       const newTags = tags?.filter((tag) => tag.id !== tagId);

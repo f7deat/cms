@@ -42,6 +42,18 @@ export default defineConfig({
       hideInMenu: true,
       routes: [
         {
+          name: 'articlePicker',
+          path: '/works/articlepicker/:id',
+          component: './works/article-picker',
+          hideInMenu: true,
+        },
+        {
+          name: 'articleSpotlight',
+          path: '/works/articlespotlight/:id',
+          component: './works/article-spotlight',
+          hideInMenu: true,
+        },
+        {
           name: 'contactForm',
           path: '/works/contactform/:id',
           component: './works/contact-form',

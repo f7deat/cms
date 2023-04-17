@@ -1,6 +1,6 @@
 import {
   addChildWorkContent,
-  deleteItem,
+  deleteWork,
   getChildList,
 } from '@/services/work-content';
 import {
@@ -34,10 +34,7 @@ const WorkList: React.FC = () => {
   };
 
   const onConfirm = async (workId: string) => {
-    const response = await deleteItem({
-      workId: workId,
-      catalogId: id,
-    });
+    const response = await deleteWork(workId);
     if (response.succeeded) {
       message.success('Deleted');
       actionRef.current?.reload();

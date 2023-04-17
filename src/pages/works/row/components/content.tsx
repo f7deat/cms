@@ -1,8 +1,4 @@
-import {
-  addColumn,
-  deleteWorkContentById,
-  getListColumn,
-} from '@/services/work-content';
+import { addColumn, deleteWork, getListColumn } from '@/services/work-content';
 import {
   FolderOutlined,
   DeleteOutlined,
@@ -39,7 +35,7 @@ const RowContent: React.FC = () => {
   };
 
   const onConfirm = async (id: string) => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success(
         intl.formatMessage({
@@ -47,6 +43,8 @@ const RowContent: React.FC = () => {
         }),
       );
       actionRef.current?.reload();
+    } else {
+      message.error(response.errors[0].description);
     }
   };
 

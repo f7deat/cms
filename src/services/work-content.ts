@@ -117,7 +117,7 @@ export async function deleteWorkContent(
   });
 }
 
-export async function deleteWorkContentById(id: string | undefined) {
+export async function deleteWork(id: string | undefined) {
   return request(`work/delete/${id}`, {
     method: 'POST',
   });

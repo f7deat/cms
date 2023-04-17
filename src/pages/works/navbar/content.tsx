@@ -1,6 +1,6 @@
 import {
   addNavbarItem,
-  deleteWorkContentById,
+  deleteWork,
   getChildList,
 } from '@/services/work-content';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
@@ -29,7 +29,7 @@ const NavbarContent: React.FC = () => {
   };
 
   const onConfirm = async (id: string) => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success('Deleted');
       actionRef.current?.reload();

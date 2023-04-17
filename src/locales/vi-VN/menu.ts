@@ -30,6 +30,7 @@ export default {
   'menu.settings.google': 'Google',
   'menu.catalog': 'Catalog',
   'menu.component': 'Component',
+  'menu.component.articlePicker': 'Article Picker',
   'menu.component.blogger': 'Blogger',
   'menu.component.feed': 'Feed',
   'menu.component.googleMap': 'Google map',

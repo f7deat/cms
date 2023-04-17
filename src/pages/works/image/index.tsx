@@ -1,10 +1,6 @@
 import FilePreview from '@/pages/files/center/preview';
 import Gallery from '@/pages/files/gallery';
-import {
-  deleteWorkContentById,
-  getImage,
-  saveImage,
-} from '@/services/work-content';
+import { deleteWork, getImage, saveImage } from '@/services/work-content';
 import {
   ArrowLeftOutlined,
   BarsOutlined,
@@ -75,7 +71,7 @@ const Image: React.FC = () => {
   }, []);
 
   const onConfirm = async () => {
-    const response = await deleteWorkContentById(id);
+    const response = await deleteWork(id);
     if (response.succeeded) {
       message.success(
         intl.formatMessage({
