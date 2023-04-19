@@ -42,7 +42,7 @@ const CatalogSummary: React.FC = () => {
           setTab(key);
         },
       }}
-    ></ProCard>
+    />
   );
 };
 

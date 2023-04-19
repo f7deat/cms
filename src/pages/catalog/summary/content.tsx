@@ -22,7 +22,11 @@ const Content: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [catalog, setCatalog] = useState<API.Catalog>();
 
-  const alloweds: number[] = [CatalogType.Article, CatalogType.Shop];
+  const alloweds: number[] = [
+    CatalogType.Article,
+    CatalogType.Shop,
+    CatalogType.Albums,
+  ];
 
   useEffect(() => {
     getCatalog(id).then((response) => setCatalog(response));

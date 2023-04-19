@@ -69,7 +69,7 @@ const ArticleCenter: React.FC = () => {
       }
     >
       <Row gutter={16}>
-        <Col span={18}>
+        <Col md={18}>
           <ProCard
             tabs={{
               tabPosition: 'top',
@@ -94,7 +94,7 @@ const ArticleCenter: React.FC = () => {
             }}
           />
         </Col>
-        <Col span={6}>
+        <Col md={6}>
           <CatalogSummary />
         </Col>
       </Row>

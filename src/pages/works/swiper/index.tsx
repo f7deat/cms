@@ -1,8 +1,6 @@
-import WorkContentComponent from '@/components/works';
-import { addSwiperItem, getSwiper } from '@/services/work-content';
-import { PlusOutlined } from '@ant-design/icons';
+import WorkSummary from '@/components/works/summary';
+import { getArguments, saveArguments } from '@/services/work-content';
 import {
-  ModalForm,
   PageContainer,
   ProCard,
   ProForm,
@@ -10,73 +8,46 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Button, Col, message, Row } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { Col, message, Row } from 'antd';
+import { useEffect, useRef } from 'react';
 
 const Swiper: React.FC = () => {
   const { id } = useParams();
-
   const formRef = useRef<ProFormInstance>();
 
-  const [visible, setVisible] = useState<boolean>(false);
-
   useEffect(() => {
-    getSwiper(id).then((response) => {
+    getArguments(id).then((response) => {
       formRef.current?.setFields([
         {
-          name: 'id',
-          value: response.id,
-        },
-        {
-          name: 'name',
-          value: response.name,
+          name: 'embedId',
+          value: response.embedId,
         },
       ]);
     });
   }, []);
 
   const onFinish = async (values: any) => {
-    values.id = id;
-    const respponse = await addSwiperItem(values);
-    if (respponse.succeeded) {
-      message.success('Added');
-      setVisible(false);
+    values.format = 1;
+    const response = await saveArguments(id, values);
+    if (response.succeeded) {
+      message.success('Saved');
     }
   };
 
   return (
-    <PageContainer
-      title="Swiper"
-      extra={
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setVisible(true)}
-        >
-          Add image
-        </Button>
-      }
-    >
+    <PageContainer>
       <Row gutter={16}>
-        <Col span={16}>
-          <WorkContentComponent />
-        </Col>
-        <Col span={8}>
-          <ProCard title="Setting">
-            <ProForm formRef={formRef}>
-              <ProFormText name="name" label="Name" />
+        <Col md={16}>
+          <ProCard>
+            <ProForm formRef={formRef} onFinish={onFinish}>
+              <ProFormText name="mode" label="Display mode" />
             </ProForm>
           </ProCard>
         </Col>
+        <Col md={8}>
+          <WorkSummary />
+        </Col>
       </Row>
-      <ModalForm
-        open={visible}
-        onOpenChange={setVisible}
-        title="Add items"
-        onFinish={onFinish}
-      >
-        <ProFormText name="name" label="Name" />
-      </ModalForm>
     </PageContainer>
   );
 };

@@ -214,17 +214,6 @@ export async function deleteNavItem(
   });
 }
 
-export async function getSwiper(workContentId: string | undefined) {
-  return request(`work/swiper/${workContentId}`);
-}
-
-export async function addSwiperItem(data: any) {
-  return request(`work/swiper/add-image`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function getBlockEditor(id: string | undefined) {
   return request(`work/block-editor/${id}`);
 }

@@ -172,6 +172,12 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'trend',
+          path: '/works/trend/:id',
+          component: './works/trend',
+          hideInMenu: true,
+        },
+        {
           name: 'videoPlayer',
           path: '/works/videoplayer/:id',
           component: './works/video-player',
@@ -188,6 +194,11 @@ export default defineConfig({
           path: '/catalog/:id',
           component: './catalog',
           hideInMenu: true,
+        },
+        {
+          name: 'album',
+          path: '/catalog/album',
+          component: './catalog/album',
         },
         {
           name: 'tag',

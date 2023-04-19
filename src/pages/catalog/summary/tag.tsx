@@ -50,8 +50,8 @@ const TagList: React.FC = () => {
 
   const onClose = async (tagId: string) => {
     const response = await deleteItem({
-      catalogId: id,
-      workId: tagId,
+      catalogId: tagId,
+      workId: id,
       sortOrder: 0,
     });
     if (response.succeeded) {
