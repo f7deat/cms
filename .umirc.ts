@@ -183,6 +183,12 @@ export default defineConfig({
           component: './works/video-player',
           hideInMenu: true,
         },
+        {
+          name: 'videoPlaylist',
+          path: '/works/videoplaylist/:id',
+          component: './works/video-playlist',
+          hideInMenu: true,
+        },
       ],
     },
     {

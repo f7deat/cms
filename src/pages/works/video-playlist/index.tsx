@@ -4,14 +4,15 @@ import {
   PageContainer,
   ProCard,
   ProForm,
+  ProFormDigit,
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Col, message, Row } from 'antd';
-import { useEffect, useRef } from 'react';
+import { message, Row, Col } from 'antd';
+import { useRef, useEffect } from 'react';
 
-const Swiper: React.FC = () => {
+const VideoPlaylist: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
 
@@ -19,15 +20,18 @@ const Swiper: React.FC = () => {
     getArguments(id).then((response) => {
       formRef.current?.setFields([
         {
-          name: 'mode',
-          value: response.mode,
+          name: 'title',
+          value: response.title,
+        },
+        {
+          name: 'pageSize',
+          value: response.pageSize,
         },
       ]);
     });
   }, []);
 
   const onFinish = async (values: any) => {
-    values.format = 1;
     const response = await saveArguments(id, values);
     if (response.succeeded) {
       message.success('Saved');
@@ -37,15 +41,16 @@ const Swiper: React.FC = () => {
   return (
     <PageContainer>
       <Row gutter={16}>
-        <Col md={16}>
+        <Col span={16}>
           <ProCard>
             <ProForm formRef={formRef} onFinish={onFinish}>
               <ProFormText name="title" label="Title" />
-              <ProFormText name="mode" label="Display mode" />
+              <ProFormText name="className" label="Class name" />
+              <ProFormDigit name="pageSize" label="Page size" />
             </ProForm>
           </ProCard>
         </Col>
-        <Col md={8}>
+        <Col span={8}>
           <WorkSummary />
         </Col>
       </Row>
@@ -53,4 +58,4 @@ const Swiper: React.FC = () => {
   );
 };
 
-export default Swiper;
+export default VideoPlaylist;
