@@ -6,6 +6,7 @@ import {
   ProForm,
   ProFormDigit,
   ProFormInstance,
+  ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
@@ -22,11 +23,20 @@ const Feed: React.FC = () => {
           name: 'name',
           value: response.name,
         },
+        {
+          name: 'type',
+          value: response.type ?? 0,
+        },
+        {
+          name: 'pageSize',
+          value: response.pageSize,
+        },
       ]);
     });
   }, [id]);
 
   const onFinish = async (values: any) => {
+    values.type = Number(values.type);
     const response = await saveArguments(id, values);
     if (response.succeeded) {
       message.success('Saved!');
@@ -40,6 +50,20 @@ const Feed: React.FC = () => {
           <ProCard>
             <ProForm formRef={formRef} onFinish={onFinish}>
               <ProFormText name="name" label="Name" />
+              <ProFormSelect name="type" label="Type" options={[
+                {
+                  value: 0,
+                  label: 'Default'
+                },
+                {
+                  value: 1,
+                  label: 'Artice'
+                },
+                {
+                  value: 2,
+                  label: 'Shop'
+                }
+              ]}/>
               <ProFormDigit name="pageSize" label="Page size" />
             </ProForm>
           </ProCard>

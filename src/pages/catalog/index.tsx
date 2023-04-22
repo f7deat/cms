@@ -49,8 +49,7 @@ const CatalogPage: React.FC = () => {
       }
     >
       <Row gutter={16}>
-        <Col span={6}></Col>
-        <Col span={12}>
+        <Col span={18}>
           <ProCard
             tabs={{
               tabPosition: 'top',

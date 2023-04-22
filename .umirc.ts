@@ -202,6 +202,11 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'article',
+          path: '/catalog/article',
+          component: './catalog/article',
+        },
+        {
           name: 'album',
           path: '/catalog/album',
           component: './catalog/album',
@@ -398,35 +403,6 @@ export default defineConfig({
           name: 'backup',
           path: 'backup',
           component: './backup',
-        },
-      ],
-    },
-    {
-      icon: 'SlackOutlined',
-      name: 'article',
-      path: '/article',
-      routes: [
-        {
-          path: '/article',
-          redirect: '/article/list',
-        },
-        {
-          name: 'list',
-          path: '/article/list',
-          component: './article/list',
-          hideInMenu: true,
-        },
-        {
-          name: 'home',
-          path: '/article/home/:id',
-          component: './article',
-          hideInMenu: true,
-        },
-        {
-          name: 'center',
-          path: '/article/center/:id',
-          component: './article/center',
-          hideInMenu: true,
         },
       ],
     },
