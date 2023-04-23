@@ -14,6 +14,9 @@ export default defineConfig({
     baseSeparator: '-',
     antd: true,
   },
+  history: {
+    type: 'hash'
+  },
   routes: [
     {
       path: '/',

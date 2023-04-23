@@ -49,8 +49,16 @@ const Feed: React.FC = () => {
         <Col span={16}>
           <ProCard>
             <ProForm formRef={formRef} onFinish={onFinish}>
-              <ProFormText name="name" label="Name" />
-              <ProFormSelect name="type" label="Type" options={[
+              <ProFormText name="name" label="Name" rules={[
+                {
+                  required: true
+                }
+              ]} />
+              <ProFormSelect name="type" label="Type" rules={[
+                {
+                  required: true
+                }
+              ]} options={[
                 {
                   value: 0,
                   label: 'Default'
@@ -63,7 +71,7 @@ const Feed: React.FC = () => {
                   value: 2,
                   label: 'Shop'
                 }
-              ]}/>
+              ]} />
               <ProFormDigit name="pageSize" label="Page size" />
             </ProForm>
           </ProCard>

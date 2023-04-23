@@ -1,17 +1,22 @@
 import CatalogList from '@/components/catalog/list';
 import { CatalogType } from '@/constants';
-import { queryViewCount } from '@/services/catalog';
+import { dataPieChart, queryViewCount } from '@/services/catalog';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { Col, Row, Statistic } from 'antd';
+import { Col, Divider, Row, Statistic } from 'antd';
+import { PieChart } from 'bizcharts';
 import { useEffect, useState } from 'react';
 
 const HomePage: React.FC = () => {
   const [viewCount, setViewCount] = useState<number>(0);
+  const [dataPie, setDataPie] = useState<any>([])
 
   useEffect(() => {
     queryViewCount().then((response) => {
       setViewCount(response);
     });
+    dataPieChart().then(response => {
+      setDataPie(response);
+    })
   }, []);
 
   return (
@@ -33,6 +38,15 @@ const HomePage: React.FC = () => {
               </ProCard>
             </Col>
           </Row>
+          <Divider />
+          <ProCard title="Catalog with statistics">
+            <PieChart
+              angleField='value'
+              colorField='label'
+              radius={1}
+              innerRadius={0.55}
+              data={dataPie} />
+          </ProCard>
         </Col>
       </Row>
     </PageContainer>

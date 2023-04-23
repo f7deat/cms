@@ -97,3 +97,7 @@ export async function listByTag(
     params,
   });
 }
+
+export async function dataPieChart() {
+  return request(`catalog/pie-chart`)
+}

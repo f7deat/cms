@@ -67,11 +67,19 @@ const CatalogSetting: React.FC = () => {
   return (
     <ProForm formRef={formRef} onFinish={onFinish}>
       <ProFormText name="id" hidden />
-      <ProFormText name="name" label="Name" />
-      <ProFormText name="normalizedName" label="Normalized name" />
+      <ProFormText name="name" label="Name" rules={[
+        {
+          required: true
+        }
+      ]} />
+      <ProFormText name="normalizedName" label="Normalized name" rules={[
+        {
+          required: true
+        }
+      ]} />
       <ProFormTextArea name="description" label="Description" />
       <ProFormText name="thumbnail" label="Thumbnail" />
-      <ProFormSelect name="type" label="Type" options={types}></ProFormSelect>
+      <ProFormSelect name="type" label="Type" options={types} allowClear={false}></ProFormSelect>
       <ProFormCheckbox name="active" label="Active" />
     </ProForm>
   );
