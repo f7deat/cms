@@ -215,6 +215,11 @@ export default defineConfig({
           component: './catalog/album',
         },
         {
+          name: 'game',
+          path: '/catalog/game',
+          component: './catalog/game',
+        },
+        {
           name: 'tag',
           path: '/catalog/tag',
           component: './tag',

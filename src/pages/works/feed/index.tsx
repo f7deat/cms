@@ -70,6 +70,10 @@ const Feed: React.FC = () => {
                 {
                   value: 2,
                   label: 'Shop'
+                },
+                {
+                  value: 11,
+                  label: 'Game'
                 }
               ]} />
               <ProFormDigit name="pageSize" label="Page size" />
