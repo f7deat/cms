@@ -3,6 +3,7 @@ export default {
   'menu.catalog.album': 'Album',
   'menu.catalog.article': 'Bài viết',
   'menu.catalog.center': 'Chi tiết',
+  'menu.catalog.game': 'Game',
   'menu.catalog.tag': 'Tag',
   'menu.catalog.tagCenter': 'Chi tiết',
   'menu.catalog.page': 'Trang',
