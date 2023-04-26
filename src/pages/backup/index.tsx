@@ -1,13 +1,15 @@
 import { getExportData, getStatistic, importData } from '@/services/backup';
-import { DownloadOutlined, InboxOutlined } from '@ant-design/icons';
-import { PageContainer, ProCard, Statistic } from '@ant-design/pro-components';
-import { Button, Col, Divider, message, Row, Upload, UploadProps } from 'antd';
-import { useEffect, useState } from 'react';
+import { deleteWork, listUnuse } from '@/services/work-content';
+import { DeleteOutlined, DownloadOutlined, InboxOutlined } from '@ant-design/icons';
+import { ActionType, PageContainer, ProCard, ProColumns, ProTable, Statistic } from '@ant-design/pro-components';
+import { Button, Col, Divider, message, Popconfirm, Row, Upload, UploadProps } from 'antd';
+import { useEffect, useRef, useState } from 'react';
 
 const { Dragger } = Upload;
 
 const Backup: React.FC = () => {
   const [statistic, setStatistic] = useState<API.Statistic>();
+  const actionRef = useRef<ActionType>();
 
   useEffect(() => {
     getStatistic().then((response) => {
@@ -50,6 +52,43 @@ const Backup: React.FC = () => {
     },
   };
 
+  const onConfirm = async (id: string) => {
+    const response = await deleteWork(id);
+    if (response.succeeded) {
+      message.success('Deleted');
+      actionRef.current?.reload();
+    } else {
+      message.error(response.errors[0].description);
+    }
+  }
+
+  const columns: ProColumns<Entity.WorkContent>[] = [
+    {
+      title: '#',
+      valueType: 'indexBorder',
+    },
+    {
+      title: 'Id',
+      dataIndex: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: '',
+      render: (text, row) => [
+        <Popconfirm
+          key={1}
+          title="Are you sure?"
+          onConfirm={() => onConfirm(row.id)}
+        >
+          <Button type="primary" danger icon={<DeleteOutlined />} />
+        </Popconfirm>,
+      ],
+    }
+  ]
+
   return (
     <PageContainer
       title="Backup"
@@ -87,25 +126,32 @@ const Backup: React.FC = () => {
         </Col>
         <Col span={4}>
           <ProCard>
-            <Statistic title="File item" value={statistic?.fileItem} />
+            <Statistic title="Localization" value={statistic?.localization} />
           </ProCard>
         </Col>
       </Row>
       <Divider />
-      <ProCard title="Import">
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
-        </Dragger>
-      </ProCard>
+      <Row gutter={16}>
+        <Col span={8}>
+          <ProCard title="Import">
+            <Dragger {...props}>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">
+                Click or drag file to this area to upload
+              </p>
+              <p className="ant-upload-hint">
+                Support for a single or bulk upload. Strictly prohibit from
+                uploading company data or other band files
+              </p>
+            </Dragger>
+          </ProCard>
+        </Col>
+        <Col span={16}>
+          <ProTable request={listUnuse} columns={columns} actionRef={actionRef} />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

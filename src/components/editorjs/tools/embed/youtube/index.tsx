@@ -32,7 +32,7 @@ class YoutubeVideo extends Component<{ data?: any }> {
         this.nodes.holder = wrapper;
         root.render(
             <React.StrictMode>
-                <YoutubeEmbed />
+                <YoutubeEmbed src={this.props.data.url} />
             </React.StrictMode>
         );
         return wrapper as any;
@@ -42,11 +42,10 @@ class YoutubeVideo extends Component<{ data?: any }> {
         const i = e.querySelector('iframe');
         if (i) {
             return {
-                src: i.src
+                url: i.src
             }
         }
-        console.log(this.state)
-        return this.state
+        return {}
     }
 }
 

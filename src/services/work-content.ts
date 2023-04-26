@@ -214,6 +214,12 @@ export async function deleteNavItem(
   });
 }
 
+export async function listUnuse(params: any) {
+  return request(`work/list-unuse`, {
+    params
+  })
+}
+
 export async function getBlockEditor(id: string | undefined) {
   return request(`work/block-editor/${id}`);
 }

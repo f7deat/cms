@@ -32,3 +32,9 @@ export async function changePassword(data: any) {
     data,
   });
 }
+
+export async function deleteUser(id: string) {
+  return request(`user/delete/${id}`, {
+    method: 'POST'
+  })
+}

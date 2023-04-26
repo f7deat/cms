@@ -14,7 +14,7 @@ const BlockEditorForm: React.FC = () => {
     getArguments(id).then((response: any) => {
       const editor = new EditorJS({
         holder: 'editorjs',
-        data: response.blockEditor,
+        data: response,
         onReady: () => {
           ejInstance.current = editor;
         },

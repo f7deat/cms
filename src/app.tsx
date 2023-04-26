@@ -1,12 +1,13 @@
 import { RequestConfig } from '@umijs/max';
 import '../style.css';
-import { RequestOptions } from './.umi/plugin-request/request';
 import logo from './assets/logo.svg';
 import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';
 import RightContent from './components/right-content';
 import { DefaultFooter } from '@ant-design/pro-components';
+import { RequestOptions } from './.umi/plugin-request/request';
+import { GithubOutlined } from '@ant-design/icons';
 
 const loginPath = '/accounts/login';
 
@@ -41,14 +42,35 @@ export async function getInitialState(): Promise<{
   };
 }
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
+
+  const copyright = () => {
+    return localStorage.getItem('wf_URL')?.substring(8).replace('/', '');
+  }
+
   return {
     logo: logo,
     menu: {
       locale: true,
     },
+    waterMarkProps: {
+      content: initialState?.currentUser?.userName
+    },
     layout: 'top',
     footerRender: () => (
-      <DefaultFooter copyright={localStorage.getItem('wf_URL') || ''} />
+      <DefaultFooter copyright={copyright()} links={[
+        {
+          key: 'github',
+          title: <GithubOutlined />,
+          href: 'https://github.com/f7deat/waffle',
+          blankTarget: true,
+        },
+        {
+          key: 'Waffle',
+          title: 'Waffle',
+          href: 'https://github.com/f7deat/waffle',
+          blankTarget: true,
+        },
+      ]} />
     ),
     rightContentRender: () => <RightContent />,
     onPageChange: () => {
@@ -73,7 +95,7 @@ export const request: RequestConfig = {
     },
   ],
   responseInterceptors: [
-    (res) => {
+    (res: any) => {
       return res;
     },
   ],

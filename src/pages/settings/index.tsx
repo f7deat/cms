@@ -26,6 +26,7 @@ const SettingPage: React.FC = () => {
     {
       title: 'Description',
       dataIndex: 'description',
+      search: false
     },
     {
       title: '',

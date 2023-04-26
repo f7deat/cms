@@ -1,4 +1,4 @@
-import { createUser, listUser } from '@/services/user';
+import { createUser, deleteUser, listUser } from '@/services/user';
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -33,6 +33,14 @@ const UserList: React.FC = () => {
       actionRef.current?.reload();
     }
   };
+
+  const onConfirm = async (id: string) => {
+    const response = await deleteUser(id);
+    if (response.succeeded) {
+      message.success('Deleted');
+      actionRef.current?.reload();
+    }
+  }
 
   const columns: ProColumns<API.User>[] = [
     {
@@ -79,7 +87,7 @@ const UserList: React.FC = () => {
             history.push(`/users/profile/${entity.id}`);
           }}
         />,
-        <Popconfirm title="Are you sure?" key={2}>
+        <Popconfirm title="Are you sure?" key={2} onConfirm={() => onConfirm(entity.id)}>
           <Button type="primary" icon={<DeleteOutlined />} danger />
         </Popconfirm>,
       ],

@@ -1,7 +1,7 @@
 import { getUser } from '@/services/user';
-import { EditOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { FormattedMessage, history, useParams } from '@umijs/max';
+import { useParams } from '@umijs/max';
 import {
   Image,
   Button,
@@ -26,17 +26,7 @@ const Profile: React.FC = () => {
   }, [id]);
 
   return (
-    <PageContainer
-      extra={
-        <Button
-          icon={<SettingOutlined />}
-          type="primary"
-          onClick={() => history.push(`/users/center/${id}`)}
-        >
-          <FormattedMessage id="menu.settings" />
-        </Button>
-      }
-    >
+    <PageContainer>
       <Row gutter={16}>
         <Col span={6}>
           <ProCard

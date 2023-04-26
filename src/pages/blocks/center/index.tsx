@@ -39,7 +39,11 @@ const ComponentCenter: React.FC = () => {
           value: response.name,
         },
         {
-          name: 'avtive',
+          name: 'normalizedName',
+          value: response.normalizedName,
+        },
+        {
+          name: 'active',
           value: response.active,
         },
       ]);
@@ -123,6 +127,7 @@ const ComponentCenter: React.FC = () => {
             <ProForm formRef={formRef} onFinish={onFinish}>
               <ProFormText name="id" hidden />
               <ProFormText label="Name" name="name" />
+              <ProFormText label="Normalized name" name="normalizedName" tooltip="Do not changes!" />
               <ProFormCheckbox label="Active" name="active" />
             </ProForm>
           </ProCard>

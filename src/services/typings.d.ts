@@ -62,7 +62,7 @@ declare namespace API {
     workItem: number;
     component: number;
     fileContent: number;
-    fileItem: number;
+    localization: number;
   };
 
   type FileListItem = BaseEntity & {
@@ -173,6 +173,14 @@ declare namespace Entity {
     sortOrder: number;
     catalogId?: string;
   };
+  type WorkContent = {
+    id: string;
+    name: string;
+    parrentId: string;
+    componentId: string;
+    active: boolean;
+    arguments?: string;
+  }
 }
 
 declare namespace CPN {
