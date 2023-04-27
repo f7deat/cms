@@ -315,17 +315,6 @@ export async function deleteItem(data: Entity.WorkItem) {
   });
 }
 
-export async function bloggerGet(id: string | undefined) {
-  return request(`work/blogger/${id}`);
-}
-
-export async function bloggerSave(data: any) {
-  return request(`work/blogger/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function getListGroup(id: string | undefined) {
   return request(`work/list-group/${id}`);
 }

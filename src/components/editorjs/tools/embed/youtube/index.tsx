@@ -11,7 +11,7 @@ class YoutubeVideo extends Component<{ data?: any }> {
 
     static get toolbox() {
         return {
-            title: 'Youtube Video',
+            title: 'Youtube',
             icon: '📹'
         };
     }
@@ -20,7 +20,6 @@ class YoutubeVideo extends Component<{ data?: any }> {
     };
 
     onChange(values: any) {
-        console.log(values)
         this.setState({
             data: values
         })

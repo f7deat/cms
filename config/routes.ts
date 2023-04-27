@@ -156,12 +156,6 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'blogger',
-          path: '/works/blogger/:id',
-          component: './works/blogger',
-          hideInMenu: true,
-        },
-        {
           name: 'trend',
           path: '/works/trend/:id',
           component: './works/trend',

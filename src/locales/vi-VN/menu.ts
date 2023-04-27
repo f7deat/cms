@@ -34,7 +34,7 @@ export default {
   'menu.component': 'Component',
   'menu.component.articlePicker': 'Article Picker',
   'menu.component.articleSpotlight': 'Article Spotlight',
-  'menu.component.blogger': 'Blogger',
+  'menu.component.block': 'Block',
   'menu.component.feed': 'Feed',
   'menu.component.googleMap': 'Google map',
   'menu.component.swiper': 'Swiper',
