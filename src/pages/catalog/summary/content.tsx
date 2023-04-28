@@ -24,7 +24,7 @@ const Content: React.FC = () => {
 
   const alloweds: number[] = [
     CatalogType.Article,
-    CatalogType.Shop,
+    CatalogType.Product,
     CatalogType.Albums,
   ];
 

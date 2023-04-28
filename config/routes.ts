@@ -237,13 +237,7 @@ export default [
           path: '/ecommerce/product',
           name: 'product',
           component: './shop',
-        },
-        {
-          name: 'center',
-          path: '/ecommerce/product/center/:id',
-          component: './shop/center',
-          hideInMenu: true,
-        },
+        }
       ],
     },
     {

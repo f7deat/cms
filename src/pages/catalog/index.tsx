@@ -1,14 +1,13 @@
 import WorkContentComponent from '@/components/works';
 import { exportCatalog } from '@/services/backup';
 import { addCatalog, getCatalog } from '@/services/catalog';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   PageContainer,
   ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
+import { useIntl, useParams } from '@umijs/max';
 import { Button, Col, message, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
@@ -42,11 +41,6 @@ const CatalogPage: React.FC = () => {
   return (
     <PageContainer
       title={catalog?.name}
-      extra={
-        <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
-          <FormattedMessage id="general.back" />
-        </Button>
-      }
     >
       <Row gutter={16}>
         <Col span={18}>

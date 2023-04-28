@@ -31,13 +31,13 @@ class Blogger {
         const inputBlogId = document.createElement('input');
         inputBlogId.placeholder = 'Blog Id';
         inputBlogId.id = 'blogId';
-        inputBlogId.value = this.data && this.data.blogger.blogId ? this.data.blogger.blogId : '';
+        inputBlogId.value = this.data?.blogger?.blogId ?? '';
         inputBlogId.classList.add('form-control');
 
         const inputPostId = document.createElement('input');
         inputPostId.placeholder = 'Post Id'
         inputPostId.id = 'postId';
-        inputPostId.value = this.data && this.data.blogger.postId ? this.data.blogger.postId : '';
+        inputPostId.value = this.data?.blogger?.postId ?? '';
         inputPostId.classList.add('form-control');
 
         wrapper.appendChild(inputBlogId);

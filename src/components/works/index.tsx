@@ -94,8 +94,8 @@ const WorkContentComponent: React.FC = () => {
             >
               <FormattedMessage id="general.new" />
             </Button>,
-            <Button key={1} onClick={onSelect}>
-              Select
+            <Button key={1} onClick={onSelect} icon={<PlusOutlined />}>
+              Chọn
             </Button>,
           ];
         }}
