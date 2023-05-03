@@ -1,14 +1,13 @@
-import { CatalogType } from '@/constants';
-import { addCatalog, listTagById, listTagSelect } from '@/services/catalog';
+import { FormTag } from '@/components/form';
+import { listTagById } from '@/services/catalog';
 import { addItem, deleteItem } from '@/services/work-content';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
-  ProFormSelect,
-  ProFormText,
+  ProFormDigit,
 } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
-import { Tag, Button, Divider, message } from 'antd';
+import { FormattedMessage, useParams } from '@umijs/max';
+import { Tag, Button, message, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
 const TagList: React.FC = () => {
@@ -26,23 +25,16 @@ const TagList: React.FC = () => {
     fetchTag();
   }, []);
 
-  const onFinish = async (values: API.Catalog) => {
-    values.type = CatalogType.Tag;
-    let response = undefined;
-    if (values.id) {
-      response = await addItem({
-        workId: id,
-        catalogId: values.id,
-      });
-      fetchTag();
-    } else {
-      values.active = true;
-      response = await addCatalog(values);
-    }
+  const onFinish = async (values: API.WorkItem) => {
+    const response = await addItem({
+      workId: id,
+      catalogId: values.id,
+      sortOrder: values.sortOrder
+    });
     if (response.succeeded) {
       message.success('Saved!');
-      fetchTag();
       setOpen(false);
+      fetchTag();
     } else {
       message.error(response.errors[0].description);
     }
@@ -71,22 +63,18 @@ const TagList: React.FC = () => {
         </Tag>
       ))}
       <Button
-        icon={<PlusOutlined />}
         size="small"
         type="dashed"
         onClick={() => setOpen(true)}
       >
-        New tag
+        <Space>
+          <PlusOutlined />
+          <FormattedMessage id="general.new" />
+        </Space>
       </Button>
-      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish}>
-        <ProFormSelect
-          showSearch
-          request={listTagSelect}
-          name="id"
-          label="Select"
-        />
-        <Divider>Or</Divider>
-        <ProFormText label="New" name="name" />
+      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish} title="Thêm mới">
+        <FormTag label='Tag' name='id' />
+        <ProFormDigit label="Sort order" name="sortOrder" />
       </ModalForm>
     </div>
   );

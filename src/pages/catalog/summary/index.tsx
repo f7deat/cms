@@ -1,18 +1,44 @@
 import {
   EditOutlined,
   EllipsisOutlined,
+  PlusOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import { ProCard } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
-import { useState } from 'react';
-import Setting from '../setting';
-import Content from './content';
+import { ModalForm, ProCard, ProFormDigit, ProFormText } from '@ant-design/pro-components';
+import { useEffect, useState } from 'react';
+import { CatalogType } from '@/constants';
+import { useParams } from '@umijs/max';
+import { addCatalog, getCatalog } from '@/services/catalog';
+import { message, Image, Empty, Divider, Descriptions, Typography, Button, Space } from 'antd';
+import { absolutePath, formatDate } from '@/utils/format';
+import TagList from './tag';
 
 const CatalogSummary: React.FC = () => {
-  const intl = useIntl();
-  const [tab, setTab] = useState('content');
+  const { id } = useParams();
+  const [open, setOpen] = useState<boolean>(false);
+  const [catalog, setCatalog] = useState<API.Catalog>();
 
+  const alloweds: number[] = [
+    CatalogType.Article,
+    CatalogType.Product,
+    CatalogType.Albums,
+    CatalogType.Video
+  ];
+
+  useEffect(() => {
+    getCatalog(id).then((response) => setCatalog(response));
+  }, [id]);
+
+  const onFinish = async (values: API.Catalog) => {
+    values.active = true;
+    const response = await addCatalog(values);
+    if (response.succeeded) {
+      message.success('Added!');
+      setOpen(false);
+    } else {
+      message.error(response.errors[0].description)
+    }
+  }
   return (
     <ProCard
       title="Summary"
@@ -21,28 +47,57 @@ const CatalogSummary: React.FC = () => {
         <EditOutlined key="edit" />,
         <EllipsisOutlined key="ellipsis" />,
       ]}
-      tabs={{
-        tabPosition: 'top',
-        activeKey: tab,
-        items: [
+    >
+      <div className="flex items-center justify-center mt-4">
+        {!catalog?.thumbnail ? (
+          <Empty />
+        ) : (
+          <Image
+            src={absolutePath(catalog?.thumbnail)}
+            height={200}
+            className="object-fit-cover"
+          />
+        )}
+      </div>
+      <Divider />
+      <Descriptions title="Information" column={1}>
+        <Descriptions.Item label="Lượt xem">
+          {catalog?.viewCount}
+        </Descriptions.Item>
+        <Descriptions.Item label="Created date">
+          {formatDate(catalog?.createdDate)}
+        </Descriptions.Item>
+        <Descriptions.Item label="Modified date">
+          {formatDate(catalog?.modifiedDate)}
+        </Descriptions.Item>
+      </Descriptions>
+      {!alloweds.includes(catalog?.type || CatalogType.Entry) ? (
+        <div></div>
+      ) : (
+        <div>
+          <Divider />
+          <Typography.Title level={5}>Tags</Typography.Title>
+          <TagList />
+          <Divider dashed />
+          <div className='flex justify-center'>
+            <Button size='small' type='dashed' onClick={() => setOpen(true)}>
+              <Space>
+                <PlusOutlined />
+                Tạo tag
+              </Space>
+            </Button>
+          </div>
+        </div>
+      )}
+      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish} title="Tạo tag">
+        <ProFormText name="name" rules={[
           {
-            label: 'Content',
-            key: 'content',
-            children: <Content />,
-          },
-          {
-            label: intl.formatMessage({
-              id: 'menu.settings',
-            }),
-            key: 'setting',
-            children: <Setting />,
-          },
-        ],
-        onChange: (key) => {
-          setTab(key);
-        },
-      }}
-    />
+            required: true
+          }
+        ]} label="Name" />
+        <ProFormDigit name="type" initialValue={CatalogType.Tag} hidden />
+      </ModalForm>
+    </ProCard>
   );
 };
 
