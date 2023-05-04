@@ -1,4 +1,5 @@
 import { getCatalog, listTypes, saveCatalog } from '@/services/catalog';
+import { FolderOutlined } from '@ant-design/icons';
 import {
   ProForm,
   ProFormCheckbox,
@@ -8,14 +9,15 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import Gallery from '../files/gallery';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
 
   const formRef = useRef<ProFormInstance>();
-
+  const [open, setOpen] = useState<boolean>(false);
   const [types, setTypes] = useState<any>();
 
   useEffect(() => {
@@ -64,24 +66,32 @@ const CatalogSetting: React.FC = () => {
     }
   };
 
+  const onSelect = (values: API.FileContent) => {
+    formRef.current?.setFieldValue('thumbnail', values.url);
+    setOpen(false);
+  }
+
   return (
-    <ProForm formRef={formRef} onFinish={onFinish}>
-      <ProFormText name="id" hidden />
-      <ProFormText name="name" label="Name" rules={[
-        {
-          required: true
-        }
-      ]} />
-      <ProFormText name="normalizedName" label="Normalized name" rules={[
-        {
-          required: true
-        }
-      ]} />
-      <ProFormTextArea name="description" label="Description" />
-      <ProFormText name="thumbnail" label="Thumbnail" />
-      <ProFormSelect name="type" label="Type" options={types} allowClear={false}></ProFormSelect>
-      <ProFormCheckbox name="active" label="Active" />
-    </ProForm>
+    <div>
+      <ProForm formRef={formRef} onFinish={onFinish}>
+        <ProFormText name="id" hidden />
+        <ProFormText name="name" label="Name" rules={[
+          {
+            required: true
+          }
+        ]} />
+        <ProFormText name="normalizedName" label="Normalized name" rules={[
+          {
+            required: true
+          }
+        ]} />
+        <ProFormTextArea name="description" label="Description" />
+        <ProFormText name="thumbnail" label="Thumbnail" width="lg" addonAfter={<Button icon={<FolderOutlined />} onClick={() => setOpen(true)}>File explorer</Button>} />
+        <ProFormSelect name="type" label="Type" options={types} allowClear={false} />
+        <ProFormCheckbox name="active" label="Active" />
+      </ProForm>
+      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
+    </div>
   );
 };
 

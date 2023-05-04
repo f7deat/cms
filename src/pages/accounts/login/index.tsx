@@ -14,7 +14,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedHTMLMessage, useIntl } from '@umijs/max';
+import { FormattedHTMLMessage, Link, useIntl } from '@umijs/max';
 import { history, useModel } from '@umijs/max';
 import { message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
@@ -218,13 +218,15 @@ const Login: React.FC = () => {
           <ProFormCheckbox noStyle name="autoLogin">
             <FormattedHTMLMessage id="pages.login.rememberMe" />
           </ProFormCheckbox>
-          <a
+          <div
             style={{
               float: 'right',
             }}
           >
-            <FormattedHTMLMessage id="pages.login.forgotPassword" />
-          </a>
+            <Link to="/accounts/forgot-password">
+              <FormattedHTMLMessage id="pages.login.forgotPassword" />
+            </Link>
+          </div>
         </div>
       </LoginForm>
     </div>
