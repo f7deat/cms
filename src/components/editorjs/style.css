@@ -8,9 +8,20 @@ input {
     gap: 1rem;
 }
 
-.form-control {
+.form-control, .cdx-input {
     padding: 0.5rem;
     border-radius: 0.25rem;
-    width: 100%;
-    border: 1px solid #d1d1d1;
+    box-shadow: none;
+}
+
+.cdx-button {
+    background-color: #1677ff;
+    color: white;
+    height: 32px;
+    padding: 4px 15px;
+}
+
+.cdx-button:hover {
+    background-color: #1677ff;
+    opacity: 0.75;
 }
