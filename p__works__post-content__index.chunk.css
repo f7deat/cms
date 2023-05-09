@@ -1,1 +1,1 @@
-input{outline:none;color:#333}.form-group{display:flex;gap:1rem}.form-control{padding:.5rem;border-radius:.25rem;width:100%;border:1px solid #d1d1d1}
+input{outline:none;color:#333}.form-group{display:flex;gap:1rem}.form-control,.cdx-input{padding:.5rem;border-radius:.25rem;box-shadow:none}.cdx-button{background-color:#1677ff;color:#fff;height:32px;padding:4px 15px}.cdx-button:hover{background-color:#1677ff;opacity:.75}
