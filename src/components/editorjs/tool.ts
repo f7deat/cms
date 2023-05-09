@@ -13,7 +13,7 @@ import CheckList from '@editorjs/checklist';
 import Delimiter from '@editorjs/delimiter';
 import InlineCode from '@editorjs/inline-code';
 import SimpleImage from '@editorjs/simple-image';
-import { Blogger, YoutubeVideo } from './tools';
+import { Blogger } from './tools';
 
 export const EDITOR_JS_TOOLS = {
   embed: Embed,
@@ -37,6 +37,5 @@ export const EDITOR_JS_TOOLS = {
   delimiter: Delimiter,
   inlineCode: InlineCode,
   simpleImage: SimpleImage,
-  youtube: YoutubeVideo,
   blogger: Blogger
 };

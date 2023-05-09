@@ -1,8 +1,5 @@
 import '../../style.css';
-
-type EditorProps = {
-    data: BloggerType
-}
+import { IAPI, IEditor } from '../../typings';
 
 type BloggerType = {
     blogger: {
@@ -14,9 +11,11 @@ type BloggerType = {
 class Blogger {
 
     data: BloggerType;
+    api: IAPI;
 
-    constructor(props: EditorProps) {
+    constructor(props: IEditor<BloggerType>) {
         this.data = props.data
+        this.api = props.api;
     }
 
     static get toolbox() {
@@ -32,13 +31,13 @@ class Blogger {
         inputBlogId.placeholder = 'Blog Id';
         inputBlogId.id = 'blogId';
         inputBlogId.value = this.data?.blogger?.blogId ?? '';
-        inputBlogId.classList.add('form-control');
+        inputBlogId.classList.add(this.api.styles.input);
 
         const inputPostId = document.createElement('input');
         inputPostId.placeholder = 'Post Id'
         inputPostId.id = 'postId';
         inputPostId.value = this.data?.blogger?.postId ?? '';
-        inputPostId.classList.add('form-control');
+        inputPostId.classList.add(this.api.styles.input);
 
         wrapper.appendChild(inputBlogId);
         wrapper.appendChild(inputPostId);

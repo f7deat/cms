@@ -4,10 +4,6 @@ export interface IEditor<T> {
     readOnly: boolean;
 }
 
-export interface IYoutube {
-    url: string;
-}
-
 interface IAPI {
     listeners: IListeners;
     styles: {
