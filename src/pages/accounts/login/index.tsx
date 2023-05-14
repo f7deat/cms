@@ -14,14 +14,13 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedHTMLMessage, Link, useIntl } from '@umijs/max';
+import { FormattedHTMLMessage, Link, SelectLang, useIntl } from '@umijs/max';
 import { history, useModel } from '@umijs/max';
 import { message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
-import bg from '../../../assets/bg-login.svg';
 import logo from '../../../assets/logo.svg';
-import './index.css';
+import '../index.css';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -58,14 +57,10 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bg})`,
-        height: '100vh',
-        backgroundColor: '#f0f2f5',
-      }}
-      className="flex items-center"
-    >
+    <div className="flex items-center relative h-screen">
+      <div className='fixed'>
+        <SelectLang />
+      </div>
       <LoginForm
         logo={<img alt="logo" src={logo} />}
         title="Waffle"

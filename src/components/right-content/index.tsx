@@ -1,21 +1,26 @@
-import { useModel } from '@umijs/max';
-import { SelectLang } from '@umijs/max';
-import { Space } from 'antd';
-import AvatarDropdown from './avatar-dropdown';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { SelectLang as UmiSelectLang } from '@umijs/max';
 
-const RightContent: React.FC = () => {
-  const { initialState } = useModel('@@initialState');
+export type SiderTheme = 'light' | 'dark';
 
-  if (!initialState || !initialState.currentUser) {
-    return null;
-  }
-
+export const SelectLang = () => {
   return (
-    <Space>
-      <AvatarDropdown menu />
-      <SelectLang />
-    </Space>
+    <UmiSelectLang />
   );
 };
 
-export default RightContent;
+export const Question = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        height: 26,
+      }}
+      onClick={() => {
+        window.open('https://pro.ant.design/docs/getting-started');
+      }}
+    >
+      <QuestionCircleOutlined />
+    </div>
+  );
+};

@@ -9,7 +9,6 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: 'Waffle',
     ...defaultSettings
   },
   locale: {

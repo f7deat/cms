@@ -6,6 +6,7 @@ const defaultSettings: ProLayoutProps = {
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
+  title: 'Waffle'
 };
 
 export default defaultSettings;

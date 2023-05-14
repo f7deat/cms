@@ -13,6 +13,7 @@ import HeaderDropdown from '../header-dropdown';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
+  children?: React.ReactNode;
 };
 
 const Name = () => {
@@ -22,6 +23,12 @@ const Name = () => {
   return <span className={`anticon`}>{currentUser?.email}</span>;
 };
 
+export const AvatarName = () => {
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  return <span className="anticon">{currentUser?.email}</span>;
+};
+
 const AvatarLogo = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
@@ -29,7 +36,7 @@ const AvatarLogo = () => {
   return <Avatar size="small" src={currentUser?.avatar} alt="avatar" />;
 };
 
-const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const intl = useIntl();
 
   const loginOut = async () => {
@@ -138,5 +145,3 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     </HeaderDropdown>
   );
 };
-
-export default AvatarDropdown;

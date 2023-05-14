@@ -4,11 +4,14 @@ import logo from './assets/logo.svg';
 import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';
-import RightContent from './components/right-content';
 import { DefaultFooter } from '@ant-design/pro-components';
 import { RequestOptions } from './.umi/plugin-request/request';
-import { GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
+import { SelectLang } from '@umijs/max';
+import { AvatarDropdown, AvatarName, Question } from './components';
+import { Fragment } from 'react';
 
+const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/accounts/login';
 
 export async function getInitialState(): Promise<{
@@ -55,7 +58,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     waterMarkProps: {
       content: initialState?.currentUser?.userName
     },
-    layout: 'top',
     footerRender: () => (
       <DefaultFooter copyright={copyright()} links={[
         {
@@ -72,13 +74,29 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         },
       ]} />
     ),
-    rightContentRender: () => <RightContent />,
+    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
+    avatarProps: {
+      src: initialState?.currentUser?.avatar,
+      title: <AvatarName />,
+      render: (_: any, avatarChildren: any) => {
+        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+      },
+    },
     onPageChange: () => {
       const { location } = history;
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
     },
+    rightContentRender: () => <Fragment />,
+    links: isDev
+      ? [
+        <a key="openapi" href="https://waffleverse.gitbook.io/api/" target="_blank" rel="noreferrer">
+          <LinkOutlined />
+          <span>OpenAPI Docs</span>
+        </a>,
+      ]
+      : []
   };
 };
 
