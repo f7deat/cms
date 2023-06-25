@@ -5,7 +5,7 @@ export enum CatalogType {
   Product,
   Setting,
   Entry,
-  ArticleCategoy,
+  Location,
   ProductCategory,
   Blogspot,
   Albums,

@@ -35,7 +35,7 @@ const NewCatalog: React.FC<NewCatalogProps> = (props) => {
         ]}
       />
       <ProFormTextArea label="Description" name="description" />
-      <ProFormText name="type" initialValue={props.type} hidden />
+      <ProFormText name="type" initialValue={props.type} label="Type" />
       <ProFormCheckbox name="active" initialValue={false} hidden />
     </ModalForm>
   );

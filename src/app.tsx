@@ -1,6 +1,6 @@
 import { RequestConfig } from '@umijs/max';
 import '../style.css';
-import logo from './assets/logo.svg';
+import logo from './assets/logo.png';
 import { queryCurrentUser } from './services/user';
 import { history } from '@umijs/max';
 import { RunTimeLayoutConfig } from '@umijs/max';

@@ -19,8 +19,11 @@ import { history, useModel } from '@umijs/max';
 import { message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
-import logo from '../../../assets/logo.svg';
+import logo from '../../../assets/logo.png';
 import '../index.css';
+import { Helmet } from '@umijs/max';
+import Settings from '../../../../config/defaultSetting';
+import '../../../../style.css';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -57,173 +60,178 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center relative h-screen">
+    <div>
+      <Helmet>
+        <title>{intl.formatMessage({ id: 'menu.login', defaultMessage: 'Login', })} - {Settings.title}</title>
+      </Helmet>
       <div className='fixed'>
-        <SelectLang />
+      <SelectLang />
       </div>
-      <LoginForm
-        logo={<img alt="logo" src={logo} />}
-        title="Waffle"
-        subTitle={intl.formatMessage({ id: 'pages.login.subTitle' })}
-        initialValues={{
-          autoLogin: true,
-        }}
-        actions={[
-          <div key={2} className="mb-4 text-center">
-            <FormattedHTMLMessage id="pages.login.orLoginWith" />
-          </div>,
-          <div className="text-center" key={3}>
-            <Space align="center">
-              <AlipayCircleOutlined
-                key="AlipayCircleOutlined"
-                style={{ fontSize: '1.5rem' }}
-              />
-              <TaobaoCircleOutlined
-                key="TaobaoCircleOutlined"
-                style={{ fontSize: '1.5rem' }}
-              />
-              <WeiboCircleOutlined
-                key="WeiboCircleOutlined"
-                style={{ fontSize: '1.5rem' }}
-              />
-            </Space>
-          </div>,
-        ]}
-        onFinish={async (values) => {
-          await handleSubmit(values as any);
-        }}
-      >
-        <Tabs
-          activeKey={type}
-          onChange={setType}
-          centered
-          items={[
-            {
-              key: 'account',
-              label: 'Tài khoản',
-            },
-            {
-              key: 'mobile',
-              label: intl.formatMessage({
-                id: 'general.phoneNumber',
-                defaultMessage: 'Phone number',
-              }),
-            },
+      <div className="flex items-center relative h-screen">
+        <LoginForm
+          logo={<img alt="logo" src={logo} />}
+          title="Waffle"
+          subTitle={intl.formatMessage({ id: 'pages.login.subTitle' })}
+          initialValues={{
+            autoLogin: true,
+          }}
+          actions={[
+            <div key={2} className="mb-4 text-center">
+              <FormattedHTMLMessage id="pages.login.orLoginWith" />
+            </div>,
+            <div className="text-center" key={3}>
+              <Space align="center">
+                <AlipayCircleOutlined
+                  key="AlipayCircleOutlined"
+                  style={{ fontSize: '1.5rem' }}
+                />
+                <TaobaoCircleOutlined
+                  key="TaobaoCircleOutlined"
+                  style={{ fontSize: '1.5rem' }}
+                />
+                <WeiboCircleOutlined
+                  key="WeiboCircleOutlined"
+                  style={{ fontSize: '1.5rem' }}
+                />
+              </Space>
+            </div>,
           ]}
-        />
-        {type === 'account' && (
-          <>
-            <ProFormText
-              name="baseURL"
-              fieldProps={{
-                size: 'large',
-                prefix: <SelectOutlined />,
-              }}
-              placeholder="Website url"
-            ></ProFormText>
-            <ProFormText
-              name="username"
-              fieldProps={{
-                size: 'large',
-                prefix: <UserOutlined />,
-              }}
-              placeholder="Email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input email!',
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined />,
-              }}
-              placeholder={intl.formatMessage({
-                id: 'pages.login.password',
-              })}
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input password!',
-                },
-              ]}
-            />
-          </>
-        )}
-
-        {type === 'mobile' && (
-          <>
-            <ProFormText
-              fieldProps={{
-                size: 'large',
-                prefix: <MobileOutlined />,
-              }}
-              name="mobile"
-              placeholder={intl.formatMessage({
-                id: 'general.phoneNumber',
-                defaultMessage: 'Phone number',
-              })}
-              rules={[
-                {
-                  required: true,
-                  message: 'Vui lòng nhập số điện thoại',
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: 'Số điện thoại không hợp lệ',
-                },
-              ]}
-            />
-            <ProFormCaptcha
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined />,
-              }}
-              captchaProps={{
-                size: 'large',
-              }}
-              placeholder="Mã xác nhận"
-              captchaTextRender={(timing, count) => {
-                if (timing) {
-                  return 'Lấy mã + ' + count;
-                }
-                return 'Lấy mã';
-              }}
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                  message: 'Vui lòng nhập mã xác nhận!',
-                },
-              ]}
-              onGetCaptcha={async (phone) => {
-                message.success('Đã gửi mã xác minh tới: ' + phone);
-              }}
-            />
-          </>
-        )}
-        <div
-          style={{
-            marginBottom: 24,
+          onFinish={async (values) => {
+            await handleSubmit(values as any);
           }}
         >
-          <ProFormCheckbox noStyle name="autoLogin">
-            <FormattedHTMLMessage id="pages.login.rememberMe" />
-          </ProFormCheckbox>
+          <Tabs
+            activeKey={type}
+            onChange={setType}
+            centered
+            items={[
+              {
+                key: 'account',
+                label: 'Tài khoản',
+              },
+              {
+                key: 'mobile',
+                label: intl.formatMessage({
+                  id: 'general.phoneNumber',
+                  defaultMessage: 'Phone number',
+                }),
+              },
+            ]}
+          />
+          {type === 'account' && (
+            <>
+              <ProFormText
+                name="baseURL"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <SelectOutlined />,
+                }}
+                placeholder="Website url"
+              ></ProFormText>
+              <ProFormText
+                name="username"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined />,
+                }}
+                placeholder="Email"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input email!',
+                  },
+                ]}
+              />
+              <ProFormText.Password
+                name="password"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined />,
+                }}
+                placeholder={intl.formatMessage({
+                  id: 'pages.login.password',
+                })}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input password!',
+                  },
+                ]}
+              />
+            </>
+          )}
+
+          {type === 'mobile' && (
+            <>
+              <ProFormText
+                fieldProps={{
+                  size: 'large',
+                  prefix: <MobileOutlined />,
+                }}
+                name="mobile"
+                placeholder={intl.formatMessage({
+                  id: 'general.phoneNumber',
+                  defaultMessage: 'Phone number',
+                })}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập số điện thoại',
+                  },
+                  {
+                    pattern: /^1\d{10}$/,
+                    message: 'Số điện thoại không hợp lệ',
+                  },
+                ]}
+              />
+              <ProFormCaptcha
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined />,
+                }}
+                captchaProps={{
+                  size: 'large',
+                }}
+                placeholder="Mã xác nhận"
+                captchaTextRender={(timing, count) => {
+                  if (timing) {
+                    return 'Lấy mã + ' + count;
+                  }
+                  return 'Lấy mã';
+                }}
+                name="captcha"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập mã xác nhận!',
+                  },
+                ]}
+                onGetCaptcha={async (phone) => {
+                  message.success('Đã gửi mã xác minh tới: ' + phone);
+                }}
+              />
+            </>
+          )}
           <div
             style={{
-              float: 'right',
+              marginBottom: 24,
             }}
           >
-            <Link to="/accounts/forgot-password">
-              <FormattedHTMLMessage id="pages.login.forgotPassword" />
-            </Link>
+            <ProFormCheckbox noStyle name="autoLogin">
+              <FormattedHTMLMessage id="pages.login.rememberMe" />
+            </ProFormCheckbox>
+            <div
+              style={{
+                float: 'right',
+              }}
+            >
+              <Link to="/accounts/forgot-password">
+                <FormattedHTMLMessage id="pages.login.forgotPassword" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </LoginForm>
+        </LoginForm>
+      </div>
     </div>
   );
 };

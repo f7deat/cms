@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .flex {
   display: flex;
 }

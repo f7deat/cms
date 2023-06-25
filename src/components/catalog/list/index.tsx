@@ -1,3 +1,4 @@
+import FormCatalogType from '@/components/form/catalog-type';
 import { CatalogType } from '@/constants';
 import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
@@ -10,6 +11,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage } from '@umijs/max';
+import { useIntl } from '@umijs/max';
 import { history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
@@ -19,6 +21,7 @@ type CatalogListProps = {
 };
 
 const CatalogList: React.FC<CatalogListProps> = (props) => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -99,7 +102,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
   ];
 
   const onFinish = async (values: API.Catalog) => {
-    values.type = Number(props.type);
+    values.type = Number(values.type);
     const response = await addCatalog(values);
     if (response.succeeded) {
       message.success('Added!');
@@ -131,7 +134,9 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         open={open}
         onOpenChange={setOpen}
         onFinish={onFinish}
-        title={`Thêm mới ${props.type}`}
+        title={intl.formatMessage({
+          id: 'general.new',
+        })}
       >
         <ProFormText
           name="name"
@@ -142,6 +147,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
             },
           ]}
         />
+        <FormCatalogType label='Type' name='type' initialValue={`${props.type}`} />
         <ProFormTextArea label="Description" name="description" />
       </ModalForm>
     </div>
