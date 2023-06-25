@@ -1,13 +1,10 @@
 export default {
   'menu.catalog': 'Catalog',
-  'menu.catalog.album': 'Album',
   'menu.catalog.article': 'Bài viết',
   'menu.catalog.center': 'Chi tiết',
-  'menu.catalog.game': 'Game',
   'menu.catalog.tag': 'Tag',
   'menu.catalog.tagCenter': 'Chi tiết',
   'menu.catalog.page': 'Trang',
-  'menu.catalog.video': 'Video',
   'menu.ecommerce': 'E-Commerce',
   'menu.ecommerce.center': 'Chi tiết',
   'menu.ecommerce.order': 'Đơn hàng',

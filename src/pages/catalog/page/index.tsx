@@ -22,9 +22,24 @@ const Page: React.FC = () => {
               children: <CatalogList type={CatalogType.Default} />
             },
             {
-              label: 'Location',
+              label: 'Games',
+              key: `${CatalogType.Game}`,
+              children: <CatalogList type={CatalogType.Game} />
+            },
+            {
+              label: 'Locations',
               key: `${CatalogType.Location}`,
               children: <CatalogList type={CatalogType.Location} />
+            },
+            {
+              label: 'Videos',
+              key: `${CatalogType.Video}`,
+              children: <CatalogList type={CatalogType.Video} />
+            },
+            {
+              label: 'Albums',
+              key: `${CatalogType.Albums}`,
+              children: <CatalogList type={CatalogType.Albums} />
             }
           ]
         }}

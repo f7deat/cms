@@ -5,7 +5,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { ModalForm, ProCard, ProFormDigit, ProFormText } from '@ant-design/pro-components';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { CatalogType } from '@/constants';
 import { useParams } from '@umijs/max';
 import { addCatalog, getCatalog } from '@/services/catalog';
@@ -17,13 +17,6 @@ const CatalogSummary: React.FC = () => {
   const { id } = useParams();
   const [open, setOpen] = useState<boolean>(false);
   const [catalog, setCatalog] = useState<API.Catalog>();
-
-  const alloweds: number[] = [
-    CatalogType.Article,
-    CatalogType.Product,
-    CatalogType.Albums,
-    CatalogType.Video
-  ];
 
   useEffect(() => {
     getCatalog(id).then((response) => setCatalog(response));
@@ -71,8 +64,8 @@ const CatalogSummary: React.FC = () => {
           {formatDate(catalog?.modifiedDate)}
         </Descriptions.Item>
       </Descriptions>
-      {!alloweds.includes(catalog?.type || CatalogType.Entry) ? (
-        <div></div>
+      {(catalog?.type || CatalogType.Entry) === CatalogType.Tag ? (
+        <Fragment />
       ) : (
         <div>
           <Divider />

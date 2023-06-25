@@ -1,12 +1,7 @@
 import { listTagSelect } from '@/services/catalog';
-import { ProFormSelect } from '@ant-design/pro-components';
+import { ProFormSelect, ProFormSelectProps } from '@ant-design/pro-components';
 
-type FormTagProps = {
-  label?: string;
-  name?: string;
-};
-
-const FormTag: React.FC<FormTagProps> = (props) => {
+const FormTag: React.FC<ProFormSelectProps> = (props) => {
   return (
     <ProFormSelect
       showSearch

@@ -1,3 +1,4 @@
+import FormCatalogType from '@/components/form/catalog-type';
 import WorkSummary from '@/components/works/summary';
 import { getArguments, saveArguments } from '@/services/work-content';
 import {
@@ -54,28 +55,7 @@ const Feed: React.FC = () => {
                   required: true
                 }
               ]} />
-              <ProFormSelect name="type" label="Type" rules={[
-                {
-                  required: true
-                }
-              ]} options={[
-                {
-                  value: 0,
-                  label: 'Default'
-                },
-                {
-                  value: 1,
-                  label: 'Artice'
-                },
-                {
-                  value: 2,
-                  label: 'Shop'
-                },
-                {
-                  value: 11,
-                  label: 'Game'
-                }
-              ]} />
+              <FormCatalogType name="type" label="Type" />
               <ProFormDigit name="pageSize" label="Page size" />
             </ProForm>
           </ProCard>

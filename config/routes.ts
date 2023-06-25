@@ -196,16 +196,6 @@ export default [
           component: './catalog/article',
         },
         {
-          name: 'album',
-          path: '/catalog/album',
-          component: './catalog/album',
-        },
-        {
-          name: 'game',
-          path: '/catalog/game',
-          component: './catalog/game',
-        },
-        {
           name: 'tag',
           path: '/catalog/tag',
           component: './tag',
@@ -220,12 +210,7 @@ export default [
           name: 'page',
           path: '/catalog/page',
           component: './catalog/page',
-        },
-        {
-          name: 'video',
-          path: '/catalog/video',
-          component: './catalog/video',
-        },
+        }
       ],
     },
     {

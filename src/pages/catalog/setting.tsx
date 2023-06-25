@@ -1,10 +1,9 @@
-import { getCatalog, listTypes, saveCatalog } from '@/services/catalog';
+import { getCatalog, saveCatalog } from '@/services/catalog';
 import { FolderOutlined } from '@ant-design/icons';
 import {
   ProForm,
   ProFormCheckbox,
   ProFormInstance,
-  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
@@ -12,17 +11,15 @@ import { useParams } from '@umijs/max';
 import { Button, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import Gallery from '../files/gallery';
+import FormCatalogType from '@/components/form/catalog-type';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
 
   const formRef = useRef<ProFormInstance>();
   const [open, setOpen] = useState<boolean>(false);
-  const [types, setTypes] = useState<any>();
 
   useEffect(() => {
-    listTypes().then((response) => {
-      setTypes(response);
       getCatalog(id).then((response) => {
         formRef.current?.setFields([
           {
@@ -55,7 +52,6 @@ const CatalogSetting: React.FC = () => {
           },
         ]);
       });
-    });
   }, [id]);
 
   const onFinish = async (values: API.Catalog) => {
@@ -87,7 +83,7 @@ const CatalogSetting: React.FC = () => {
         ]} />
         <ProFormTextArea name="description" label="Description" />
         <ProFormText name="thumbnail" label="Thumbnail" width="lg" addonAfter={<Button icon={<FolderOutlined />} onClick={() => setOpen(true)}>File explorer</Button>} />
-        <ProFormSelect name="type" label="Type" options={types} allowClear={false} />
+        <FormCatalogType name="type" label="Type" />
         <ProFormCheckbox name="active" label="Active" />
       </ProForm>
       <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />

@@ -1,6 +1,6 @@
 import { getExportData, getStatistic, importData } from '@/services/backup';
 import { deleteWork, listUnuse } from '@/services/work-content';
-import { DeleteOutlined, DownloadOutlined, InboxOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, EyeOutlined, InboxOutlined } from '@ant-design/icons';
 import { ActionType, PageContainer, ProCard, ProColumns, ProTable, Statistic } from '@ant-design/pro-components';
 import { Button, Col, Divider, message, Popconfirm, Row, Upload, UploadProps } from 'antd';
 import { useEffect, useRef, useState } from 'react';
@@ -78,14 +78,16 @@ const Backup: React.FC = () => {
     {
       title: '',
       render: (text, row) => [
+        <Button key={1} type='primary' icon={<EyeOutlined />} />,
         <Popconfirm
-          key={1}
+          key={2}
           title="Are you sure?"
           onConfirm={() => onConfirm(row.id)}
         >
           <Button type="primary" danger icon={<DeleteOutlined />} />
         </Popconfirm>,
       ],
+      valueType: 'option'
     }
   ]
 
