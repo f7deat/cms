@@ -1,9 +1,12 @@
 export default {
-  'menu.article': 'Article',
+  'menu.catalog.article': 'Article',
+  'menu.catalog.tag': 'Tag',
+  'menu.catalog.page': 'Leaf',
   'menu.article.center': 'Article center',
   'menu.article.home': 'Articles',
   'menu.article.list': 'Article list',
   'menu.catalog': 'Catalog',
+  'menu.ecommerce': 'E-Commerce',
   'menu.component': 'Component',
   'menu.component.blockEditor': 'Block editor',
   'menu.component.blogger': 'Blogger',

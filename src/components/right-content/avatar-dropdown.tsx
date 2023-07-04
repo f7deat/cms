@@ -138,7 +138,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         items: menuItems,
       }}
     >
-      <Space>
+      <Space className='cursor-pointer'>
         <AvatarLogo />
         <Name />
       </Space>

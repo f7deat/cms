@@ -9,9 +9,10 @@ input {
 }
 
 .form-control, .cdx-input {
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     box-shadow: none;
+    border-color: #d9d9d9;
 }
 
 .cdx-button {

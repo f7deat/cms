@@ -108,12 +108,15 @@ const Localization: React.FC = () => {
   return (
     <PageContainer
       extra={
-        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
+        <Button type="primary" className='flex gap-2 items-center' icon={<PlusOutlined />} onClick={handleAdd}>
           <FormattedMessage id="general.new" />
         </Button>
       }
     >
       <ProTable
+        pagination={{
+          defaultPageSize: 8
+        }}
         actionRef={actionRef}
         columns={columns}
         request={listLocalization}

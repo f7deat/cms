@@ -67,7 +67,9 @@ const SettingPage: React.FC = () => {
         <Col span={12}>
           <ProCard>
             <ProForm onFinish={onFinish}>
-              <ProFormText name="titleSuffix" label="Title suffix" />
+              <ProFormText name="address" label="Address" />
+              <ProFormText name="phoneNumber" label="PhoneNumber" />
+              <ProFormText name="email" label="Email" />
             </ProForm>
           </ProCard>
         </Col>

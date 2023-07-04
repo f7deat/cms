@@ -1,6 +1,7 @@
 import { deleteFileContent, listFile } from '@/services/file-service';
 import {
   ArrowUpOutlined,
+  ClearOutlined,
   DeleteOutlined,
   DownloadOutlined,
   EyeOutlined,
@@ -13,7 +14,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Avatar, Button, Col, message, Popconfirm, Row, Space } from 'antd';
+import { Avatar, Button, Col, message, Popconfirm, Row, Space, Statistic } from 'antd';
 import { useRef, useState } from 'react';
 import Explorer from './explorer';
 
@@ -93,6 +94,9 @@ const FilePage: React.FC = () => {
       <Row gutter={16}>
         <Col span={18}>
           <ProTable
+            pagination={{
+              defaultPageSize: 8
+            }}
             headerTitle="Recent"
             request={listFile}
             columns={columns}
@@ -101,18 +105,32 @@ const FilePage: React.FC = () => {
           />
         </Col>
         <Col span={6}>
+          <Row gutter={16}>
+            <Col span={12}>
+              <ProCard className='mb-4'>
+                <Statistic title="Total Files" />
+              </ProCard>
+            </Col>
+            <Col span={12}>
+              <ProCard className='mb-4'>
+                <Statistic title="Total Size" />
+              </ProCard>
+            </Col>
+          </Row>
           <ProCard>
-            <Row>
+            <div className='flex justify-between items-center'>
               <Col span={4}>
                 <Avatar icon="T" />
               </Col>
               <Col>
                 <Space>
                   Clean up your space
-                  <Button>Clean</Button>
                 </Space>
               </Col>
-            </Row>
+              <Col>
+                <Button icon={<ClearOutlined />}>Clean</Button>
+              </Col>
+            </div>
           </ProCard>
         </Col>
       </Row>

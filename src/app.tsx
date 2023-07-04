@@ -59,7 +59,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       content: initialState?.currentUser?.userName
     },
     footerRender: () => (
-      <DefaultFooter copyright={copyright()} links={[
+      <DefaultFooter copyright="Produced by Waffle Financial Experience Department" links={[
         {
           key: 'github',
           title: <GithubOutlined />,
@@ -79,7 +79,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
       render: (_: any, avatarChildren: any) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+        return <AvatarDropdown menu>{avatarChildren}</AvatarDropdown>;
       },
     },
     onPageChange: () => {

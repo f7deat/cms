@@ -2,6 +2,7 @@ import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Empty } from 'antd';
 import { useState } from 'react';
 import SecuriryCenter from './components/security';
+import Basic from './components/basic';
 
 const UserCenter: React.FC = () => {
   const [tab, setTab] = useState('basic');
@@ -9,13 +10,13 @@ const UserCenter: React.FC = () => {
     <PageContainer>
       <ProCard
         tabs={{
-          tabPosition: 'left',
+          tabPosition: 'top',
           activeKey: tab,
           items: [
             {
               label: 'Cơ bản',
               key: 'basic',
-              children: <Empty />,
+              children: <Basic />,
             },
             {
               label: 'Bảo mật',

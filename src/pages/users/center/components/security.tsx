@@ -1,4 +1,5 @@
 import { changePassword } from '@/services/user';
+import { EditOutlined } from '@ant-design/icons';
 import { ModalForm, ProFormText, ProList } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { Button, message } from 'antd';
@@ -19,7 +20,7 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
     },
     {
       id: 'email',
-      name: 'Email',
+      name: 'Email'
     },
     {
       id: 'phone',
@@ -62,6 +63,9 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
           title: {
             dataIndex: 'name',
           },
+          description: {
+            render: () => '***********'
+          },
           actions: {
             render: (text, row) => [
               <Button
@@ -69,13 +73,13 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
                 key={row.id}
                 onClick={() => handleEdit(row.id)}
               >
-                Chỉnh sửa
+                <EditOutlined />
               </Button>,
             ],
           },
         }}
       />
-      <ModalForm open={pOpen} onOpenChange={setPOpen} onFinish={onFinish}>
+      <ModalForm open={pOpen} onOpenChange={setPOpen} onFinish={onFinish} title="Change Password">
         <ProFormText name="id" initialValue={id} hidden />
         <ProFormText.Password
           name="currentPassword"
