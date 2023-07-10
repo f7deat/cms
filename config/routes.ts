@@ -360,6 +360,11 @@ export default [
           path: '/settings/localization',
           component: './localization',
         },
+        {
+          name: 'roles',
+          path: '/settings/roles',
+          component: './settings/roles',
+        },
       ],
     },
     {

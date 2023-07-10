@@ -55,6 +55,7 @@ export default {
   'menu.component.videoPlayer': 'Video Player',
   'menu.settings.sidebar': 'Sidebar',
   'menu.settings.social': 'Social',
+  'menu.settings.roles': 'Roles',
   'menu.component.tag': 'Tag',
   'menu.users': 'Người dùng',
   'menu.users.profile': 'Hồ sơ',
