@@ -123,3 +123,7 @@ export async function saveAppSetting(id: string | undefined, data: any) {
     data,
   });
 }
+
+export async function getByName(name: string) {
+  return request(`appsetting/by-name/${name}`);
+}

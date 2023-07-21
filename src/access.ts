@@ -1,6 +1,7 @@
-export default (initialState: any) => {
-  const canSeeAdmin = !!(initialState && initialState !== 'dontHaveAccess');
+export default (initialState: { currentUser?: API.User }) => {
+  const { currentUser } = initialState ?? {};
+  const canAdmin = currentUser && currentUser.roles.includes('admin');
   return {
-    canSeeAdmin,
+    canAdmin
   };
 };

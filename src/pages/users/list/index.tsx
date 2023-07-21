@@ -31,6 +31,8 @@ const UserList: React.FC = () => {
       );
       setOpen(false);
       actionRef.current?.reload();
+    } else {
+      message.error(response.errors[0].description)
     }
   };
 
@@ -123,6 +125,11 @@ const UserList: React.FC = () => {
         })}
         onFinish={onFinish}
       >
+        <ProFormText name="userName" label="User Name" rules={[
+          {
+            required: true
+          }
+        ]} />
         <ProFormText
           name="email"
           label="Email"

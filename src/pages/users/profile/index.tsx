@@ -14,6 +14,7 @@ import {
   Tag,
 } from 'antd';
 import { useEffect, useState } from 'react';
+import ProfileRoles from './role';
 
 const Profile: React.FC = () => {
   const { id } = useParams();
@@ -52,12 +53,9 @@ const Profile: React.FC = () => {
               </Descriptions.Item>
             </Descriptions>
             <Divider />
-            <Typography.Title level={5}>Roles</Typography.Title>
-            {user?.roles.map((role) => (
-              <Tag key={role} color="blue">
-                {role}
-              </Tag>
-            ))}
+            {
+              user && <ProfileRoles roles={user?.roles} />
+            }
           </ProCard>
         </Col>
         <Col span={18}>

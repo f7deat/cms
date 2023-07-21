@@ -1,6 +1,7 @@
 import {
   EditOutlined,
   EllipsisOutlined,
+  EyeOutlined,
   PlusOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
@@ -9,9 +10,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { CatalogType } from '@/constants';
 import { useParams } from '@umijs/max';
 import { addCatalog, getCatalog } from '@/services/catalog';
-import { message, Image, Empty, Divider, Descriptions, Typography, Button, Space } from 'antd';
+import { message, Image, Empty, Divider, Descriptions, Typography, Button, Space, Tooltip } from 'antd';
 import { absolutePath, formatDate } from '@/utils/format';
 import TagList from './tag';
+import { BASE_URL } from '@/utils/setting';
 
 const CatalogSummary: React.FC = () => {
   const { id } = useParams();
@@ -32,10 +34,24 @@ const CatalogSummary: React.FC = () => {
       message.error(response.errors[0].description)
     }
   }
+
+  const catalogUrl = () => {
+    let TYPE = 'leaf'
+    switch (catalog?.type) {
+      case CatalogType.Article: TYPE = 'article'; break;
+      case CatalogType.Location: TYPE = 'locations'; break;
+      case CatalogType.Video: TYPE = 'videos'; break;
+    }
+    return `${BASE_URL}${TYPE}/${catalog?.normalizedName}`;
+  }
+
   return (
     <ProCard
       title="Summary"
       actions={[
+        <Tooltip key="view" title="Preview">
+          <EyeOutlined onClick={() => window.open(catalogUrl())} />
+        </Tooltip>,
         <SettingOutlined key="setting" />,
         <EditOutlined key="edit" />,
         <EllipsisOutlined key="ellipsis" />,

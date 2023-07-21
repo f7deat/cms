@@ -7,8 +7,10 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { message } from 'antd';
+import { Col, Row, message } from 'antd';
 import { useEffect, useRef } from 'react';
+import GoogleTagManager from './google-tag-manager';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const GoogleApp: React.FC = () => {
   const { id } = useParams();
@@ -33,11 +35,22 @@ const GoogleApp: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProCard>
-        <ProForm formRef={formRef} onFinish={onFinish}>
-          <ProFormText.Password name="bloggerApiKey" label="Blogger API Key" />
-        </ProForm>
-      </ProCard>
+      <Row gutter={16}>
+        <Col span={6}>
+          <ProCard title="Blogger" extra={<a href='https://blogger.com/' target='_blank'><InfoCircleOutlined /></a>}>
+            <ProForm formRef={formRef} onFinish={onFinish}>
+              <ProFormText.Password name="bloggerApiKey" label="Blogger API Key" rules={[
+                {
+                  required: true
+                }
+              ]} />
+            </ProForm>
+          </ProCard>
+        </Col>
+        <Col span={6}>
+          <GoogleTagManager />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };
