@@ -1,5 +1,5 @@
 import { deleteComponent, listComponent } from '@/services/component';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   ActionType,
   PageContainer,
@@ -62,6 +62,7 @@ const Block: React.FC = () => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
+        <Button key="view" icon={<FolderOutlined />} onClick={() => history.push(`/settings/component/center/${entity.id}`)} />,
         <Popconfirm
           title="Are you sure?"
           key={2}

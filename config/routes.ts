@@ -11,11 +11,6 @@ export default [
           name: 'login',
           path: '/accounts/login',
           component: './accounts/login'
-        },
-        {
-          name: 'forgotPassword',
-          path: '/accounts/forgot-password',
-          component: './accounts/forgot-password'
         }
       ],
     },
@@ -158,6 +153,12 @@ export default [
           name: 'postContent',
           path: '/works/postcontent/:id',
           component: './works/post-content',
+          hideInMenu: true,
+        },
+        {
+          name: 'sponsor',
+          path: '/works/sponsor/:id',
+          component: './works/sponsor',
           hideInMenu: true,
         },
         {

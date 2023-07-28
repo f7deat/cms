@@ -22,8 +22,7 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
-      return msg.data as API.User;
+      return await queryCurrentUser();
     } catch (error) {
       history.push(loginPath);
     }
@@ -45,10 +44,6 @@ export async function getInitialState(): Promise<{
   };
 }
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
-
-  const copyright = () => {
-    return localStorage.getItem('wf_URL')?.substring(8).replace('/', '');
-  }
 
   return {
     logo: logo,

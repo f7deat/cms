@@ -27,6 +27,10 @@ const VideoPlaylist: React.FC = () => {
           name: 'pageSize',
           value: response.pageSize,
         },
+        {
+          name: 'className',
+          value: response.className
+        }
       ]);
     });
   }, []);
