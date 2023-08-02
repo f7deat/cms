@@ -38,3 +38,10 @@ export async function deleteUser(id: string) {
     method: 'POST'
   })
 }
+
+export async function addToRole(data: any) {
+    return request(`/user/add-to-role`, {
+      method: 'POST',
+      data
+    });
+}

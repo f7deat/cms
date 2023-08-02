@@ -1,4 +1,5 @@
 import {
+  activeWork,
   addItem,
   addWorkContent,
   deleteWorkContent,
@@ -12,6 +13,9 @@ import {
   ArrowDownOutlined,
   DeleteOutlined,
   PlusOutlined,
+  MoreOutlined,
+  CheckOutlined,
+  MinusOutlined,
 } from '@ant-design/icons';
 import {
   ActionType,
@@ -20,7 +24,7 @@ import {
   ProFormText,
   ProList,
 } from '@ant-design/pro-components';
-import { Button, message, Popconfirm } from 'antd';
+import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
 import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { useEffect, useRef, useState } from 'react';
@@ -81,6 +85,23 @@ const WorkContentComponent: React.FC = () => {
     }
   };
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Show / Hide'
+    },
+  ];
+
+  const onMoreClick = async (event: any, id: string) => {
+    if (event.key === '1') {
+      const resposne = await activeWork(id);
+      if (resposne.succeeded) {
+        message.success('Actived!');
+        actionRef.current?.reload();
+      }
+    }
+  }
+
   return (
     <div>
       <ProList<API.WorkItem>
@@ -107,6 +128,9 @@ const WorkContentComponent: React.FC = () => {
           title: {
             dataIndex: 'name',
           },
+          avatar: {
+            render: (dom, row) => row.active ? <CheckOutlined /> : <MinusOutlined />
+          },
           actions: {
             render: (text, row) => [
               <Button
@@ -115,8 +139,7 @@ const WorkContentComponent: React.FC = () => {
                 icon={<EditOutlined />}
                 onClick={() => {
                   history.push(
-                    `/works/${row.normalizedName.toLocaleLowerCase()}/${
-                      row.id
+                    `/works/${row.normalizedName.toLocaleLowerCase()}/${row.id
                     }`,
                   );
                 }}
@@ -155,6 +178,9 @@ const WorkContentComponent: React.FC = () => {
                 ></Button>
                 ,
               </Popconfirm>,
+              <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, row.id) }} key="more">
+                <Button icon={<MoreOutlined />} type='dashed' />
+              </Dropdown>
             ],
           },
         }}

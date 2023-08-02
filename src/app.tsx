@@ -10,6 +10,7 @@ import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
 import { SelectLang } from '@umijs/max';
 import { AvatarDropdown, AvatarName, Question } from './components';
 import { Fragment } from 'react';
+import { message } from 'antd';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/accounts/login';
@@ -108,9 +109,13 @@ export const request: RequestConfig = {
     },
   ],
   responseInterceptors: [
-    (res: any) => {
-      return res;
+    (response: any) => {
+      return response;
     },
   ],
-  errorConfig: {},
+  errorConfig: {
+    errorHandler: error => {
+      message.error(error.message)
+    }
+  },
 };
