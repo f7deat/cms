@@ -1,5 +1,5 @@
 import { getUser } from '@/services/user';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, MessageOutlined, UserAddOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import {
@@ -19,6 +19,7 @@ import ProfileRoles from './role';
 const Profile: React.FC = () => {
   const { id } = useParams();
   const [user, setUser] = useState<API.User>();
+  const [activeKey, setActiveKey] = useState<string>('activity');
 
   useEffect(() => {
     getUser(id).then((response) => {
@@ -31,19 +32,18 @@ const Profile: React.FC = () => {
       <Row gutter={16}>
         <Col span={6}>
           <ProCard
-            extra={
-              <Button
-                type="dashed"
-                icon={<EditOutlined />}
-                onClick={() => (window.location.href = 'https://gravatar.com/')}
-              >
-                Change avatar
-              </Button>
-            }
+            title="Profile"
+            headerBordered
           >
             <div className="flex items-center justify-center flex-col">
-              <Image src={user?.avatar} width={200} height={200} />
-              <Typography.Title level={4}>{user?.userName}</Typography.Title>
+              <div className='mb-4'>
+                <Image src={user?.avatar} width={200} height={200} alt='Avatar' className='rounded-full' />
+              </div>
+              <div className='mb-2'><Typography.Title level={4}>{user?.userName}</Typography.Title></div>
+              <div className='flex gap-2 justify-center'>
+                <Button type='primary' icon={<UserAddOutlined />}>Follow</Button>
+                <Button icon={<MessageOutlined />}>Message</Button>
+              </div>
             </div>
             <Divider />
             <Descriptions title="Info" column={1}>
@@ -59,7 +59,25 @@ const Profile: React.FC = () => {
           </ProCard>
         </Col>
         <Col span={18}>
-          <ProCard>
+          <ProCard tabs={{
+             tabPosition: 'top',
+             activeKey: activeKey,
+             items: [
+               {
+                 label: 'Activity',
+                 key: 'activity',
+                 children: <Empty />,
+               },
+               {
+                 label: 'Follower',
+                 key: 'follower',
+                 children: <Empty />,
+               },
+             ],
+             onChange: (key) => {
+               setActiveKey(key);
+             },
+          }}>
             <Empty />
           </ProCard>
         </Col>
