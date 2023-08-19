@@ -109,6 +109,7 @@ const UserList: React.FC = () => {
       }
     >
       <ProTable<API.User>
+        rowSelection={{}}
         rowKey="id"
         request={listUser}
         columns={columns}

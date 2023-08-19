@@ -9,8 +9,7 @@ import { RequestOptions } from './.umi/plugin-request/request';
 import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
 import { SelectLang } from '@umijs/max';
 import { AvatarDropdown, AvatarName, Question } from './components';
-import { Fragment } from 'react';
-import { message } from 'antd';
+import { Space, message } from 'antd';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/accounts/login';
@@ -51,6 +50,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     menu: {
       locale: true,
     },
+    layout: 'mix',
     waterMarkProps: {
       content: initialState?.currentUser?.userName
     },
@@ -70,7 +70,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         },
       ]} />
     ),
-    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
@@ -84,7 +83,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         history.push(loginPath);
       }
     },
-    rightContentRender: () => <Fragment />,
+    rightContentRender: () => (
+      <Space>
+        <Question key="doc" />
+        <SelectLang key="SelectLang" />
+        <AvatarDropdown menu />
+      </Space>
+    ),
     links: isDev
       ? [
         <a key="openapi" href="https://waffleverse.gitbook.io/api/" target="_blank" rel="noreferrer">

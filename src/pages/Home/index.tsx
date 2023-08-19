@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
             </Col>
           </Row>
           <Divider />
-          <ProCard title="Catalog with statistics">
+          <ProCard title="Catalogs" headerBordered>
             <PieChart
               angleField='value'
               colorField='label'

@@ -114,6 +114,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
   return (
     <div>
       <ProTable
+        rowSelection={{}}
         rowKey="id"
         request={(params) =>
           listCatalog({
@@ -121,6 +122,9 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
             type: props.type,
           })
         }
+        search={{
+          layout: "vertical"
+        }}
         columns={columns}
         actionRef={actionRef}
         toolBarRender={() => [

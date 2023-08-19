@@ -150,12 +150,6 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'postContent',
-          path: '/works/postcontent/:id',
-          component: './works/post-content',
-          hideInMenu: true,
-        },
-        {
           name: 'sponsor',
           path: '/works/sponsor/:id',
           component: './works/sponsor',
