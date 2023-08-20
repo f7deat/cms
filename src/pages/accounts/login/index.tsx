@@ -1,12 +1,12 @@
 import { login } from '@/services/user';
 import {
-  AlipayCircleOutlined,
+  FacebookFilled,
+  GithubFilled,
+  GoogleCircleFilled,
   LockOutlined,
   MobileOutlined,
   SelectOutlined,
-  TaobaoCircleOutlined,
   UserOutlined,
-  WeiboCircleOutlined,
 } from '@ant-design/icons';
 import {
   LoginForm,
@@ -16,7 +16,7 @@ import {
 } from '@ant-design/pro-components';
 import { FormattedHTMLMessage, Link, SelectLang, useIntl } from '@umijs/max';
 import { history, useModel } from '@umijs/max';
-import { message, Space, Tabs } from 'antd';
+import { Button, message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import logo from '../../../assets/logo.png';
@@ -60,14 +60,17 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='h-full'>
       <Helmet>
         <title>{intl.formatMessage({ id: 'menu.login', defaultMessage: 'Login', })} - {Settings.title}</title>
       </Helmet>
-      <div className='fixed'>
-      <SelectLang />
+      <div className='fixed' style={{
+        left: 10,
+        top: 10
+      }}>
+        <SelectLang />
       </div>
-      <div className="flex items-center relative h-screen">
+      <div className="flex items-center relative h-full">
         <LoginForm
           logo={<img alt="logo" src={logo} />}
           title="Waffle"
@@ -81,18 +84,9 @@ const Login: React.FC = () => {
             </div>,
             <div className="text-center" key={3}>
               <Space align="center">
-                <AlipayCircleOutlined
-                  key="AlipayCircleOutlined"
-                  style={{ fontSize: '1.5rem' }}
-                />
-                <TaobaoCircleOutlined
-                  key="TaobaoCircleOutlined"
-                  style={{ fontSize: '1.5rem' }}
-                />
-                <WeiboCircleOutlined
-                  key="WeiboCircleOutlined"
-                  style={{ fontSize: '1.5rem' }}
-                />
+                <Button icon={<FacebookFilled />} shape='circle' size='large'></Button>
+                <Button icon={<GoogleCircleFilled />} shape='circle' size='large'></Button>
+                <Button icon={<GithubFilled />} shape='circle' size='large'></Button>
               </Space>
             </div>,
           ]}

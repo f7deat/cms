@@ -16,17 +16,10 @@ export type GlobalHeaderRightProps = {
   children?: React.ReactNode;
 };
 
-const Name = () => {
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState || {};
-
-  return <span className={`anticon`}>{currentUser?.email}</span>;
-};
-
 export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  return <span className="anticon">{currentUser?.email}</span>;
+  return <span className="anticon">{currentUser?.userName}</span>;
 };
 
 const AvatarLogo = () => {
@@ -37,6 +30,7 @@ const AvatarLogo = () => {
 };
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+  console.log(menu)
   const intl = useIntl();
 
   const loginOut = async () => {
@@ -78,15 +72,13 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   );
 
   const loading = (
-    <span>
-      <Spin
-        size="small"
-        style={{
-          marginLeft: 8,
-          marginRight: 8,
-        }}
-      />
-    </span>
+    <Spin
+      size="small"
+      style={{
+        marginLeft: 8,
+        marginRight: 8,
+      }}
+    />
   );
 
   if (!initialState) {
@@ -95,31 +87,31 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
 
   const { currentUser } = initialState;
 
-  if (!currentUser || !currentUser.email) {
+  if (!currentUser || !currentUser.userName) {
     return loading;
   }
 
   const menuItems = [
     ...(menu
       ? [
-          {
-            key: 'profile',
-            icon: <UserOutlined />,
-            label: intl.formatMessage({
-              id: 'menu.users.profile',
-            }),
-          },
-          {
-            key: 'settings',
-            icon: <SettingOutlined />,
-            label: intl.formatMessage({
-              id: 'menu.settings',
-            }),
-          },
-          {
-            type: 'divider' as const,
-          },
-        ]
+        {
+          key: 'profile',
+          icon: <UserOutlined />,
+          label: intl.formatMessage({
+            id: 'menu.users.profile',
+          }),
+        },
+        {
+          key: 'settings',
+          icon: <SettingOutlined />,
+          label: intl.formatMessage({
+            id: 'menu.settings',
+          }),
+        },
+        {
+          type: 'divider' as const,
+        },
+      ]
       : []),
     {
       key: 'logout',
@@ -140,7 +132,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     >
       <Space className='cursor-pointer'>
         <AvatarLogo />
-        <Name />
+        <AvatarName />
       </Space>
     </HeaderDropdown>
   );

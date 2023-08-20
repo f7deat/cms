@@ -49,7 +49,6 @@ export default {
   'menu.component.link': 'Liên kết',
   'menu.component.listGroup': 'List group',
   'menu.component.lookbook': 'Look book',
-  'menu.component.postContent': 'Nội dung',
   'menu.component.trend': 'Trend',
   'menu.component.videoPlaylist': 'Video Playlist',
   'menu.component.videoPlayer': 'Video Player',
