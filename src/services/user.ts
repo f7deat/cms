@@ -40,8 +40,12 @@ export async function deleteUser(id: string) {
 }
 
 export async function addToRole(data: any) {
-    return request(`/user/add-to-role`, {
-      method: 'POST',
-      data
-    });
+  return request(`/user/add-to-role`, {
+    method: 'POST',
+    data
+  });
+}
+
+export async function getUserInRoles(roleName?: string | string[]) {
+  return request(`/user/users-in-role/${roleName}`);
 }

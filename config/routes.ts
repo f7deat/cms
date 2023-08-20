@@ -237,10 +237,7 @@ export default [
       path: '/users',
       routes: [
         {
-          path: '/users',
-          redirect: '/users/list',
-        },
-        {
+          name: 'list',
           path: '/users/list',
           component: './users/list',
         },
@@ -251,11 +248,22 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'center',
+          name: 'userCenter',
           path: '/users/center/:id',
           component: './users/center',
           hideInMenu: true,
         },
+        {
+          name: 'role',
+          path: '/users/roles',
+          component: './users/roles'
+        },
+        {
+          name: 'roleCenter',
+          path: '/users/roles/:id',
+          component: './users/roles/center',
+          hideInMenu: true
+        }
       ],
     },
     {
