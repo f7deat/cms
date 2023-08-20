@@ -5,4 +5,5 @@ export default {
   'pages.login.rememberMe': 'Remember me?',
   'pages.login.orLoginWith': 'Or login with',
   'pages.login.password': 'Password',
+  'pages.login.account': 'Account'
 };

@@ -10,8 +10,8 @@ import {
 import { useParams } from '@umijs/max';
 import { Button, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import Gallery from '../files/gallery';
 import FormCatalogType from '@/components/form/catalog-type';
+import FileExplorer from '@/components/file-explorer';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
@@ -86,7 +86,7 @@ const CatalogSetting: React.FC = () => {
         <FormCatalogType name="type" label="Type" />
         <ProFormCheckbox name="active" label="Active" />
       </ProForm>
-      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
+      <FileExplorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
     </div>
   );
 };

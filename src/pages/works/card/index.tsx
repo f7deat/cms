@@ -1,5 +1,5 @@
+import FileExplorer from '@/components/file-explorer';
 import ImagePreview from '@/components/image-preview';
-import Explorer from '@/pages/files/explorer';
 import { getCard, saveCard } from '@/services/work-content';
 import {
   PageContainer,
@@ -95,7 +95,7 @@ const WfCard: React.FC = () => {
           </ProCard>
         </Col>
       </Row>
-      <Explorer
+      <FileExplorer
         open={visible}
         onOpenChange={setVisible}
         onSelect={onImageSelect}

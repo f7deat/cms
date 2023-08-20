@@ -1,4 +1,4 @@
-import Explorer from '@/pages/files/explorer';
+import FileExplorer from '@/components/file-explorer';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { PageContainer, ProList } from '@ant-design/pro-components';
 import { Button } from 'antd';
@@ -20,7 +20,7 @@ const Mansonry: React.FC = () => {
       }
     >
       <ProList />
-      <Explorer open={open} onOpenChange={setOpen} />
+      <FileExplorer open={open} onOpenChange={setOpen} />
     </PageContainer>
   );
 };

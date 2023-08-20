@@ -1,3 +1,4 @@
+import WfUpload from '@/components/file-explorer/upload';
 import { deleteFileContent, listFile } from '@/services/file-service';
 import {
   ArrowUpOutlined,
@@ -16,7 +17,6 @@ import {
 import { history } from '@umijs/max';
 import { Avatar, Button, Col, message, Popconfirm, Row, Space, Statistic } from 'antd';
 import { useRef, useState } from 'react';
-import Explorer from './explorer';
 
 const FilePage: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -91,14 +91,19 @@ const FilePage: React.FC = () => {
         </Button>
       }
     >
+      <WfUpload open={open} onCancel={() => setOpen(false)} onFinish={() => setOpen(true)} />
       <Row gutter={16}>
         <Col span={18}>
           <ProTable
+            rowSelection={{}}
+            search={{
+              layout: 'vertical'
+            }}
             pagination={{
               defaultPageSize: 8
             }}
             headerTitle="Recent"
-            request={listFile}
+            request={(params) => listFile(params, [])}
             columns={columns}
             rowKey="id"
             actionRef={actionRef}
@@ -134,7 +139,6 @@ const FilePage: React.FC = () => {
           </ProCard>
         </Col>
       </Row>
-      <Explorer open={open} onOpenChange={setOpen} />
     </PageContainer>
   );
 };

@@ -101,7 +101,7 @@ const Login: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: 'Tài khoản',
+                label: intl.formatMessage({ id: 'pages.login.account', defaultMessage: 'Account' }),
               },
               {
                 key: 'mobile',
@@ -219,7 +219,7 @@ const Login: React.FC = () => {
                 float: 'right',
               }}
             >
-              <Link to="/accounts/forgot-password">
+              <Link to="#">
                 <FormattedHTMLMessage id="pages.login.forgotPassword" />
               </Link>
             </div>

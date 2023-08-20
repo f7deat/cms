@@ -1,4 +1,4 @@
-import Explorer from '@/pages/files/explorer';
+import FileExplorer from '@/components/file-explorer';
 import {
   getHeader,
   getHeaderTemplates,
@@ -84,7 +84,7 @@ const Header: React.FC = () => {
           </ProCard>
         </Col>
       </Row>
-      <Explorer open={open} onOpenChange={setOpen} onSelect={onLogo} />
+      <FileExplorer open={open} onOpenChange={setOpen} onSelect={onLogo} />
     </PageContainer>
   );
 };
