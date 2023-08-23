@@ -96,9 +96,9 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'css',
-          path: '/works/css/:id',
-          component: './works/css',
+          name: 'exchangeRate',
+          path: '/works/exchangerate/:id',
+          component: './works/exchange-rate',
           hideInMenu: true,
         },
         {

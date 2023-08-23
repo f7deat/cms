@@ -70,13 +70,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         },
       ]} />
     ),
-    avatarProps: {
-      src: initialState?.currentUser?.avatar,
-      title: <AvatarName />,
-      render: (_: any, avatarChildren: any) => {
-        return <AvatarDropdown menu>{avatarChildren}</AvatarDropdown>;
-      },
-    },
     onPageChange: () => {
       const { location } = history;
       if (!initialState?.currentUser && location.pathname !== loginPath) {
