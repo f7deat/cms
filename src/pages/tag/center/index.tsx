@@ -3,6 +3,7 @@ import { getCatalog, listByTag } from '@/services/catalog';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
   PageContainer,
+  ProCard,
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
@@ -63,7 +64,7 @@ const TagCenter: React.FC = () => {
           icon={<EditOutlined />}
           key={1}
           type="primary"
-          onClick={() => history.push(`/article/center/${entity.id}`)}
+          onClick={() => history.push(`/catalog/${entity.id}`)}
         ></Button>,
         <Popconfirm title="Are you sure?" key={2}>
           <Button icon={<DeleteOutlined />} type="primary" danger />
@@ -76,10 +77,25 @@ const TagCenter: React.FC = () => {
     <PageContainer title={catalog?.name}>
       <Row gutter={16}>
         <Col span={16}>
-          <ProTable
-            rowKey="id"
-            request={(params) => listByTag(id, params)}
-            columns={columns}
+          <ProCard
+            tabs={{
+              items: [
+                {
+                  key: 'content',
+                  label: 'Content',
+                  children: <ProTable
+                  ghost
+                  rowSelection={{}}
+                    search={{
+                      layout: 'vertical'
+                    }}
+                    rowKey="id"
+                    request={(params) => listByTag(id, params)}
+                    columns={columns}
+                  />
+                }
+              ]
+            }}
           />
         </Col>
         <Col span={8}>

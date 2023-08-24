@@ -1,6 +1,7 @@
 export default {
   'menu.catalog.article': 'Article',
   'menu.catalog.tag': 'Tag',
+  'menu.catalog.tagCenter': 'Tag center',
   'menu.catalog.page': 'Leaf',
   'menu.article.center': 'Article center',
   'menu.article.home': 'Articles',
@@ -48,6 +49,7 @@ export default {
   'menu.settings.header': 'Header',
   'menu.settings.footer': 'Footer',
   'menu.settings.telegram': 'Telegram',
+  'menu.settings.facebook': 'Facebook',
   'menu.settings.componentCenter': 'Component center',
   'menu.settings.localization': 'Localization',
   'menu.settings.sendGrid': 'SendGrid',
@@ -56,5 +58,6 @@ export default {
   'menu.users.list': 'Users List',
   'menu.users.profile': 'Profile',
   'menu.users.role': 'Roles',
+  'menu.users.roleCenter': 'Role Center',
   'menu.users.center': 'User center',
 };

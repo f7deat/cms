@@ -30,7 +30,6 @@ const AvatarLogo = () => {
 };
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
-  console.log(menu)
   const intl = useIntl();
 
   const loginOut = async () => {

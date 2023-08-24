@@ -9,6 +9,7 @@ import {
 import { useParams } from '@umijs/max';
 import { Col, message, Row } from 'antd';
 import { useEffect, useRef } from 'react';
+import GraphApiExplorer from './graph-api-explorer';
 
 const FacebookApp: React.FC = () => {
   const { id } = useParams();
@@ -55,18 +56,30 @@ const FacebookApp: React.FC = () => {
       <Row gutter={16}>
         <Col span={16}>
           <ProCard>
-            <ProForm onFinish={onFinish} formRef={formRef}>
+            <ProForm onFinish={onFinish} formRef={formRef} grid>
               <ProFormText name="id" initialValue={id} hidden />
-              <ProFormText name="appId" label="App Id" />
-              <ProFormText.Password name="appSecret" label="App secret" />
+              <ProFormText name="appId" label="App Id" colProps={{
+                md: 12
+              }} />
+              <ProFormText.Password name="appSecret" label="App secret" colProps={{
+                md: 12
+              }} />
               <ProFormText name="shortLiveToken" label="Short live token" />
               <ProFormText name="pageAccessToken" label="Page access token" />
-              <ProFormText name="pageId" label="Page ID" />
+              <ProFormText name="pageId" label="Page ID" colProps={{
+                md: 8
+              }} />
+              <ProFormText name="pageUrl" label="Page Url" placeholder="https://" colProps={{
+                md: 8
+              }} />
+              <ProFormText name="profileUrl" label="Profile Url" placeholder="https://" colProps={{
+                md: 8
+              }} />
             </ProForm>
           </ProCard>
         </Col>
         <Col span={8}>
-          <ProCard title="Tools"></ProCard>
+          <GraphApiExplorer />
         </Col>
       </Row>
     </PageContainer>
