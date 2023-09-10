@@ -43,6 +43,8 @@ const Telegram: React.FC = () => {
     const response = await testTelegram(values);
     if (response.succeeded) {
       message.success('Sended');
+    } else {
+      message.error(response.errors[0].description)
     }
   };
 

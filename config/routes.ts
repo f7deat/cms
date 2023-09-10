@@ -44,6 +44,18 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'editor',
+          path: '/works/editor/:id',
+          component: './works/editor',
+          hideInMenu: true,
+        },
+        {
+          name: 'facebookAlbum',
+          path: '/works/facebook-album/:id',
+          component: './works/facebook/album',
+          hideInMenu: true,
+        },
+        {
           name: 'contactForm',
           path: '/works/contactform/:id',
           component: './works/contact-form',
@@ -261,6 +273,12 @@ export default [
       ],
     },
     {
+      icon: 'CommentOutlined',
+      name: 'comments',
+      path: '/comments',
+      component: './comments'
+    },
+    {
       icon: 'FolderOutlined',
       name: 'fileManager',
       path: '/files',
@@ -377,13 +395,18 @@ export default [
       routes: [
         {
           name: 'upgrade',
-          path: '/help/upgrade',
+          path: 'upgrade',
           component: './settings/upgrade',
         },
         {
           name: 'backup',
           path: 'backup',
           component: './backup',
+        },
+        {
+          name: 'logs',
+          path: 'logs',
+          component: './logs',
         },
       ],
     },

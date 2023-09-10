@@ -127,3 +127,7 @@ export async function saveAppSetting(id: string | undefined, data: any) {
 export async function getByName(name: string) {
   return request(`appsetting/by-name/${name}`);
 }
+
+export async function graphFacebook(query: string) {
+  return request(`appsetting/graph-api-explorer?query=${query}`);
+}

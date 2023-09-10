@@ -20,6 +20,14 @@ const Footer: React.FC = () => {
           name: 'companyName',
           value: response.companyName,
         },
+        {
+          name: 'email',
+          value: response.email,
+        },
+        {
+          name: 'phoneNumber',
+          value: response.phoneNumber,
+        }
       ]);
     });
   }, []);
