@@ -5,33 +5,79 @@ import {
   deleteWorkContent,
   listWork,
   listWorkContent,
-  sortOrder,
 } from '@/services/work-content';
 import {
   EditOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
   DeleteOutlined,
   PlusOutlined,
   MoreOutlined,
-  CheckOutlined,
-  MinusOutlined,
+  MenuOutlined,
 } from '@ant-design/icons';
 import {
   ActionType,
   ModalForm,
   ProFormSelect,
   ProFormText,
-  ProList,
 } from '@ant-design/pro-components';
-import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
+import { Button, Dropdown, MenuProps, message, Popconfirm, Space, Table } from 'antd';
 import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { useEffect, useRef, useState } from 'react';
 import AddComponent from '../add-component';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import React from 'react';
+import { CSS } from '@dnd-kit/utilities';
+import { ColumnsType } from 'antd/lib/table';
+
+interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  'data-row-key': string;
+}
+
+const Row = ({ children, ...props }: RowProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: props['data-row-key'],
+  });
+
+  const style: React.CSSProperties = {
+    ...props.style,
+    transform: CSS.Transform.toString(transform && { ...transform, scaleY: 1 }),
+    transition,
+    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+  };
+
+  return (
+    <tr {...props} ref={setNodeRef} style={style} {...attributes}>
+      {React.Children.map(children, (child) => {
+        if ((child as React.ReactElement).key === 'sort') {
+          return React.cloneElement(child as React.ReactElement, {
+            children: (
+              <MenuOutlined
+                ref={setActivatorNodeRef}
+                style={{ touchAction: 'none', cursor: 'move' }}
+                {...listeners}
+              />
+            ),
+          });
+        }
+        return child;
+      })}
+    </tr>
+  );
+};
 
 const WorkContentComponent: React.FC = () => {
   const { id } = useParams();
+  const [dataSource, setDataSource] = useState<API.WorkItem[]>([]);
 
   const actionRef = useRef<ActionType>();
   const [visible, setVisible] = useState<boolean>(false);
@@ -39,7 +85,11 @@ const WorkContentComponent: React.FC = () => {
   const [options, setOptions] = useState<any>();
 
   useEffect(() => {
-    actionRef.current?.reload();
+    if (id) {
+      listWorkContent(id).then(response => {
+        setDataSource(response.data)
+      })
+    }
   }, [id]);
 
   const onConfirm = async (workContentId: string) => {
@@ -49,14 +99,6 @@ const WorkContentComponent: React.FC = () => {
       actionRef.current?.reload();
     } else {
       message.error(response.errors[0].description);
-    }
-  };
-
-  const handleSortOrder = async (values: Entity.WorkItem) => {
-    const response = await sortOrder(values);
-    if (response.succeeded) {
-      message.success('Sorted!');
-      actionRef.current?.reload();
     }
   };
 
@@ -102,89 +144,90 @@ const WorkContentComponent: React.FC = () => {
     }
   }
 
-  return (
-    <div>
-      <ProList<API.WorkItem>
-        toolBarRender={() => {
-          return [
+  const onDragEnd = ({ active, over }: DragEndEvent) => {
+    if (active.id !== over?.id) {
+      setDataSource((previous: API.WorkItem[]) => {
+        const activeIndex = previous.findIndex((i) => i.id === active.id);
+        const overIndex = previous.findIndex((i) => i.id === over?.id);
+        return arrayMove(previous, activeIndex, overIndex);
+      });
+    }
+  };
+
+  const columns: ColumnsType<any> = [
+    {
+      key: 'sort',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Action',
+      render: (dom, record) => (
+        <Space>
+          <Button
+            key={1}
+            type="primary"
+            icon={<EditOutlined />}
+            onClick={() => {
+              history.push(
+                `/works/${record.normalizedName.toLocaleLowerCase()}/${record.id
+                }`,
+              );
+            }}
+          />
+          <Popconfirm
+            title="Are you sure?"
+            key={4}
+            onConfirm={() => onConfirm(record.id)}
+          >
             <Button
-              key={0}
-              onClick={() => setVisible(true)}
+              icon={<DeleteOutlined />}
+              danger
               type="primary"
-              icon={<PlusOutlined />}
-            >
-              <FormattedMessage id="general.new" />
-            </Button>,
-            <Button key={1} onClick={onSelect} icon={<PlusOutlined />}>
-              Chọn
-            </Button>,
-          ];
-        }}
-        rowSelection={{}}
-        actionRef={actionRef}
-        request={async () => listWorkContent(id)}
-        headerTitle="Work items"
-        metas={{
-          title: {
-            dataIndex: 'name',
-          },
-          avatar: {
-            render: (dom, row) => row.active ? <CheckOutlined /> : <MinusOutlined />
-          },
-          actions: {
-            render: (text, row) => [
-              <Button
-                key={1}
-                type="primary"
-                icon={<EditOutlined />}
-                onClick={() => {
-                  history.push(
-                    `/works/${row.normalizedName.toLocaleLowerCase()}/${row.id
-                    }`,
-                  );
-                }}
-              />,
-              <Button
-                key={2}
-                icon={<ArrowUpOutlined />}
-                onClick={() =>
-                  handleSortOrder({
-                    workId: row.id,
-                    catalogId: id,
-                    sortOrder: row.sortOrder - 1,
-                  })
-                }
-              ></Button>,
-              <Button
-                key={3}
-                icon={<ArrowDownOutlined />}
-                onClick={() =>
-                  handleSortOrder({
-                    workId: row.id,
-                    catalogId: id,
-                    sortOrder: row.sortOrder + 1,
-                  })
-                }
-              ></Button>,
-              <Popconfirm
-                title="Are you sure?"
-                key={4}
-                onConfirm={() => onConfirm(row.id)}
-              >
-                <Button
-                  icon={<DeleteOutlined />}
-                  danger
-                  type="primary"
-                ></Button>
-                ,
-              </Popconfirm>,
-              <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, row.id) }} key="more">
-                <Button icon={<MoreOutlined />} type='dashed' />
-              </Dropdown>
-            ],
-          },
-        }}
-      />
+            ></Button>
+          </Popconfirm>
+          <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, record.id) }} key="more">
+            <Button icon={<MoreOutlined />} type='dashed' />
+          </Dropdown>
+        </Space>
+      )
+    }
+  ];
+
+  return (
+    <>
+      <div className='mb-2 flex justify-end gap-2'>
+        <Button
+          key={0}
+          onClick={() => setVisible(true)}
+          type="primary"
+          icon={<PlusOutlined />}
+        >
+          <FormattedMessage id="general.new" />
+        </Button>
+        <Button key={1} onClick={onSelect} icon={<PlusOutlined />}>
+          Chọn
+        </Button>
+      </div>
+      <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
+        <SortableContext
+          items={dataSource.map((i) => i.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          <Table<API.WorkItem>
+            components={{
+              body: {
+                row: Row,
+              },
+            }}
+            columns={columns}
+            rowKey="id"
+            dataSource={dataSource}
+          />
+        </SortableContext>
+      </DndContext>
       <AddComponent
         open={visible}
         onOpenChange={setVisible}
@@ -199,7 +242,7 @@ const WorkContentComponent: React.FC = () => {
           label="Work"
         />
       </ModalForm>
-    </div>
+    </>
   );
 };
 

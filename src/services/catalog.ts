@@ -58,13 +58,6 @@ export async function activeCatalog(id: string | undefined) {
   });
 }
 
-export async function articleSaveAsync(data: API.Catalog) {
-  return request(`catalog/article/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function updateThumbnail(data: API.Catalog) {
   return request(`catalog/update-thumbnail`, {
     method: 'POST',
