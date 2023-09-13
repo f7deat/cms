@@ -347,3 +347,10 @@ export async function getJumbotron(id: string | undefined) {
 export async function getGoogleMap(id: string | undefined) {
   return request(`work/google-map/${id}`);
 }
+
+export async function sortWork(workIds: string[]) {
+  return request(`/work/sort`, {
+    method: 'POST',
+    data: workIds
+  })
+}

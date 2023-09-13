@@ -98,7 +98,7 @@ const CatalogSummary: React.FC = () => {
           </div>
         </div>
       )}
-      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish} title="Tạo tag">
+      <ModalForm open={open} onOpenChange={setOpen} onFinish={onFinish} title="Create tag">
         <ProFormText name="name" rules={[
           {
             required: true

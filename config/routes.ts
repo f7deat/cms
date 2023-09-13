@@ -316,12 +316,12 @@ export default [
         {
           name: 'component',
           path: '/settings/component',
-          component: './blocks',
+          component: './settings/components',
         },
         {
           name: 'componentCenter',
           path: '/settings/component/center/:id',
-          component: './blocks/center',
+          component: './settings/components/center',
           hideInMenu: true,
         },
         {
@@ -351,6 +351,7 @@ export default [
           name: 'telegram',
           path: '/settings/telegram/:id',
           component: './settings/telegram',
+          hideInMenu: true,
         },
         {
           name: 'sendGrid',

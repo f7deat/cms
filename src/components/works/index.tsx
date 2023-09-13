@@ -5,6 +5,7 @@ import {
   deleteWorkContent,
   listWork,
   listWorkContent,
+  sortWork,
 } from '@/services/work-content';
 import {
   EditOutlined,
@@ -14,7 +15,6 @@ import {
   MenuOutlined,
 } from '@ant-design/icons';
 import {
-  ActionType,
   ModalForm,
   ProFormSelect,
   ProFormText,
@@ -22,7 +22,7 @@ import {
 import { Button, Dropdown, MenuProps, message, Popconfirm, Space, Table } from 'antd';
 import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddComponent from '../add-component';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -52,7 +52,7 @@ const Row = ({ children, ...props }: RowProps) => {
     ...props.style,
     transform: CSS.Transform.toString(transform && { ...transform, scaleY: 1 }),
     transition,
-    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+    ...(isDragging ? { position: 'relative' } : {}),
   };
 
   return (
@@ -79,16 +79,19 @@ const WorkContentComponent: React.FC = () => {
   const { id } = useParams();
   const [dataSource, setDataSource] = useState<API.WorkItem[]>([]);
 
-  const actionRef = useRef<ActionType>();
   const [visible, setVisible] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<any>();
 
+  const fetchData = () => {
+    listWorkContent(id).then(response => {
+      setDataSource(response.data)
+    })
+  }
+
   useEffect(() => {
     if (id) {
-      listWorkContent(id).then(response => {
-        setDataSource(response.data)
-      })
+      fetchData();
     }
   }, [id]);
 
@@ -96,7 +99,7 @@ const WorkContentComponent: React.FC = () => {
     const response = await deleteWorkContent(workContentId, id);
     if (response.succeeded) {
       message.success('Deleted!');
-      actionRef.current?.reload();
+      fetchData();
     } else {
       message.error(response.errors[0].description);
     }
@@ -108,7 +111,7 @@ const WorkContentComponent: React.FC = () => {
     if (response.succeeded) {
       message.success('Added!');
       setVisible(false);
-      actionRef.current?.reload();
+      fetchData();
     }
   };
 
@@ -123,7 +126,7 @@ const WorkContentComponent: React.FC = () => {
     if (response.succeeded) {
       message.success('Saved');
       setOpen(false);
-      actionRef.current?.reload();
+      fetchData();
     }
   };
 
@@ -139,9 +142,15 @@ const WorkContentComponent: React.FC = () => {
       const resposne = await activeWork(id);
       if (resposne.succeeded) {
         message.success('Actived!');
-        actionRef.current?.reload();
+        fetchData();
       }
     }
+  }
+
+  const newWorkIndex = (previous: API.WorkItem[], active: any, over: any) => {
+      const activeIndex = previous.findIndex((i) => i.id === active.id);
+      const overIndex = previous.findIndex((i) => i.id === over?.id);
+      return arrayMove(previous, activeIndex, overIndex).map(x => x.id);
   }
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
@@ -151,6 +160,12 @@ const WorkContentComponent: React.FC = () => {
         const overIndex = previous.findIndex((i) => i.id === over?.id);
         return arrayMove(previous, activeIndex, overIndex);
       });
+      const workIds = newWorkIndex(dataSource, active, over);
+      sortWork(workIds).then(response => {
+        if (response.succeeded) {
+          message.success('Saved!');
+        }
+      })
     }
   };
 

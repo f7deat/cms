@@ -77,6 +77,7 @@ const Block: React.FC = () => {
   return (
     <PageContainer>
       <ProTable
+        rowSelection={{}}
         actionRef={actionRef}
         rowKey="id"
         request={listComponent}
