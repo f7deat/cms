@@ -94,3 +94,17 @@ export async function listByTag(
 export async function dataPieChart() {
   return request(`catalog/pie-chart`)
 }
+
+export async function saveProductImage(urls: string[], catalogId?: string | string[]) {
+  return request(`/product/image/save`, {
+    method: 'POST',
+    data: {
+      urls,
+      catalogId
+    }
+  })
+}
+
+export async function queryProductImage(catalogId?: string | string[]) {
+  return request(`/product/image/${catalogId}`)
+}

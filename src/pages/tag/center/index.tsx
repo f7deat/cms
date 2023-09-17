@@ -1,3 +1,4 @@
+import CatalogSetting from '@/pages/catalog/setting';
 import CatalogSummary from '@/pages/catalog/summary';
 import { getCatalog, listByTag } from '@/services/catalog';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -7,13 +8,14 @@ import {
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
-import { useParams, history } from '@umijs/max';
+import { useParams, history, useIntl } from '@umijs/max';
 import { Button, Col, Popconfirm, Row } from 'antd';
 import { useEffect, useState } from 'react';
 
 const TagCenter: React.FC = () => {
   const { id } = useParams();
   const [catalog, setCatalog] = useState<API.Catalog>();
+  const intl = useIntl();
 
   useEffect(() => {
     getCatalog(id).then((response) => {
@@ -93,7 +95,14 @@ const TagCenter: React.FC = () => {
                     request={(params) => listByTag(id, params)}
                     columns={columns}
                   />
-                }
+                },
+                {
+                  label: intl.formatMessage({
+                    id: 'menu.settings',
+                  }),
+                  key: 'setting',
+                  children: <CatalogSetting />,
+                },
               ]
             }}
           />

@@ -7,14 +7,15 @@ import {
   ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { FormattedMessage, useParams } from '@umijs/max';
 import { Button, Col, message, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
 import CatalogSummary from './summary';
+import ProductImage from './product-image';
+import { CatalogType } from '@/constants';
 
 const CatalogPage: React.FC = () => {
-  const intl = useIntl();
   const { id } = useParams();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -38,6 +39,10 @@ const CatalogPage: React.FC = () => {
     await exportCatalog(id);
   };
 
+  const onTabChange = (key: string) => {
+    setTab(key);
+  }
+
   return (
     <PageContainer
       title={catalog?.name}
@@ -55,16 +60,18 @@ const CatalogPage: React.FC = () => {
                   children: <WorkContentComponent />,
                 },
                 {
-                  label: intl.formatMessage({
-                    id: 'menu.settings',
-                  }),
+                  label: <FormattedMessage id='menu.settings' />,
                   key: 'setting',
                   children: <CatalogSetting />,
                 },
+                {
+                  label: <FormattedMessage id='pages.catalog.productImage' />,
+                  key: 'product-image',
+                  children: <ProductImage />,
+                  disabled: catalog?.type !== CatalogType.Product
+                }
               ],
-              onChange: (key) => {
-                setTab(key);
-              },
+              onChange: onTabChange,
             }}
             extra={
               <Space>

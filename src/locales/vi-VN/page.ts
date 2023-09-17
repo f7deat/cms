@@ -5,5 +5,6 @@ export default {
   'pages.login.rememberMe': 'Nhớ mật khẩu?',
   'pages.login.orLoginWith': 'Hoặc đăng nhập với',
   'pages.login.password': 'Mật khẩu',
-  'pages.login.account': 'Tài khoản'
+  'pages.login.account': 'Tài khoản',
+  'pages.catalog.productImage': 'Ảnh sản phẩm'
 };

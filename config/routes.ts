@@ -184,7 +184,7 @@ export default [
           path: '/works/videoplaylist/:id',
           component: './works/video-playlist',
           hideInMenu: true,
-        },
+        }
       ],
     },
     {

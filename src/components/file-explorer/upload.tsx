@@ -1,6 +1,7 @@
 import { uploadFromUrl } from "@/services/file-service";
 import { CloudUploadOutlined, InboxOutlined } from "@ant-design/icons";
 import { Button, Divider, Input, Modal, Upload, message } from "antd";
+import { useState } from "react";
 
 type WfUpload = {
     open: boolean;
@@ -11,6 +12,8 @@ type WfUpload = {
 const { Dragger } = Upload;
 
 const WfUpload: React.FC<WfUpload> = (props) => {
+
+    const [url, setUrl] = useState<string>('');
 
     function isValidHttpsUrl(input: string) {
         let url;
@@ -33,8 +36,17 @@ const WfUpload: React.FC<WfUpload> = (props) => {
         }
     };
 
+    const onOk = async () => {
+        if (!isValidHttpsUrl(url)) {
+            message.error('Sorry, URL failed to upload.')
+            return;
+        }
+        props.onFinish(url);
+        props.onCancel();
+    }
+
     return (
-        <Modal open={props.open} onCancel={props.onCancel} centered title="Upload">
+        <Modal open={props.open} onCancel={props.onCancel} centered title="Upload" onOk={onOk}>
             <div className="mb-4">
                 <Dragger>
                     <p className="ant-upload-drag-icon">
@@ -52,7 +64,7 @@ const WfUpload: React.FC<WfUpload> = (props) => {
                     <b>Choose from your computer</b></Button>
             </div>
             <Divider>or</Divider>
-            <Input placeholder="Paste image or URL" onChange={(e) => fromUrl(e.currentTarget.value)} />
+            <Input placeholder="Paste image or URL" onChange={(e) => setUrl(e.currentTarget.value)} />
         </Modal>
     )
 }
