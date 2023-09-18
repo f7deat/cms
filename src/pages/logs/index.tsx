@@ -24,7 +24,7 @@ const LogPage: React.FC = () => {
             valueType: 'indexBorder',
         },
         {
-            title: 'Content',
+            title: 'User Name',
             render: (dom, entity) => (
                 <div>
                     <div className="text-muted">{entity.userName}</div>
@@ -59,6 +59,9 @@ const LogPage: React.FC = () => {
     return (
         <PageContainer>
             <ProTable request={queryLogs} columns={columns} actionRef={actionRef}
+                search={{
+                    layout: 'vertical'
+                }}
                 rowSelection={{}} />
         </PageContainer>
     )
