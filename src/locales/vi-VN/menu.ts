@@ -58,6 +58,7 @@ export default {
   'menu.component.videoPlaylist': 'Video Playlist',
   'menu.component.videoPlayer': 'Video Player',
   'menu.component.tag': 'Tag',
+  'menu.component.wordPressLister': 'WordPress Lister',
   'menu.settings.sidebar': 'Sidebar',
   'menu.settings.social': 'Social',
   'menu.settings.roles': 'Roles',

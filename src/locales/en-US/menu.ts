@@ -36,6 +36,7 @@ export default {
   'menu.component.exchangeRate': 'Exchange Rate',
   'menu.component.videoPlaylist': 'Video Playlist',
   'menu.component.videoPlayer': 'Video Player',
+  'menu.component.wordPressLister': 'WordPress Lister',
   'menu.fileManager': 'File manager',
   'menu.fileManager.fileCenter': 'File center',
   'menu.home': 'Home',

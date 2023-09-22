@@ -19,7 +19,7 @@ const Page: React.FC = () => {
             {
               label: 'Trang',
               key: `${CatalogType.Default}`,
-              children: <CatalogList type={CatalogType.Default} />
+              children: <CatalogList />
             },
             {
               label: 'Games',

@@ -184,6 +184,12 @@ export default [
           path: '/works/videoplaylist/:id',
           component: './works/video-playlist',
           hideInMenu: true,
+        },
+        {
+          name: 'wordPressLister',
+          path: '/works/wordpress-lister/:id',
+          component: './works/wordpress-lister',
+          hideInMenu: true,
         }
       ],
     },
