@@ -1,47 +1,128 @@
 import WorkSummary from '@/components/works/summary';
-import { getListGroup } from '@/services/work-content';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { deleteWork, getArguments, saveArguments } from '@/services/work-content';
+import { ActionType, PageContainer, ProCard, ProForm, ProFormInstance, ProFormText, ProList } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Col, Row } from 'antd';
-import { useEffect, useState } from 'react';
-import ListGroupContent from './content';
-import ListGroupSetting from './setting';
+import { Button, Col, Popconfirm, Row, message } from 'antd';
+import { useEffect, useRef, useState } from 'react';
+import { DeleteOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons';
+import ModalLink from '@/components/modals/link';
+import { FormattedMessage } from '@umijs/max';
+import { uuidv4 } from '@/utils/common';
 
 const ListGroup: React.FC = () => {
   const { id } = useParams();
-  const [data, setData] = useState<API.WorkContent>();
-  const [tab, setTab] = useState('content');
+  const [data, setData] = useState<API.ListGroup>();
+  const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
-    getListGroup(id).then((response) => {
+    getArguments(id).then((response) => {
       setData(response);
+      formRef.current?.setFields([
+        {
+          name: 'name',
+          value: response.name
+        }
+      ])
     });
   }, [id]);
+
+  const actionRef = useRef<ActionType>();
+  const [open, setOpen] = useState<boolean>(false);
+
+  const onConfirm = async (id: string) => {
+    const response = await deleteWork(id);
+    if (response.succeeded) {
+      message.success('Deleted');
+      actionRef.current?.reload();
+    }
+  };
+
+  const addLink = async (values: any) => {
+    let newData = data;
+    let item = {
+      id: uuidv4(),
+      link: {
+        href: values.href,
+        name: values.name,
+        target: values.target,
+        id: uuidv4()
+      }
+    }
+    if (newData?.items) {
+      newData?.items?.push(item)
+    } else {
+      newData!.items = [item];
+    }
+    const response = await saveArguments(id, newData);
+    if (response.succeeded) {
+      setData(newData);
+      message.success('Added!')
+      setOpen(false);
+    }
+  };
+
+  const onFinish = async (values: any) => {
+    let newData = data;
+    if (newData) {
+      newData.name = values.name;
+    }
+    const response = await saveArguments(id, newData);
+    if (response.succeeded) {
+      setData(newData);
+      message.success('Saved!')
+    }
+  }
 
   return (
     <PageContainer title={data?.name}>
       <Row gutter={16}>
         <Col span={16}>
-          <ProCard
-            tabs={{
-              activeKey: tab,
-              items: [
+          <ProCard>
+            <ProForm formRef={formRef} onFinish={onFinish}>
+              <ProFormText name="name" label="Name" rules={[
                 {
-                  label: 'Content',
-                  key: 'content',
-                  children: <ListGroupContent />,
-                },
-                {
-                  label: 'Setting',
-                  key: 'setting',
-                  children: <ListGroupSetting />,
-                },
-              ],
-              onChange: (key) => {
-                setTab(key);
-              },
-            }}
-          />
+                  required: true
+                }
+              ]} />
+              <ProList<API.ListGroupItem>
+                toolBarRender={() => {
+                  return [
+                    <Button
+                      key={0}
+                      type="primary"
+                      icon={<PlusOutlined />}
+                      onClick={() => setOpen(true)}
+                    >
+                      <span><FormattedMessage id="general.new" /></span>
+                    </Button>
+                  ];
+                }}
+                ghost
+                headerTitle="Item"
+                dataSource={data?.items}
+                metas={{
+                  title: {
+                    render: (dom, entity) => entity.link?.name
+                  },
+                  actions: {
+                    render: (dom, entity) => [
+                      <Popconfirm
+                        title="Are you sure?"
+                        onConfirm={() => onConfirm(entity.id)}
+                        key={2}
+                      >
+                        <Button icon={<DeleteOutlined />} danger type="primary" />
+                      </Popconfirm>,
+                    ],
+                  },
+                }}
+                actionRef={actionRef}
+                className='mb-4'
+              />
+            </ProForm>
+          </ProCard>
+
+          <ModalLink open={open} onOpenChange={setOpen} onFinish={addLink} />
         </Col>
         <Col span={8}>
           <WorkSummary />

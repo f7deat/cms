@@ -128,9 +128,8 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         columns={columns}
         actionRef={actionRef}
         toolBarRender={() => [
-          <Button key="new" type="primary" onClick={() => setOpen(true)}>
-            <PlusOutlined />
-            <FormattedMessage id="general.new" />
+          <Button key="new" type="primary" onClick={() => setOpen(true)} icon={<PlusOutlined />}>
+            <span><FormattedMessage id="general.new" /></span>
           </Button>,
         ]}
       />

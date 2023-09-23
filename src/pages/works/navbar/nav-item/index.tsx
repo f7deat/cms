@@ -1,4 +1,4 @@
-import LinkForm from '@/components/link/form';
+import ModalLink from '@/components/modals/link';
 import WorkSummary from '@/components/works/summary';
 import {
   deleteNavItem,
@@ -90,7 +90,7 @@ const NavItemComponent: React.FC = () => {
           <WorkSummary />
         </Col>
       </Row>
-      <LinkForm open={open} onOpenChange={setOpen} onFinish={onFinish} />
+      <ModalLink open={open} onOpenChange={setOpen} onFinish={onFinish} />
     </PageContainer>
   );
 };

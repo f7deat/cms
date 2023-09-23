@@ -145,13 +145,14 @@ declare namespace API {
 
   type ListGroup = {
     name: string;
+    items: ListGroupItem[];
   };
 
   type ListGroupItem = BaseEntity & {
     link: Link;
-    icon: string;
-    badge: number;
-    suffix: string;
+    icon?: string;
+    badge?: number;
+    suffix?: string;
   };
 
   type Telegam = {

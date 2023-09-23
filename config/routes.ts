@@ -157,7 +157,7 @@ export default [
         },
         {
           name: 'listGroup',
-          path: '/works/listgroup/:id',
+          path: '/works/list-group/:id',
           component: './works/list-group',
           hideInMenu: true,
         },

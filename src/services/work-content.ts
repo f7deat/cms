@@ -21,13 +21,6 @@ export async function activeWork(id: string | undefined) {
   });
 }
 
-export async function sortOrder(data: Entity.WorkItem) {
-  return request(`work/sort-order`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function listChildWorkContent(id: string | undefined) {
   return request(`work/list-child/${id}`);
 }
@@ -310,20 +303,6 @@ export async function addItem(data: any) {
 
 export async function deleteItem(data: Entity.WorkItem) {
   return request(`work/item/delete`, {
-    method: 'POST',
-    data,
-  });
-}
-
-export async function getListGroup(id: string | undefined) {
-  return request(`work/list-group/${id}`);
-}
-
-export async function addListGroupItem(
-  id: string | undefined,
-  data: API.ListGroupItem,
-) {
-  return request(`work/list-group/item/add/${id}`, {
     method: 'POST',
     data,
   });

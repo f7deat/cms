@@ -6,9 +6,7 @@ export async function getStatistic() {
 }
 
 export async function getExportData() {
-  return request(`backup/export`, {
-    method: 'POST',
-  });
+  return request(`backup/export`);
 }
 
 export async function upgrade() {

@@ -1,7 +1,7 @@
 import WorkSummary from '@/components/works/summary';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
+import { FormattedMessage, history } from '@umijs/max';
 import { Button, Col, Row } from 'antd';
 import { useState } from 'react';
 import RowContent from './components/content';
@@ -14,7 +14,9 @@ const RowComponent: React.FC = () => {
     <PageContainer
       extra={
         <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
-          Back
+          <span>
+            <FormattedMessage id='general.back' />
+          </span>
         </Button>
       }
     >
@@ -30,7 +32,7 @@ const RowComponent: React.FC = () => {
                   children: <RowContent />,
                 },
                 {
-                  label: 'Setting',
+                  label: <FormattedMessage id='menu.settings' />,
                   key: 'setting',
                   children: <RowSetting />,
                 },
