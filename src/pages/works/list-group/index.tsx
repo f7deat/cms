@@ -29,11 +29,18 @@ const ListGroup: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
 
-  const onConfirm = async (id: string) => {
-    const response = await deleteWork(id);
-    if (response.succeeded) {
-      message.success('Deleted');
-      actionRef.current?.reload();
+  const onConfirm = async (itemId: string) => {
+    let newData = data;
+    if (newData) {
+      const items = newData.items.filter(x => x.id !== itemId);
+      newData.items = items;
+      const response = await saveArguments(id, newData);
+      if (response.succeeded) {
+        message.success('Deleted!');
+        setData(newData);
+        actionRef.current?.reload();
+      }
+
     }
   };
 

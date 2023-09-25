@@ -26,6 +26,12 @@ export default [
       hideInMenu: true,
       routes: [
         {
+          name: 'affiliateLink',
+          path: '/works/affiliate-link/:id',
+          component: './works/affiliate-link',
+          hideInMenu: true,
+        },
+        {
           name: 'articlePicker',
           path: '/works/articlepicker/:id',
           component: './works/article-picker',
