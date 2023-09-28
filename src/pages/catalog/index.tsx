@@ -1,5 +1,4 @@
 import WorkContentComponent from '@/components/works';
-import { exportCatalog } from '@/services/backup';
 import { addCatalog, getCatalog } from '@/services/catalog';
 import {
   ModalForm,
@@ -8,12 +7,13 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useParams } from '@umijs/max';
-import { Button, Col, message, Row, Space } from 'antd';
+import { Col, message, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
 import CatalogSummary from './summary';
 import ProductImage from './product-image';
 import { CatalogType } from '@/constants';
+import ChildCatalog from './child';
 
 const CatalogPage: React.FC = () => {
   const { id } = useParams();
@@ -33,10 +33,6 @@ const CatalogPage: React.FC = () => {
         setOpen(false);
       }
     });
-  };
-
-  const onExport = async () => {
-    await exportCatalog(id);
   };
 
   const onTabChange = (key: string) => {
@@ -73,17 +69,11 @@ const CatalogPage: React.FC = () => {
               ],
               onChange: onTabChange,
             }}
-            extra={
-              <Space>
-                <Button type="primary" onClick={onExport}>
-                  Export
-                </Button>
-                <Button type="primary" danger>
-                  Import
-                </Button>
-              </Space>
-            }
-          ></ProCard>
+            className='mb-4'
+          />
+          {
+            !catalog?.parentId && (<ChildCatalog />)
+          }
           <ModalForm onFinish={onFinish} open={open} onOpenChange={setOpen}>
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />

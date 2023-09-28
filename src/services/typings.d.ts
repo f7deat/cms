@@ -17,6 +17,7 @@ declare namespace API {
     createdDate: Date;
     modifiedDate?: Date;
     active: boolean;
+    parentId?: string;
   };
 
   type CatalogSetting = {

@@ -11,5 +11,6 @@ export enum CatalogType {
   Albums,
   Tag,
   Video,
-  Game
+  Game,
+  WordPress
 }

@@ -33,9 +33,3 @@ export async function importData(file: RcFile) {
     data: formData,
   });
 }
-
-export async function exportCatalog(id: string | undefined) {
-  return request(`backup/export/catalog/${id}`, {
-    method: 'POST',
-  });
-}

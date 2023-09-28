@@ -17,6 +17,7 @@ export async function listCatalog(params: {
   current?: number;
   pageSize?: number;
   type?: CatalogType;
+  parentId?: string;
 }) {
   return request('catalog/list', {
     method: 'GET',

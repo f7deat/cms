@@ -19,7 +19,7 @@ const Page: React.FC = () => {
             {
               label: 'Trang',
               key: `${CatalogType.Default}`,
-              children: <CatalogList />
+              children: <CatalogList type={CatalogType.Default} />
             },
             {
               label: 'Games',
@@ -40,6 +40,11 @@ const Page: React.FC = () => {
               label: 'Albums',
               key: `${CatalogType.Albums}`,
               children: <CatalogList type={CatalogType.Albums} />
+            },
+            {
+              label: 'WordPress',
+              key: `${CatalogType.WordPress}`,
+              children: <CatalogList type={CatalogType.WordPress} />
             }
           ]
         }}

@@ -148,9 +148,9 @@ const WorkContentComponent: React.FC = () => {
   }
 
   const newWorkIndex = (previous: API.WorkItem[], active: any, over: any) => {
-      const activeIndex = previous.findIndex((i) => i.id === active.id);
-      const overIndex = previous.findIndex((i) => i.id === over?.id);
-      return arrayMove(previous, activeIndex, overIndex).map(x => x.id);
+    const activeIndex = previous.findIndex((i) => i.id === active.id);
+    const overIndex = previous.findIndex((i) => i.id === over?.id);
+    return arrayMove(previous, activeIndex, overIndex).map(x => x.id);
   }
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
@@ -220,7 +220,9 @@ const WorkContentComponent: React.FC = () => {
           type="primary"
           icon={<PlusOutlined />}
         >
-          <FormattedMessage id="general.new" />
+          <span>
+            <FormattedMessage id="general.new" />
+          </span>
         </Button>
         <Button key={1} onClick={onSelect} icon={<PlusOutlined />}>
           Chọn

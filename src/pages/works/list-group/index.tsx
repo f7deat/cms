@@ -69,10 +69,14 @@ const ListGroup: React.FC = () => {
   };
 
   const onFinish = async (values: any) => {
-    let newData = data;
-    if (newData) {
-      newData.name = values.name;
+    let newData: API.ListGroup = {
+      name: '',
+      items: []
+    };
+    if (data) {
+      newData = data;
     }
+    newData.name = values.name;
     const response = await saveArguments(id, newData);
     if (response.succeeded) {
       setData(newData);
