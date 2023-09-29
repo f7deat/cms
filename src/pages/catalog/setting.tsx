@@ -12,6 +12,7 @@ import { Button, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import FormCatalogType from '@/components/form/catalog-type';
 import FileExplorer from '@/components/file-explorer';
+import FormCatalogList from '@/components/form/catalog-list';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
@@ -50,6 +51,10 @@ const CatalogSetting: React.FC = () => {
             name: 'active',
             value: response.active,
           },
+          {
+            name: 'parentId',
+            value: response.parentId
+          }
         ]);
       });
   }, [id]);
@@ -83,6 +88,7 @@ const CatalogSetting: React.FC = () => {
         ]} />
         <ProFormTextArea name="description" label="Description" />
         <ProFormText name="thumbnail" label="Thumbnail" width="lg" addonAfter={<Button icon={<FolderOutlined />} onClick={() => setOpen(true)}>File explorer</Button>} />
+        <FormCatalogList name="parentId" label="Parent" />
         <FormCatalogType name="type" label="Type" />
         <ProFormCheckbox name="active" label="Active" />
       </ProForm>

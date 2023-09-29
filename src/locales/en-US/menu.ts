@@ -12,6 +12,7 @@ export default {
   'menu.ecommerce.order': 'Orders',
   'menu.ecommerce.product': 'Products',
   'menu.component': 'Components',
+  'menu.component.articleLister': 'Article Lister',
   'menu.component.affiliateLink': 'Affiliate Link',
   'menu.component.blockEditor': 'Block editor',
   'menu.component.editor': 'Editor',

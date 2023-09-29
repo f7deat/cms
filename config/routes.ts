@@ -32,6 +32,12 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'articleLister',
+          path: '/works/article-lister/:id',
+          component: './works/article-lister',
+          hideInMenu: true,
+        },
+        {
           name: 'articlePicker',
           path: '/works/articlepicker/:id',
           component: './works/article-picker',

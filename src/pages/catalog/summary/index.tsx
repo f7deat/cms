@@ -38,7 +38,6 @@ const CatalogSummary: React.FC = () => {
   const catalogUrl = () => {
     let TYPE = 'leaf'
     switch (catalog?.type) {
-      case CatalogType.Article: TYPE = 'article'; break;
       case CatalogType.Location: TYPE = 'locations'; break;
       case CatalogType.Video: TYPE = 'videos'; break;
     }

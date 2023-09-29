@@ -109,3 +109,9 @@ export async function saveProductImage(urls: string[], catalogId?: string | stri
 export async function queryProductImage(catalogId?: string | string[]) {
   return request(`/product/image/${catalogId}`)
 }
+
+export async function queryCatalogSelect(params: any) {
+  return request(`/catalog/form-select`, {
+    params
+  });
+}
