@@ -4,9 +4,11 @@ type ModalLinkProps = {
     open: boolean;
     onOpenChange?: any;
     onFinish?: any;
+    data?: API.Link;
 };
 
 const ModalLink: React.FC<ModalLinkProps> = (props) => {
+
     const onFinish = async (values: API.Link) => {
         props.onFinish(values);
     };
@@ -17,6 +19,7 @@ const ModalLink: React.FC<ModalLinkProps> = (props) => {
             open={props.open}
             onOpenChange={props.onOpenChange}
         >
+            <ProFormText name="id" hidden />
             <ProFormText name="name" label="Name" />
             <ProFormText
                 name="href"

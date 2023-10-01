@@ -24,7 +24,7 @@ const WfColumn: React.FC = () => {
       title="Column"
       extra={
         <Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}>
-          <FormattedMessage id="general.back" />
+          <span><FormattedMessage id="general.back" /></span>
         </Button>
       }
     >

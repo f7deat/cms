@@ -1,10 +1,10 @@
 import WorkSummary from '@/components/works/summary';
-import { deleteWork, getArguments, saveArguments } from '@/services/work-content';
-import { ActionType, PageContainer, ProCard, ProForm, ProFormInstance, ProFormText, ProList } from '@ant-design/pro-components';
+import { getArguments, saveArguments } from '@/services/work-content';
+import { ActionType, DragSortTable, PageContainer, ProCard, ProColumns, ProForm, ProFormInstance, ProFormText, ProList } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Button, Col, Popconfirm, Row, message } from 'antd';
+import { Button, Col, Divider, Popconfirm, Row, Tooltip, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import { DeleteOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, DeleteOutlined, EditOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons';
 import ModalLink from '@/components/modals/link';
 import { FormattedMessage } from '@umijs/max';
 import { uuidv4 } from '@/utils/common';
@@ -12,17 +12,21 @@ import { uuidv4 } from '@/utils/common';
 const ListGroup: React.FC = () => {
   const { id } = useParams();
   const [data, setData] = useState<API.ListGroup>();
+  const [dataTable, setDataTable] = useState<API.ListGroupItem[]>();
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
     getArguments(id).then((response) => {
-      setData(response);
-      formRef.current?.setFields([
-        {
-          name: 'name',
-          value: response.name
-        }
-      ])
+      if (response) {
+        setData(response);
+        setDataTable(response.items);
+        formRef.current?.setFields([
+          {
+            name: 'name',
+            value: response.name
+          }
+        ]);
+      }
     });
   }, [id]);
 
@@ -84,8 +88,56 @@ const ListGroup: React.FC = () => {
     }
   }
 
+  const columns: ProColumns<API.ListGroupItem>[] = [
+    {
+      title: '#',
+      dataIndex: 'sort',
+      className: 'drag-visible'
+    },
+    {
+      title: 'Name',
+      render: (dom, entity) => entity.link?.name
+    },
+    {
+      title: 'Url',
+      render: (dom, entity) => entity.link?.href
+    },
+    {
+      title: 'Action',
+      valueType: 'option',
+      render: (dom, entity) => [
+        <Button
+          key={1}
+          type="primary"
+          icon={<EditOutlined />}
+        />,
+        <Popconfirm
+          title="Are you sure?"
+          key={4}
+          onConfirm={() => onConfirm(entity.id)}
+        >
+          <Button
+            icon={<DeleteOutlined />}
+            danger
+            type="primary"
+          ></Button>
+        </Popconfirm>
+      ]
+    }
+  ];
+
+  const handleDragSortEnd = (newDataSource: API.ListGroupItem[]) => {
+    const newData = data;
+    if (newData) {
+      newData.items = newDataSource;
+    }
+    setData(newData);
+    setDataTable(newDataSource)
+    message.success('Saved!');
+  };
+
   return (
-    <PageContainer title={data?.name}>
+    <PageContainer title={data?.name} extra={<Button icon={<ArrowLeftOutlined />} onClick={() => history.back()}><span><FormattedMessage id="general.back" /></span></Button>}>
       <Row gutter={16}>
         <Col span={16}>
           <ProCard>
@@ -95,41 +147,30 @@ const ListGroup: React.FC = () => {
                   required: true
                 }
               ]} />
-              <ProList<API.ListGroupItem>
+
+              <DragSortTable<API.ListGroupItem>
                 toolBarRender={() => {
                   return [
-                    <Button
-                      key={0}
-                      type="primary"
-                      icon={<PlusOutlined />}
-                      onClick={() => setOpen(true)}
-                    >
-                      <span><FormattedMessage id="general.new" /></span>
-                    </Button>
+                    <Tooltip key="new" title={<FormattedMessage id="general.new" />}>
+                      <Button
+                        type="link"
+                        icon={<PlusOutlined />}
+                        onClick={() => setOpen(true)}
+                      >
+                      </Button>
+                    </Tooltip>
                   ];
                 }}
+                rowKey="id"
                 ghost
-                headerTitle="Item"
-                dataSource={data?.items}
-                metas={{
-                  title: {
-                    render: (dom, entity) => entity.link?.name
-                  },
-                  actions: {
-                    render: (dom, entity) => [
-                      <Popconfirm
-                        title="Are you sure?"
-                        onConfirm={() => onConfirm(entity.id)}
-                        key={2}
-                      >
-                        <Button icon={<DeleteOutlined />} danger type="primary" />
-                      </Popconfirm>,
-                    ],
-                  },
-                }}
-                actionRef={actionRef}
-                className='mb-4'
+                columns={columns}
+                dataSource={dataTable}
+                pagination={false}
+                search={false}
+                dragSortKey="sort"
+                onDragSortEnd={handleDragSortEnd}
               />
+              <Divider dashed />
             </ProForm>
           </ProCard>
 

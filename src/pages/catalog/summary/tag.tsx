@@ -58,7 +58,7 @@ const TagList: React.FC = () => {
   return (
     <div>
       {tags?.map((tag) => (
-        <Tag key={tag.id} closable onClose={() => onClose(tag.id)}>
+        <Tag key={tag.id} closable onClose={() => onClose(tag.id)} className='mb-2'>
           {tag.name}
         </Tag>
       ))}

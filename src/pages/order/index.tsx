@@ -1,5 +1,5 @@
 import { listOrder } from '@/services/order';
-import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   PageContainer,
   ProColumns,
@@ -14,8 +14,8 @@ const Order: React.FC = () => {
       valueType: 'indexBorder',
     },
     {
-      title: 'ID',
-      render: (dom, entity) => <a>{entity.id}</a>,
+      title: 'Number',
+      render: (dom, entity) => <a>{entity.number}</a>,
     },
     {
       title: 'Date',
@@ -24,7 +24,7 @@ const Order: React.FC = () => {
       search: false,
     },
     {
-      title: 'status',
+      title: 'Status',
       dataIndex: 'status',
       valueEnum: {
         0: {
@@ -79,12 +79,18 @@ const Order: React.FC = () => {
     <PageContainer
       extra={
         <Space>
-          <Button type="primary">New order</Button>
-          <Button>Export</Button>
+          <Button type="primary" icon={<PlusOutlined />}>New order</Button>
+          <Button icon={<ExportOutlined />}>Export</Button>
         </Space>
       }
     >
-      <ProTable rowKey="id" columns={columns} request={listOrder} />
+      <ProTable rowKey="id"
+        columns={columns}
+        request={listOrder}
+        search={{
+          layout: 'vertical'
+        }}
+      />
     </PageContainer>
   );
 };

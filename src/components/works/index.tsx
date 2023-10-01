@@ -11,69 +11,22 @@ import {
   EditOutlined,
   DeleteOutlined,
   PlusOutlined,
-  MoreOutlined,
-  MenuOutlined,
+  MoreOutlined
 } from '@ant-design/icons';
 import {
+  DragSortTable,
   ModalForm,
+  ProColumns,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { Button, Dropdown, MenuProps, message, Popconfirm, Space, Table } from 'antd';
+import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
 import { FormattedMessage, history } from '@umijs/max';
 import { useParams } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import AddComponent from '../add-component';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
-import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import React from 'react';
-import { CSS } from '@dnd-kit/utilities';
-import { ColumnsType } from 'antd/lib/table';
 
-interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  'data-row-key': string;
-}
-
-const Row = ({ children, ...props }: RowProps) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    setActivatorNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: props['data-row-key'],
-  });
-
-  const style: React.CSSProperties = {
-    ...props.style,
-    transform: CSS.Transform.toString(transform && { ...transform, scaleY: 1 }),
-    transition,
-    ...(isDragging ? { position: 'relative' } : {}),
-  };
-
-  return (
-    <tr {...props} ref={setNodeRef} style={style} {...attributes}>
-      {React.Children.map(children, (child) => {
-        if ((child as React.ReactElement).key === 'sort') {
-          return React.cloneElement(child as React.ReactElement, {
-            children: (
-              <MenuOutlined
-                ref={setActivatorNodeRef}
-                style={{ touchAction: 'none', cursor: 'move' }}
-                {...listeners}
-              />
-            ),
-          });
-        }
-        return child;
-      })}
-    </tr>
-  );
-};
 
 const WorkContentComponent: React.FC = () => {
   const { id } = useParams();
@@ -147,69 +100,72 @@ const WorkContentComponent: React.FC = () => {
     }
   }
 
-  const newWorkIndex = (previous: API.WorkItem[], active: any, over: any) => {
-    const activeIndex = previous.findIndex((i) => i.id === active.id);
-    const overIndex = previous.findIndex((i) => i.id === over?.id);
-    return arrayMove(previous, activeIndex, overIndex).map(x => x.id);
-  }
-
-  const onDragEnd = ({ active, over }: DragEndEvent) => {
-    if (active.id !== over?.id) {
-      setDataSource((previous: API.WorkItem[]) => {
-        const activeIndex = previous.findIndex((i) => i.id === active.id);
-        const overIndex = previous.findIndex((i) => i.id === over?.id);
-        return arrayMove(previous, activeIndex, overIndex);
-      });
-      const workIds = newWorkIndex(dataSource, active, over);
-      sortWork(workIds).then(response => {
-        if (response.succeeded) {
-          message.success('Saved!');
-        }
-      })
-    }
-  };
-
-  const columns: ColumnsType<any> = [
+  const columns: ProColumns<API.WorkItem>[] = [
     {
-      key: 'sort',
+      title: '#',
+      dataIndex: 'sort',
+      className: 'drag-visible'
     },
     {
       title: 'Name',
       dataIndex: 'name',
     },
     {
+      title: 'Status',
+      dataIndex: 'active',
+      valueEnum: {
+        false: {
+          text: 'Draft',
+          status: 'Default',
+        },
+        true: {
+          text: 'Active',
+          status: 'Processing',
+        },
+      },
+    },
+    {
       title: 'Action',
-      render: (dom, record) => (
-        <Space>
+      valueType: 'option',
+      render: (dom, entity) => [
+        <Button
+          key={1}
+          type="primary"
+          icon={<EditOutlined />}
+          onClick={() => {
+            history.push(
+              `/works/${entity.normalizedName.toLocaleLowerCase()}/${entity.id
+              }`,
+            );
+          }}
+        />,
+        <Popconfirm
+          title="Are you sure?"
+          key={4}
+          onConfirm={() => onConfirm(entity.id)}
+        >
           <Button
-            key={1}
+            icon={<DeleteOutlined />}
+            danger
             type="primary"
-            icon={<EditOutlined />}
-            onClick={() => {
-              history.push(
-                `/works/${record.normalizedName.toLocaleLowerCase()}/${record.id
-                }`,
-              );
-            }}
-          />
-          <Popconfirm
-            title="Are you sure?"
-            key={4}
-            onConfirm={() => onConfirm(record.id)}
-          >
-            <Button
-              icon={<DeleteOutlined />}
-              danger
-              type="primary"
-            ></Button>
-          </Popconfirm>
-          <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, record.id) }} key="more">
-            <Button icon={<MoreOutlined />} type='dashed' />
-          </Dropdown>
-        </Space>
-      )
+          ></Button>
+        </Popconfirm>,
+        <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, entity.id) }} key="more">
+          <Button icon={<MoreOutlined />} type='dashed' />
+        </Dropdown>
+      ]
     }
   ];
+
+  const handleDragSortEnd = (newDataSource: API.WorkItem[]) => {
+    const workIds = newDataSource.map(x => x.id);
+    sortWork(workIds).then(response => {
+      if (response.succeeded) {
+        setDataSource(newDataSource);
+        message.success('Saved!');
+      }
+    })
+  };
 
   return (
     <>
@@ -228,23 +184,15 @@ const WorkContentComponent: React.FC = () => {
           Chọn
         </Button>
       </div>
-      <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
-        <SortableContext
-          items={dataSource.map((i) => i.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          <Table<API.WorkItem>
-            components={{
-              body: {
-                row: Row,
-              },
-            }}
-            columns={columns}
-            rowKey="id"
-            dataSource={dataSource}
-          />
-        </SortableContext>
-      </DndContext>
+      <DragSortTable<API.WorkItem>
+        search={false}
+        rowKey="id"
+        columns={columns}
+        pagination={false}
+        dataSource={dataSource}
+        dragSortKey="sort"
+        onDragSortEnd={handleDragSortEnd}
+      />
       <AddComponent
         open={visible}
         onOpenChange={setVisible}

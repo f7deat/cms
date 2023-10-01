@@ -46,7 +46,7 @@ const WfUpload: React.FC<WfUpload> = (props) => {
     }
 
     return (
-        <Modal open={props.open} onCancel={props.onCancel} centered title="Upload" onOk={onOk}>
+        <Modal open={props.open} onCancel={() => props.onCancel()} centered title="Upload" onOk={onOk}>
             <div className="mb-4">
                 <Dragger>
                     <p className="ant-upload-drag-icon">
