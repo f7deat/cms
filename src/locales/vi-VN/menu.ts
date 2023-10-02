@@ -51,7 +51,6 @@ export default {
   'menu.component.blockEditor': 'Block editor',
   'menu.component.editor': 'Editor',
   'menu.component.card': 'Card',
-  'menu.component.column': 'Column',
   'menu.component.css': 'CSS',
   'menu.component.masonry': 'Masonry',
   'menu.component.link': 'Liên kết',

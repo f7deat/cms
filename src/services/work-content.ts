@@ -68,13 +68,6 @@ export async function addColumn(data: any) {
   });
 }
 
-export async function updateWorkContent(data: any) {
-  return request(`work/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function getWorkContent(id: string | undefined) {
   return request(`work/${id}`);
 }
@@ -85,13 +78,6 @@ export async function getWorkSummary(id: string | undefined) {
 
 export async function updateWorkSummary(data: API.WorkContent) {
   return request(`work/summary/update`, {
-    method: 'POST',
-    data,
-  });
-}
-
-export async function saveWorkContent(data: API.WorkItem) {
-  return request(`work/save`, {
     method: 'POST',
     data,
   });
@@ -246,28 +232,9 @@ export async function saveRow(data: any) {
   });
 }
 
-//#region Column
-export async function getListColumn(
-  params: {
-    current?: number;
-    pageSize?: number;
-  },
-  id: string | undefined,
-) {
+export async function getListColumn(id: string | undefined) {
   return request(`work/column/list/${id}`);
 }
-
-export async function getColumn(id: string | undefined) {
-  return request(`work/column/${id}`);
-}
-
-export async function saveColumn(data: API.Column) {
-  return request(`work/column/save`, {
-    method: 'POST',
-    data,
-  });
-}
-//#region
 
 export async function getChildList(
   params: {

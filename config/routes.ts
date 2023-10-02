@@ -114,12 +114,6 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'column',
-          path: '/works/column/:id',
-          component: './works/column',
-          hideInMenu: true,
-        },
-        {
           name: 'exchangeRate',
           path: '/works/exchangerate/:id',
           component: './works/exchange-rate',

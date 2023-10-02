@@ -4,7 +4,9 @@ declare namespace API {
   };
 
   type AbtractComponent = BaseEntity & {
+    name: string;
     className: string;
+    items: API.WorkItem[];
   };
 
   type Catalog = BaseEntity & {

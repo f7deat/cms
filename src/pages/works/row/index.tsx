@@ -21,7 +21,7 @@ const RowComponent: React.FC = () => {
       }
     >
       <Row gutter={16}>
-        <Col span={16}>
+        <Col span={18}>
           <ProCard
             tabs={{
               activeKey: tab,
@@ -43,7 +43,7 @@ const RowComponent: React.FC = () => {
             }}
           />
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <WorkSummary />
         </Col>
       </Row>

@@ -5,9 +5,14 @@ import {
   ProColumns,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Space } from 'antd';
+import { Button, Popconfirm, Space } from 'antd';
 
 const Order: React.FC = () => {
+
+  const handleRemove = async (id: string) => {
+
+  }
+
   const columns: ProColumns<any>[] = [
     {
       title: '#',
@@ -65,13 +70,14 @@ const Order: React.FC = () => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button key={entity.id} icon={<EyeOutlined />} type="primary"></Button>,
-        <Button
-          key={entity.id}
-          icon={<DeleteOutlined />}
-          type="primary"
-          danger
-        ></Button>,
+        <Button key="view" icon={<EyeOutlined />} type="primary" />,
+        <Popconfirm key="delete" title="Are you sure?" onConfirm={() => handleRemove(entity.id)}>
+          <Button
+            icon={<DeleteOutlined />}
+            type="primary"
+            danger
+          />
+        </Popconfirm>,
       ],
     },
   ];

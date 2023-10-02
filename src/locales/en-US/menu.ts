@@ -18,7 +18,6 @@ export default {
   'menu.component.editor': 'Editor',
   'menu.component.blogger': 'Blogger',
   'menu.component.card': 'Card',
-  'menu.component.column': 'Column',
   'menu.component.contactForm': 'Contact form',
   'menu.component.feed': 'Feed',
   'menu.component.facebookAlbum': 'Facebook album',

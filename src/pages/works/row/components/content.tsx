@@ -1,36 +1,67 @@
-import { addColumn, deleteWork, getListColumn } from '@/services/work-content';
+import { addChildWorkContent, addColumn, deleteWork, getListColumn } from '@/services/work-content';
 import {
-  FolderOutlined,
   DeleteOutlined,
+  EditOutlined,
+  MoreOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
 import {
   ActionType,
+  DragSortTable,
   ModalForm,
+  ProCard,
+  ProColumns,
   ProFormSelect,
   ProFormText,
-  ProList,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl, useParams } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import { FormattedMessage, useIntl, useParams, history } from '@umijs/max';
+import { Button, Col, Dropdown, Empty, message, Popconfirm, Row, Space } from 'antd';
+import { useEffect, useRef, useState } from 'react';
+import AddComponent from '@/components/add-component';
 
 const RowContent: React.FC = () => {
   const { id } = useParams();
   const actionRef = useRef<ActionType>();
   const intl = useIntl();
+  const [data, setData] = useState<API.Column[]>([]);
+  const [openAddItem, setOpenAddItem] = useState<boolean>(false);
+  const [parentId, setParentId] = useState<string>('');
 
   const [visible, setVisible] = useState<boolean>(false);
+
+  const fetchData = () => {
+    getListColumn(id).then(response => {
+      setData(response || []);
+    });
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onFinish = async (values: API.Column) => {
     values.rowId = id;
     const response = await addColumn(values);
     if (response.succeeded) {
       message.success('Added!');
-      actionRef.current?.reload();
       setVisible(false);
+      fetchData();
     } else {
       message.error(response.errors[0].description);
+    }
+  };
+
+  const onAddComponent = async (values: any) => {
+    const body: API.WorkContent = {
+      active: true,
+      parentId: parentId,
+      ...values,
+    };
+    const response = await addChildWorkContent(body);
+    if (response.succeeded) {
+      message.success('Added!');
+      setOpenAddItem(false);
+      fetchData();
     }
   };
 
@@ -42,54 +73,117 @@ const RowContent: React.FC = () => {
           id: 'general.deleted',
         }),
       );
-      actionRef.current?.reload();
+      fetchData();
     } else {
       message.error(response.errors[0].description);
     }
   };
 
+  const getSpan = (className: string) => {
+    return Number(className.split('-')[2]) * 2;
+  }
+
+  const columns: ProColumns<API.WorkItem>[] = [
+    {
+      title: '#',
+      dataIndex: 'sort',
+      className: 'drag-visible'
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'active',
+      valueEnum: {
+        false: {
+          text: 'Draft',
+          status: 'Default',
+        },
+        true: {
+          text: 'Active',
+          status: 'Processing',
+        },
+      },
+    },
+    {
+      title: 'Action',
+      valueType: 'option',
+      render: (dom, entity) => [
+        <Button
+          key={1}
+          type="primary"
+          icon={<EditOutlined />}
+          onClick={() => {
+            history.push(
+              `/works/${entity.normalizedName.toLocaleLowerCase()}/${entity.id
+              }`,
+            );
+          }}
+        />,
+        <Popconfirm
+          title="Are you sure?"
+          key={4}
+          onConfirm={() => onConfirm(entity.id)}
+        >
+          <Button
+            icon={<DeleteOutlined />}
+            danger
+            type="primary"
+          ></Button>
+        </Popconfirm>
+      ]
+    }
+  ]
+
   return (
     <div>
-      <ProList<API.WorkContent>
-        toolBarRender={() => {
-          return [
-            <Button
-              key={0}
-              icon={<PlusOutlined />}
-              type="primary"
-              onClick={() => setVisible(true)}
-            >
-              <FormattedMessage id="general.new" />
-            </Button>,
-          ];
-        }}
-        request={(params) => getListColumn(params, id)}
-        actionRef={actionRef}
-        rowSelection={{}}
-        headerTitle="Column"
-        metas={{
-          title: {
-            dataIndex: 'name',
-          },
-          actions: {
-            render: (text, row) => [
-              <Button
-                type="primary"
-                icon={<FolderOutlined />}
-                key={0}
-                onClick={() => history.push(`/works/column/${row.id}`)}
-              ></Button>,
-              <Popconfirm
-                key={1}
-                title="Are you sure?"
-                onConfirm={() => onConfirm(row.id)}
-              >
-                <Button type="primary" danger icon={<DeleteOutlined />} />
-              </Popconfirm>,
-            ],
-          },
-        }}
-      />
+      <div className='mb-4 flex justify-end'>
+        <Button
+          icon={<PlusOutlined />}
+          type="primary"
+          onClick={() => setVisible(true)}
+        >
+          <span><FormattedMessage id="general.new" /></span>
+        </Button>
+      </div>
+      <Row gutter={16}>
+        {
+          data.map((col, idx) => (
+            <Col key={idx} span={getSpan(col.className)}>
+              <ProCard title={col.name} bordered headerBordered extra={
+                <>
+                  <Button type='link' icon={<PlusOutlined />} onClick={() => {
+                    setParentId(col.id);
+                    setOpenAddItem(true);
+                  }} />
+                  <Popconfirm
+                    title="Are you sure?"
+                    onConfirm={() => onConfirm(col.id)}
+                  >
+                    <Button type="link" danger icon={<DeleteOutlined />} />
+                  </Popconfirm>
+                </>
+              }>
+                {
+                  col.items && col.items.length > 0 ? (
+                    <DragSortTable<API.WorkItem>
+                      ghost
+                      search={false}
+                      columns={columns}
+                      dataSource={col.items}
+                      rowKey="id"
+                      dragSortKey="sort"
+                    />
+                  ) : (<Empty />)
+                }
+              </ProCard>
+            </Col>
+          ))
+        }
+      </Row>
+      <AddComponent open={openAddItem} onOpenChange={setOpenAddItem} onFinish={onAddComponent} />
       <ModalForm open={visible} onOpenChange={setVisible} onFinish={onFinish}>
         <ProFormText
           name="name"
@@ -104,28 +198,52 @@ const RowContent: React.FC = () => {
           label="Collumn"
           options={[
             {
-              label: '1/6',
-              value: 'w-1/6',
+              label: 'col-md-1',
+              value: 'col-md-1',
             },
             {
-              label: '1/4',
-              value: 'w-1/4',
+              label: 'col-md-2',
+              value: 'col-md-2',
             },
             {
-              label: '1/3',
-              value: 'w-1/3',
+              label: 'col-md-3',
+              value: 'col-md-3',
             },
             {
-              label: '1/2',
-              value: 'w-1/2',
+              label: 'col-md-4',
+              value: 'col-md-4',
             },
             {
-              label: '2/3',
-              value: 'w-2/3',
+              label: 'col-md-5',
+              value: 'col-md-5',
             },
             {
-              label: '3/4',
-              value: 'w-3/4',
+              label: 'col-md-6',
+              value: 'col-md-6',
+            },
+            {
+              label: 'col-md-7',
+              value: 'col-md-7',
+            },
+            {
+              label: 'col-md-8',
+              value: 'col-md-8',
+            },
+            {
+              label: 'col-md-9',
+              value: 'col-md-9',
+            },
+            {
+              label: 'col-md-10',
+              value: 'col-md-10',
+            },
+            {
+              label: 'col-md-11',
+              value: 'col-md-11',
+            },
+            {
+              label: 'col-md-12',
+              value: 'col-md-12',
             },
           ]}
           name="className"
