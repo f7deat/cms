@@ -50,17 +50,6 @@ export async function getArguments(id: string | undefined) {
   return request(`work/arguments/${id}`);
 }
 
-export async function saveContactForm(data: API.ContactForm) {
-  return request(`work/contact-form/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
-export async function getContactForm(id: string | undefined) {
-  return request<API.ContactForm>(`work/contact-form/${id}`);
-}
-
 export async function addColumn(data: any) {
   return request(`work/column/add`, {
     method: 'POST',

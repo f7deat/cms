@@ -36,8 +36,10 @@ const RowContent: React.FC = () => {
   }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
 
   const onFinish = async (values: API.Column) => {
     values.rowId = id;

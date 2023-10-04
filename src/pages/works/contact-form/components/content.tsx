@@ -1,64 +1,46 @@
-import { getContactForm, saveContactForm } from '@/services/work-content';
+import FormCatalogList from '@/components/form/catalog-list';
+import { getArguments, saveArguments } from '@/services/work-content';
 import {
   ProFormInstance,
   ProForm,
   ProFormText,
+  ProFormSelect,
 } from '@ant-design/pro-components';
 import { useIntl, useParams } from '@umijs/max';
 import { message } from 'antd';
 import { useRef, useEffect } from 'react';
 
-const ContactFormContent: React.FC = () => {
-  const { id } = useParams();
+const ContactFormContent: React.FC<API.ContactForm> = (props) => {
   const intl = useIntl();
 
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
-    getContactForm(id).then((response) => {
+    if (props) {
       formRef.current?.setFields([
         {
-          name: 'id',
-          value: id,
+          name: 'type',
+          value:  props.type,
         },
         {
           name: 'name',
-          value: response.name,
+          value: props.name,
         },
         {
-          name: 'resultUrl',
-          value: response.resultUrl,
-        },
-        {
-          name: 'labelName',
-          value: response.labels?.name,
-        },
-        {
-          name: 'email',
-          value: response.labels?.email,
-        },
-        {
-          name: 'phoneNumber',
-          value: response.labels?.phoneNumber,
-        },
+          name: 'finishPageId',
+          value: props.finishPageId,
+        }
       ]);
-    });
-  }, [id]);
+    }
+  }, [JSON.stringify(props)]);
 
-  const onFinish = async (values: any) => {
-    const labels: API.ContactFormLabel = {
-      name: values.labelName,
-      email: values.email,
-      phoneNumber: values.phoneNumber,
-    };
-    const body: API.ContactForm = {
-      id: values.id,
-      name: values.name,
-      resultUrl: values.resultUrl,
-      labels: labels,
-    };
+  const onFinish = async (values: API.ContactForm) => {
+    const body: API.ContactForm = {...props};
+    body.type = values.type;
+    body.name = values.name;
+    body.finishPageId = values.finishPageId;
 
-    const response = await saveContactForm(body);
+    const response = await saveArguments(props.id, body);
     if (response.succeeded) {
       message.success(
         intl.formatMessage({
@@ -70,9 +52,24 @@ const ContactFormContent: React.FC = () => {
 
   return (
     <ProForm formRef={formRef} onFinish={onFinish}>
-      <ProFormText name="id" hidden />
+      <ProFormSelect name="type" label="Type"
+        options={[
+          {
+            label: 'Default',
+            value: 'Default'
+          },
+          {
+            label: 'Book review',
+            value: 'BookReview'
+          }
+        ]}
+      />
       <ProFormText name="name" label="Name" />
-      <ProFormText name="resultUrl" label="Result url" />
+      <FormCatalogList name="finishPageId" label="Finish page" rules={[
+        {
+          required: true
+        }
+      ]} />
     </ProForm>
   );
 };

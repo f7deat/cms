@@ -39,13 +39,13 @@ export default [
         },
         {
           name: 'articlePicker',
-          path: '/works/articlepicker/:id',
+          path: '/works/article-picker/:id',
           component: './works/article-picker',
           hideInMenu: true,
         },
         {
           name: 'articleSpotlight',
-          path: '/works/articlespotlight/:id',
+          path: '/works/article-spotlight/:id',
           component: './works/article-spotlight',
           hideInMenu: true,
         },
@@ -69,7 +69,7 @@ export default [
         },
         {
           name: 'contactForm',
-          path: '/works/contactform/:id',
+          path: '/works/contact-form/:id',
           component: './works/contact-form',
         },
         {
@@ -115,7 +115,7 @@ export default [
         },
         {
           name: 'exchangeRate',
-          path: '/works/exchangerate/:id',
+          path: '/works/exchange-rate/:id',
           component: './works/exchange-rate',
           hideInMenu: true,
         },
@@ -181,13 +181,13 @@ export default [
         },
         {
           name: 'videoPlayer',
-          path: '/works/videoplayer/:id',
+          path: '/works/video-player/:id',
           component: './works/video-player',
           hideInMenu: true,
         },
         {
           name: 'videoPlaylist',
-          path: '/works/videoplaylist/:id',
+          path: '/works/video-playlist/:id',
           component: './works/video-playlist',
           hideInMenu: true,
         },

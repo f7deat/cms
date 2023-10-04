@@ -1,8 +1,8 @@
 import { getUserInRoles } from "@/services/user";
-import { UserOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { PageContainer, ProColumns, ProTable } from "@ant-design/pro-components"
-import { history, useParams } from "@umijs/max"
-import { Button } from "antd";
+import { FormattedMessage, history, useParams } from "@umijs/max"
+import { Button, Space } from "antd";
 
 const RoleCenter: React.FC = () => {
 
@@ -35,7 +35,14 @@ const RoleCenter: React.FC = () => {
     ]
 
     return (
-        <PageContainer>
+        <PageContainer extra={
+            <Space>
+                <Button icon={<PlusOutlined />} type="primary">Add to role</Button>
+                <Button icon={<ArrowLeftOutlined />}>
+                <span><FormattedMessage id='general.back' /></span>
+            </Button>
+            </Space>
+        }>
             <ProTable search={{
                 layout: 'vertical'
             }} request={() => getUserInRoles(id)} columns={columns} />

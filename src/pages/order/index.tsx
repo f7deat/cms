@@ -1,11 +1,14 @@
 import { listOrder } from '@/services/order';
-import { DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   PageContainer,
+  ProCard,
   ProColumns,
+  ProFormDateRangePicker,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Popconfirm, Space } from 'antd';
+import { Button, Card, Col, Divider, Empty, Popconfirm, Row, Space, Statistic } from 'antd';
+import { BarChart, ColumnChart } from 'bizcharts';
 
 const Order: React.FC = () => {
 
@@ -81,6 +84,42 @@ const Order: React.FC = () => {
       ],
     },
   ];
+
+  const data = [
+    {
+      type: 'Jan',
+      sales: 38,
+    },
+    {
+      type: 'Feb',
+      sales: 52,
+    },
+    {
+      type: 'Mar',
+      sales: 61,
+    },
+    {
+      type: 'Apr',
+      sales: 145,
+    },
+    {
+      type: 'May',
+      sales: 48,
+    },
+    {
+      type: 'Jun',
+      sales: 38,
+    },
+    {
+      type: 'Jul',
+      sales: 38,
+    },
+    {
+      type: 'Aug',
+      sales: 38,
+    },
+  ];
+
   return (
     <PageContainer
       extra={
@@ -90,13 +129,106 @@ const Order: React.FC = () => {
         </Space>
       }
     >
-      <ProTable rowKey="id"
-        columns={columns}
-        request={listOrder}
-        search={{
-          layout: 'vertical'
-        }}
-      />
+
+      <Row gutter={16} className='mb-4'>
+        <Col span={6}>
+          <Card bordered={false}>
+            <Statistic
+              title="Active"
+              value={11.28}
+              precision={2}
+              valueStyle={{ color: '#3f8600' }}
+              prefix={<ArrowUpOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card bordered={false}>
+            <Statistic
+              title="Idle"
+              value={9.3}
+              precision={2}
+              valueStyle={{ color: '#cf1322' }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card bordered={false}>
+            <Statistic
+              title="Idle"
+              value={9.3}
+              precision={2}
+              valueStyle={{ color: '#cf1322' }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card bordered={false}>
+            <Statistic
+              title="Idle"
+              value={9.3}
+              precision={2}
+              valueStyle={{ color: '#cf1322' }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={18}>
+          <ProCard className='mb-4' title="Sales summary" extra={<ProFormDateRangePicker label="Showing" />}>
+            <ColumnChart data={data}
+              xField='type'
+              yField='sales'
+              label={{
+                position: 'middle',
+                style: {
+                  fill: '#FFFFFF',
+                  opacity: 0.6,
+                },
+              }}
+              xAxis={{
+                label: {
+                  autoHide: true,
+                  autoRotate: false,
+                },
+              }}
+              meta={{
+                type: {
+                  alias: 'đ',
+                },
+                sales: {
+                  alias: 'Money',
+                },
+              }}
+            />
+          </ProCard>
+          <ProTable
+            headerTitle="Recent orders"
+            rowKey="id"
+            columns={columns}
+            request={listOrder}
+            search={{
+              layout: 'vertical'
+            }}
+          />
+        </Col>
+        <Col span={6}>
+          <ProCard title="Earnings" className='mb-4'>
+            <Empty />
+          </ProCard>
+          <ProCard title="Top products" className='mb-4'>
+            <Empty />
+          </ProCard>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

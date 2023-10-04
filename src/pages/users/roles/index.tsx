@@ -7,8 +7,8 @@ import { Button } from "antd"
 const RolePage: React.FC = () => {
     const columns: ProColumns<API.Role>[] = [
         {
-          title: '#',
-          valueType: 'indexBorder',
+            title: '#',
+            valueType: 'indexBorder',
         },
         {
             title: 'Name',
@@ -24,7 +24,12 @@ const RolePage: React.FC = () => {
     ]
     return (
         <PageContainer>
-            <ProTable request={listRole} columns={columns} />
+            <ProTable request={listRole} columns={columns}
+                search={{
+                    layout: 'vertical'
+                }}
+                rowSelection={{}}
+            />
         </PageContainer>
     )
 }

@@ -1,6 +1,6 @@
 declare namespace API {
   type BaseEntity = {
-    id: string;
+    id?: string;
   };
 
   type AbtractComponent = BaseEntity & {
@@ -94,15 +94,20 @@ declare namespace API {
   };
 
   type ContactForm = BaseEntity & {
-    name: string;
-    resultUrl: string;
-    labels?: ContactFormLabel;
+    name?: string;
+    labels?: ContactFormLabels;
+    finishPageId?: string;
+    type?: string;
+    categories?: Option[];
   };
 
-  type ContactFormLabel = {
-    name: string;
-    email: string;
-    phoneNumber: string;
+  type ContactFormLabels = {
+    name?: string;
+    email?: string;
+    phoneNumber?: string;
+    address?: string;
+    note?: string;
+    submit?: string;
   };
 
   type WorkContent = BaseEntity & {
@@ -126,6 +131,8 @@ declare namespace API {
     phoneNumber: string;
     avatar: string;
     roles: string[];
+    emailConfirmed: boolean;
+    phoneNumberConfirmed: boolean;
   };
 
   type UpgradeListItem = {
@@ -169,6 +176,11 @@ declare namespace API {
     catalogId?: string;
     active: boolean;
   };
+
+  type Option = {
+    label?: string;
+    value?: string;
+  }
 }
 
 declare namespace Entity {

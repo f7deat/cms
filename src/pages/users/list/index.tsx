@@ -9,7 +9,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl, history } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
+import { Badge, Button, message, Popconfirm, Space } from 'antd';
 import { useRef, useState } from 'react';
 
 const UserList: React.FC = () => {
@@ -54,28 +54,26 @@ const UserList: React.FC = () => {
       dataIndex: 'userName',
     },
     {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
       title: 'Email',
       dataIndex: 'email',
+      render: (dom, entity) => (
+        <Space>
+          <Badge color={entity.emailConfirmed ? 'green' : 'red'} /> {dom}
+        </Space>
+      )
     },
     {
-      title: 'Email confirmed',
-      dataIndex: 'emailConfirmed',
-      valueEnum: {
-        false: {
-          text: 'Draft',
-          status: 'Default',
-        },
-        true: {
-          text: 'Active',
-          status: 'Processing',
-        },
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'general.phoneNumber',
-      }),
+      title: <FormattedMessage id='general.phoneNumber' />,
       dataIndex: 'phoneNumber',
+      render: (dom, entity) => (
+        <Space>
+          <Badge color={entity.phoneNumberConfirmed ? 'green' : 'red'} /> {dom}
+        </Space>
+      )
     },
     {
       title: '',

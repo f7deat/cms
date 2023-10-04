@@ -23,6 +23,9 @@ const WordPressLister: React.FC = () => {
     }, []);
 
     const onFinish = async (values: any) => {
+        if (values.domain.substr(values.domain.length - 1) === '/') {
+            values.domain = values.domain.slice(0, -1);
+        }
         const response = await saveArguments(id, values);
         if (response.succeeded) {
             message.success('Saved!');
@@ -33,7 +36,11 @@ const WordPressLister: React.FC = () => {
         <PageContainer>
             <ProCard>
                 <ProForm onFinish={onFinish} formRef={formRef}>
-                    <ProFormText name="domain" label="Domain" />
+                    <ProFormText name="domain" label="Domain" rules={[
+                        {
+                            required: true
+                        }
+                    ]} />
                 </ProForm>
             </ProCard>
         </PageContainer>
