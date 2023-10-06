@@ -1,4 +1,4 @@
-import { getAppSetting, saveAppSetting } from '@/services/setting';
+import { getSetting, saveSetting } from '@/services/setting';
 import {
   PageContainer,
   ProCard,
@@ -15,7 +15,7 @@ const GoogleApp: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
   useEffect(() => {
-    getAppSetting(id).then((response) => {
+    getSetting(id).then((response) => {
       if (!response) {
         return;
       }
@@ -61,7 +61,7 @@ const GoogleApp: React.FC = () => {
   }, [id]);
 
   const onFinish = async (values: any) => {
-    const response = await saveAppSetting(id, values);
+    const response = await saveSetting(id, values);
     if (response.succeeded) {
       message.success('Saved');
     }

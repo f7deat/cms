@@ -14,12 +14,11 @@ import {
   ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
-import { FormattedMessage, useIntl } from '@umijs/max';
+import { FormattedMessage } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 
 const Localization: React.FC = () => {
-  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState(false);
@@ -114,18 +113,17 @@ const Localization: React.FC = () => {
       }
     >
       <ProTable
-        pagination={{
-          defaultPageSize: 8
-        }}
+        rowSelection={{}}
         actionRef={actionRef}
         columns={columns}
         request={listLocalization}
         rowKey="id"
+        search={{
+          layout: "vertical"
+        }}
       />
       <ModalForm
-        title={intl.formatMessage({
-          id: 'menu.settings.localization',
-        })}
+        title={<FormattedMessage id='menu.settings.localization' />}
         formRef={formRef}
         open={open}
         onOpenChange={setOpen}

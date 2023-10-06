@@ -46,6 +46,7 @@ export default {
   'menu.component.navItem': 'Navbar item',
   'menu.component.image': 'Image',
   'menu.component.row': 'Row',
+  'menu.component.productPicker': 'Product Picker',
   'menu.component.sponsor': 'Tài trợ',
   'menu.component.contactForm': 'Contact form',
   'menu.component.blockEditor': 'Block editor',

@@ -200,7 +200,19 @@ declare namespace Entity {
 }
 
 declare namespace CPN {
-  type Jumbotron = {
+  type BaseComponent = {
+    id?: string;
+  };
+  type Jumbotron = BaseComponent & {
     backgroundImage: string;
   };
+  type Header = BaseComponent & {
+    viewName?: string;
+    logo?: string;
+    brand?: string;
+  }
+  type ProductPicker = BaseComponent & {
+    title?: string;
+    tagIds?: string[];
+  }
 }

@@ -168,6 +168,12 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'productPicker',
+          path: '/works/product-picker/:id',
+          component: './works/product-picker',
+          hideInMenu: true,
+        },
+        {
           name: 'sponsor',
           path: '/works/sponsor/:id',
           component: './works/sponsor',

@@ -51,28 +51,6 @@ export async function getSocial(id: string | undefined) {
   return request(`appsetting/social/${id}`);
 }
 
-export async function getHeaderTemplates() {
-  return request(`appsetting/header/templates`);
-}
-
-export async function saveHeader(data: any) {
-  return request(`appsetting/header/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
-export async function getHeader(id: string | undefined) {
-  return request(`appsetting/header/${id}`);
-}
-
-export async function saveHeaderLogo(data: any) {
-  return request(`appsetting/header/logo`, {
-    method: 'POST',
-    data,
-  });
-}
-
 //#region Facebook
 export async function facebookGet(id: string | undefined) {
   return request(`appsetting/facebook/${id}`);
@@ -113,19 +91,15 @@ export async function workAddSetting(data: any) {
   });
 }
 
-export async function getAppSetting(id: string | undefined) {
+export async function getSetting(id: string | undefined) {
   return request(`appsetting/${id}`);
 }
 
-export async function saveAppSetting(id: string | undefined, data: any) {
+export async function saveSetting(id: string | undefined, data: any) {
   return request(`appsetting/save/${id}`, {
     method: 'POST',
     data,
   });
-}
-
-export async function getByName(name: string) {
-  return request(`appsetting/by-name/${name}`);
 }
 
 export async function graphFacebook(query: string) {

@@ -29,6 +29,7 @@ export default {
   'menu.component.lookbook': 'Lookbook',
   'menu.component.masonry': 'Masonry',
   'menu.component.navbar': 'Navbar',
+  'menu.component.productPicker': 'Product Picker',
   'menu.component.sponsor': 'Sponsor',
   'menu.component.swiper': 'Swiper',
   'menu.component.row': 'Row',
