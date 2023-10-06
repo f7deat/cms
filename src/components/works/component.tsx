@@ -1,12 +1,7 @@
 import { queryFormSelect } from '@/services/component';
-import { ProFormSelect } from '@ant-design/pro-components';
+import { ProFormSelect, ProFormSelectProps } from '@ant-design/pro-components';
 
-type ComponentFormSelectProps = {
-  name?: string;
-  label?: string;
-};
-
-const ComponentFormSelect: React.FC<ComponentFormSelectProps> = (props) => {
+const ComponentFormSelect: React.FC<ProFormSelectProps> = (props) => {
   return (
     <ProFormSelect
       showSearch

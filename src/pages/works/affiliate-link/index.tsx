@@ -35,7 +35,7 @@ const AffiliateLink: React.FC = () => {
     });
   }, [id]);
 
-  const onFinish = async (values: API.Link) => {
+  const onFinish = async (values: CPN.Link) => {
     const response = await saveArguments(id, values);
     if (response.succeeded) {
       message.success('Saved!');

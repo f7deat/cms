@@ -1,23 +1,19 @@
 import {
   ProForm,
+  ProFormItemProps,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import { useState } from 'react';
 
-type ProFormLinkProps = {
-  name?: string;
-  label?: string;
-};
-
-const ProFormLink: React.FC<ProFormLinkProps> = (props) => {
+const ProFormLink: React.FC<ProFormItemProps> = (props) => {
   const formRef = ProForm.useFormInstance();
 
   const [hidden, setHidden] = useState<boolean>(true);
-  const [link, setLink] = useState<API.Link>();
+  const [link, setLink] = useState<CPN.Link>();
 
-  const onFinish = async (values: API.Link) => {
+  const onFinish = async (values: CPN.Link) => {
     if (!props.name) {
       return message.warning('Name missing');
     }

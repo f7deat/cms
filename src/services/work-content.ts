@@ -162,7 +162,7 @@ export async function listNavItem(id: string | undefined) {
   return request(`work/navbar/item/list/${id}`);
 }
 
-export async function saveNavItem(id: string | undefined, data: API.Link) {
+export async function saveNavItem(id: string | undefined, data: CPN.Link) {
   return request(`work/navbar/item/save/${id}`, {
     method: 'POST',
     data,
@@ -264,7 +264,7 @@ export async function deleteItem(data: Entity.WorkItem) {
   });
 }
 
-export async function saveLink(id: string | undefined, data: API.Link) {
+export async function saveLink(id: string | undefined, data: CPN.Link) {
   return request(`work/link/save/${id}`, {
     method: 'POST',
     data,

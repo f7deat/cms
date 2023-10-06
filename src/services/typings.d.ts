@@ -147,24 +147,6 @@ declare namespace API {
     pageAccessToken: string;
   };
 
-  type Link = BaseEntity & {
-    name: string;
-    href: string;
-    target: string;
-  };
-
-  type ListGroup = {
-    name: string;
-    items: ListGroupItem[];
-  };
-
-  type ListGroupItem = BaseEntity & {
-    link: Link;
-    icon?: string;
-    badge?: number;
-    suffix?: string;
-  };
-
   type Telegam = {
     token: string;
     chatId: string;
@@ -196,23 +178,5 @@ declare namespace Entity {
     componentId: string;
     active: boolean;
     arguments?: string;
-  }
-}
-
-declare namespace CPN {
-  type BaseComponent = {
-    id?: string;
-  };
-  type Jumbotron = BaseComponent & {
-    backgroundImage: string;
-  };
-  type Header = BaseComponent & {
-    viewName?: string;
-    logo?: string;
-    brand?: string;
-  }
-  type ProductPicker = BaseComponent & {
-    title?: string;
-    tagIds?: string[];
   }
 }

@@ -1,8 +1,40 @@
-declare namespace API {
-    type Brand = {
-        id: string;
+declare namespace CPN {
+    type BaseComponent = {
+        id?: string;
+    };
+    type Jumbotron = BaseComponent & {
+        backgroundImage: string;
+    };
+    type Header = BaseComponent & {
+        viewName?: string;
+        logo?: string;
+        brand?: string;
+    }
+    type ProductPicker = BaseComponent & {
+        title?: string;
+        tagIds?: string[];
+    }
+    type Brand = BaseComponent & {
         name: string;
         logo: string;
         url: string;
     }
+    type Sponsor = BaseComponent & {
+        brands?: Brand[];
+    }
+    type Link = BaseEntity & {
+      name: string;
+      href: string;
+      target: string;
+    };
+    type ListGroupItem = BaseEntity & {
+      link: Link;
+      icon?: string;
+      badge?: number;
+      suffix?: string;
+    };
+    type ListGroup = BaseComponent & {
+      name: string;
+      items: ListGroupItem[];
+    };
 }

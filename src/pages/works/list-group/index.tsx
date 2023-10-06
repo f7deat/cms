@@ -11,8 +11,8 @@ import { uuidv4 } from '@/utils/common';
 
 const ListGroup: React.FC = () => {
   const { id } = useParams();
-  const [data, setData] = useState<API.ListGroup>();
-  const [dataTable, setDataTable] = useState<API.ListGroupItem[]>();
+  const [data, setData] = useState<CPN.ListGroup>();
+  const [dataTable, setDataTable] = useState<CPN.ListGroupItem[]>();
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const ListGroup: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
 
-  const onConfirm = async (itemId: string) => {
+  const onConfirm = async (itemId?: string) => {
     let newData = data;
     if (newData) {
       const items = newData.items.filter(x => x.id !== itemId);
@@ -73,7 +73,7 @@ const ListGroup: React.FC = () => {
   };
 
   const onFinish = async (values: any) => {
-    let newData: API.ListGroup = {
+    let newData: CPN.ListGroup = {
       name: '',
       items: []
     };
@@ -88,7 +88,7 @@ const ListGroup: React.FC = () => {
     }
   }
 
-  const columns: ProColumns<API.ListGroupItem>[] = [
+  const columns: ProColumns<CPN.ListGroupItem>[] = [
     {
       title: '#',
       dataIndex: 'sort',
@@ -126,7 +126,7 @@ const ListGroup: React.FC = () => {
     }
   ];
 
-  const handleDragSortEnd = (newDataSource: API.ListGroupItem[]) => {
+  const handleDragSortEnd = (newDataSource: CPN.ListGroupItem[]) => {
     const newData = data;
     if (newData) {
       newData.items = newDataSource;
@@ -148,7 +148,7 @@ const ListGroup: React.FC = () => {
                 }
               ]} />
 
-              <DragSortTable<API.ListGroupItem>
+              <DragSortTable<CPN.ListGroupItem>
                 toolBarRender={() => {
                   return [
                     <Tooltip key="new" title={<FormattedMessage id="general.new" />}>

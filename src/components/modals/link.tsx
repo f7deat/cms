@@ -4,12 +4,12 @@ type ModalLinkProps = {
     open: boolean;
     onOpenChange?: any;
     onFinish?: any;
-    data?: API.Link;
+    data?: CPN.Link;
 };
 
 const ModalLink: React.FC<ModalLinkProps> = (props) => {
 
-    const onFinish = async (values: API.Link) => {
+    const onFinish = async (values: CPN.Link) => {
         props.onFinish(values);
     };
 

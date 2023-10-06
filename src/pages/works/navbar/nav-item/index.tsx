@@ -21,7 +21,7 @@ const NavItemComponent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
 
-  const onFinish = async (values: API.Link) => {
+  const onFinish = async (values: CPN.Link) => {
     const response = await saveNavItem(id, values);
     if (response.succeeded) {
       message.success('Saved!');
@@ -47,7 +47,7 @@ const NavItemComponent: React.FC = () => {
       <Row gutter={16}>
         <Col span={16}>
           <ProCard>
-            <ProList<API.Link>
+            <ProList<CPN.Link>
               actionRef={actionRef}
               request={() => listNavItem(id)}
               toolBarRender={() => {

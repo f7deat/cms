@@ -19,7 +19,7 @@ const SidebarSetting: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
 
-  const onConfirm = async (id: string) => {
+  const onConfirm = async (id?: string) => {
     const response = await deleteWork(id);
     if (response.succeeded) {
       message.success('Deleted');
