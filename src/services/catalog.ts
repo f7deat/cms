@@ -115,3 +115,14 @@ export async function queryCatalogSelect(params: any) {
     params
   });
 }
+
+export async function saveProduct(data: any) {
+  return request(`/product/save`, {
+    method: 'POST',
+    data
+  })
+}
+
+export async function queryProduct(catalogId?: string | string[]) {
+  return request(`/product/${catalogId}`);
+}

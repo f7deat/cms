@@ -6,5 +6,5 @@ export default {
   'pages.login.orLoginWith': 'Hoặc đăng nhập với',
   'pages.login.password': 'Mật khẩu',
   'pages.login.account': 'Tài khoản',
-  'pages.catalog.productImage': 'Ảnh sản phẩm'
+  'pages.catalog.productDetail': 'Thông tin sản phẩm'
 };

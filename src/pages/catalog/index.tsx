@@ -7,13 +7,13 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useParams } from '@umijs/max';
-import { Col, message, Row, Space } from 'antd';
+import { Col, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
 import CatalogSummary from './summary';
-import ProductImage from './product-image';
 import { CatalogType } from '@/constants';
 import ChildCatalog from './child';
+import ProductDetail from './product-detail';
 
 const CatalogPage: React.FC = () => {
   const { id } = useParams();
@@ -61,9 +61,9 @@ const CatalogPage: React.FC = () => {
                   children: <CatalogSetting />,
                 },
                 {
-                  label: <FormattedMessage id='pages.catalog.productImage' />,
-                  key: 'product-image',
-                  children: <ProductImage />,
+                  label: <FormattedMessage id='pages.catalog.productDetail' />,
+                  key: 'product-detail',
+                  children: <ProductDetail />,
                   disabled: catalog?.type !== CatalogType.Product
                 }
               ],

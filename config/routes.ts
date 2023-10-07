@@ -174,6 +174,12 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'shopeeProduct',
+          path: '/works/shopee-product/:id',
+          component: './works/shopee-product',
+          hideInMenu: true,
+        },
+        {
           name: 'sponsor',
           path: '/works/sponsor/:id',
           component: './works/sponsor',

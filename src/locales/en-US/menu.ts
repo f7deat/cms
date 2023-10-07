@@ -30,6 +30,7 @@ export default {
   'menu.component.masonry': 'Masonry',
   'menu.component.navbar': 'Navbar',
   'menu.component.productPicker': 'Product Picker',
+  'menu.component.shopeeProduct': 'Shopee Product',
   'menu.component.sponsor': 'Sponsor',
   'menu.component.swiper': 'Swiper',
   'menu.component.row': 'Row',

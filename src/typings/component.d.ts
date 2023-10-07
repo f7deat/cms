@@ -23,18 +23,23 @@ declare namespace CPN {
         brands?: Brand[];
     }
     type Link = BaseEntity & {
-      name: string;
-      href: string;
-      target: string;
+        name: string;
+        href: string;
+        target: string;
     };
     type ListGroupItem = BaseEntity & {
-      link: Link;
-      icon?: string;
-      badge?: number;
-      suffix?: string;
+        link: Link;
+        icon?: string;
+        badge?: number;
+        suffix?: string;
     };
     type ListGroup = BaseComponent & {
-      name: string;
-      items: ListGroupItem[];
+        name: string;
+        items: ListGroupItem[];
+    };
+    type ShopeeProduct = BaseComponent & {
+        title: string;
+        urlSuffix: string;
+        groupId: string;
     };
 }

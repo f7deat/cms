@@ -47,7 +47,7 @@ const ProductImage: React.FC = () => {
     }
 
     return (
-        <ProCard>
+        <ProCard title="Gallery" bordered headerBordered>
             <div className="flex gap-4">
                 {
                     fileList.map((url, index) => (
