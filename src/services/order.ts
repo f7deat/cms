@@ -5,3 +5,7 @@ export async function listOrder(params: any) {
     params,
   });
 }
+
+export async function queryOrder(id?: string | string[]) {
+  return request(`order/${id}`);
+}

@@ -252,12 +252,18 @@ export default [
         {
           name: 'order',
           path: '/ecommerce/order',
-          component: './order',
+          component: './order'
+        },
+        {
+          name: 'order',
+          path: '/ecommerce/order/center/:id',
+          component: './order/center',
+          hideInMenu: true
         },
         {
           path: '/ecommerce/product',
           name: 'product',
-          component: './shop',
+          component: './shop'
         }
       ],
     },

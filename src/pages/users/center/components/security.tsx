@@ -12,6 +12,8 @@ type SecuriryCenterProps = {
 const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
   const { id } = useParams();
   const [pOpen, setPOpen] = useState<boolean>(false);
+  const [eOpen, setEOpen] = useState<boolean>(false);
+  const [phoneOpen, setPhoneOpen] = useState<boolean>(false);
 
   const dataSource = [
     {
@@ -37,7 +39,8 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
       case 'password':
         setPOpen(true);
         break;
-
+      case 'email': setEOpen(true); break;
+      case 'phone': setPhoneOpen(true); break;
       default:
         break;
     }
@@ -108,6 +111,20 @@ const SecuriryCenter: React.FC<SecuriryCenterProps> = (props) => {
             },
           ]}
         />
+      </ModalForm>
+      <ModalForm open={eOpen} onOpenChange={setEOpen} title="Email">
+          <ProFormText name="email" label="Email" rules={[
+            {
+              required: true
+            }
+          ]} />
+      </ModalForm>
+      <ModalForm open={phoneOpen} onOpenChange={setPhoneOpen} title="Phone number">
+          <ProFormText name="phoneNumber" label="PhoneNumber" rules={[
+            {
+              required: true
+            }
+          ]} />
       </ModalForm>
     </div>
   );

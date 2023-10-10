@@ -25,7 +25,7 @@ const ChildCatalog: React.FC = () => {
         }
     };
 
-    const onConfirm = async (id: string) => {
+    const onConfirm = async (id?: string) => {
         const response = await deleteCatalog(id);
         if (response.succeeded) {
             message.success('Deleted');
@@ -35,7 +35,7 @@ const ChildCatalog: React.FC = () => {
         }
     };
 
-    const onEdit = (id: string) => {
+    const onEdit = (id?: string) => {
         history.push(`/catalog/${id}`);
         actionRef.current?.reload();
     }

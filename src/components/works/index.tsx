@@ -27,7 +27,6 @@ import { useEffect, useState } from 'react';
 import AddComponent from '../add-component';
 import React from 'react';
 
-
 const WorkContentComponent: React.FC = () => {
   const { id } = useParams();
   const [dataSource, setDataSource] = useState<API.WorkItem[]>([]);
@@ -48,8 +47,8 @@ const WorkContentComponent: React.FC = () => {
     }
   }, [id]);
 
-  const onConfirm = async (workContentId: string) => {
-    const response = await deleteWorkContent(workContentId, id);
+  const onConfirm = async (workId?: string) => {
+    const response = await deleteWorkContent(workId, id);
     if (response.succeeded) {
       message.success('Deleted!');
       fetchData();
@@ -90,7 +89,7 @@ const WorkContentComponent: React.FC = () => {
     },
   ];
 
-  const onMoreClick = async (event: any, id: string) => {
+  const onMoreClick = async (event: any, id?: string) => {
     if (event.key === '1') {
       const resposne = await activeWork(id);
       if (resposne.succeeded) {
@@ -131,6 +130,7 @@ const WorkContentComponent: React.FC = () => {
         <Button
           key={1}
           type="primary"
+          disabled={entity.autoGenerateField}
           icon={<EditOutlined />}
           onClick={() => {
             history.push(
@@ -158,7 +158,7 @@ const WorkContentComponent: React.FC = () => {
   ];
 
   const handleDragSortEnd = (newDataSource: API.WorkItem[]) => {
-    const workIds = newDataSource.map(x => x.id);
+    const workIds = newDataSource.map(x => (x.id || ''));
     sortWork(workIds).then(response => {
       if (response.succeeded) {
         setDataSource(newDataSource);

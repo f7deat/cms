@@ -157,6 +157,7 @@ declare namespace API {
     sortOrder: number;
     catalogId?: string;
     active: boolean;
+    autoGenerateField: boolean;
   };
 
   type Option = {

@@ -7,6 +7,7 @@ import {
   ProFormDateRangePicker,
   ProTable,
 } from '@ant-design/pro-components';
+import { history } from '@umijs/max';
 import { Button, Card, Col, Divider, Empty, Popconfirm, Row, Space, Statistic } from 'antd';
 import { BarChart, ColumnChart } from 'bizcharts';
 
@@ -73,7 +74,7 @@ const Order: React.FC = () => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button key="view" icon={<EyeOutlined />} type="primary" />,
+        <Button key="view" icon={<EyeOutlined />} type="primary" onClick={() => history.push(`/ecommerce/order/center/${entity.id}`)} />,
         <Popconfirm key="delete" title="Are you sure?" onConfirm={() => handleRemove(entity.id)}>
           <Button
             icon={<DeleteOutlined />}

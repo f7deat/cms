@@ -1,4 +1,4 @@
-import { addChildWorkContent, addColumn, deleteWork, getListColumn } from '@/services/work-content';
+import { addChildWorkContent, addColumn, deleteWork, getListColumn, sortChild } from '@/services/work-content';
 import {
   DeleteOutlined,
   EditOutlined,
@@ -15,13 +15,12 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl, useParams, history } from '@umijs/max';
-import { Button, Col, Dropdown, Empty, message, Popconfirm, Row, Space } from 'antd';
+import { Button, Col, Empty, message, Popconfirm, Row, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import AddComponent from '@/components/add-component';
 
 const RowContent: React.FC = () => {
   const { id } = useParams();
-  const actionRef = useRef<ActionType>();
   const intl = useIntl();
   const [data, setData] = useState<API.Column[]>([]);
   const [openAddItem, setOpenAddItem] = useState<boolean>(false);
@@ -67,7 +66,7 @@ const RowContent: React.FC = () => {
     }
   };
 
-  const onConfirm = async (id: string) => {
+  const onConfirm = async (id?: string) => {
     const response = await deleteWork(id);
     if (response.succeeded) {
       message.success(
@@ -139,6 +138,16 @@ const RowContent: React.FC = () => {
     }
   ]
 
+  const handleDragSortEnd = (newDataSource: API.WorkItem[]) => {
+    const workIds = newDataSource.map(x => (x.id || ''));
+    sortChild(workIds).then(response => {
+      if (response.succeeded) {
+        fetchData();
+        message.success('Saved!');
+      }
+    })
+  };
+
   return (
     <div>
       <div className='mb-4 flex justify-end'>
@@ -157,7 +166,7 @@ const RowContent: React.FC = () => {
               <ProCard title={col.name} bordered headerBordered extra={
                 <>
                   <Button type='link' icon={<PlusOutlined />} onClick={() => {
-                    setParentId(col.id);
+                    setParentId(col.id || '');
                     setOpenAddItem(true);
                   }} />
                   <Popconfirm
@@ -177,6 +186,7 @@ const RowContent: React.FC = () => {
                       dataSource={col.items}
                       rowKey="id"
                       dragSortKey="sort"
+                      onDragSortEnd={handleDragSortEnd}
                     />
                   ) : (<Empty />)
                 }

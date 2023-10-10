@@ -73,8 +73,8 @@ export async function updateWorkSummary(data: API.WorkContent) {
 }
 
 export async function deleteWorkContent(
-  workContentId: string,
-  catalogId: string | undefined,
+  workContentId?: string,
+  catalogId?: string | undefined,
 ) {
   return request(`work/delete`, {
     method: 'POST',
@@ -285,6 +285,13 @@ export async function getGoogleMap(id: string | undefined) {
 
 export async function sortWork(workIds: string[]) {
   return request(`/work/sort`, {
+    method: 'POST',
+    data: workIds
+  })
+}
+
+export async function sortChild(workIds: string[]) {
+  return request(`/work/child/sort`, {
     method: 'POST',
     data: workIds
   })

@@ -25,7 +25,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState<boolean>(false);
 
-  const onConfirm = async (id: string) => {
+  const onConfirm = async (id?: string) => {
     const response = await deleteCatalog(id);
     if (response.succeeded) {
       message.success('Deleted');
