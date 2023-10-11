@@ -126,3 +126,10 @@ export async function saveProduct(data: any) {
 export async function queryProduct(catalogId?: string | string[]) {
   return request(`/product/${catalogId}`);
 }
+
+export async function saveBrand(data: any) {
+  return request(`/product/brand/save`, {
+    method: 'POST',
+    data
+  });
+}

@@ -13,7 +13,7 @@ import CatalogSetting from './setting';
 import CatalogSummary from './summary';
 import { CatalogType } from '@/constants';
 import ChildCatalog from './child';
-import ProductDetail from './product-detail';
+import ProductDetail from './products/detail';
 
 const CatalogPage: React.FC = () => {
   const { id } = useParams();

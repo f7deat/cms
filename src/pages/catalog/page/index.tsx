@@ -45,6 +45,11 @@ const Page: React.FC = () => {
               label: 'WordPress',
               key: `${CatalogType.WordPress}`,
               children: <CatalogList type={CatalogType.WordPress} />
+            },
+            {
+              label: 'Brand',
+              key: `${CatalogType.Brand}`,
+              children: <CatalogList type={CatalogType.Brand} />
             }
           ]
         }}

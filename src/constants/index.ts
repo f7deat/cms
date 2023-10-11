@@ -12,5 +12,6 @@ export enum CatalogType {
   Tag,
   Video,
   Game,
-  WordPress
+  WordPress,
+  Brand
 }

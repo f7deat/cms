@@ -14,6 +14,7 @@ import FormCatalogType from '@/components/form/catalog-type';
 import FileExplorer from '@/components/file-explorer';
 import FormCatalogList from '@/components/form/catalog-list';
 import WfUpload from '@/components/file-explorer/upload';
+import { CatalogType } from '@/constants';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
@@ -21,9 +22,11 @@ const CatalogSetting: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
   const [open, setOpen] = useState<boolean>(false);
   const [upload, setUpload] = useState<boolean>(false);
+  const [catalog, setCatalog] = useState<API.Catalog>();
 
   useEffect(() => {
     getCatalog(id).then((response) => {
+      setCatalog(response);
       formRef.current?.setFields([
         {
           name: 'id',
@@ -89,14 +92,18 @@ const CatalogSetting: React.FC = () => {
           }
         ]} />
         <ProFormTextArea name="description" label="Description" />
-        <Row gutter={16}>
-          <Col span={16}>
-            <FormCatalogList name="parentId" label="Parent" />
-          </Col>
-          <Col span={8}>
-            <FormCatalogType name="type" label="Type" />
-          </Col>
-        </Row>
+        {
+          catalog?.type !== CatalogType.Product && (
+            <Row gutter={16}>
+              <Col span={16}>
+                <FormCatalogList name="parentId" label="Parent" />
+              </Col>
+              <Col span={8}>
+                <FormCatalogType name="type" label="Type" />
+              </Col>
+            </Row>
+          )
+        }
         <ProFormText name="thumbnail" label="Thumbnail" addonAfter={<Space>
           <Button icon={<UploadOutlined />} onClick={() => setUpload(true)}>Upload</Button>
           <Button icon={<FolderOutlined />} type='dashed' onClick={() => setOpen(true)}>File explorer</Button>
@@ -104,7 +111,7 @@ const CatalogSetting: React.FC = () => {
         <ProFormCheckbox name="active" label="Active" />
       </ProForm>
       <FileExplorer open={open} onOpenChange={setOpen} onSelect={onSelect} />
-      <WfUpload open={upload} onCancel={setUpload} onFinish={() => {}} />
+      <WfUpload open={upload} onCancel={setUpload} onFinish={() => { }} />
     </div>
   );
 };
