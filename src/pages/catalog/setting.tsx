@@ -8,13 +8,12 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Button, Col, Row, Space, message } from 'antd';
+import { Button, Space, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import FormCatalogType from '@/components/form/catalog-type';
 import FileExplorer from '@/components/file-explorer';
 import FormCatalogList from '@/components/form/catalog-list';
 import WfUpload from '@/components/file-explorer/upload';
-import { CatalogType } from '@/constants';
 
 const CatalogSetting: React.FC = () => {
   const { id } = useParams();
@@ -92,18 +91,8 @@ const CatalogSetting: React.FC = () => {
           }
         ]} />
         <ProFormTextArea name="description" label="Description" />
-        {
-          catalog?.type !== CatalogType.Product && (
-            <Row gutter={16}>
-              <Col span={16}>
-                <FormCatalogList name="parentId" label="Parent" />
-              </Col>
-              <Col span={8}>
-                <FormCatalogType name="type" label="Type" />
-              </Col>
-            </Row>
-          )
-        }
+        <FormCatalogType name="type" label="Type" />
+        <FormCatalogList name="parentId" label="Parent" />
         <ProFormText name="thumbnail" label="Thumbnail" addonAfter={<Space>
           <Button icon={<UploadOutlined />} onClick={() => setUpload(true)}>Upload</Button>
           <Button icon={<FolderOutlined />} type='dashed' onClick={() => setOpen(true)}>File explorer</Button>
