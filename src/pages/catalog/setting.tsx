@@ -21,11 +21,9 @@ const CatalogSetting: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
   const [open, setOpen] = useState<boolean>(false);
   const [upload, setUpload] = useState<boolean>(false);
-  const [catalog, setCatalog] = useState<API.Catalog>();
 
   useEffect(() => {
     getCatalog(id).then((response) => {
-      setCatalog(response);
       formRef.current?.setFields([
         {
           name: 'id',

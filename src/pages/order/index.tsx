@@ -1,4 +1,4 @@
-import { listOrder } from '@/services/order';
+import { deleteOrder, listOrder } from '@/services/order';
 import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   PageContainer,
@@ -8,13 +8,16 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { Button, Card, Col, Divider, Empty, Popconfirm, Row, Space, Statistic } from 'antd';
-import { BarChart, ColumnChart } from 'bizcharts';
+import { Button, Card, Col, Empty, Popconfirm, Row, Space, Statistic, message } from 'antd';
+import { ColumnChart } from 'bizcharts';
 
 const Order: React.FC = () => {
 
   const handleRemove = async (id: string) => {
-
+    const response = await deleteOrder(id);
+    if (response.succeeded) {
+      message.success('Deleted!');
+    }
   }
 
   const columns: ProColumns<any>[] = [

@@ -2,7 +2,7 @@ import FormCatalogType from "@/components/form/catalog-type";
 import { CatalogType } from "@/constants";
 import { addCatalog, deleteCatalog, listCatalog } from "@/services/catalog";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { ActionType, ModalForm, ProColumns, ProFormText, ProFormTextArea, ProList } from "@ant-design/pro-components";
+import { ActionType, ModalForm, ProFormText, ProFormTextArea, ProList } from "@ant-design/pro-components";
 import { FormattedMessage, useParams, history } from "@umijs/max";
 import { Button, Popconfirm, message } from "antd";
 import { useRef, useState } from "react";

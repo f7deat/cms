@@ -9,3 +9,9 @@ export async function listOrder(params: any) {
 export async function queryOrder(id?: string | string[]) {
   return request(`order/${id}`);
 }
+
+export async function deleteOrder(id?: string | string []) {
+  return request(`order/delete/${id}`, {
+    method: 'POST'
+  });
+}
