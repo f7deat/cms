@@ -10,7 +10,7 @@ export async function listFile(
   type?: string[],
   options?: { [key: string]: any },
 ) {
-  return request(`fileExplorer/list`, {
+  return request(`file/list`, {
     method: 'GET',
     params: {
       type: Object.keys(type ?? []).length > 0 ? type?.join(',') : '',
@@ -21,20 +21,20 @@ export async function listFile(
 }
 
 export async function deleteFileContent(id: string | undefined) {
-  return request(`fileExplorer/delete-file-content/${id}`, {
+  return request(`file/delete-file-content/${id}`, {
     method: 'POST',
   });
 }
 
 export async function deleteFileItem(data: API.FileItem) {
-  return request(`fileExplorer/delete-file-item`, {
+  return request(`file/delete-file-item`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getFileDetail(id: string | undefined) {
-  return request<API.FileContent>(`fileExplorer/${id}`);
+  return request<API.FileContent>(`file/${id}`);
 }
 
 export async function listWorkItemFiles(
@@ -44,23 +44,31 @@ export async function listWorkItemFiles(
   },
   options: { id: string | undefined },
 ) {
-  return request(`fileExplorer/file-items/${options.id}`);
+  return request(`file/file-items/${options.id}`);
 }
 
 export async function uploadRcFile(file: RcFile) {
   const formData = new FormData();
   formData.append('file', file);
-  return request(`fileExplorer/upload`, {
+  return request(`file/upload`, {
     method: 'POST',
     data: formData,
   });
 }
 
 export async function uploadFromUrl(url: string) {
-  return request(`fileexplorer/upload-from-url`, {
+  return request(`file/upload-from-url`, {
     method: 'POST',
     data: {
       url,
     },
   });
+}
+
+export async function countFile() {
+  return request(`file/count`);
+}
+
+export async function totalFileSize() {
+  return request(`file/total-size`);
 }

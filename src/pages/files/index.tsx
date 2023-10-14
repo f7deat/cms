@@ -1,5 +1,5 @@
 import WfUpload from '@/components/file-explorer/upload';
-import { deleteFileContent, listFile } from '@/services/file-service';
+import { countFile, deleteFileContent, listFile, totalFileSize } from '@/services/file-service';
 import {
   ArrowUpOutlined,
   ClearOutlined,
@@ -16,14 +16,21 @@ import {
 } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
 import { Avatar, Button, Col, message, Popconfirm, Row, Space, Statistic } from 'antd';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const FilePage: React.FC = () => {
   const actionRef = useRef<ActionType>();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
+  const [size, setSize] = useState<number>(0);
 
-  const handleDelete = async (id: string) => {
+  useEffect(() => {
+    countFile().then(response => setCount(response || 0));
+    totalFileSize().then(response => setSize(response || 0));
+  }, []);
+
+  const handleDelete = async (id?: string) => {
     const response = await deleteFileContent(id);
     if (response.succeeded) {
       message.success('Deleted!');
@@ -113,12 +120,12 @@ const FilePage: React.FC = () => {
           <Row gutter={16}>
             <Col span={12}>
               <ProCard className='mb-4'>
-                <Statistic title="Total Files" />
+                <Statistic title="Total Files" value={count} />
               </ProCard>
             </Col>
             <Col span={12}>
               <ProCard className='mb-4'>
-                <Statistic title="Total Size" />
+                <Statistic title="Total Size" value={size} />
               </ProCard>
             </Col>
           </Row>
