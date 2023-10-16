@@ -1,6 +1,6 @@
 import ProFormImage from '@/components/image/form';
 import WorkSummary from '@/components/works/summary';
-import { getJumbotron, saveArguments } from '@/services/work-content';
+import { getArguments, saveArguments } from '@/services/work-content';
 import {
   PageContainer,
   ProCard,
@@ -17,7 +17,7 @@ const Jumbotron: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   useEffect(() => {
-    getJumbotron(id).then((response) => {
+    getArguments(id).then((response) => {
       formRef.current?.setFields([
         {
           name: 'backgroundImage',

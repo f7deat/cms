@@ -174,6 +174,12 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'productSpotlight',
+          path: '/works/product-spotlight/:id',
+          component: './works/product-spotlight',
+          hideInMenu: true,
+        },
+        {
           name: 'shopeeProduct',
           path: '/works/shopee-product/:id',
           component: './works/shopee-product',

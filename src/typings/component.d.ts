@@ -42,4 +42,9 @@ declare namespace CPN {
         urlSuffix: string;
         groupId: string;
     };
+    type ProductSpotlight = BaseComponent & {
+        title: string;
+        pageSize: number;
+        itemPerRow: string;
+    };
 }

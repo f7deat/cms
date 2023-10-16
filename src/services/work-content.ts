@@ -46,7 +46,7 @@ export async function saveArguments(id: string | undefined, data: any) {
   });
 }
 
-export async function getArguments(id: string | undefined) {
+export async function getArguments(id?: string | string[]) {
   return request(`work/arguments/${id}`);
 }
 
@@ -273,10 +273,6 @@ export async function saveLink(id: string | undefined, data: CPN.Link) {
 
 export async function getLink(id: string | undefined) {
   return request(`work/link/${id}`);
-}
-
-export async function getJumbotron(id: string | undefined) {
-  return request(`work/jumbotron/${id}`);
 }
 
 export async function getGoogleMap(id: string | undefined) {

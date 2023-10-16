@@ -47,6 +47,7 @@ export default {
   'menu.component.image': 'Image',
   'menu.component.row': 'Row',
   'menu.component.productPicker': 'Product Picker',
+  'menu.component.productSpotlight': 'Product Spotlight',
   'menu.component.shopeeProduct': 'Sản phẩm từ Shopee',
   'menu.component.sponsor': 'Tài trợ',
   'menu.component.contactForm': 'Contact form',
