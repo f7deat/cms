@@ -6,14 +6,15 @@ import {
   ProCard,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, useParams } from '@umijs/max';
-import { Col, message, Row } from 'antd';
+import { FormattedMessage, history, useParams } from '@umijs/max';
+import { Button, Col, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CatalogSetting from './setting';
 import CatalogSummary from './summary';
 import { CatalogType } from '@/constants';
 import ChildCatalog from './child';
 import ProductDetail from './products/detail';
+import { LeftOutlined } from '@ant-design/icons';
 
 const CatalogPage: React.FC = () => {
   const { id } = useParams();
@@ -42,6 +43,7 @@ const CatalogPage: React.FC = () => {
   return (
     <PageContainer
       title={catalog?.name}
+      extra={<Button icon={<LeftOutlined />} onClick={() => history.back()}><span><FormattedMessage id='general.back' /></span></Button>}
     >
       <Row gutter={16}>
         <Col span={18}>

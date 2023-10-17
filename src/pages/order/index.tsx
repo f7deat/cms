@@ -1,6 +1,7 @@
 import { deleteOrder, listOrder } from '@/services/order';
 import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import {
+  ActionType,
   PageContainer,
   ProCard,
   ProColumns,
@@ -10,13 +11,17 @@ import {
 import { history } from '@umijs/max';
 import { Button, Card, Col, Empty, Popconfirm, Row, Space, Statistic, message } from 'antd';
 import { ColumnChart } from 'bizcharts';
+import { useRef } from 'react';
 
 const Order: React.FC = () => {
+
+  const actionRef = useRef<ActionType>();
 
   const handleRemove = async (id: string) => {
     const response = await deleteOrder(id);
     if (response.succeeded) {
       message.success('Deleted!');
+      actionRef.current?.reload();
     }
   }
 
@@ -133,9 +138,6 @@ const Order: React.FC = () => {
         </Space>
       }
     >
-
-
-
       <Row gutter={16}>
         <Col span={18}>
           <ProCard className='mb-4' title="Sales summary" extra={<ProFormDateRangePicker label="Showing" />}>
@@ -166,6 +168,7 @@ const Order: React.FC = () => {
             />
           </ProCard>
           <ProTable
+            actionRef={actionRef}
             headerTitle="Recent orders"
             rowKey="id"
             columns={columns}

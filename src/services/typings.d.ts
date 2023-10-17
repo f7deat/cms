@@ -164,6 +164,21 @@ declare namespace API {
     label?: string;
     value?: string;
   }
+
+  type Order = {
+    number: string;
+    customerName: string;
+    modifiedDate?: Date;
+    createdDate: Date;
+    note?: string;
+    orderDetails: OrderDetail[];
+  }
+
+  type OrderDetail = BaseEntity & {
+    price: number;
+    quantity: number;
+    productId: string;
+  }
 }
 
 declare namespace Entity {
