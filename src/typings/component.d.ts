@@ -10,6 +10,11 @@ declare namespace CPN {
         logo?: string;
         brand?: string;
     }
+    type ProductLister = BaseComponent & {
+        title?: string;
+        itemPerRow?: string;
+        pageSize?: number;
+    }
     type ProductPicker = BaseComponent & {
         title?: string;
         tagIds?: string[];

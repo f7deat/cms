@@ -7,6 +7,14 @@ const ItemPerRowForm: React.FC<ProFormSelectProps> = (prop) => {
                 {
                     label: 'Desktop 2 - Mobile 2',
                     value: 'col-6'
+                },
+                {
+                    label: 'Desktop 6 - Mobile 2',
+                    value: 'col-6 col-md-2'
+                },
+                {
+                    label: 'Desktop 4 - Mobile 2',
+                    value: 'col-6 col-md-3'
                 }
             ]}
             {...prop} />

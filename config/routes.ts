@@ -168,6 +168,12 @@ export default [
           hideInMenu: true,
         },
         {
+          name: 'productLister',
+          path: '/works/product-lister/:id',
+          component: './works/product-lister',
+          hideInMenu: true,
+        },
+        {
           name: 'productPicker',
           path: '/works/product-picker/:id',
           component: './works/product-picker',

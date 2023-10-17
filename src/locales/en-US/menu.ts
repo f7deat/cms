@@ -29,6 +29,7 @@ export default {
   'menu.component.lookbook': 'Lookbook',
   'menu.component.masonry': 'Masonry',
   'menu.component.navbar': 'Navbar',
+  'menu.component.productLister': 'Product Lister',
   'menu.component.productPicker': 'Product Picker',
   'menu.component.productSpotlight': 'Product Spotlight',
   'menu.component.shopeeProduct': 'Shopee Product',

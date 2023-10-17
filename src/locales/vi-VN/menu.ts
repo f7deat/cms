@@ -46,6 +46,7 @@ export default {
   'menu.component.navItem': 'Navbar item',
   'menu.component.image': 'Image',
   'menu.component.row': 'Row',
+  'menu.component.productLister': 'Danh sách sản phẩm',
   'menu.component.productPicker': 'Product Picker',
   'menu.component.productSpotlight': 'Product Spotlight',
   'menu.component.shopeeProduct': 'Sản phẩm từ Shopee',
