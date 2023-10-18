@@ -13,7 +13,7 @@ import { useRef } from 'react';
 const Block: React.FC = () => {
   const actionRef = useRef<ActionType>();
 
-  const onConfirm = async (id: string) => {
+  const onConfirm = async (id?: string) => {
     const response = await deleteComponent(id);
     if (response.succeeded) {
       message.success('Deleted!');
@@ -30,6 +30,7 @@ const Block: React.FC = () => {
     },
     {
       title: 'Name',
+      dataIndex: 'name',
       render: (dom, entity) => (
         <a
           onClick={() =>

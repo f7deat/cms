@@ -33,7 +33,7 @@ export async function listComponentWork(params: any, id: string | undefined) {
   });
 }
 
-export async function deleteComponent(id: string) {
+export async function deleteComponent(id?: string) {
   return request(`component/delete/${id}`, {
     method: 'POST',
   });

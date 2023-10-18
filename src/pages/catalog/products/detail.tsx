@@ -4,7 +4,6 @@ import { queryProduct, saveProduct } from "@/services/catalog";
 import { Space, message } from "antd";
 import { useEffect, useRef } from "react";
 import ProductImage from "./image";
-import ProductBrand from "./brand";
 
 const ProductDetail: React.FC = () => {
 
@@ -56,7 +55,6 @@ const ProductDetail: React.FC = () => {
                     </Space>
                 </ProForm>
             </ProCard>
-            <ProductBrand />
             <ProductImage />
         </>
     )

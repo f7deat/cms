@@ -54,15 +54,11 @@ const FilePreview: React.FC<FilePreviewProps> = (props) => {
       title={intl.formatMessage({
         id: 'general.preview',
       })}
-      extra={
-        <Button
-          type="dashed"
-          icon={<DownloadOutlined />}
-          onClick={() => (window.location.href = absolutePath(file?.url))}
-        >
+      actions={[
+        <Button key="download" type='link' onClick={() => (window.location.href = absolutePath(file?.url))} icon={<DownloadOutlined />}>
           Download
         </Button>
-      }
+      ]}
     >
       {renderPreview()}
       <Divider />

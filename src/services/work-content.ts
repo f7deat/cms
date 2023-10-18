@@ -129,17 +129,6 @@ export async function uploadImage(id: string) {
   });
 }
 
-export async function getImage(id: string | undefined) {
-  return request<API.Image>(`image/${id}`);
-}
-
-export async function saveImage(data: API.Image) {
-  return request(`image/save`, {
-    method: 'POST',
-    data,
-  });
-}
-
 export async function getNavbar(id: string | undefined) {
   return request<API.Navbar>(`work/navbar/${id}`);
 }

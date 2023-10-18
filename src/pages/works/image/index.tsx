@@ -1,6 +1,7 @@
+import WfUpload from '@/components/file-explorer/upload';
+import ProFormLink from '@/components/link';
 import FilePreview from '@/pages/files/center/preview';
-import Gallery from '@/pages/files/gallery';
-import { deleteWork, getImage, saveImage } from '@/services/work-content';
+import { deleteWork, getArguments, saveArguments } from '@/services/work-content';
 import {
   ArrowLeftOutlined,
   BarsOutlined,
@@ -10,10 +11,8 @@ import {
   PageContainer,
   ProCard,
   ProForm,
-  ProFormDigit,
   ProFormInstance,
   ProFormText,
-  ProFormTextArea,
 } from '@ant-design/pro-components';
 import { history, useIntl, useParams } from '@umijs/max';
 import { Button, Col, message, Popconfirm, Row, Space } from 'antd';
@@ -29,8 +28,7 @@ const Image: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   const onFinish = async (values: API.Image) => {
-    values.file = image;
-    const response = await saveImage(values);
+    const response = await saveArguments(id, values);
     if (response.succeeded) {
       message.success('Saved!');
     } else {
@@ -39,32 +37,20 @@ const Image: React.FC = () => {
   };
 
   useEffect(() => {
-    getImage(id).then((response) => {
+    getArguments(id).then((response) => {
       setImage(response.file);
       formRef.current?.setFields([
-        {
-          name: 'height',
-          value: response.height,
-        },
-        {
-          name: 'width',
-          value: response.width,
-        },
         {
           name: 'alt',
           value: response.alt,
         },
         {
-          name: 'description',
-          value: response.description,
+          name: 'src',
+          value: response.src,
         },
         {
-          name: 'className',
-          value: response.className,
-        },
-        {
-          name: 'wrapper',
-          value: response.wrapper,
+          name: 'link',
+          value: response.link,
         },
       ]);
     });
@@ -116,18 +102,14 @@ const Image: React.FC = () => {
             })}
           >
             <ProForm onFinish={onFinish} formRef={formRef}>
-              <ProFormText name="id" hidden={true} initialValue={id} />
+              <ProFormText name="src" label="Src" />
+              <ProFormLink name="link" label="Link" />
               <ProFormText name="alt" label="Alt" />
-              <ProFormTextArea name="description" label="Description" />
-              <ProFormText name="className" label="Class Name" />
-              <ProFormDigit label="Width" name="width" />
-              <ProFormDigit label="Height" name="height" />
-              <ProFormText label="Wrapper" name="wrapper" />
             </ProForm>
           </ProCard>
         </Col>
       </Row>
-      <Gallery open={open} onOpenChange={setOpen} onSelect={onSelect} />
+      <WfUpload open={open} onCancel={setOpen} onFinish={onSelect} />
     </PageContainer>
   );
 };

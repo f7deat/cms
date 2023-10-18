@@ -1,17 +1,39 @@
 import {
   ProForm,
+  ProFormInstance,
   ProFormItemProps,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ProFormLink: React.FC<ProFormItemProps> = (props) => {
   const formRef = ProForm.useFormInstance();
+  const formChildRef = useRef<ProFormInstance>();
 
   const [hidden, setHidden] = useState<boolean>(true);
   const [link, setLink] = useState<CPN.Link>();
+
+  useEffect(() => {
+    const link: CPN.Link = formRef?.getFieldValue('link');
+    if (link) {
+      formChildRef.current?.setFields([
+        {
+          name: 'name',
+          value: link.name
+        },
+        {
+          name: 'href',
+          value: link.href
+        },
+        {
+          name: 'target',
+          value: link.target
+        }
+      ])
+    }
+  }, []);
 
   const onFinish = async (values: CPN.Link) => {
     if (!props.name) {
@@ -28,7 +50,7 @@ const ProFormLink: React.FC<ProFormItemProps> = (props) => {
   };
 
   return (
-    <ProForm.Item label={props.label} name={props.name}>
+    <ProForm.Item {...props}>
       <div
         style={{
           display: 'flex',
@@ -59,7 +81,7 @@ const ProFormLink: React.FC<ProFormItemProps> = (props) => {
         }}
         hidden={hidden}
       >
-        <ProForm onFinish={onFinish}>
+        <ProForm onFinish={onFinish} formRef={formChildRef}>
           <ProFormText name="name" label="Name" />
           <ProFormText
             name="href"
