@@ -9,6 +9,7 @@ declare namespace CPN {
         viewName?: string;
         logo?: string;
         brand?: string;
+        templates: string[];
     }
     type ProductLister = BaseComponent & {
         title?: string;

@@ -1,6 +1,6 @@
 import FileExplorer from '@/components/file-explorer';
 import {
-  getSetting,
+  getHeader,
   saveSetting,
 } from '@/services/setting';
 import { FolderAddOutlined, UploadOutlined } from '@ant-design/icons';
@@ -20,9 +20,11 @@ const Header: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
   const [open, setOpen] = useState<boolean>(false);
+  const [options, setOptions] = useState<any>([]);
 
   useEffect(() => {
-    getSetting(id).then((response: CPN.Header) => {
+    getHeader(id).then((response: CPN.Header) => {
+      setOptions(response.templates)
       formRef.current?.setFields([
         {
           name: 'viewName',
@@ -54,16 +56,7 @@ const Header: React.FC = () => {
           <ProFormText name="id" initialValue={id} hidden />
           <ProFormText name="brand" label="Brand" />
           <ProFormSelect
-            options={[
-              {
-                label: 'Default',
-                value: 'Default'
-              },
-              {
-                label: 'DLiTi',
-                value: 'DLiTi'
-              }
-            ]}
+            options={options}
             name="viewName"
             label="Template"
             rules={[

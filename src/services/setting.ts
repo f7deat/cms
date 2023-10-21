@@ -1,62 +1,55 @@
 import { request } from '@umijs/max';
 
 export async function listSetting() {
-  return request(`appsetting/list`);
+  return request(`setting/list`);
 }
 
 export async function saveLayoutHead(data: any) {
-  return request(`appsetting/layout/head/save`, {
+  return request(`setting/layout/head/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function saveTelegram(id: string | undefined, data: API.Telegam) {
-  return request(`appsetting/telegram/save/${id}`, {
+  return request(`setting/telegram/save/${id}`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getTelegram(id: string | undefined) {
-  return request(`appsetting/telegram/${id}`);
+  return request(`setting/telegram/${id}`);
 }
 
 export async function testTelegram(data: any) {
-  return request(`appsetting/telegram/test`, {
+  return request(`setting/telegram/test`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getFooter(id: string | undefined) {
-  return request(`appsetting/footer/${id}`);
-}
-
-export async function saveFooter(data: any) {
-  return request(`appsetting/footer/save`, {
-    method: 'POST',
-    data,
-  });
+  return request(`setting/footer/${id}`);
 }
 
 export async function saveSocial(data: any) {
-  return request(`appsetting/social/save`, {
+  return request(`setting/social/save`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getSocial(id: string | undefined) {
-  return request(`appsetting/social/${id}`);
+  return request(`setting/social/${id}`);
 }
 
 //#region Facebook
 export async function facebookGet(id: string | undefined) {
-  return request(`appsetting/facebook/${id}`);
+  return request(`setting/facebook/${id}`);
 }
 export async function facebookSave(data: API.Facebook) {
-  return request(`appsetting/facebook/save`, {
+  return request(`setting/facebook/save`, {
     method: 'POST',
     data,
   });
@@ -66,11 +59,11 @@ export async function facebookSave(data: API.Facebook) {
 //#region SendGrid
 
 export async function getSendGrid() {
-  return request(`appsetting/sendgrid`);
+  return request(`setting/sendgrid`);
 }
 
 export async function saveSendGrid(data: any) {
-  return request(`appsetting/sendgrid/save`, {
+  return request(`setting/sendgrid/save`, {
     method: 'POST',
     data,
   });
@@ -79,29 +72,33 @@ export async function saveSendGrid(data: any) {
 //#endregion
 
 export async function listSidebarWork(params: any) {
-  return request(`appsetting/sidebar`, {
+  return request(`setting/sidebar`, {
     params,
   });
 }
 
 export async function workAddSetting(data: any) {
-  return request(`appsetting/work/add`, {
+  return request(`setting/work/add`, {
     method: 'POST',
     data,
   });
 }
 
 export async function getSetting(id: string | undefined) {
-  return request(`appsetting/${id}`);
+  return request(`setting/${id}`);
+}
+
+export async function getHeader(id: string | undefined) {
+  return request(`setting/header/${id}`);
 }
 
 export async function saveSetting(id: string | undefined, data: any) {
-  return request(`appsetting/save/${id}`, {
+  return request(`setting/save/${id}`, {
     method: 'POST',
     data,
   });
 }
 
 export async function graphFacebook(query: string) {
-  return request(`appsetting/graph-api-explorer?query=${query}`);
+  return request(`setting/graph-api-explorer?query=${query}`);
 }
