@@ -10,6 +10,7 @@ export default {
   'menu.comments': 'Comments',
   'menu.ecommerce': 'E-Commerce',
   'menu.ecommerce.order': 'Orders',
+  'menu.ecommerce.newOrder': 'New order',
   'menu.ecommerce.product': 'Products',
   'menu.component': 'Components',
   'menu.component.articleLister': 'Article Lister',

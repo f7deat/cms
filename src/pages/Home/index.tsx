@@ -5,6 +5,7 @@ import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Col, Divider, Row, Statistic } from 'antd';
 import { PieChart } from 'bizcharts';
 import { useEffect, useState } from 'react';
+import TopView from './components/top-view';
 
 const HomePage: React.FC = () => {
   const [viewCount, setViewCount] = useState<number>(0);
@@ -39,7 +40,7 @@ const HomePage: React.FC = () => {
             </Col>
           </Row>
           <Divider />
-          <ProCard title="Catalogs" headerBordered>
+          <ProCard title="Catalogs" headerBordered className='mb-4'>
             <PieChart
               angleField='value'
               colorField='label'
@@ -47,6 +48,7 @@ const HomePage: React.FC = () => {
               innerRadius={0.55}
               data={dataPie} />
           </ProCard>
+          <TopView />
         </Col>
       </Row>
     </PageContainer>

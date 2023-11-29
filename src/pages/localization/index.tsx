@@ -14,35 +14,44 @@ import {
   ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
+import { getLocale } from '@umijs/max';
 import { FormattedMessage } from '@umijs/max';
 import { Button, message, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Localization: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
   const actionRef = useRef<ActionType>();
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<any>();
 
   const handleAdd = () => {
     formRef.current?.resetFields();
     setOpen(true);
   };
 
+  useEffect(() => {
+    if (selectedItem) {
+      formRef.current?.setFields([
+        {
+          name: 'id',
+          value: selectedItem.id,
+        },
+        {
+          name: 'key',
+          value: selectedItem.key,
+        },
+        {
+          name: 'value',
+          value: selectedItem.value,
+        },
+      ]);
+    }
+    
+  }, [JSON.stringify(selectedItem)]);
+
   const handleUpdate = (item: any) => {
-    formRef.current?.setFields([
-      {
-        name: 'id',
-        value: item.id,
-      },
-      {
-        name: 'key',
-        value: item.key,
-      },
-      {
-        name: 'value',
-        value: item.value,
-      },
-    ]);
+    setSelectedItem(item);
     setOpen(true);
   };
 
@@ -116,7 +125,10 @@ const Localization: React.FC = () => {
         rowSelection={{}}
         actionRef={actionRef}
         columns={columns}
-        request={listLocalization}
+        request={(params) => {
+          const locale = getLocale();
+          return listLocalization({locale, ...params});
+        }}
         rowKey="id"
         search={{
           layout: "vertical"

@@ -9,6 +9,7 @@ export default {
   'menu.ecommerce': 'E-Commerce',
   'menu.ecommerce.center': 'Chi tiết',
   'menu.ecommerce.order': 'Đơn hàng',
+  'menu.ecommerce.newOrder': 'Đơn hàng mới',
   'menu.ecommerce.product': 'Sản phẩm',
   'menu.home': 'Trang chủ',
   'menu.help': 'Trợ giúp',

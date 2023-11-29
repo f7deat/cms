@@ -84,6 +84,9 @@ const CommentPage: React.FC = () => {
     return (
         <PageContainer>
             <ProTable request={queryComments} columns={columns} actionRef={actionRef}
+                search={{
+                    layout: "vertical"
+                }}
                 rowSelection={{}} />
         </PageContainer>
     )

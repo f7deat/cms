@@ -15,3 +15,7 @@ export async function deleteOrder(id?: string | string []) {
     method: 'POST'
   });
 }
+
+export async function apiTotalOrder() {
+  return request(`order/count`);
+}

@@ -1,5 +1,5 @@
-import { deleteOrder, listOrder } from '@/services/order';
-import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { apiTotalOrder, deleteOrder, listOrder } from '@/services/order';
+import { ArrowDownOutlined, DeleteOutlined, ExportOutlined, EyeOutlined, PlusOutlined, SkinOutlined } from '@ant-design/icons';
 import {
   ActionType,
   PageContainer,
@@ -8,14 +8,19 @@ import {
   ProFormDateRangePicker,
   ProTable,
 } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
+import { Link, history } from '@umijs/max';
 import { Button, Card, Col, Empty, Popconfirm, Row, Space, Statistic, message } from 'antd';
 import { ColumnChart } from 'bizcharts';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Order: React.FC = () => {
 
   const actionRef = useRef<ActionType>();
+  const [totalOrder, setTotalOrder] = useState<number>(0); 
+
+  useEffect(() => {
+    apiTotalOrder().then(response => setTotalOrder(response));
+  }, [])
 
   const handleRemove = async (id: string) => {
     const response = await deleteOrder(id);
@@ -133,7 +138,9 @@ const Order: React.FC = () => {
     <PageContainer
       extra={
         <Space>
+          <Link to="/ecommerce/order/new">
           <Button type="primary" icon={<PlusOutlined />}>New order</Button>
+          </Link>
           <Button icon={<ExportOutlined />}>Export</Button>
         </Space>
       }
@@ -183,12 +190,9 @@ const Order: React.FC = () => {
             <Col span={12} className='mb-4'>
               <Card bordered={false}>
                 <Statistic
-                  title="Active"
-                  value={11.28}
-                  precision={2}
-                  valueStyle={{ color: '#3f8600' }}
-                  prefix={<ArrowUpOutlined />}
-                  suffix="%"
+                  title="Total"
+                  value={totalOrder}
+                  prefix={<SkinOutlined />}
                 />
               </Card>
             </Col>

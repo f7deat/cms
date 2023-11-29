@@ -267,6 +267,12 @@ export default [
           component: './order'
         },
         {
+          name: 'newOrder',
+          path: '/ecommerce/order/new',
+          component: './order/new',
+          hideInMenu: true
+        },
+        {
           name: 'order',
           path: '/ecommerce/order/center/:id',
           component: './order/center',
