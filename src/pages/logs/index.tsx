@@ -57,7 +57,11 @@ const LogPage: React.FC = () => {
     ];
 
     return (
-        <PageContainer>
+        <PageContainer extra={(
+            <Popconfirm title="Are you sure?">
+                <Button type="primary" danger icon={<DeleteOutlined />}>Xóa tất cả</Button>
+            </Popconfirm>
+        )}>
             <ProTable request={queryLogs} columns={columns} actionRef={actionRef}
                 search={{
                     layout: 'vertical'

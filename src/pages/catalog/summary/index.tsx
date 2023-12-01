@@ -70,7 +70,7 @@ const CatalogSummary: React.FC = () => {
       <Divider />
       <Descriptions title="Information" column={1}>
         <Descriptions.Item label="Lượt xem">
-          {catalog?.viewCount}
+          {catalog?.viewCount.toLocaleString()}
         </Descriptions.Item>
         <Descriptions.Item label="Created date">
           {formatDate(catalog?.createdDate)}

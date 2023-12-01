@@ -134,7 +134,7 @@ export async function saveBrand(data: any) {
   });
 }
 
-export async function apiTopView(type: CatalogType) {
+export async function apiTopView(type: string) {
   return request(`/catalog/top-view`, {
     params: {
       type

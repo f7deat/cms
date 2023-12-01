@@ -1,5 +1,5 @@
-import { getUser } from '@/services/user';
-import { EditOutlined, MessageOutlined, UserAddOutlined } from '@ant-design/icons';
+import { apiConfirmEmail, getUser } from '@/services/user';
+import { InboxOutlined, MessageOutlined, UserAddOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import {
@@ -11,7 +11,8 @@ import {
   Divider,
   Descriptions,
   Typography,
-  Tag,
+  Popconfirm,
+  message,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import ProfileRoles from './role';
@@ -27,6 +28,13 @@ const Profile: React.FC = () => {
     });
   }, [id]);
 
+  const onConfirmEmail = async () => {
+    const response = await apiConfirmEmail(id);
+    if (response.succeeded) {
+      message.success('Saved!');
+    }
+  }
+
   return (
     <PageContainer>
       <Row gutter={16}>
@@ -34,6 +42,11 @@ const Profile: React.FC = () => {
           <ProCard
             title="Profile"
             headerBordered
+            actions={[
+              <Popconfirm title="Confirm email?" onConfirm={onConfirmEmail}>
+                <Button icon={<InboxOutlined />} type='link' />
+              </Popconfirm>
+            ]}
           >
             <div className="flex items-center justify-center flex-col">
               <div className='mb-4'>

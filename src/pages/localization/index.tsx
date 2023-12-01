@@ -27,6 +27,7 @@ const Localization: React.FC = () => {
 
   const handleAdd = () => {
     formRef.current?.resetFields();
+    setSelectedItem(null);
     setOpen(true);
   };
 
@@ -141,10 +142,11 @@ const Localization: React.FC = () => {
         onOpenChange={setOpen}
         onFinish={onFinish}
       >
-        <ProFormText name="id" disabled />
+        <ProFormText name="id" hidden />
         <ProFormText
           name="key"
           label="Key"
+          disabled={selectedItem}
           rules={[
             {
               required: true,
