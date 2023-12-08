@@ -4,6 +4,7 @@ import { DeleteOutlined, DownloadOutlined, EyeOutlined, InboxOutlined } from '@a
 import { ActionType, PageContainer, ProCard, ProColumns, ProTable, Statistic } from '@ant-design/pro-components';
 import { Button, Col, Divider, message, Popconfirm, Row, Upload, UploadProps } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import WorksUnuse from './components/works-unuse';
 
 const { Dragger } = Upload;
 
@@ -66,10 +67,7 @@ const Backup: React.FC = () => {
     {
       title: '#',
       valueType: 'indexBorder',
-    },
-    {
-      title: 'Id',
-      dataIndex: 'id',
+      width: 40
     },
     {
       title: 'Name',
@@ -87,7 +85,8 @@ const Backup: React.FC = () => {
           <Button type="primary" danger icon={<DeleteOutlined />} />
         </Popconfirm>,
       ],
-      valueType: 'option'
+      valueType: 'option',
+      width: 60
     }
   ]
 
@@ -150,8 +149,17 @@ const Backup: React.FC = () => {
             </Dragger>
           </ProCard>
         </Col>
-        <Col span={16}>
-          <ProTable request={listUnuse} columns={columns} actionRef={actionRef} />
+        <Col md={16}>
+          <Row gutter={16}>
+            <Col md={12}>
+              <ProCard title="Unuse Contents">
+              <ProTable request={listUnuse} columns={columns} actionRef={actionRef} ghost search={false} />
+              </ProCard>
+            </Col>
+            <Col md={12}>
+              <WorksUnuse />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </PageContainer>

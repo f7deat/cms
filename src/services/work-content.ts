@@ -281,3 +281,9 @@ export async function sortChild(workIds: string[]) {
     data: workIds
   })
 }
+
+export async function apiUnuseWorks(params: any) {
+  return request(`/work/unuse-works`, {
+    params
+  })
+}
