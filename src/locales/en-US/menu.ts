@@ -14,6 +14,8 @@ export default {
   'menu.ecommerce.product': 'Products',
   'menu.component': 'Components',
   'menu.component.articleLister': 'Article Lister',
+  'menu.component.articlePicker': 'Article Picker',
+  'menu.component.articleSpotlight': 'Article Spotlight',
   'menu.component.affiliateLink': 'Affiliate Link',
   'menu.component.blockEditor': 'Block editor',
   'menu.component.editor': 'Editor',

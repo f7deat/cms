@@ -19,6 +19,7 @@ export async function listCatalog(params: {
   pageSize?: number;
   type?: CatalogType;
   parentId?: string;
+  language?: string;
 }, sort: Record<string, SortOrder>) {
   return request('catalog/list', {
     method: 'GET',

@@ -150,12 +150,6 @@ export default [
           hideInMenu: true,
         },
         {
-          name: 'navItem',
-          path: '/works/nav-item/:id',
-          component: './works/navbar/nav-item',
-          hideInMenu: true,
-        },
-        {
           name: 'link',
           path: '/works/link/:id',
           component: './works/link',
@@ -411,12 +405,6 @@ export default [
           name: 'facebook',
           path: '/settings/facebook/:id',
           component: './settings/facebook',
-          hideInMenu: true,
-        },
-        {
-          name: 'sidebar',
-          path: '/settings/sidebar/:id',
-          component: './settings/sidebar',
           hideInMenu: true,
         },
         {

@@ -62,7 +62,11 @@ const SettingPage: React.FC = () => {
     >
       <Row gutter={16}>
         <Col span={12}>
-          <ProTable request={listSetting} rowKey="id" columns={columns} />
+          <ProTable
+          search={{
+            layout: 'vertical'
+          }}
+          request={listSetting} rowKey="id" columns={columns} />
         </Col>
         <Col span={12}>
           <ProCard>

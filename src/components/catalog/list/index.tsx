@@ -1,6 +1,7 @@
 import FormCatalogType from '@/components/form/catalog-type';
 import { CatalogType } from '@/constants';
 import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
+import { simplyLocale } from '@/utils/format';
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -122,6 +123,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           listCatalog({
             ...params,
             type: props.type,
+            language: simplyLocale(intl.locale)
           }, sort)
         }
         search={{
@@ -154,6 +156,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         />
         <FormCatalogType label='Type' name='type' initialValue={`${props.type}`} />
         <ProFormTextArea label="Description" name="description" />
+        <ProFormText name="language" initialValue={simplyLocale(intl.locale)} hidden />
       </ModalForm>
     </div>
   );
