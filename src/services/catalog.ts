@@ -1,5 +1,6 @@
-import { CatalogType } from '@/constants';
+import { CatalogType, ESortOrder } from '@/constants';
 import { request } from '@umijs/max';
+import { SortOrder } from 'antd/lib/table/interface';
 import { DataNode } from 'antd/lib/tree';
 
 export async function getCatalog(id: string | undefined) {
@@ -18,10 +19,14 @@ export async function listCatalog(params: {
   pageSize?: number;
   type?: CatalogType;
   parentId?: string;
-}) {
+}, sort: Record<string, SortOrder>) {
   return request('catalog/list', {
     method: 'GET',
-    params,
+    params: {
+      viewCount: sort.viewCount ? (sort.viewCount === 'ascend' ? ESortOrder.Ascending : ESortOrder.Descending) : ESortOrder.Unspecified,
+      modifiedDate: sort.modifiedDate ? (sort.modifiedDate === 'ascend' ? ESortOrder.Ascending : ESortOrder.Descending) : ESortOrder.Unspecified,
+      ...params,
+    },
   });
 }
 

@@ -59,12 +59,14 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
       dataIndex: 'modifiedDate',
       valueType: 'fromNow',
       search: false,
+      sorter: true
     },
     {
       title: 'View',
       dataIndex: 'viewCount',
       valueType: 'digit',
       search: false,
+      sorter: true
     },
     {
       title: 'Status',
@@ -116,11 +118,11 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
       <ProTable
         rowSelection={{}}
         rowKey="id"
-        request={(params) =>
+        request={(params, sort) =>
           listCatalog({
             ...params,
             type: props.type,
-          })
+          }, sort)
         }
         search={{
           layout: "vertical"

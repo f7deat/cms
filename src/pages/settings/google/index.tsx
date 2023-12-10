@@ -55,6 +55,10 @@ const GoogleApp: React.FC = () => {
         {
           name: 'measurementId',
           value: response.firebase?.measurementId
+        },
+        {
+          name: 'gTagId',
+          value: response.gTagId
         }
       ]);
     });
@@ -95,6 +99,11 @@ const GoogleApp: React.FC = () => {
                 <ProFormText name="appId" label="App Id" />
                 <ProFormText name="measurementId" label="Measurement Id" />
               </Space>
+            </ProCard>
+          </Col>
+          <Col md={6}>
+            <ProCard title="Analytics">
+                <ProFormText name="gTagId" label="Google tag Id" />
             </ProCard>
           </Col>
         </Row>
