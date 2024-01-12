@@ -90,7 +90,8 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         <Button
           icon={<EditOutlined />}
           key={1}
-          type="primary"
+          type="link"
+          size='small'
           onClick={() => history.push(`/${url()}/${entity.id}`)}
         ></Button>,
         <Popconfirm
@@ -98,7 +99,9 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           key={2}
           onConfirm={() => onConfirm(entity.id)}
         >
-          <Button icon={<DeleteOutlined />} type="primary" danger />
+          <Button
+            size='small'
+            type="link" icon={<DeleteOutlined />} danger />
         </Popconfirm>,
       ],
     },
@@ -126,8 +129,11 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
             language: simplyLocale(intl.locale)
           }, sort)
         }
+        pagination={{
+          defaultPageSize: 10
+        }}
         search={{
-          layout: "vertical"
+          layout: "vertical",
         }}
         columns={columns}
         actionRef={actionRef}
