@@ -1,10 +1,11 @@
+import FormCatalogList from "@/components/form/catalog-list";
 import FormCatalogType from "@/components/form/catalog-type";
 import { CatalogType } from "@/constants";
 import { addCatalog, deleteCatalog, listCatalog } from "@/services/catalog";
 import { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined } from "@ant-design/icons";
-import { ActionType, ModalForm, ProFormText, ProFormTextArea, ProList } from "@ant-design/pro-components";
+import { ActionType, ModalForm, ProFormSelect, ProFormText, ProFormTextArea, ProList } from "@ant-design/pro-components";
 import { FormattedMessage, useParams, history, useIntl } from "@umijs/max";
-import { Button, Popconfirm, message } from "antd";
+import { Button, Col, Popconfirm, Row, message } from "antd";
 import { useRef, useState } from "react";
 
 type ChildCatalogProps = {
@@ -53,7 +54,7 @@ const ChildCatalog: React.FC<ChildCatalogProps> = ({ parent }) => {
                 actionRef={actionRef}
                 toolBarRender={() => {
                     return [
-                        <Button key="3" type="primary" icon={<PlusOutlined />} onClick={() => setOpen(true)}>
+                        <Button key="3" type="primary" icon={<PlusOutlined />} onClick={() => setOpen(true)} disabled={parent?.parentId != null}>
                             <span><FormattedMessage id="general.new" /></span>
                         </Button>
                     ];
@@ -112,7 +113,14 @@ const ChildCatalog: React.FC<ChildCatalogProps> = ({ parent }) => {
                         },
                     ]}
                 />
-                <FormCatalogType label='Type' name='type' initialValue={`${CatalogType.Default}`} />
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <FormCatalogType label='Type' name='type' initialValue={parent?.type.toString()} disabled />
+                    </Col>
+                    <Col span={12}>
+                        <FormCatalogList label="Parent" name="parentId" initialValue={parent?.id} />
+                    </Col>
+                </Row>
                 <ProFormTextArea label="Description" name="description" />
             </ModalForm>
         </>

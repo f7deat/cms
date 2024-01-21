@@ -7,8 +7,9 @@ import {
   ProFormSelect,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { Space, message } from 'antd';
 import { useEffect, useRef } from 'react';
+import ChangeTheme from './change-theme';
 
 const CssSetting: React.FC = () => {
   const formRef = useRef<ProFormInstance>();
@@ -34,6 +35,9 @@ const CssSetting: React.FC = () => {
   return (
     <PageContainer>
       <ProCard>
+        <div className='flex mb-4 justify-end'>
+        <ChangeTheme />
+        </div>
         <ProForm onFinish={onFinish} formRef={formRef}>
           <ProFormTextArea name="arguments" label="Content" />
         </ProForm>

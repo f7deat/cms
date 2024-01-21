@@ -4,11 +4,9 @@ import { ProFormSelect, ProFormSelectProps } from '@ant-design/pro-components';
 const FormCatalogList: React.FC<ProFormSelectProps> = (props) => {
     return (
         <ProFormSelect
+            {...props}
             showSearch
             request={queryCatalogSelect}
-            label={props.label}
-            name={props.name}
-            initialValue={props.initialValue}
         />
     );
 };

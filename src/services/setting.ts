@@ -88,6 +88,10 @@ export async function getSetting(id: string | undefined) {
   return request(`setting/${id}`);
 }
 
+export async function querySetting(normalizedName: string) {
+  return request(`setting/unix/${normalizedName}`);
+}
+
 export async function getHeader(id: string | undefined) {
   return request(`setting/header/${id}`);
 }
@@ -99,6 +103,17 @@ export async function saveSetting(id: string | undefined, data: any) {
   });
 }
 
+export async function querySaveSetting(normalizedName: string, data: any) {
+  return request(`setting/unix/save/${normalizedName}`, {
+    method: 'POST',
+    data,
+  });
+}
+
 export async function graphFacebook(query: string) {
   return request(`setting/graph-api-explorer?query=${query}`);
+}
+
+export async function queryThemeOptions() {
+  return request(`setting/themes/options`);
 }
