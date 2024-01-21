@@ -10,7 +10,7 @@ import {
   ProFormTextArea,
   ProTable,
 } from '@ant-design/pro-components';
-import { FormattedMessage } from '@umijs/max';
+import { FormattedMessage, getLocale } from '@umijs/max';
 import { useIntl } from '@umijs/max';
 import { history } from '@umijs/max';
 import { message, Button, Popconfirm } from 'antd';
@@ -49,24 +49,35 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
     {
       title: '#',
       valueType: 'indexBorder',
+      width: 50
     },
     {
       title: 'Name',
       dataIndex: 'name',
     },
     {
+      title: 'Created date',
+      dataIndex: 'createdDate',
+      valueType: 'fromNow',
+      search: false,
+      sorter: true,
+      width: 180
+    },
+    {
       title: 'Modified date',
       dataIndex: 'modifiedDate',
       valueType: 'fromNow',
       search: false,
-      sorter: true
+      sorter: true,
+      width: 180
     },
     {
       title: 'View',
       dataIndex: 'viewCount',
       valueType: 'digit',
       search: false,
-      sorter: true
+      sorter: true,
+      width: 100
     },
     {
       title: 'Status',
@@ -81,6 +92,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           status: 'Processing',
         },
       },
+      width: 100
     },
     {
       title: '',
@@ -103,6 +115,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
             type="link" icon={<DeleteOutlined />} danger />
         </Popconfirm>,
       ],
+      width: 100
     },
   ];
 
@@ -125,7 +138,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
           listCatalog({
             ...params,
             type: props.type,
-            locale: intl.locale
+            locale: getLocale()
           }, sort)
         }
         pagination={{
@@ -161,7 +174,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         />
         <FormCatalogType label='Type' name='type' initialValue={`${props.type}`} />
         <ProFormTextArea label="Description" name="description" />
-        <ProFormText name="language" initialValue={intl.locale} hidden />
+        <ProFormText name="locale" initialValue={intl.locale} hidden />
       </ModalForm>
     </div>
   );

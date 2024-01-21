@@ -45,6 +45,7 @@ const CatalogSummary: React.FC<Props> = ({ catalog }) => {
   return (
     <ProCard
       title="Summary"
+      headerBordered
       actions={[
         <Tooltip key="view" title="Preview">
           <EyeOutlined onClick={() => window.open(catalogUrl())} />
@@ -54,7 +55,7 @@ const CatalogSummary: React.FC<Props> = ({ catalog }) => {
         <EllipsisOutlined key="ellipsis" />,
       ]}
     >
-      <div className="flex items-center justify-center mt-4">
+      <div className="flex items-center justify-center">
         {!catalog?.thumbnail ? (
           <Empty />
         ) : (
@@ -67,7 +68,7 @@ const CatalogSummary: React.FC<Props> = ({ catalog }) => {
         )}
       </div>
       <Divider />
-      <Descriptions title="Information" column={1}>
+      <Descriptions title="Information" column={1} bordered size='small'>
         <Descriptions.Item label="Lượt xem">
           {catalog?.viewCount.toLocaleString()}
         </Descriptions.Item>

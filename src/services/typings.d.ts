@@ -20,6 +20,7 @@ declare namespace API {
     modifiedDate?: Date;
     active: boolean;
     parentId?: string;
+    locale?: string;
   };
 
   type CatalogSetting = {

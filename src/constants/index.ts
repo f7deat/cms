@@ -1,5 +1,4 @@
 export const DEFAULT_NAME = 'Umi Max';
-export { default as Language } from './language';
 
 export enum CatalogType {
   Default,
