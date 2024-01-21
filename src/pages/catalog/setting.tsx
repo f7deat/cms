@@ -15,7 +15,12 @@ import FileExplorer from '@/components/file-explorer';
 import FormCatalogList from '@/components/form/catalog-list';
 import WfUpload from '@/components/file-explorer/upload';
 
-const CatalogSetting: React.FC = () => {
+type Props = {
+  catalog?: API.Catalog;
+  reload: Function
+}
+
+const CatalogSetting: React.FC<Props> = ({ catalog, reload }) => {
   const { id } = useParams();
 
   const formRef = useRef<ProFormInstance>();
@@ -23,42 +28,42 @@ const CatalogSetting: React.FC = () => {
   const [upload, setUpload] = useState<boolean>(false);
 
   useEffect(() => {
-    getCatalog(id).then((response) => {
+    if (catalog) {
       formRef.current?.setFields([
         {
           name: 'id',
-          value: response.id,
+          value: catalog.id,
         },
         {
           name: 'name',
-          value: response.name,
+          value: catalog.name,
         },
         {
           name: 'normalizedName',
-          value: response.normalizedName,
+          value: catalog.normalizedName,
         },
         {
           name: 'description',
-          value: response.description,
+          value: catalog.description,
         },
         {
           name: 'thumbnail',
-          value: response.thumbnail,
+          value: catalog.thumbnail,
         },
         {
           name: 'type',
-          value: response.type.toString(),
+          value: catalog.type.toString(),
         },
         {
           name: 'active',
-          value: response.active,
+          value: catalog.active,
         },
         {
           name: 'parentId',
-          value: response.parentId
+          value: catalog.parentId
         }
       ]);
-    });
+    }
   }, [id]);
 
   const onFinish = async (values: API.Catalog) => {
@@ -66,6 +71,7 @@ const CatalogSetting: React.FC = () => {
     const response = await saveCatalog(values);
     if (response.succeeded) {
       message.success('Saved!');
+      reload();
     }
   };
 

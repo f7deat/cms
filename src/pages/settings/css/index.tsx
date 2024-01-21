@@ -4,6 +4,7 @@ import {
   ProCard,
   ProForm,
   ProFormInstance,
+  ProFormSelect,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { message } from 'antd';

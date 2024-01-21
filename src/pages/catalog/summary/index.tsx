@@ -9,20 +9,18 @@ import { ModalForm, ProCard, ProFormDigit, ProFormText } from '@ant-design/pro-c
 import { Fragment, useEffect, useState } from 'react';
 import { CatalogType } from '@/constants';
 import { useParams } from '@umijs/max';
-import { addCatalog, getCatalog } from '@/services/catalog';
+import { addCatalog } from '@/services/catalog';
 import { message, Image, Empty, Divider, Descriptions, Typography, Button, Space, Tooltip } from 'antd';
 import { absolutePath, formatDate } from '@/utils/format';
 import TagList from './tag';
 import { BASE_URL } from '@/utils/setting';
 
-const CatalogSummary: React.FC = () => {
-  const { id } = useParams();
-  const [open, setOpen] = useState<boolean>(false);
-  const [catalog, setCatalog] = useState<API.Catalog>();
+type Props = {
+  catalog?: API.Catalog;
+}
 
-  useEffect(() => {
-    getCatalog(id).then((response) => setCatalog(response));
-  }, [id]);
+const CatalogSummary: React.FC<Props> = ({ catalog }) => {
+  const [open, setOpen] = useState<boolean>(false);
 
   const onFinish = async (values: API.Catalog) => {
     values.active = true;
@@ -63,7 +61,8 @@ const CatalogSummary: React.FC = () => {
           <Image
             src={absolutePath(catalog?.thumbnail)}
             height={200}
-            className="object-fit-cover"
+            className="object-cover"
+            wrapperClassName='w-full'
           />
         )}
       </div>

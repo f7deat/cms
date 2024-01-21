@@ -8,6 +8,11 @@ const ComponentFormSelect: React.FC<ProFormSelectProps> = (props) => {
       request={queryFormSelect}
       name={props.name}
       label={props.label}
+      rules={[
+        {
+          required: true
+        }
+      ]}
     />
   );
 };

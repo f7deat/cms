@@ -47,7 +47,11 @@ button {
   background-color: white;
 }
 
-.object-fit-cover {
+.w-full {
+  width: 100%;
+}
+
+.object-cover {
   object-fit: cover;
 }
 

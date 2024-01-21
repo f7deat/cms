@@ -22,10 +22,3 @@ export const waitTime = (time: number = 100) => {
     }, time);
   });
 };
-
-export const simplyLocale = (locale: string) => {
-  if (locale) {
-    return locale.split('-')[0];
-  }
-  return 'en';
-}

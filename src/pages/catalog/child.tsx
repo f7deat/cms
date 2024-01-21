@@ -1,15 +1,20 @@
 import FormCatalogType from "@/components/form/catalog-type";
 import { CatalogType } from "@/constants";
 import { addCatalog, deleteCatalog, listCatalog } from "@/services/catalog";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined } from "@ant-design/icons";
 import { ActionType, ModalForm, ProFormText, ProFormTextArea, ProList } from "@ant-design/pro-components";
-import { FormattedMessage, useParams, history } from "@umijs/max";
+import { FormattedMessage, useParams, history, useIntl } from "@umijs/max";
 import { Button, Popconfirm, message } from "antd";
 import { useRef, useState } from "react";
 
-const ChildCatalog: React.FC = () => {
+type ChildCatalogProps = {
+    parent?: API.Catalog;
+}
+
+const ChildCatalog: React.FC<ChildCatalogProps> = ({ parent }) => {
 
     const { id } = useParams();
+    const intl = useIntl();
 
     const [open, setOpen] = useState<boolean>(false);
     const actionRef = useRef<ActionType>();
@@ -43,6 +48,7 @@ const ChildCatalog: React.FC = () => {
     return (
         <>
             <ProList<API.Catalog>
+                ghost
                 headerTitle="Trang con"
                 actionRef={actionRef}
                 toolBarRender={() => {
@@ -57,10 +63,11 @@ const ChildCatalog: React.FC = () => {
                         dataIndex: 'name'
                     },
                     description: {
-                        dataIndex: 'id'
+                        dataIndex: 'description'
                     },
                     actions: {
                         render: (dom, entity) => [
+                            <Button icon={<MoreOutlined />} type="dashed"></Button>,
                             <Button
                                 icon={<EditOutlined />}
                                 key={1}
@@ -80,8 +87,10 @@ const ChildCatalog: React.FC = () => {
                 request={(params) =>
                     listCatalog({
                         ...params,
-                        parentId: id
-                    })
+                        parentId: id,
+                        locale: intl.locale,
+                        type: parent?.type
+                    }, {})
                 }
                 pagination={{
 

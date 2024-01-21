@@ -23,8 +23,12 @@ const CatalogPage: React.FC = () => {
   const [catalog, setCatalog] = useState<API.Catalog>();
   const [tab, setTab] = useState('content');
 
-  useEffect(() => {
+  const reload = () => {
     getCatalog(id).then((response) => setCatalog(response));
+  }
+
+  useEffect(() => {
+    reload();
   }, [id]);
 
   const onFinish = async (values: API.Catalog) => {
@@ -60,29 +64,31 @@ const CatalogPage: React.FC = () => {
                 {
                   label: <FormattedMessage id='menu.settings' />,
                   key: 'setting',
-                  children: <CatalogSetting />,
+                  children: <CatalogSetting catalog={catalog} reload={reload} />,
                 },
                 {
                   label: <FormattedMessage id='pages.catalog.productDetail' />,
                   key: 'product-detail',
                   children: <ProductDetail />,
                   disabled: catalog?.type !== CatalogType.Product
+                },
+                {
+                  label: 'Trang con',
+                  key: 'childen',
+                  children: <ChildCatalog parent={catalog} />
                 }
               ],
               onChange: onTabChange,
             }}
             className='mb-4'
           />
-          {
-            !catalog?.parentId && (<ChildCatalog />)
-          }
           <ModalForm onFinish={onFinish} open={open} onOpenChange={setOpen}>
             <ProFormText name="name" label="Name" />
             <ProFormText name="normalizedName" label="Normalized Name" />
           </ModalForm>
         </Col>
         <Col span={6}>
-          <CatalogSummary />
+          <CatalogSummary catalog={catalog} />
         </Col>
       </Row>
     </PageContainer>
