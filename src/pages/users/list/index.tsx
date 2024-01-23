@@ -36,7 +36,7 @@ const UserList: React.FC = () => {
     }
   };
 
-  const onConfirm = async (id: string) => {
+  const onConfirm = async (id?: string) => {
     const response = await deleteUser(id);
     if (response.succeeded) {
       message.success('Deleted');
@@ -83,12 +83,13 @@ const UserList: React.FC = () => {
           type="primary"
           icon={<EyeOutlined />}
           key={1}
+          size='small'
           onClick={() => {
             history.push(`/users/profile/${entity.id}`);
           }}
         />,
         <Popconfirm title="Are you sure?" key={2} onConfirm={() => onConfirm(entity.id)}>
-          <Button type="primary" icon={<DeleteOutlined />} danger />
+          <Button type="primary" icon={<DeleteOutlined />} size='small' danger />
         </Popconfirm>,
       ],
     },

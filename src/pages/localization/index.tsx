@@ -83,6 +83,7 @@ const Localization: React.FC = () => {
       render: (dom, entity) => [
         <Button
           icon={<EditOutlined />}
+          size='small'
           key={1}
           type="primary"
           onClick={() => handleUpdate(entity)}
@@ -92,9 +93,11 @@ const Localization: React.FC = () => {
           key={2}
           onConfirm={() => handleRemove(entity.id)}
         >
-          <Button icon={<DeleteOutlined />} type="primary" danger />
+          <Button icon={<DeleteOutlined />} type="primary"
+          size='small' danger />
         </Popconfirm>,
       ],
+      width: 80
     },
   ];
 
@@ -133,6 +136,10 @@ const Localization: React.FC = () => {
         rowKey="id"
         search={{
           layout: "vertical"
+        }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true
         }}
       />
       <ModalForm

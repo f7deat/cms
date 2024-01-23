@@ -63,13 +63,13 @@ const Block: React.FC = () => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button key="view" icon={<FolderOutlined />} onClick={() => history.push(`/settings/component/center/${entity.id}`)} />,
+        <Button key="view" icon={<FolderOutlined />} size='small' onClick={() => history.push(`/settings/component/center/${entity.id}`)} />,
         <Popconfirm
           title="Are you sure?"
           key={2}
           onConfirm={() => onConfirm(entity.id)}
         >
-          <Button icon={<DeleteOutlined />} type="primary" danger />
+          <Button icon={<DeleteOutlined />} type="primary" danger size='small' />
         </Popconfirm>,
       ],
     },
@@ -85,6 +85,10 @@ const Block: React.FC = () => {
         columns={columns}
         search={{
           layout: 'vertical',
+        }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true
         }}
       />
     </PageContainer>

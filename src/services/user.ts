@@ -33,7 +33,7 @@ export async function changePassword(data: any) {
   });
 }
 
-export async function deleteUser(id: string) {
+export async function deleteUser(id?: string) {
   return request(`user/delete/${id}`, {
     method: 'POST'
   })
