@@ -48,6 +48,7 @@ const UserList: React.FC = () => {
     {
       title: '#',
       valueType: 'indexBorder',
+      width: 50
     },
     {
       title: 'User name',
@@ -80,7 +81,7 @@ const UserList: React.FC = () => {
       valueType: 'option',
       render: (dom, entity) => [
         <Button
-          type="primary"
+          type="text"
           icon={<EyeOutlined />}
           key={1}
           size='small'
@@ -89,9 +90,10 @@ const UserList: React.FC = () => {
           }}
         />,
         <Popconfirm title="Are you sure?" key={2} onConfirm={() => onConfirm(entity.id)}>
-          <Button type="primary" icon={<DeleteOutlined />} size='small' danger />
+          <Button type="text" icon={<DeleteOutlined />} size='small' danger />
         </Popconfirm>,
       ],
+      width: 80
     },
   ];
 

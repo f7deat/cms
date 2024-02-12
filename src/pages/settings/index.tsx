@@ -18,6 +18,7 @@ const SettingPage: React.FC = () => {
     {
       title: '#',
       valueType: 'indexBorder',
+      width: 30
     },
     {
       title: 'name',
@@ -29,21 +30,22 @@ const SettingPage: React.FC = () => {
       search: false
     },
     {
-      title: '',
+      title: 'Option',
       valueType: 'option',
       render: (dom, entity) => [
         <Button
+          size='small'
           icon={<EditOutlined />}
           key={1}
           onClick={() =>
             history.push(
-              `/settings/${entity.normalizedName.toLocaleLowerCase()}/${
-                entity.id
+              `/settings/${entity.normalizedName.toLocaleLowerCase()}/${entity.id
               }`,
             )
           }
         ></Button>,
       ],
+      width: 40
     },
   ];
 
@@ -63,10 +65,10 @@ const SettingPage: React.FC = () => {
       <Row gutter={16}>
         <Col span={12}>
           <ProTable
-          search={{
-            layout: 'vertical'
-          }}
-          request={listSetting} rowKey="id" columns={columns} />
+            search={{
+              layout: 'vertical'
+            }}
+            request={listSetting} rowKey="id" columns={columns} />
         </Col>
         <Col span={12}>
           <ProCard>

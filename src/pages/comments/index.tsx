@@ -49,7 +49,8 @@ const CommentPage: React.FC = () => {
         {
             title: 'Date',
             dataIndex: 'createdDate',
-            valueType: 'fromNow'
+            valueType: 'fromNow',
+            width: 130
         },
         {
             title: 'Status',
@@ -64,6 +65,7 @@ const CommentPage: React.FC = () => {
                     status: 'Processing',
                 },
             },
+            width: 80
         },
         {
             title: '',
@@ -75,7 +77,7 @@ const CommentPage: React.FC = () => {
                     key={2}
                     onConfirm={() => remove(entity.id)}
                 >
-                    <Button icon={<DeleteOutlined />} type="primary" danger />
+                    <Button icon={<DeleteOutlined />} type="text" size="small" danger />
                 </Popconfirm>,
             ],
         },
