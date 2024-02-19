@@ -8,12 +8,15 @@ import {
 } from '@ant-design/pro-components';
 import { FormattedMessage, history, useParams } from '@umijs/max';
 import { Button, Col, Row, Space, message } from 'antd';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeftOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import Blogger from './blogger';
 
 const GoogleApp: React.FC = () => {
   const { id } = useParams();
   const formRef = useRef<ProFormInstance>();
+  const [bloggers, setBloggers] = useState<any>([]);
+
   useEffect(() => {
     getSetting(id).then((response) => {
       if (!response) {
@@ -61,10 +64,14 @@ const GoogleApp: React.FC = () => {
           value: response.gTagId
         }
       ]);
+      if (response.bloggers) {
+        setBloggers(response.bloggers);
+      }
     });
   }, [id]);
 
   const onFinish = async (values: any) => {
+    values.bloggers = bloggers;
     const response = await saveSetting(id, values);
     if (response.succeeded) {
       message.success('Saved');
@@ -76,10 +83,7 @@ const GoogleApp: React.FC = () => {
       <ProForm formRef={formRef} onFinish={onFinish}>
         <Row gutter={16}>
           <Col span={6}>
-            <ProCard title="Blogger" extra={<a href='https://blogger.com/' target='_blank'><InfoCircleOutlined /></a>}>
-              <ProFormText.Password name="bloggerApiKey" label="Blogger API Key" />
-              <ProFormText.Password name="clientId" label="Client ID" />
-            </ProCard>
+            <Blogger dataSource={bloggers} setDataSource={setBloggers} />
           </Col>
           <Col span={6}>
             <ProCard title="Firebase" extra={<a href='https://firebase.google.com/' target='_blank'><InfoCircleOutlined /></a>}>
@@ -103,7 +107,7 @@ const GoogleApp: React.FC = () => {
           </Col>
           <Col md={6}>
             <ProCard title="Analytics">
-                <ProFormText name="gTagId" label="Google tag Id" />
+              <ProFormText name="gTagId" label="Google tag Id" />
             </ProCard>
           </Col>
         </Row>
