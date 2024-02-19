@@ -40,7 +40,7 @@ const TagList: React.FC = () => {
     }
   };
 
-  const onClose = async (tagId: string) => {
+  const onClose = async (tagId?: string) => {
     const response = await deleteItem({
       catalogId: tagId,
       workId: id,
