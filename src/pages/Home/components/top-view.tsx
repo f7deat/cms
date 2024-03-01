@@ -18,6 +18,7 @@ const TopView: React.FC = () => {
     }, [activeKey]);
 
     const Children = () => <ProList
+        ghost
         dataSource={dataSource}
         metas={{
             title: {

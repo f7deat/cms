@@ -72,5 +72,5 @@ export default {
   'menu.users.profile': 'Profile',
   'menu.users.role': 'Roles',
   'menu.users.roleCenter': 'Role Center',
-  'menu.users.center': 'User center',
+  'menu.users.userCenter': 'User center',
 };

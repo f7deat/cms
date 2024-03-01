@@ -25,7 +25,9 @@ export const AvatarName = () => {
 const AvatarLogo = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-
+  if (!currentUser?.avatar) {
+    return <Avatar size="small" icon={<UserOutlined />} alt="avatar" />
+  }
   return <Avatar size="small" src={currentUser?.avatar} alt="avatar" />;
 };
 
