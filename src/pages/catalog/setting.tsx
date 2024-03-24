@@ -107,7 +107,7 @@ const CatalogSetting: React.FC<Props> = ({ catalog, reload }) => {
           <Col span={12}>
             <ProFormSelect
               options={getAllLocales().map(value => ({ label: value, value: value }))}
-              name="locale" label="Locale" disabled />
+              name="locale" label="Locale" />
           </Col>
         </Row>
         <FormCatalogList name="parentId" label="Parent" />
