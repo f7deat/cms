@@ -50,7 +50,7 @@ const CatalogPage: React.FC = () => {
       extra={<Button icon={<LeftOutlined />} onClick={() => history.back()}><span><FormattedMessage id='general.back' /></span></Button>}
     >
       <Row gutter={16}>
-        <Col span={18}>
+        <Col md={18}>
           <ProCard
             tabs={{
               tabPosition: 'top',
@@ -87,7 +87,7 @@ const CatalogPage: React.FC = () => {
             <ProFormText name="normalizedName" label="Normalized Name" />
           </ModalForm>
         </Col>
-        <Col span={6}>
+        <Col md={6}>
           <CatalogSummary catalog={catalog} />
         </Col>
       </Row>

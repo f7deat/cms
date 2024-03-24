@@ -8,7 +8,7 @@ import { DefaultFooter } from '@ant-design/pro-components';
 import { RequestOptions } from './.umi/plugin-request/request';
 import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
 import { SelectLang } from '@umijs/max';
-import { AvatarDropdown, AvatarName, Question } from './components';
+import { AvatarDropdown, Question } from './components';
 import { Space, message } from 'antd';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -44,7 +44,6 @@ export async function getInitialState(): Promise<{
   };
 }
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
-
   return {
     logo: logo,
     menu: {

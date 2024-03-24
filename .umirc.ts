@@ -1,6 +1,6 @@
-import { defineConfig } from '@umijs/max';
-import defaultSettings from './config/defaultSetting';
-import routes from './config/routes';
+import { defineConfig } from "@umijs/max";
+import defaultSettings from "./config/defaultSetting";
+import routes from "./config/routes";
 
 export default defineConfig({
   antd: {},
@@ -9,17 +9,18 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    ...defaultSettings
+    ...defaultSettings,
   },
   locale: {
-    default: 'vi-VN',
-    baseSeparator: '-',
+    default: "vi-VN",
+    baseSeparator: "-",
     antd: true,
   },
   history: {
-    type: 'hash'
+    type: "hash",
   },
   routes,
-  npmClient: 'yarn',
-  esbuildMinifyIIFE: true
+  npmClient: "yarn",
+  esbuildMinifyIIFE: true,
+  tailwindcss: {}
 });

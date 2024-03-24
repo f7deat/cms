@@ -3,7 +3,7 @@ import { CloudUploadOutlined, InboxOutlined } from "@ant-design/icons";
 import { Button, Divider, Input, Modal, Upload, message } from "antd";
 import { useState } from "react";
 
-type WfUpload = {
+type WfUploadProps = {
     open: boolean;
     onFinish: any;
     onCancel: any;
@@ -11,7 +11,7 @@ type WfUpload = {
 
 const { Dragger } = Upload;
 
-const WfUpload: React.FC<WfUpload> = (props) => {
+const WfUpload: React.FC<WfUploadProps> = (props) => {
 
     const [url, setUrl] = useState<string>('');
 

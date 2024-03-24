@@ -26,6 +26,12 @@ export default [
       hideInMenu: true,
       routes: [
         {
+          name: 'block',
+          path: '/works/:id',
+          component: './works',
+          hideInMenu: true,
+        },
+        {
           name: 'affiliateLink',
           path: '/works/affiliate-link/:id',
           component: './works/affiliate-link',

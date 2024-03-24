@@ -99,6 +99,18 @@ const WorkContentComponent: React.FC = () => {
     }
   }
 
+  const onGoToBlock = (entity: any) => {
+    console.log(entity)
+    if (entity.normalizedName === "jumbotron") {
+      history.push(`/works/${entity.id}`);
+      return;
+    }
+    history.push(
+      `/works/${entity.normalizedName.toLocaleLowerCase()}/${entity.id
+      }`,
+    );
+  }
+
   const columns: ProColumns<API.WorkItem>[] = [
     {
       title: '#',
@@ -132,12 +144,7 @@ const WorkContentComponent: React.FC = () => {
           type="primary"
           disabled={entity.autoGenerateField}
           icon={<EditOutlined />}
-          onClick={() => {
-            history.push(
-              `/works/${entity.normalizedName.toLocaleLowerCase()}/${entity.id
-              }`,
-            );
-          }}
+          onClick={() => onGoToBlock(entity)}
         />,
         <Popconfirm
           title="Are you sure?"

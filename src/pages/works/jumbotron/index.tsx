@@ -1,24 +1,23 @@
 import ProFormImage from '@/components/image/form';
-import WorkSummary from '@/components/works/summary';
-import { getArguments, saveArguments } from '@/services/work-content';
+import { getArguments } from '@/services/work-content';
 import {
-  PageContainer,
-  ProCard,
   ProForm,
   ProFormInstance,
+  ProFormText,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
-import { Col, message, Row } from 'antd';
-import { useEffect, useRef } from 'react';
+import { Col, Row } from 'antd';
+import { useEffect } from 'react';
 
 const Jumbotron: React.FC = () => {
   const { id } = useParams();
 
-  const formRef = useRef<ProFormInstance>();
+  const formRef = ProForm.useFormInstance<ProFormInstance>();
 
   useEffect(() => {
     getArguments(id).then((response) => {
-      formRef.current?.setFields([
+      formRef?.setFields([
         {
           name: 'backgroundImage',
           value: response.backgroundImage,
@@ -27,28 +26,16 @@ const Jumbotron: React.FC = () => {
     });
   }, [id]);
 
-  const onFinish = async (values: CPN.Jumbotron) => {
-    const response = await saveArguments(id, values);
-    if (response.succeeded) {
-      message.success('Saved!');
-    }
-  };
-
   return (
-    <PageContainer>
-      <Row gutter={16}>
-        <Col span={16}>
-          <ProCard>
-            <ProForm onFinish={onFinish} formRef={formRef}>
-              <ProFormImage name="backgroundImage" label="Background image" />
-            </ProForm>
-          </ProCard>
-        </Col>
-        <Col span={8}>
-          <WorkSummary />
-        </Col>
-      </Row>
-    </PageContainer>
+    <Row gutter={16}>
+      <Col md={16}>
+        <ProFormImage name="backgroundImage" label="Background image" />
+      </Col>
+      <Col md={8}>
+        <ProFormText name="title" label="Title" />
+        <ProFormTextArea name="description" label="Description" />
+      </Col>
+    </Row>
   );
 };
 
