@@ -24,7 +24,9 @@ const HomePage: React.FC = () => {
     <PageContainer>
       <Row gutter={16}>
         <Col span={16}>
-          <CatalogList type={CatalogType.Entry} />
+          <ProCard>
+            <CatalogList type={CatalogType.Entry} />
+          </ProCard>
         </Col>
         <Col span={8}>
           <Row gutter={16}>

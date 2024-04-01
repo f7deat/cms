@@ -1,7 +1,7 @@
 import FormCatalogType from '@/components/form/catalog-type';
 import { CatalogType } from '@/constants';
-import { addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { activeCatalog, addCatalog, deleteCatalog, listCatalog } from '@/services/catalog';
+import { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined, SendOutlined } from '@ant-design/icons';
 import {
   ActionType,
   ModalForm,
@@ -13,7 +13,7 @@ import {
 import { FormattedMessage, getLocale } from '@umijs/max';
 import { useIntl } from '@umijs/max';
 import { history } from '@umijs/max';
-import { message, Button, Popconfirm } from 'antd';
+import { message, Button, Popconfirm, Dropdown } from 'antd';
 import { useRef, useState } from 'react';
 
 type CatalogListProps = {
@@ -44,6 +44,21 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         return 'catalog';
     }
   };
+
+  const onMoreClick = (e: any, entity: any) => {
+    if (e.key === 'edit') {
+      history.push(`/${url()}/${entity.id}`)
+      return;
+    }
+    if (e.key === 'publish') {
+      activeCatalog(entity.id).then(response => {
+        if (response.succeeded) {
+          message.success(entity.active ? 'Drafted' : 'Published');
+          actionRef.current?.reload();
+        }
+      })
+    }
+  }
 
   const columns: ProColumns<API.Catalog>[] = [
     {
@@ -98,13 +113,6 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
       title: '',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button
-          icon={<EditOutlined />}
-          key={1}
-          type="link"
-          size='small'
-          onClick={() => history.push(`/${url()}/${entity.id}`)}
-        ></Button>,
         <Popconfirm
           title="Are you sure?"
           key={2}
@@ -112,8 +120,24 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
         >
           <Button
             size='small'
-            type="link" icon={<DeleteOutlined />} danger />
+            type="dashed" icon={<DeleteOutlined />} danger />
         </Popconfirm>,
+        <Dropdown key="more" menu={{
+          items: [
+            {
+              key: 'edit',
+              label: 'Edit',
+              icon: <EditOutlined />
+            },
+            {
+              key: 'publish',
+              label: entity.active ? 'Draft' : 'Publish',
+              icon: <SendOutlined />
+            }
+          ], onClick: (event) => onMoreClick(event, entity)
+        }}>
+          <Button type='dashed' size='small' icon={<MoreOutlined />} />
+        </Dropdown>
       ],
       width: 100
     },
@@ -132,6 +156,7 @@ const CatalogList: React.FC<CatalogListProps> = (props) => {
   return (
     <div>
       <ProTable
+        ghost
         rowSelection={{}}
         rowKey="id"
         request={(params, sort) =>

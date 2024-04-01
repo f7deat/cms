@@ -22,8 +22,8 @@ export async function createUser(data: any) {
   });
 }
 
-export async function listUser() {
-  return request(`user/list`);
+export async function listUser(params: any) {
+  return request(`user/list`, { params });
 }
 
 export async function changePassword(data: any) {

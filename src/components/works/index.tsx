@@ -87,15 +87,23 @@ const WorkContentComponent: React.FC = () => {
       key: '1',
       label: 'Show / Hide'
     },
+    {
+      key: 'edit',
+      label: 'Edit',
+      icon: <EditOutlined />
+    }
   ];
 
-  const onMoreClick = async (event: any, id?: string) => {
+  const onMoreClick = async (event: any, entity: any) => {
     if (event.key === '1') {
-      const resposne = await activeWork(id);
+      const resposne = await activeWork(entity.id);
       if (resposne.succeeded) {
         message.success('Actived!');
         fetchData();
       }
+    }
+    if (event.key === 'edit') {
+      onGoToBlock(entity)
     }
   }
 
@@ -115,7 +123,8 @@ const WorkContentComponent: React.FC = () => {
     {
       title: '#',
       dataIndex: 'sort',
-      className: 'drag-visible'
+      className: 'drag-visible',
+      width: 50
     },
     {
       title: 'Name',
@@ -134,33 +143,29 @@ const WorkContentComponent: React.FC = () => {
           status: 'Processing',
         },
       },
+      width: 100
     },
     {
       title: 'Action',
       valueType: 'option',
       render: (dom, entity) => [
-        <Button
-          key={1}
-          type="primary"
-          disabled={entity.autoGenerateField}
-          icon={<EditOutlined />}
-          onClick={() => onGoToBlock(entity)}
-        />,
         <Popconfirm
           title="Are you sure?"
           key={4}
           onConfirm={() => onConfirm(entity.id)}
         >
           <Button
+            size='small'
             icon={<DeleteOutlined />}
             danger
             type="primary"
           ></Button>
         </Popconfirm>,
-        <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, entity.id) }} key="more">
-          <Button icon={<MoreOutlined />} type='dashed' />
+        <Dropdown menu={{ items, onClick: (event) => onMoreClick(event, entity) }} key="more">
+          <Button icon={<MoreOutlined />} type='dashed' size='small' />
         </Dropdown>
-      ]
+      ],
+      width: 100
     }
   ];
 
